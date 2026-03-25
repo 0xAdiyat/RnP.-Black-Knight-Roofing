@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  image: string | ImageMetadata;
+  city: string;
+  state: string;
+  href?: string;
+  class?: string;
+}
+
+const { image, city, state, href = '#', class: className } = Astro.props;
+---
+
+<a href={href} class="from-primary rounded-2xl bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
+  <div
+    class:list={[
+      'group relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-[#111]',
+      className,
+    ]}
+  >
+    <!-- Background Image -->
+    <div class="absolute inset-0 transition-transform duration-500 group-hover:scale-105">
+      {
+        typeof image === 'string' ? (
+          <img src={image} alt={`${city}, ${state}`} class="h-full w-full object-cover" />
+        ) : (
+          <Image src={image} alt={`${city}, ${state}`} class="h-full w-full object-cover" />
+        )
+      }
+      <!-- Overlay Gradient -->
+      <div class="absolute inset-0 bg-linear-to-b from-transparent from-40% to-black"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 px-4 py-8">
+      <p class="font-body text-lg font-medium text-white">
+        {city}, {state}
+      </p>
+    </div>
+  </div>
+</a>

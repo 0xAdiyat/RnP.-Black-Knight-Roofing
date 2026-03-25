@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets';
+import Button from '@/components/ui/Button.astro';
+import QuoteForm from '@/components/cta/QuoteForm.astro';
+import roof from '@/assets/roof.png';
+import { getImage } from 'astro:assets';
+
+const roofimage = await getImage({ src: roof, width: 512, height: 512, format: 'webp' });
+---
+
+<div
+  class="relative  py-12"
+  style={`
+    background-image: linear-gradient(259deg, rgba(0,0,0,0.24) 38.06%, rgba(0,0,0,0.90) 83.55%), url("${roofimage.src}");
+    background-position: center, 0px -127.292px;
+    background-size: cover, 100% 257.83%;
+    background-repeat: no-repeat, no-repeat;
+    background-color: #111;
+  `}
+>
+  <div class="absolute inset-x-0 bottom-0 h-0.5 bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+
+  <div class="grid grid-cols-2 container items-center gap-12">
+    <!-- Left Content -->
+    <div class="space-y-8">
+      <div class="space-y-4">
+        <div class="flex items-center gap-x-3">
+          <div
+            class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
+          >
+          </div>
+          <div>Get Started</div>
+        </div>
+        <h2>
+          Your Roof Deserves a Contractor <br /> Who Treats It Like Their Own
+        </h2>
+      </div>
+
+      <p class="max-w-[500px] text-sm leading-relaxed text-white/60">
+        &ldquo;When you call us, you get honesty, real craftsmanship, and a team that genuinely wants the best outcome
+        for your home &mdash; not just the easiest job.&rdquo;
+      </p>
+
+      <!-- Profile -->
+      <div class="flex items-center gap-x-3">
+        <div
+          class="via-primary flex w-fit items-center justify-center rounded-full bg-linear-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-0.5"
+        >
+          <div class="from-primary to-tertiary relative h-14 w-14 overflow-hidden rounded-full bg-conic-150">
+            <Image
+              src="/placeholders/profile.png"
+              alt="Adam Knight"
+              width={256}
+              height={256}
+              class="absolute h-full w-full object-cover"
+            />
+          </div>
+        </div>
+        <div>
+          <span class="font-semibold">Adam Knight</span><span class="text-white/60">, President</span>
+        </div>
+      </div>
+
+      <!-- CTA + Handwritten text -->
+      <div class="flex items-end gap-x-6">
+        <Button>Contact Our Team</Button>
+        <div class="flex items-center gap-x-2 pb-1">
+          <!-- Arrow -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="49" height="33" viewBox="0 0 49 33" fill="none">
+            <path
+              d="M2.86718 26.1025C9.70051 17.1025 25.9672 -0.497461 36.3672 1.10254C49.3672 3.10254 48.8672 17.1025 45.8672 23.6025C43.4672 28.8025 41.8665 31.1025 41.3662 31.6025"
+              stroke="url(#paint0_linear_16793_5676)"
+              stroke-width="2"></path>
+            <path
+              d="M20.8662 23.1025C16.5329 22.6025 6.46621 23.0025 0.866211 28.6025C4.03288 23.1025 9.66621 11.0025 6.86621 6.60254"
+              stroke="white"
+              stroke-width="2"></path>
+            <defs>
+              <linearGradient
+                id="paint0_linear_16793_5676"
+                x1="5.86621"
+                y1="21.5005"
+                x2="45.3662"
+                y2="32.0005"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="white"></stop>
+                <stop offset="1" stop-color="#686868"></stop>
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <span
+            class="font-caveat -translate-x-8 translate-y-10 rotate-20 text-center text-[28px] text-white/70 italic"
+          >
+            No Obligation<br />Free Roof Inspection
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Card - Form -->
+    <QuoteForm />
+  </div>
+</div>

@@ -1,0 +1,279 @@
+---
+import { Image } from 'astro:assets';
+import NoiseBg from './NoiseBg.astro';
+import RatingStars from './ui/RatingStars.astro';
+import { Icon } from 'astro-icon/components';
+import Button from './ui/Button.astro';
+
+const quickLinks = [
+  { label: 'Home', url: '/' },
+  { label: 'About', url: '/' },
+  { label: 'Past Work', url: '/' },
+  { label: 'Financing', url: '/' },
+  { label: 'Blogs', url: '/' },
+  { label: 'FAQs', url: '/' },
+  { label: 'Services', url: '/' },
+  { label: 'Service Areas', url: '/' },
+  { label: 'Contact', url: '/' },
+];
+
+const services = [
+  { label: 'Residential Roofing', url: '/' },
+  { label: 'Commercial Roofing', url: '/' },
+  { label: 'Roof Repair', url: '/' },
+  { label: 'Roof Replacement', url: '/' },
+  { label: 'Gutter Installation', url: '/' },
+  { label: 'Skylight Installation', url: '/' },
+  { label: 'Roof Inspection', url: '/' },
+  { label: 'Emergency Services', url: '/' },
+  { label: 'Maintenance Plans', url: '/' },
+];
+---
+
+<NoiseBg class="space-y-12 px-0 py-0">
+  <div class="container pt-16">
+    <div class="flex items-center gap-x-12">
+      <!-- Left Content -->
+      <div class="flex w-full max-w-[304px] flex-col gap-y-4">
+        <!-- Logo -->
+        <div>
+          <Image
+            src="/placeholders/logo.png"
+            alt="Logo"
+            width={256}
+            height={256}
+            class="h-auto w-full object-contain"
+          />
+        </div>
+
+        <!-- content -->
+        <div class="flex flex-col gap-y-4 pb-8">
+          <p>Colorado's trusted full-construction roofer—veteran owned, lifetime guaranteed.</p>
+        </div>
+
+        <!-- Reviews -->
+        <div class="flex items-center gap-x-4">
+          <!-- Google Reviews -->
+          <div class="bg-primary relative w-[145px] rounded p-0.5">
+            <div>
+              <svg width="105" height="61" viewBox="0 0 105 61" fill="none">
+                <path d="M0 0H85.3481L104.738 30.5004L85.3481 61H0V0Z" fill="#082A40"></path>
+              </svg>
+              <div class="absolute top-0 left-0">
+                <div class="flex items-center gap-x-2">
+                  <div class="w-[105px] space-y-1 p-2.5 leading-1">
+                    <RatingStars rating={5} size={10} />
+                    <span class="h-8 text-xs leading-tight font-bold"> Read Our reviews on </span>
+                  </div>
+
+                  <div class="rounded-md bg-white p-1.5">
+                    <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+                      <g clip-path="url(#clip0_16793_12402)">
+                        <path
+                          d="M17.3206 7.43492L9.97861 7.43457C9.65439 7.43457 9.3916 7.69733 9.3916 8.02154V10.367C9.3916 10.6911 9.65439 10.954 9.97857 10.954H14.1132C13.6604 12.1289 12.8154 13.1129 11.7373 13.7381L13.5003 16.79C16.3283 15.1544 18.0003 12.2847 18.0003 9.07215C18.0003 8.61473 17.9666 8.28774 17.8991 7.91955C17.8479 7.63981 17.605 7.43492 17.3206 7.43492Z"
+                          fill="#167EE6"></path>
+                        <path
+                          d="M9.0002 14.4788C6.97682 14.4788 5.21043 13.3732 4.26173 11.7373L1.20996 13.4963C2.76299 16.1879 5.67231 18.0005 9.0002 18.0005C10.6328 18.0005 12.1732 17.5609 13.5002 16.7949V16.7907L11.7372 13.7388C10.9308 14.2065 9.99762 14.4788 9.0002 14.4788Z"
+                          fill="#12B347"></path>
+                        <path
+                          d="M13.5 16.7944V16.7902L11.737 13.7383C10.9306 14.206 9.99749 14.4782 9 14.4782V18C10.6326 18 12.1731 17.5604 13.5 16.7944Z"
+                          fill="#0F993E"></path>
+                        <path
+                          d="M3.52174 9.0007C3.52174 8.00335 3.79392 7.07027 4.26154 6.26389L1.20976 4.50488C0.439523 5.82771 0 7.36396 0 9.0007C0 10.6374 0.439523 12.1737 1.20976 13.4965L4.26154 11.7375C3.79392 10.9311 3.52174 9.99805 3.52174 9.0007Z"
+                          fill="#FFD500"></path>
+                        <path
+                          d="M9.0002 3.52174C10.3196 3.52174 11.5316 3.99059 12.4783 4.77046C12.7118 4.96283 13.0513 4.94895 13.2652 4.73502L14.927 3.07318C15.1697 2.83046 15.1524 2.43316 14.8932 2.20823C13.3071 0.832254 11.2434 0 9.0002 0C5.67231 0 2.76299 1.81255 1.20996 4.50418L4.26173 6.26319C5.21043 4.62727 6.97682 3.52174 9.0002 3.52174Z"
+                          fill="#FF4B26"></path>
+                        <path
+                          d="M12.4781 4.77046C12.7116 4.96283 13.0511 4.94895 13.265 4.73502L14.9268 3.07318C15.1695 2.83047 15.1522 2.43316 14.893 2.20823C13.3069 0.832219 11.2432 0 9 0V3.52174C10.3194 3.52174 11.5314 3.99059 12.4781 4.77046Z"
+                          fill="#D93F21"></path>
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_16793_12402">
+                          <rect width="18" height="18" fill="white"></rect>
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Facebook Reviews -->
+          <div class="bg-primary relative w-[145px] rounded p-0.5">
+            <div>
+              <svg width="105" height="61" viewBox="0 0 105 61" fill="none">
+                <path d="M0 0H85.3481L104.738 30.5004L85.3481 61H0V0Z" fill="#082A40"></path>
+              </svg>
+              <div class="absolute top-0 left-0">
+                <div class="flex items-center gap-x-2">
+                  <div class="w-[105px] space-y-1 p-2.5 leading-1">
+                    <RatingStars rating={5} size={10} />
+                    <span class="h-8 text-xs leading-tight font-bold"> Read Our reviews on </span>
+                  </div>
+
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <g clip-path="url(#clip0_16793_12416)">
+                        <path
+                          d="M24 12C24 17.9897 19.6116 22.9542 13.875 23.8542V15.4688H16.6711L17.2031 12H13.875V9.74906C13.875 8.79984 14.34 7.875 15.8306 7.875H17.3438V4.92188C17.3438 4.92188 15.9703 4.6875 14.6573 4.6875C11.9166 4.6875 10.125 6.34875 10.125 9.35625V12H7.07812V15.4688H10.125V23.8542C4.38844 22.9542 0 17.9897 0 12C0 5.37281 5.37281 0 12 0C18.6272 0 24 5.37281 24 12Z"
+                          fill="#1877F2"></path>
+                        <path
+                          d="M16.6711 15.4688L17.2031 12H13.875V9.74902C13.875 8.80003 14.3399 7.875 15.8306 7.875H17.3438V4.92188C17.3438 4.92188 15.9705 4.6875 14.6576 4.6875C11.9165 4.6875 10.125 6.34875 10.125 9.35625V12H7.07812V15.4688H10.125V23.8542C10.736 23.95 11.3621 24 12 24C12.6379 24 13.264 23.95 13.875 23.8542V15.4688H16.6711Z"
+                          fill="white"></path>
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_16793_12416">
+                          <rect width="24" height="24" fill="white"></rect>
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Following links -->
+        <div class="flex items-center gap-x-4 pt-8 text-white">
+          <h6>Follow:</h6>
+          <ul class="flex items-center gap-x-4">
+            <li>
+              <a
+                href="https://www.facebook.com/yourpage"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-primary flex items-center justify-center rounded-full p-2"
+              >
+                <Icon name="facebook" size={20} class="text-black" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.twitter.com/yourprofile"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-primary flex items-center justify-center rounded-full p-2"
+              >
+                <Icon name="instragram" size={20} class="text-black" />
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="https://www.twitter.com/yourprofile"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-primary flex items-center justify-center rounded-full p-2"
+              >
+                <Icon name="yelp" size={20} class="text-black" />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right content -->
+      <div>
+        <!-- Quick Links and Services -->
+        <div class="flex items-center gap-x-8">
+          <!-- Quick links -->
+          <div class="flex flex-col gap-y-8">
+            <h4>Quick Links</h4>
+            <ul class="columns-3 gap-x-8">
+              {
+                quickLinks.map(link => (
+                  <li class="py-1">
+                    <a
+                      href={link.url}
+                      class="group flex items-center gap-x-2 text-sm font-medium text-white/80 hover:text-white"
+                    >
+                      {link.label}
+                      <Icon name="send" class="opacity-0 group-hover:opacity-100" />
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div class="h-40 w-px bg-white/15"></div>
+
+          <!-- Quick Service Link -->
+          <div class="flex flex-col gap-y-8 pl-8">
+            <h4>Our Services</h4>
+            <ul class="columns-3 gap-x-8">
+              {
+                services.map(link => (
+                  <li class="py-1">
+                    <a
+                      href={link.url}
+                      class="group flex items-center gap-x-2 text-sm font-medium text-white/80 hover:text-white"
+                    >
+                      {link.label}
+                      <Icon name="send" class="opacity-0 group-hover:opacity-100" />
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+
+        <!-- Get Started banner -->
+        <div class="from-primary mt-12 rounded-lg bg-radial-[at_25%_25%] to-[#F7B715]/10 p-px">
+          <NoiseBg class="rounded-lg">
+            <div class="flex items-center justify-between p-6">
+              <div>
+                <h4 class="to-primary bg-linear-to-r from-[#E5E7EB] bg-clip-text text-transparent">
+                  Get Your FREE Roof Inspection Done!
+                </h4>
+                <p>NEED ANY ROOF REPAIR HELP? GET IN TOUCH TODAY!</p>
+              </div>
+              <Button> Get Started </Button>
+            </div>
+          </NoiseBg>
+        </div>
+
+        <div class="flex items-center justify-between gap-x-4 pt-12">
+          <div class="flex items-center gap-x-2.5">
+            <Icon name="phone-call" size={32} />
+            <div>
+              <div class="text-sm font-medium text-[#909090]">Phone:</div>
+              <div>(720) 805-9666</div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-x-2.5">
+            <Icon name="mail" size={32} class="text-primary" />
+            <div>
+              <div class="text-sm font-medium text-[#909090]">Email:</div>
+              <div>support@blackknightroofing.com</div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-x-2.5">
+            <Icon name="clock-time" size={32} class="text-primary" />
+            <div>
+              <div class="text-sm font-medium text-[#909090]">Hours:</div>
+              <div>Mon–Fri, 9am–5pm</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="container">
+    <div class="border-primary flex items-center justify-between border-t py-6">
+      <div class="[&_span]:text-primary">
+        Copywrite @ 2026 <span> Black Knight Roofing </span> - All Rights Reserved
+      </div>
+      <div class="[&_span]:text-primary">
+        Developed by <span> Tarunsoft Co. </span>, The Creative Design Company For Roofers
+      </div>
+    </div>
+  </footer>
+</NoiseBg>

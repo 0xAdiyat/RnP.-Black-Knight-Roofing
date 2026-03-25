@@ -1,0 +1,14 @@
+---
+import { Icon } from 'astro-icon/components';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class={cn('flex size-9 items-center justify-center text-white/40 font-bold', className)}>
+  <span>...</span>
+</div>

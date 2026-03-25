@@ -1,0 +1,31 @@
+---
+interface Props {
+  badge?: string;
+  title?: string;
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  titleClass?: string;
+  class?: string;
+}
+
+const { badge, title, as: Tag = 'h2', titleClass = '', class: className = '' } = Astro.props;
+---
+
+<div class:list={['flex-1 space-y-4', className]}>
+  {
+    badge && (
+      <div class="flex items-center gap-x-3">
+        <div class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']" />
+        <div>{badge}</div>
+      </div>
+    )
+  }
+  {
+    title ? (
+      <Tag class:list={[titleClass]}>
+        <Fragment set:html={title} />
+      </Tag>
+    ) : (
+      <slot />
+    )
+  }
+</div>

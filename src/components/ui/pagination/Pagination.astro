@@ -1,0 +1,89 @@
+---
+import { cn } from '@/lib/utils';
+import { Icon } from 'astro-icon/components';
+import PaginationLink from './PaginationLink.astro';
+import PaginationEllipsis from './PaginationEllipsis.astro';
+
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string; // e.g., '/past-works'
+  queryParam?: string; // e.g., 'page'
+  class?: string;
+}
+
+const {
+  currentPage,
+  totalPages,
+  baseUrl,
+  queryParam = 'page',
+  class: className,
+} = Astro.props;
+
+const getPageUrl = (page: number) => {
+  const url = new URL(baseUrl, Astro.url.origin);
+  url.searchParams.set(queryParam, page.toString());
+  return url.pathname + url.search;
+};
+
+// Simplified dynamic dots logic
+const generatePages = () => {
+  const pages: (number | 'DOTS')[] = [];
+  const maxVisiblePages = 7;
+
+  if (totalPages <= maxVisiblePages) {
+    for (let i = 1; i <= totalPages; i++) pages.push(i);
+  } else {
+    if (currentPage <= 4) {
+      pages.push(1, 2, 3, 4, 5, 'DOTS', totalPages);
+    } else if (currentPage >= totalPages - 3) {
+      pages.push(1, 'DOTS', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+    } else {
+      pages.push(1, 'DOTS', currentPage - 1, currentPage, currentPage + 1, 'DOTS', totalPages);
+    }
+  }
+  return pages;
+};
+
+const pages = generatePages();
+---
+
+<nav aria-label="Pagination" class={cn('flex items-center gap-2', className)}>
+  <!-- Previous Button -->
+  <PaginationLink
+    href={currentPage > 1 ? getPageUrl(currentPage - 1) : undefined}
+    isDisabled={currentPage <= 1}
+    aria-label="Go to previous page"
+  >
+    <Icon name="chevron-left" class="size-5" />
+  </PaginationLink>
+
+  <!-- Page Numbers -->
+  <div class="flex items-center gap-2">
+    {
+      pages.map((page) =>
+        page === 'DOTS' ? (
+          <PaginationEllipsis />
+        ) : (
+          <PaginationLink
+            href={getPageUrl(page)}
+            isActive={currentPage === page}
+            aria-label={`Go to page ${page}`}
+            aria-current={currentPage === page ? 'page' : undefined}
+          >
+            {page}
+          </PaginationLink>
+        )
+      )
+    }
+  </div>
+
+  <!-- Next Button -->
+  <PaginationLink
+    href={currentPage < totalPages ? getPageUrl(currentPage + 1) : undefined}
+    isDisabled={currentPage >= totalPages}
+    aria-label="Go to next page"
+  >
+    <Icon name="chevron-right" class="size-5" />
+  </PaginationLink>
+</nav>

@@ -1,0 +1,89 @@
+---
+interface Props {
+  class?: string;
+  slidesPerView?: number | 'auto';
+  spaceBetween?: number;
+  loop?: boolean;
+  autoplay?: boolean;
+  breakpoints?: Record<number, any>;
+}
+
+const { 
+  class: className = '', 
+  slidesPerView = 1,
+  spaceBetween = 0,
+  loop = false,
+  autoplay = false,
+  breakpoints
+} = Astro.props;
+---
+
+<swiper-carousel
+  class={`swiper block ${className}`}
+  data-slides-per-view={slidesPerView}
+  data-space-between={spaceBetween}
+  data-loop={loop.toString()}
+  data-autoplay={autoplay.toString()}
+  data-breakpoints={breakpoints ? JSON.stringify(breakpoints) : undefined}
+>
+  <div class="swiper-wrapper">
+    <slot />
+  </div>
+  <slot name="pagination" />
+  <slot name="navigation" />
+</swiper-carousel>
+
+<script>
+  import Swiper from 'swiper';
+  import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+  
+  import 'swiper/css';
+  import 'swiper/css/navigation';
+  import 'swiper/css/pagination';
+
+  class SwiperCarousel extends HTMLElement {
+    constructor() {
+      super();
+      
+      const slidesPerViewAttr = this.dataset.slidesPerView;
+      const spaceBetween = parseInt(this.dataset.spaceBetween || '0', 10);
+      const loop = this.dataset.loop === 'true';
+      const autoplay = this.dataset.autoplay === 'true';
+      const breakpointsStr = this.dataset.breakpoints;
+      const breakpoints = breakpointsStr ? JSON.parse(breakpointsStr) : undefined;
+
+      const slidesPerView = slidesPerViewAttr === 'auto' ? 'auto' : parseFloat(slidesPerViewAttr || '1');
+
+      const paginationEl = this.querySelector('.swiper-pagination') as HTMLElement;
+      const nextEl = this.querySelector('.swiper-button-next') as HTMLElement;
+      const prevEl = this.querySelector('.swiper-button-prev') as HTMLElement;
+
+      const swiperOptions: any = {
+        modules: [Navigation, Pagination, Autoplay],
+        slidesPerView,
+        spaceBetween,
+        loop,
+        breakpoints,
+      };
+
+      if (autoplay) {
+        swiperOptions.autoplay = {
+          delay: 3000,
+          disableOnInteraction: false,
+        };
+      }
+
+      if (paginationEl) {
+        swiperOptions.pagination = { el: paginationEl, clickable: true };
+      }
+
+      if (nextEl && prevEl) {
+        swiperOptions.navigation = { nextEl, prevEl };
+      }
+
+      new Swiper(this, swiperOptions);
+    }
+  }
+
+  customElements.define('swiper-carousel', SwiperCarousel);
+</script>

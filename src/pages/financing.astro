@@ -1,0 +1,208 @@
+---
+import Hero from '@/components/hero/Hero.astro';
+import Layout from '@/layouts/Layout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Button from '@/components/ui/Button.astro';
+import RatingStars from '@/components/ui/RatingStars.astro';
+import QuoteForm from '@/components/cta/QuoteForm.astro';
+import { Icon } from 'astro-icon/components';
+import Brands from '@/components/Brands.astro';
+import AboutFinancing from '@/components/AboutFinancing.astro';
+import NoiseBg from '@/components/NoiseBg.astro';
+import { Image } from 'astro:assets';
+import checkIcon from '@/assets/financing-banner/check.svg';
+import imgTop from '@/assets/financing-banner/img-top.png';
+import imgBottom from '@/assets/financing-banner/img-bottom.png';
+import wisetackLogo from '@/assets/financing-banner/wisetack-logo.png';
+---
+
+<Layout>
+  <Navbar />
+  <Hero title="See Past Work In Your <br/> Neighborhood" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
+    <p>
+      Lorem ipsum dolor sit amet consectetur. Dictum morbi ac nibh nibh leo vitae at id faucibus. Ultrices duis tempor
+      eget proin euismod sed dolor eu suspendisse. Amet ridiculus erat sit vulputate. Dui est feugiat risus ultrices.
+    </p>
+
+    <div class="flex items-center gap-x-4">
+      <Button variant="primary" size="lg">
+        <span class="text-xs">
+          $99/month roofs <br />
+          No repayment penalty</span
+        >
+        <span class="h-6 w-0.5 bg-[rgba(133,89,1,0.4)]"></span>
+        <span> <strong> FREE </strong> Estimate</span>
+      </Button>
+
+      <Button variant="link">
+        <Icon name="map" />
+        See Our Past Work
+      </Button>
+    </div>
+
+    <Fragment slot="social-proof">
+      <div class="flex items-center gap-x-4 pr-4">
+        <Icon name="google-logo" size={32} />
+        <div>
+          40+ Five-Star <br />
+          Google Reviews
+        </div>
+      </div>
+
+      <div class="flex items-center gap-x-4 px-4">
+        <Icon name="facebook-logo" size={32} />
+        <div>
+          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
+          <span class="text-sm font-bold"> 5.0 Rating </span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-x-4 pl-4">
+        <Icon name="google-logo" size={32} />
+        <div>
+          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
+          <span class="text-sm font-bold"> 5.0 Rating </span>
+        </div>
+      </div>
+    </Fragment>
+
+    <QuoteForm slot="sidebar" />
+  </Hero>
+
+  <!-- Branding -->
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+
+  <AboutFinancing />
+
+  <!-- Statistics -->
+  <div class="container grid grid-cols-1 gap-x-2 py-16 md:grid-cols-2 lg:grid-cols-4">
+    <!-- Total Projects Completed -->
+    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
+      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
+        <div class="font-heading text-primary text-[2rem]">129+</div>
+        <div>
+          <div class="text-lg font-bold">Roofing Projects</div>
+          <div class="text-[#AAAAAA]">in Colorado</div>
+        </div>
+      </NoiseBg>
+    </div>
+
+    <!-- Google Retings -->
+    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
+      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
+        <div class="text-primary text-[2rem] font-bold">5.0</div>
+        <div class="space-y-1">
+          <div class="text-lg font-bold">
+            <RatingStars rating={5} size={16} fillColor="#F7B715" strokeColor="none" />
+          </div>
+          <div class="text-[#AAAAAA]">40+ Google Reviews</div>
+        </div>
+      </NoiseBg>
+    </div>
+
+    <!-- Workmanship Warranty -->
+    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
+      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
+        <div class="text-primary size-12 font-bold">
+          <Icon name="shield-check" size={48} />
+        </div>
+        <div>
+          <div class="font-heading text-[2rem] leading-11 font-normal">Licensed</div>
+          <div class="text-[#AAAAAA]">Bonded & Insured</div>
+        </div>
+      </NoiseBg>
+    </div>
+
+    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
+      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
+        <div class="text-primary size-12 font-bold">
+          <Icon name="badge" size={48} />
+        </div>
+        <div>
+          <div class="font-heading text-[2rem] leading-11 font-normal">Lifetime</div>
+          <div class="text-[#AAAAAA]">Workmanship Warranty</div>
+        </div>
+      </NoiseBg>
+    </div>
+  </div>
+
+  <!-- Financing Banner Section -->
+  <NoiseBg class="mx-auto mt-16 mb-24 overflow-hidden rounded-[16px] px-6 py-12 lg:px-[64px] lg:py-[64px]">
+    <div class="container mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-14 lg:flex-row">
+      <!-- Left side: Overlapping images -->
+      <div class="relative hidden h-[521px] w-full max-w-[554px] shrink-0 lg:block">
+        <Image src={imgTop} alt="" class="absolute top-0 left-[77px] h-[434px] w-[477px] object-cover" />
+        <div
+          class="absolute top-[133px] left-0 h-[388px] w-[426px] overflow-hidden rounded-2xl shadow-[0px_40px_60px_-15px_rgba(0,0,0,0.5)]"
+        >
+          <Image src={imgBottom} alt="" class="absolute inset-0 h-full w-full object-cover" />
+          <div class="absolute inset-0 rounded-2xl bg-linear-to-b from-transparent to-black opacity-80"></div>
+        </div>
+        <Image
+          src={wisetackLogo}
+          alt="Wisetack"
+          class="absolute bottom-[24px] left-[24px] z-10 h-[43px] w-[248px] object-contain"
+        />
+      </div>
+
+      <!-- Right side: Text Content -->
+      <div class="flex flex-col items-start gap-[40px] lg:max-w-[656px]">
+        <div class="flex flex-col gap-[24px]">
+          <div class="flex flex-col gap-[16px]">
+            <div class="flex h-[32px] items-center gap-[12px] rounded-full">
+              <!-- Chip -->
+              <div class="relative flex h-[21px] w-[21px] shrink-0 items-center justify-center">
+                <div class="absolute inset-0 m-auto h-[12px] w-[12px]">
+                  <div class="absolute -inset-[38%] animate-pulse rounded-[5px] bg-[#f7b715] opacity-50"></div>
+                  <div class="absolute inset-[2px] rounded-[10px] bg-[#f7d515] shadow-[0_0_4px_rgba(247,213,21,0.5)]">
+                  </div>
+                </div>
+              </div>
+              <p class="text-base leading-[24px] font-medium text-white">Upgrade your home’s curb appeal,</p>
+            </div>
+            <h2 class="font-heading max-w-xl text-[48px] leading-[60px] text-white">
+              With payments that fit your budget.
+            </h2>
+          </div>
+
+          <p class="text-[16px] leading-[24px] font-normal text-[#ccc]">
+            Discover the benefits of our financing options and use our loan calculator to find the plan that works best
+            for you.
+          </p>
+
+          <ul class="flex flex-col gap-[16px]">
+            <li class="flex items-center gap-[12px]">
+              <img src={checkIcon.src} alt="" class="h-[32px] w-[32px]" />
+              <span class="text-[20px] leading-[32px] font-semibold text-[#ccc]"
+                >Pay nothing for the first 6 months</span
+              >
+            </li>
+            <li class="flex items-center gap-[12px]">
+              <img src={checkIcon.src} alt="" class="h-[32px] w-[32px]" />
+              <span class="text-[20px] leading-[32px] font-semibold text-[#ccc]">0% interest for 12 months</span>
+            </li>
+            <li class="flex items-center gap-[12px]">
+              <img src={checkIcon.src} alt="" class="h-[32px] w-[32px]" />
+              <span class="text-[20px] leading-[32px] font-semibold text-[#ccc]">New door from $39/mo</span>
+            </li>
+          </ul>
+
+          <p class="text-[16px] leading-[24px] font-normal text-[#ccc]">
+            Simple, fast approval. No hidden surprises. Just the door you need—on terms you can afford. Get approved
+            online today!
+          </p>
+        </div>
+
+        <Button
+          variant="primary"
+          class="flex h-[56px] items-center justify-center rounded-[4px] px-[32px] py-[16px] text-[16px] font-semibold text-[#111]"
+        >
+          Get Approved
+        </Button>
+      </div>
+    </div>
+  </NoiseBg>
+</Layout>

@@ -1,0 +1,155 @@
+---
+import { getImage, Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import TestimonialCard from './TestimonialCard.astro';
+import Carousel from './ui/Carousel.astro';
+import CarouselSlide from './ui/CarouselSlide.astro';
+import sunFlowImage from '@/assets/sunflow.png';
+import gridLines from '@/assets/grid-frame.png';
+import googleLogo from '@/assets/google-logo.svg';
+import RatingStars from './ui/RatingStars.astro';
+import Button from './ui/Button.astro';
+
+const sunFlowImageOp = await getImage({ src: sunFlowImage, width: 1536, height: 1152, format: 'webp' });
+const gridLinesOp = await getImage({ src: gridLines, width: 1536, height: 1152, format: 'webp' });
+---
+
+<section data-testid="testimonials" id="testimonials" class="relative">
+  <div class="container py-20">
+    <svg
+      viewBox="0 0 1536 850"
+      class="absolute top-0 left-0 -z-10 h-full w-full"
+      preserveAspectRatio="none"
+      fill="none"
+    >
+      <defs>
+        <clipPath id="testimonialPathClip">
+          <path
+            d="M0 0 L100 0 L160 80 L980 80 Q1200 80 1200 100 L1300 450 L1300 780 Q1300 800 1280 800 L60 800 L0 850 Z"
+          ></path>
+        </clipPath>
+
+        <mask id="testimonialGridMask">
+          <rect width="100%" height="100%" fill="white"></rect>
+          <path
+            d="M0 0 L100 0 L160 80 L980 80 Q1200 80 1200 100 L1300 450 L1300 780 Q1300 800 1280 800 L60 800 L0 850 Z"
+            fill="black"></path>
+        </mask>
+
+        <radialGradient
+          id="paint0_radial_16435_10598"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(720 422) scale(720 422)"
+        >
+          <stop stop-color="#303030" stop-opacity="0"></stop>
+          <stop offset="1" stop-color="#303030"></stop>
+        </radialGradient>
+        <linearGradient id="paint1_linear_16435_10598" x1="0" y1="0" x2="0" y2="850" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#2a2a2a70"></stop>
+          <stop offset="1" stop-color="#050505AA"></stop>
+        </linearGradient>
+      </defs>
+
+      <rect width="100%" height="100%" mask="url(#testimonialGridMask)" fill="url(#paint0_radial_16435_10598)"></rect>
+
+      <image
+        width="100%"
+        height="100%"
+        preserveAspectRatio="xMidYMid slice"
+        mask="url(#testimonialGridMask)"
+        xlink:href={gridLinesOp.src}
+      />
+
+      <rect
+        class="mix-blend-overlay"
+        width="100%"
+        height="100%"
+        mask="url(#testimonialGridMask)"
+        fill="url(#paint1_linear_16435_10598)"></rect>
+
+      <image
+        class="opacity-10 mix-blend-overlay"
+        width="100%"
+        height="100%"
+        preserveAspectRatio="xMidYMid slice"
+        clip-path="url(#testimonialPathClip)"
+        xlink:href={sunFlowImageOp.src}
+      />
+    </svg>
+
+    <div class="space-y-4">
+      <!-- Top section -->
+      <div class="flex items-end py-8">
+        <div class="w-full max-w-[448px]">
+          <div class="flex items-center gap-x-3">
+            <div
+              class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
+            >
+            </div>
+            <div>Homeowner Reviews</div>
+          </div>
+          <h2>Real Reviews from <br /> Colorado Homeowners</h2>
+        </div>
+
+        <div class="flex items-center gap-x-16">
+          <div class="flex items-center gap-x-4">
+            <Image src={googleLogo} alt="google Logo" width={100} height={40} class="" />
+            <div class="flex items-center gap-x-4">
+              <span> Excellent </span>
+              <RatingStars rating={5} size={20} fillColor="#F7B715" strokeColor="none" />
+              <span> 5.0 </span>
+              <span class="h-4 w-px bg-white/30"></span>
+              <span> 41 reviews </span>
+            </div>
+          </div>
+
+          <Button variant="primary"> Write a Review</Button>
+        </div>
+      </div>
+
+      <!-- Testimonial cards -->
+      <div class="w-full overflow-hidden py-20">
+        <Carousel
+          slidesPerView={1}
+          spaceBetween={16}
+          loop={true}
+          autoplay={true}
+          breakpoints={{
+            768: { slidesPerView: 2, spaceBetween: 24 },
+            1024: { slidesPerView: 3, spaceBetween: 32 },
+          }}
+          class="w-full pb-16"
+        >
+          <CarouselSlide>
+            <TestimonialCard />
+          </CarouselSlide>
+          <CarouselSlide>
+            <TestimonialCard />
+          </CarouselSlide>
+          <CarouselSlide>
+            <TestimonialCard />
+          </CarouselSlide>
+          <CarouselSlide>
+            <TestimonialCard />
+          </CarouselSlide>
+
+          <div slot="navigation" class="mt-8 flex justify-center gap-x-2.5">
+            <button
+              class="swiper-button-prev static! mt-0! flex h-10! w-10! items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200 after:content-none! hover:bg-black"
+            >
+              <Icon name="chevron-left" class="size-4!" />
+            </button>
+            <button
+              class="swiper-button-next bg-primary hover:bg-primary/90 static! mt-0! flex h-10! w-10! items-center justify-center rounded-full text-black transition-colors duration-200 after:content-none!"
+            >
+              <Icon name="chevron-right" class="size-4!" />
+            </button>
+          </div>
+        </Carousel>
+      </div>
+    </div>
+  </div>
+</section>

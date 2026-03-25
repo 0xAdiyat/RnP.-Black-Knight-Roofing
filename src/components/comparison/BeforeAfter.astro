@@ -1,0 +1,114 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  beforeImage: string | ImageMetadata;
+  afterImage: string | ImageMetadata;
+  beforeLabel?: string;
+  afterLabel?: string;
+  class?: string;
+}
+
+const {
+  beforeImage,
+  afterImage,
+  beforeLabel = 'Before',
+  afterLabel = 'After',
+  class: className,
+} = Astro.props;
+---
+
+<div class={cn('group relative overflow-hidden rounded-2xl select-none', className)} data-before-after>
+  <!-- After Image & Label (Base) -->
+  <div class="relative h-full w-full">
+    {
+      typeof afterImage === 'string' ? (
+        <Image src={afterImage} alt="After" width={800} height={450} class="h-full w-full object-cover" />
+      ) : (
+        <Image src={afterImage} alt="After" width={800} height={450} class="h-full w-full object-cover" />
+      )
+    }
+
+    <div class="absolute bottom-6 right-6">
+      <div class="rounded-lg bg-primary px-6 py-3 text-sm font-bold text-tx-heading">
+        {afterLabel}
+      </div>
+    </div>
+  </div>
+
+  <!-- Before Image & Label (Overlay) -->
+  <div class="absolute inset-0 h-full w-full z-10" data-before-container style="clip-path: inset(0 50% 0 0);">
+    <div class="relative h-full w-full">
+       {
+        typeof beforeImage === 'string' ? (
+          <Image src={beforeImage} alt="Before" width={800} height={450} class="h-full w-full object-cover" />
+        ) : (
+          <Image src={beforeImage} alt="Before" width={800} height={450} class="h-full w-full object-cover" />
+        )
+      }
+
+      <div class="absolute bottom-6 left-6">
+        <div class="rounded-lg border border-white/20 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur-md whitespace-nowrap">
+          {beforeLabel}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Divider Line & Handle -->
+  <div class="absolute top-0 bottom-0 left-[50%] w-px bg-white/50 z-20 pointer-events-none" data-handle-line>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-12 rounded-full border border-primary bg-[#454545] shadow-2xl flex items-center justify-center">
+      <Icon name="dots" class="size-5 text-primary rotate-90" />
+    </div>
+  </div>
+
+  <!-- Range Input (Control) -->
+  <input
+    type="range"
+    min="0"
+    max="100"
+    value="50"
+    class="absolute inset-0 z-30 w-full h-full opacity-0 cursor-col-resize"
+    data-slider
+  />
+</div>
+
+<style>
+  /* Ensure the range input covers the whole area and is invisible but functional */
+  input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 48px;
+    height: 100%;
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+    width: 48px;
+    height: 100%;
+  }
+</style>
+
+<script>
+  function initBeforeAfter() {
+    const containers = document.querySelectorAll('[data-before-after]');
+    
+    containers.forEach(container => {
+      const slider = container.querySelector('[data-slider]') as HTMLInputElement;
+      const beforeContainer = container.querySelector('[data-before-container]') as HTMLElement;
+      const handleLine = container.querySelector('[data-handle-line]') as HTMLElement;
+      
+      const updateSlider = () => {
+        const value = slider.value;
+        beforeContainer.style.clipPath = `inset(0 ${100 - Number(value)}% 0 0)`;
+        handleLine.style.left = `${value}%`;
+      };
+      
+      slider.addEventListener('input', updateSlider);
+    });
+  }
+
+  // Handle both initial load and view transitions
+  initBeforeAfter();
+  document.addEventListener('astro:after-swap', initBeforeAfter);
+</script>

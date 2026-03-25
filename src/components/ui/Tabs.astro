@@ -1,0 +1,88 @@
+---
+interface TabItem {
+  label: string;
+  id: string;
+}
+
+interface Props {
+  tabs: TabItem[];
+  defaultTab?: string;
+}
+
+const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
+---
+
+<div class="tabs-container w-full" data-default-tab={defaultTab}>
+  <!-- Tab Headers -->
+  <div class="flex items-center gap-x-10 border-b border-white/15">
+    {
+      tabs.map(tab => (
+        <button
+          class="tab-trigger py-4 transition-all duration-300 cursor-pointer text-[#828282] hover:text-white relative"
+          data-tab-id={tab.id}
+        >
+          {tab.label}
+          <div class="tab-indicator absolute bottom-0 left-0 h-0.5 w-full bg-primary opacity-0 transition-opacity duration-300" />
+        </button>
+      ))
+    }
+  </div>
+
+  <!-- Tab Contents -->
+  <div class="tabs-content pt-10">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .tab-trigger.active {
+    color: var(--color-primary, #F7B715);
+  }
+  .tab-trigger.active .tab-indicator {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  function setupTabs() {
+    const containers = document.querySelectorAll('.tabs-container');
+
+    containers.forEach(container => {
+      const triggers = container.querySelectorAll('.tab-trigger');
+      const panels = container.querySelectorAll('[data-tab-panel]');
+      const defaultTab = container.getAttribute('data-default-tab');
+
+      function switchTab(tabId: string) {
+        triggers.forEach(trigger => {
+          if (trigger.getAttribute('data-tab-id') === tabId) {
+            trigger.classList.add('active');
+          } else {
+            trigger.classList.remove('active');
+          }
+        });
+
+        panels.forEach(panel => {
+          if (panel.getAttribute('data-tab-panel') === tabId) {
+            (panel as HTMLElement).style.display = 'block';
+          } else {
+            (panel as HTMLElement).style.display = 'none';
+          }
+        });
+      }
+
+      triggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          const tabId = trigger.getAttribute('data-tab-id');
+          if (tabId) switchTab(tabId);
+        });
+      });
+
+      // Initialize
+      if (defaultTab) switchTab(defaultTab);
+    });
+  }
+
+  // Run on load and after swaps
+  setupTabs();
+  document.addEventListener('astro:after-swap', setupTabs);
+</script>

@@ -1,0 +1,276 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { Icon } from 'astro-icon/components';
+
+import NoiseBg from '@/components/NoiseBg.astro';
+import ProcessCard from './ProcessCard.astro';
+import RatingStars from '@/components/ui/RatingStars.astro';
+import bbaLogo from '@/assets/bbb-logo.png';
+import dogImage from '@/assets/dog-image.png';
+import bottomShape from '@/assets/bottom-shape.png';
+import shineImage from '@/assets/sunflow.png';
+
+interface ProcessStep {
+  image: ImageMetadata;
+  imageAlt?: string;
+  step: string;
+  title: string;
+  description: string;
+}
+
+interface QuoteInfo {
+  profileImage?: string;
+  profileAlt?: string;
+  quote: string;
+  author: string;
+}
+
+interface Props {
+  badge?: string;
+  heading?: string;
+  subheading?: string;
+  subheadingDescription?: string;
+  quote?: QuoteInfo;
+  steps?: ProcessStep[];
+  class?: string;
+}
+
+const {
+  badge = 'Our Process',
+  heading = 'A Clear 4-step Plan <br />From Kick-off to Project',
+  subheading = 'And Here is How!',
+  subheadingDescription = "You shouldn't have to worry about not getting a call back, wondering when your project will start, or who to contact. Know what to expect with our clear, straightforward process!",
+  quote = {
+    profileImage: '/placeholders/profile.png',
+    profileAlt: 'profile',
+    quote: "We'll help you every step of the way.",
+    author: 'Adam Knight, President',
+  },
+  steps = [],
+  class: className,
+} = Astro.props;
+---
+
+<NoiseBg class:list={['relative space-y-12 overflow-hidden px-0 py-20', className]}>
+  <!-- Top Section -->
+  <div class="container flex items-center">
+    <div class="flex-1 space-y-4">
+      <div class="flex items-center gap-x-3">
+        <div
+          class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
+        >
+        </div>
+        <div>{badge}</div>
+      </div>
+
+      <h2><Fragment set:html={heading} /></h2>
+    </div>
+
+    {
+      quote && (
+        <div>
+          <div class="via-primary ml-10 rounded-2xl bg-gradient-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-px">
+            <NoiseBg class="relative flex items-center rounded-2xl py-7 pl-12">
+              {/* Profile image */}
+              <div class="via-primary absolute -ml-20 flex w-fit items-center justify-center rounded-full bg-gradient-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-0.5">
+                <div class="from-primary to-tertiary relative h-[73px] w-[73px] overflow-hidden rounded-full bg-conic-150">
+                  <Image
+                    src={quote.profileImage || '/placeholders/profile.png'}
+                    alt={quote.profileAlt || 'profile'}
+                    width={256}
+                    height={256}
+                    class="absolute h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <div>&ldquo;{quote.quote}&rdquo;</div>
+                <div>{quote.author}</div>
+              </div>
+            </NoiseBg>
+          </div>
+        </div>
+      )
+    }
+  </div>
+
+  <!-- Slider container -->
+  <div class="container">
+    <div class="rounded-[52px] bg-linear-to-b from-white/15 to-white/5 p-px">
+      <NoiseBg class="rounded-[52px] p-16">
+        <div class="flex items-center justify-between gap-x-8">
+          <!-- Content -->
+          <div>
+            <div class="mb-[100px] flex max-w-[436px] items-center">
+              <div class="space-y-4">
+                <h3>{subheading}</h3>
+                <div class="text-neutral-lighter">
+                  {subheadingDescription}
+                </div>
+              </div>
+            </div>
+
+            <div class="relative w-fit rounded-2xl">
+              <Image
+                src={dogImage}
+                alt=""
+                width={256}
+                height={256}
+                class="absolute right-10 -mt-[85px] h-[92px] w-[102px]"
+              />
+
+              <div
+                class="pointer-events-none absolute inset-0 rounded-2xl border border-transparent"
+                style={`
+              background: linear-gradient(to right, rgba(30, 30, 30, 1), rgba(58, 58, 58, 1), rgba(63, 63, 63, 1), rgba(131, 131, 131, 1)) border-box;
+              -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+              -webkit-mask-composite: xor;
+              mask-composite: exclude;
+            `}
+              >
+              </div>
+              <ul class="relative flex items-center gap-3 rounded-2xl p-4">
+                <li class="flex items-center gap-x-2.5 p-2">
+                  <Icon name="google-logo" class="size-8 text-[#F7B715]" />
+                  <div>
+                    <div>
+                      <RatingStars rating={5} size={12} fillColor="white" strokeColor="transparent" />
+                    </div>
+                    <div class="text-sm">5.0 Rating</div>
+                  </div>
+                </li>
+
+                <li class="flex items-center gap-x-2.5 p-2">
+                  <Icon name="facebook-logo" class="size-8 text-[#F7B715]" />
+                  <div>
+                    <div>
+                      <RatingStars rating={5} size={12} fillColor="white" strokeColor="transparent" />
+                    </div>
+                    <div class="text-sm">5.0 Rating</div>
+                  </div>
+                </li>
+
+                <li class="flex items-center gap-x-2.5 p-2">
+                  <div>
+                    <Image src={bbaLogo} alt="Better Business Bureau Logo" width={32} height={32} class="size-8" />
+                  </div>
+                  <div>
+                    <div>
+                      <RatingStars rating={5} size={12} fillColor="white" strokeColor="transparent" />
+                    </div>
+                    <div class="text-sm">5.0 Rating</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Process Cards Swiper -->
+          <div class="flex flex-col items-center gap-y-6">
+            <process-cards-swiper class="swiper block w-[421px]">
+              <div class="swiper-wrapper">
+                {
+                  steps.length > 0 ? (
+                    steps.map(s => (
+                      <div class="swiper-slide rounded-3xl!">
+                        <ProcessCard
+                          image={s.image}
+                          imageAlt={s.imageAlt}
+                          step={s.step}
+                          title={s.title}
+                          description={s.description}
+                        />
+                      </div>
+                    ))
+                  ) : (
+                    <slot />
+                  )
+                }
+              </div>
+            </process-cards-swiper>
+
+            <!-- Navigation -->
+            <div class="flex items-center gap-x-2">
+              <button
+                class="process-swiper-prev flex h-10 w-10 items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200 hover:bg-black"
+                aria-label="Previous step"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </button>
+              <button
+                class="process-swiper-next bg-primary hover:bg-primary/90 flex h-10 w-10 items-center justify-center rounded-full text-black transition-colors duration-200"
+                aria-label="Next step"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m9 18 6-6-6-6"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </NoiseBg>
+    </div>
+  </div>
+  <Image src={bottomShape} alt="" width={1500} height={100} class="absolute bottom-0 z-10 w-full translate-y-12" />
+  <Image
+    src={shineImage}
+    alt=""
+    width={256}
+    height={256}
+    class="pointer-events-none absolute bottom-0 left-1/2 w-full -translate-x-1/2 rotate-z-180 opacity-20"
+  />
+</NoiseBg>
+
+<script>
+  import Swiper from 'swiper';
+  import { Navigation, EffectCards } from 'swiper/modules';
+
+  import 'swiper/css';
+  import 'swiper/css/effect-cards';
+
+  class ProcessCardsSwiper extends HTMLElement {
+    constructor() {
+      super();
+
+      const container = this.closest('.container');
+      const nextEl = container?.querySelector('.process-swiper-next') as HTMLElement;
+      const prevEl = container?.querySelector('.process-swiper-prev') as HTMLElement;
+
+      new Swiper(this, {
+        modules: [Navigation, EffectCards],
+        effect: 'cards',
+        grabCursor: true,
+        navigation: {
+          nextEl,
+          prevEl,
+        },
+      });
+    }
+  }
+
+  customElements.define('process-cards-swiper', ProcessCardsSwiper);
+</script>

@@ -1,0 +1,60 @@
+---
+import RatingStars from '@/components/ui/RatingStars.astro';
+import { Image, getImage } from 'astro:assets';
+import noiseImage from '@/assets/noises.png';
+
+const noiseImageOp = await getImage({ src: noiseImage, width: 1536, height: 1152, format: 'webp' });
+---
+
+<div class="from-primary rounded-2xl bg-radial-[at_25%_25%] to-[#594216] p-px">
+  <div
+    class="relative w-full rounded-2xl bg-[#252525] p-6"
+    style={`
+        background-image:
+radial-gradient(50% 50% at 50% 50%, rgba(48,48,48,0) 0%, rgba(48,48,48,0.54) 100%), url('${noiseImageOp.src}');
+        background-position: center, center;
+        background-size: auto, 300px 300px;
+        background-repeat: no-repeat, repeat;
+        background-blend-mode: overlay;
+    `}
+  >
+    <div class="size-8 rounded-full bg-white/10"></div>
+
+    <div class="flex items-center gap-x-2.5 pt-2.5 font-medium">
+      <div>Jennifer Lawrance</div>
+      <div class="flex items-center gap-0.5 text-sm font-normal">
+        <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path
+            d="M8.00041 14.6976C11.6994 14.6976 14.6981 11.699 14.6981 7.99993C14.6981 4.3009 11.6994 1.30225 8.00041 1.30225C4.30139 1.30225 1.30273 4.3009 1.30273 7.99993C1.30273 11.699 4.30139 14.6976 8.00041 14.6976Z"
+            fill="#2E4F7C"></path>
+          <path d="M4.87402 7.7521L7.30545 10.2327L11.5717 6.21411" stroke="white" stroke-width="1.5"></path>
+        </svg>
+        <span class="text-[#ccc]"> Verified Buyer</span>
+      </div>
+    </div>
+
+    <div class="pt-2.5">
+      <RatingStars rating={5} />
+    </div>
+
+    <div class="pt-4 text-sm">Couldn&apos;t be happier with the results.</div>
+    <div class="text-sm">
+      The crew was professional, communication was clear, and the roof looks incredible. They made the whole process
+      easy.
+    </div>
+
+    <div class="flex items-center gap-x-1 pt-3">
+      <div class="py-2.5 pr-2.5">
+        <Image
+          alt="G"
+          width={24}
+          height={24}
+          loading="lazy"
+          src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s48-fcrop64=1,00000000ffffffff-rw"
+        />
+      </div>
+
+      <div>Google Verfied</div>
+    </div>
+  </div>
+</div>

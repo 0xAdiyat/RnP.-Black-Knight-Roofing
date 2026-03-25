@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Button from '../ui/Button.astro';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  image: string | ImageMetadata;
+  title: string;
+  subtitle?: string;
+  category: string;
+}
+
+const { image, title, subtitle, category } = Astro.props;
+---
+
+<div class="relative overflow-hidden rounded-2xl">
+  {
+    typeof image === 'string' ? (
+      <Image src={image} alt={title} width={358} height={387} class="h-full w-full rounded-2xl object-cover" />
+    ) : (
+      <Image src={image} alt={title} width={358} height={387} class="h-full w-full rounded-2xl object-cover" />
+    )
+  }
+
+  <div
+    class="from-inverted/0 to-inverted absolute inset-0 top-0 left-0 flex h-full w-full flex-col justify-end overflow-hidden rounded-2xl bg-linear-to-b from-30% p-5"
+  >
+    <div class="flex items-center gap-x-4">
+      <div class="flex-1 space-y-2">
+        <div class="text-base font-bold uppercase">
+          <div>{title}</div>
+          {subtitle && <div>({subtitle})</div>}
+        </div>
+        <div class="text-xs font-bold uppercase">{category}</div>
+      </div>
+
+      <Button class="flex h-8 w-8 items-center justify-center rounded-full p-2">
+        <Icon name="plus" />
+      </Button>
+    </div>
+  </div>
+</div>

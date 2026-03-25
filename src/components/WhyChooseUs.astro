@@ -1,0 +1,97 @@
+---
+import NoiseBg from './NoiseBg.astro';
+import Button from './ui/Button.astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { cn } from '@/lib/utils';
+import sunFlow from '@/assets/sunflow.png';
+
+interface Props {
+  badgeText?: string;
+  title?: string;
+  description?: string;
+  image?: ImageMetadata | string;
+  imageAlt?: string;
+  buttonText?: string;
+  buttonHref?: string;
+  imagePosition?: 'left' | 'right';
+  class?: string;
+}
+
+const {
+  badgeText = "A Roof You'll Love Coming Home To",
+  title = 'Repairs vs. Replacement: Which Is Right For You?',
+  description = "When you're dealing with a roofing issue, it can feel overwhelming, especially when you do not know what to expect. We help you understand the difference between repairs and replacements, and when each one makes the most sense. In many cases, you might be surprised by what can be repaired, which can save you time and money. And when it is time for a new roofing system, we are here to guide you toward the right product and install it with care.",
+  image = '/placeholders/services/1.png',
+  imageAlt = 'Service Image',
+  buttonText = 'FREE Roof Estimate',
+  buttonHref = '#',
+  imagePosition = 'left',
+  class: className,
+} = Astro.props;
+
+// Determine grid order classes based on imagePosition
+const imageOrderClass = imagePosition === 'right' ? 'order-2' : 'order-1';
+const textOrderClass = imagePosition === 'right' ? 'order-1' : 'order-2';
+---
+
+<NoiseBg class={cn('relative px-0 py-0', className)}>
+  <Image
+    src={sunFlow}
+    alt="Background Noise"
+    width={1520}
+    height={900}
+    class="pointer-events-none absolute top-0 left-0 h-full w-full opacity-10"
+  />
+  <div class="container py-20">
+    <div class="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
+      <!-- Image Content -->
+      <div class={imageOrderClass}>
+        {
+          typeof image === 'string' ? (
+            <img src={image} alt={imageAlt} class="h-[400px] w-full rounded-lg object-cover" />
+          ) : (
+            <Image
+              src={image}
+              alt={imageAlt}
+              width={600}
+              height={400}
+              class="h-[400px] w-full rounded-lg object-cover"
+            />
+          )
+        }
+      </div>
+
+      <!-- Text Content -->
+      <div class={cn('space-y-8 py-8', textOrderClass)}>
+        <div class="flex-1 space-y-4">
+          {
+            badgeText && (
+              <div class="flex items-center gap-x-3">
+                <div class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']" />
+                <div class="font-medium">{badgeText}</div>
+              </div>
+            )
+          }
+
+          {title && <h2 class="max-w-[530px] text-3xl leading-tight font-bold md:text-4xl">{title}</h2>}
+
+          {description && <p class="text-muted-foreground text-lg leading-relaxed">{description}</p>}
+
+          <slot />
+        </div>
+
+        {
+          buttonText && (
+            <Button href={buttonHref}>
+              <span>
+                {' '}
+                <strong>{buttonText.split(' ')[0]}</strong> {buttonText.split(' ').slice(1).join(' ')}{' '}
+              </span>
+            </Button>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</NoiseBg>

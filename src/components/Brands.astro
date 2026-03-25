@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import googleLogo from '@/assets/brands/google-logo.png';
+import mraLogo from '@/assets/brands/mra.png';
+import businessLogo from '@/assets/brands/business-rate.png';
+import bbaLogo from '@/assets/brands/bba.png';
+import tamkoLogo from '@/assets/brands/tamko-pro.png';
+import westlate from '@/assets/brands/westlake.png';
+import { cn } from '@/lib/utils';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'section'> {}
+const { class: className } = Astro.props;
+const classes = cn('relative p-16', className);
+---
+
+<section class={classes}>
+  <div class="absolute inset-x-0 bottom-0 h-0.5 bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+
+  <div class="container mx-auto overflow-hidden px-4">
+    <!-- Using a flex container that can wrap on smaller screens, and evenly distributes logos -->
+    <div class="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-8 lg:gap-12">
+      <Image
+        src={googleLogo}
+        alt="Google Reviews"
+        class="h-[72px] w-auto object-contain opacity-90 transition-opacity hover:opacity-100"
+      />
+      <Image
+        src={mraLogo}
+        alt="MRA Contractor Member"
+        class="h-[72px] w-auto object-contain opacity-90 transition-opacity hover:opacity-100"
+      />
+      <Image
+        src={businessLogo}
+        alt="Best of 2024 Business Rate"
+        class="h-[72px] w-auto object-contain opacity-90 transition-opacity hover:opacity-100"
+      />
+      <Image
+        src={bbaLogo}
+        alt="BBB Accredited Business A+ Rating"
+        class="h-[72px] w-auto object-contain opacity-90 transition-opacity hover:opacity-100"
+      />
+      <Image
+        src={tamkoLogo}
+        alt="Tamko Pro Certified Contractor"
+        class="h-[72px] w-auto object-contain opacity-90 transition-opacity hover:opacity-100"
+      />
+      <Image
+        src={westlate}
+        alt="Westlake Royal Window Solutions"
+        class="h-[72px] w-auto object-contain opacity-90 transition-opacity hover:opacity-100"
+      />
+    </div>
+  </div>
+</section>

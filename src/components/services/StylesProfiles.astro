@@ -1,0 +1,245 @@
+---
+import { Image } from 'astro:assets';
+import BadgeTitle from '@/components/BadgeTitle.astro';
+import { Icon } from 'astro-icon/components';
+import previewImg from '@/assets/styles-profiles/pine-crest-shake-preview.png';
+import swatchImg from '@/assets/styles-profiles/shake-texture-swatch.png';
+import NoiseBg from '../NoiseBg.astro';
+
+const profiles = [
+  {
+    id: 'pine-crest-shake',
+    label: 'Pine - Crest shake',
+    title: 'Pine - Crest Shake',
+    description: 'Engineered to replicate hand-split wood shake with the durability of steel.',
+    previewImage: previewImg,
+    colors: [
+      { name: 'HARBORWOOD', code: '4DAP93569SF', color: '#6D5A4A' },
+      { name: 'STIRLING GRAY', code: '4DAP95427SF', color: '#6B6B6B' },
+      { name: 'COUNTRY BLEND', code: '4DAP93145SF', color: '#7B624A' },
+      { name: 'IRONWOOD', code: '4DAP95325SF', color: '#4A4139' },
+      { name: 'GOLD RIVER', code: '4DAP93245SF', color: '#8C7355' },
+      { name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241' },
+      { name: 'BARCELONA', code: '4DAP93185SF', color: '#7B4A4A' },
+      { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', isDefault: true },
+    ]
+  },
+  {
+    id: 'cottage-shingle',
+    label: 'Cottage Shingle',
+    title: 'Cottage Shingle',
+    description: 'A clean, modern look that complements a variety of architectural styles.',
+    previewImage: previewImg,
+    colors: [
+        { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', isDefault: true },
+        { name: 'WEATHERED WOOD', code: '4DAP9104001', color: '#5D5D4A' },
+    ]
+  },
+  {
+    id: 'granite-ridge-shingle',
+    label: 'Granite Ridge Shingle',
+    title: 'Granite Ridge Shingle',
+    description: 'The strength of steel with the refined look of architectural shingles.',
+    previewImage: previewImg,
+    colors: [
+        { name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241' },
+    ]
+  },
+  {
+    id: 'barrel-vault-tile',
+    label: 'Barrel Vault Tile',
+    title: 'Barrel Vault Tile',
+    description: 'Captures the timeless look of Spanish clay tile in a durable steel format.',
+    previewImage: previewImg,
+    colors: [
+        { name: 'BARCELONA', code: '4DAP93185SF', color: '#7B4A4A' },
+    ]
+  },
+  {
+    id: 'pacific-tile',
+    label: 'Pacific Tile',
+    title: 'Pacific Tile',
+    description: 'A low-profile Mediterranean-inspired design for a clean, sophisticated roof.',
+    previewImage: previewImg,
+    colors: [
+        { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', isDefault: true },
+    ]
+  }
+];
+---
+
+<NoiseBg class="px-0 py-0">
+  <section class="container py-20 overflow-hidden" id="styles-profiles"> 
+  <div class="flex flex-col items-center text-center gap-y-4 mb-20">
+      <BadgeTitle 
+          badge="Options" 
+          title="Styles & Profiles" 
+          class="flex flex-col items-center"
+          titleClass="text-5xl lg:text-7xl font-heading mb-4"
+      />
+      <p class="text-[#CCCCCC] max-w-2xl text-lg leading-relaxed">
+        Choose a profile that matches your home’s architecture—then explore CRRC cool roof color options.
+      </p>
+    </div>
+
+    <div class="styles-tabs-container">
+      <!-- Tabs Pill -->
+      <NoiseBg class="flex flex-wrap justify-center gap-2 p-1.5 border border-white/10 rounded-2xl mb-20 max-w-fit mx-auto backdrop-blur-xl">
+        {profiles.map((profile, idx) => (
+          <button 
+            class:list={[
+              "style-tab-trigger px-8 py-3.5 rounded-xl text-lg font-medium transition-all duration-500 cursor-pointer whitespace-nowrap outline-none",
+              idx === 0 ? "bg-linear-to-r from-[#292929] to-[#171717] border border-primary text-primary shadow-[0_0_20px_rgba(247,183,21,0.1)] active-tab" : "text-[#888888] border border-transparent hover:text-white hover:bg-white/5"
+            ]}
+            data-id={profile.id}
+          >
+            {profile.label}
+          </button>
+        ))}
+      </NoiseBg>
+
+      <!-- Panels -->
+      {profiles.map((profile, idx) => (
+        <div 
+          class:list={["style-panel flex flex-col lg:flex-row gap-12 lg:gap-20 items-stretch", idx !== 0 && "hidden"]} 
+          data-panel={profile.id}
+        >
+          <!-- Left: Preview -->
+          <div class="flex-1 w-full relative aspect-4/5 lg:aspect-758/767 rounded-[40px] overflow-hidden group/preview shadow-2xl">
+            <Image src={profile.previewImage} alt={profile.title} class="w-full h-full object-cover transition-transform duration-1000 group-hover/preview:scale-105" />
+            
+            <!-- Overlay Gradients -->
+            <div class="absolute inset-0 bg-linear-to-t from-black/95 via-black/20 to-transparent opacity-90"></div>
+            <div class="absolute inset-0 bg-linear-to-b from-black/50 via-transparent to-transparent opacity-40"></div>
+            
+            <!-- Overlay content -->
+            <div class="absolute top-8 left-8">
+                <div class="flex items-center gap-x-3 bg-white/10 backdrop-blur-xl px-5 py-2 rounded-full border border-white/20 shadow-xl">
+                  <div class="relative size-3.5 flex items-center justify-center">
+                      <div class="absolute size-full rounded-full bg-[#F7B715] opacity-50 animate-ping"></div>
+                      <div class="relative size-2 rounded-full bg-[#F7D515] shadow-[0_0_10px_#F7D515]"></div>
+                  </div>
+                  <span class="text-[10px] font-black text-white tracking-[0.2em] uppercase">Live Preview</span>
+                </div>
+            </div>
+
+            <div class="absolute bottom-12 left-12 right-12 space-y-6">
+                <h3 class="text-6xl lg:text-8xl leading-none font-medium text-white tracking-tight">{profile.title}</h3>
+                
+                <div class="flex items-center gap-x-3 bg-white/5 backdrop-blur-md w-fit px-5 py-2 rounded-full border border-white/10 group/color">
+                  <div class="size-4 rounded-full bg-[#333333] border border-white/20 shadow-inner group-hover/color:scale-110 transition-transform" />
+                  <span class="text-sm font-semibold text-white/90 active-color-label">Charcoal</span>
+                </div>
+
+                <p class="text-[#CCCCCC] text-xl leading-relaxed max-w-xl font-light">
+                  {profile.description}
+                </p>
+            </div>
+          </div>
+
+          <!-- Right: Color Grid -->
+          <div class="w-full lg:w-[540px] flex flex-col">
+            <div class="mb-10 flex items-center gap-4">
+                <span class="text-primary font-bold text-xl tracking-wide uppercase">Color Options</span>
+                <div class="h-px flex-1 bg-linear-to-r from-primary/30 to-transparent"></div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-y-12">
+                {profile.colors.map(color => (
+                  <div class="space-y-5 group/swatch cursor-pointer swatch-trigger" data-color-name={color.name}>
+                    <div class="relative aspect-square rounded-[32px] overflow-hidden bg-[#1A1A1A] p-0.5 shadow-xl transition-all duration-500 group-hover/swatch:shadow-primary/20 group-hover/swatch:-translate-y-2 ring-primary ring-offset-[6px] ring-offset-black transition-all group-hover/swatch:ring-2 ring-0">
+                        <div class="w-full h-full rounded-[30px] overflow-hidden relative">
+                          <Image src={swatchImg} alt={color.name} class="w-full h-full object-cover scale-[1.3] transition-transform duration-700 group-hover/swatch:scale-[1.4]" />
+                          <!-- Color Tint Overlays for high-fidelity look -->
+                          <div class="absolute inset-0 transition-opacity duration-500 opacity-40 group-hover/swatch:opacity-60" style={`background-color: ${color.color}; mix-blend-mode: overlay;`}></div>
+                          <div class="absolute inset-0 transition-opacity duration-500 opacity-20 group-hover/swatch:opacity-40" style={`background-color: ${color.color}; mix-blend-mode: multiply;`}></div>
+                          <div class="absolute inset-0 shadow-[inset_0_0_60px_rgba(0,0,0,0.4)]"></div>
+                        </div>
+                    </div>
+                    <div class="text-center md:text-left space-y-1 pl-1">
+                        <div class="text-white font-bold text-sm tracking-[0.15em] transition-colors group-hover/swatch:text-primary italic uppercase">{color.name}</div>
+                        <div class="text-[#666666] text-xs font-semibold tracking-widest">{color.code}</div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section> 
+</NoiseBg>
+
+<script>
+  function setupStyleTabs() {
+    const container = document.querySelector('.styles-tabs-container');
+    if (!container) return;
+
+    const triggers = container.querySelectorAll('.style-tab-trigger');
+    const panels = container.querySelectorAll('.style-panel');
+
+    // Tab Switching
+    triggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const id = trigger.getAttribute('data-id');
+        
+        triggers.forEach(t => {
+            if (t === trigger) {
+                t.classList.add('bg-linear-to-r', 'from-[#292929]', 'to-[#171717]', 'border-primary', 'text-primary', 'shadow-[0_0_20px_rgba(247,183,21,0.1)]', 'active-tab');
+                t.classList.remove('text-[#888888]', 'border-transparent');
+            } else {
+                t.classList.remove('bg-linear-to-r', 'from-[#292929]', 'to-[#171717]', 'border-primary', 'text-primary', 'shadow-[0_0_20px_rgba(247,183,21,0.1)]', 'active-tab');
+                t.classList.add('text-[#888888]', 'border-transparent');
+            }
+        });
+
+        panels.forEach(p => {
+            if (p.getAttribute('data-panel') === id) {
+                p.classList.remove('hidden');
+                p.classList.add('flex');
+            } else {
+                p.classList.add('hidden');
+                p.classList.remove('flex');
+            }
+        });
+      });
+    });
+
+    // Swatch Interaction
+    const swatches = container.querySelectorAll('.swatch-trigger');
+    swatches.forEach(swatch => {
+       swatch.addEventListener('click', () => {
+          const colorName = swatch.getAttribute('data-color-name');
+          const panel = swatch.closest('.style-panel');
+          const colorLabel = panel?.querySelector('.active-color-label');
+          if (colorLabel && colorName) {
+             colorLabel.textContent = colorName;
+             // Add a small animation to the label
+             colorLabel.animate([
+                { opacity: 0, transform: 'translateY(5px)' },
+                { opacity: 1, transform: 'translateY(0)' }
+             ], { duration: 300, easing: 'ease-out' });
+          }
+       });
+    });
+  }
+
+  // Initialize
+  setupStyleTabs();
+  document.addEventListener('astro:after-swap', setupStyleTabs);
+</script>
+
+<style>
+    .style-panel {
+        animation: panelFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    @keyframes panelFadeIn {
+        from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+        to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    .swatch-trigger {
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+</style>

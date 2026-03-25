@@ -1,0 +1,77 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  images: string[];
+}
+
+const { images } = Astro.props;
+---
+
+<div class="project-swiper swiper relative w-full overflow-hidden py-12">
+  <div class="swiper-wrapper flex items-center">
+    {images.map((image) => (
+      <div class="swiper-slide w-auto!">
+        <div class="relative h-[288px] w-[448px] overflow-hidden rounded-2xl group border border-white/5">
+           <Image 
+              src={image} 
+              alt="Project Image" 
+              width={896} 
+              height={576}
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+           />
+           <div class="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+        </div>
+      </div>
+    ))}
+  </div>
+  
+  <!-- Stepper / Pagination -->
+  <div class="swiper-pagination static! mt-8 flex justify-center gap-2!"></div>
+</div>
+
+<style is:global>
+  .project-swiper .swiper-pagination-bullet {
+    width: 54px;
+    height: 4px;
+    background: rgba(219, 177, 92, 0.2) !important;
+    border-radius: 9999px;
+    opacity: 1 !important;
+    margin: 0 !important;
+    transition: all 0.3s ease;
+  }
+  
+  .project-swiper .swiper-pagination-bullet-active {
+    background: #dbb15c !important;
+  }
+</style>
+
+<script>
+  import Swiper from 'swiper';
+  import { Pagination, Autoplay, FreeMode } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/pagination';
+
+  function initSwiper() {
+    new Swiper('.project-swiper', {
+      modules: [Pagination, Autoplay, FreeMode],
+      slidesPerView: 'auto',
+      spaceBetween: 16,
+      centeredSlides: true,
+      loop: true,
+      freeMode: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+  }
+
+  // Initialize on page load and after swaps
+  initSwiper();
+  document.addEventListener('astro:after-swap', initSwiper);
+</script>

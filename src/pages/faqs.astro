@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '@/components/hero/Hero.astro';
+import Brands from '@/components/Brands.astro';
+import CTASection from '@/components/cta/CTASection.astro';
+import Footer from '@/components/Footer.astro';
+import QuoteForm from '@/components/cta/QuoteForm.astro';
+
+import { Icon } from 'astro-icon/components';
+import Button from '@/components/ui/Button.astro';
+import RatingStars from '@/components/ui/RatingStars.astro';
+import Faqs2 from '@/components/faqs/Faqs2.astro';
+---
+
+<Layout>
+  <Navbar />
+  <Hero title="Got Question? <br/> We’ve Got Answer." subtitle="Colorado's #1 Veteran-Owned Roofing Company">
+    <p>
+      Lorem ipsum dolor sit amet consectetur. Dictum morbi ac nibh nibh leo vitae at id faucibus. Ultrices duis tempor
+      eget proin euismod sed dolor eu suspendisse. Amet ridiculus erat sit vulputate. Dui est feugiat risus ultrices.
+    </p>
+
+    <div class="flex items-center gap-x-4">
+      <Button variant="primary" size="lg">
+        <span class="text-xs">
+          $99/month roofs <br />
+          No repayment penalty</span
+        >
+        <span class="h-6 w-0.5 bg-[rgba(133,89,1,0.4)]"></span>
+        <span> <strong> FREE </strong> Estimate</span>
+      </Button>
+
+      <Button variant="link">
+        <Icon name="map" />
+        See Our Past Work
+      </Button>
+    </div>
+
+    <Fragment slot="social-proof">
+      <div class="flex items-center gap-x-4 pr-4">
+        <Icon name="google-logo" size={32} />
+        <div>
+          40+ Five-Star <br />
+          Google Reviews
+        </div>
+      </div>
+
+      <div class="flex items-center gap-x-4 px-4">
+        <Icon name="facebook-logo" size={32} />
+        <div>
+          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
+          <span class="text-sm font-bold"> 5.0 Rating </span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-x-4 pl-4">
+        <Icon name="google-logo" size={32} />
+        <div>
+          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
+          <span class="text-sm font-bold"> 5.0 Rating </span>
+        </div>
+      </div>
+    </Fragment>
+
+    <QuoteForm slot="sidebar" />
+  </Hero>
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+  <Faqs2 />
+   <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+  <CTASection />
+  <Footer />
+</Layout>

@@ -1,0 +1,98 @@
+---
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+import { Icon } from 'astro-icon/components';
+import { cn } from '@/lib/utils';
+
+import heroBgImage from '@/assets/hero-bg.jpg';
+import gridFrame from '@/assets/grid-frame.png';
+
+interface Props {
+  backgroundImage?: ImageMetadata | string;
+  title: string;
+  subtitle?: string;
+  subtitleIcon?: string;
+  class?: string;
+}
+
+const { backgroundImage = heroBgImage, title, subtitle, subtitleIcon = 'badge-tick', class: className } = Astro.props;
+
+const heroBgSrc =
+  typeof backgroundImage === 'string'
+    ? backgroundImage
+    : (await getImage({ src: backgroundImage, width: 1536, height: 1152, format: 'webp' })).src;
+const gridFrameOp = await getImage({ src: gridFrame });
+
+const hasSidebar = Astro.slots.has('sidebar');
+const hasSocialProof = Astro.slots.has('social-proof');
+---
+
+<section
+  class={cn('grid-line relative max-h-[833px]', className)}
+  style={`
+      background-image:linear-gradient(to right,rgba(0,0,0,0.1),rgba(0,0,0,0.01)),url(${heroBgSrc});
+      background-size:cover, cover;
+      background-repeat: no-repeat, no-repeat;
+      background-position: center, center;
+  `}
+>
+  <div
+    style={`
+background-image:
+    linear-gradient( 234deg, rgba(0, 0, 0, 0) 28.39%, rgba(0, 0, 0, 0.2) 72.48%, rgba(0, 0, 0, 0.2) 89.9%),
+    url("${gridFrameOp.src}"),
+    linear-gradient( 180deg, rgba(8, 42, 64, 0) 34.45%, #082A40 64.34%, #0D0D0D 97.01%);
+background-position: center, -178.686px -1.253px, center;
+background-size: auto, 124.644% 151.637%, auto;
+background-repeat: no-repeat, no-repeat, no-repeat;
+`}
+  >
+    <div class="container pt-20 pb-40">
+      <div class="flex flex-col items-center justify-center gap-8 text-center">
+        <div class="relative h-full w-full max-w-[800px] text-white">
+          <div class="flex flex-col items-center space-y-8">
+            <div class="flex flex-col items-center space-y-6">
+              <div class="flex flex-col items-center space-y-4">
+                {
+                  subtitle && (
+                    <div class="flex items-center gap-x-1.5 rounded-full px-4 py-1.5">
+                      <div class="bg-secondary/10 flex h-5 w-5 items-center justify-center rounded-sm">
+                        <div class="bg-primary size-2 rounded-full" />
+                      </div>
+                      <span class="text-sm font-medium tracking-wider">{subtitle}</span>
+                    </div>
+                  )
+                }
+
+                <div>
+                  <h1 class="font-heading text-5xl leading-tight font-normal sm:text-7xl" set:html={title} />
+                </div>
+              </div>
+
+              <div class="flex w-full flex-col items-center space-y-6">
+                <slot />
+              </div>
+            </div>
+
+            {
+              hasSocialProof && (
+                <div class="flex flex-wrap items-center justify-center divide-x divide-white/20 py-2 text-sm">
+                  <slot name="social-proof" />
+                </div>
+              )
+            }
+          </div>
+        </div>
+
+        {
+          hasSidebar && (
+            <div class="flex w-full justify-center">
+              <slot name="sidebar" />
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>

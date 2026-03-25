@@ -1,0 +1,19 @@
+---
+import { cn } from '@/lib/utils';
+import type { HTMLAttributes } from 'astro/types';
+
+export interface Props extends HTMLAttributes<'legend'> {
+  variant?: 'legend' | 'label';
+}
+
+const { class: className, variant = 'legend', ...props } = Astro.props;
+---
+
+<legend
+  data-slot="field-legend"
+  data-variant={variant}
+  class={cn('mb-1.5 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base', className)}
+  {...props}
+>
+  <slot />
+</legend>

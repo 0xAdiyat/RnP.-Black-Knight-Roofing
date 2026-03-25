@@ -1,0 +1,83 @@
+---
+import { cn } from '@/lib/utils';
+import type { HTMLAttributes } from 'astro/types';
+
+export interface Props extends HTMLAttributes<'div'> {
+  /** The current rating score (e.g. 3.5, 4.2, 5) */
+  rating?: number;
+  /** Maximum number of stars to display */
+  maxStars?: number;
+  /** Fill color for the shaded part of the star */
+  fillColor?: string;
+  /** Stroke color for the star outline */
+  strokeColor?: string;
+  /** Fill color for the unshaded part of the star */
+  emptyColor?: string;
+  /** Size (width & height) of each star in pixels */
+  size?: number | string;
+}
+
+const {
+  rating = 5,
+  maxStars = 5,
+  fillColor = '#F2C744',
+  strokeColor = '#BF8D30',
+  emptyColor = 'transparent',
+  size = 20,
+  class: className,
+  ...props
+} = Astro.props;
+
+// Generate array of percentage fills for each star
+const stars = Array.from({ length: maxStars }, (_, i) => {
+  const currentStar = i + 1;
+  let percent = 0;
+
+  if (rating >= currentStar) {
+    percent = 100;
+  } else if (rating > currentStar - 1) {
+    percent = (rating % 1) * 100;
+  }
+
+  return percent;
+});
+
+// Unique ID base so multiple instances don't clash gradient defs
+const idBase = Math.random().toString(36).substring(7);
+---
+
+<div class={cn('flex items-center gap-x-1', className)} {...props}>
+  {
+    stars.map((percent, index) => {
+      const gradId = `star-grad-${idBase}-${index}`;
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width={size}
+          height={size}
+          viewBox="0 0 20 20"
+          fill="none"
+          class="shrink-0"
+        >
+          <defs>
+            <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset={`${percent}%`} stop-color={fillColor} />
+              <stop offset={`${percent}%`} stop-color={emptyColor} />
+            </linearGradient>
+            <clipPath id={`clip-${gradId}`}>
+              <rect width="20" height="20" fill="white" />
+            </clipPath>
+          </defs>
+          <g clip-path={`url(#clip-${gradId})`}>
+            <path
+              d="M10 15.6867L16.18 19.4167L14.54 12.3867L20 7.65675L12.81 7.04675L10 0.416748L7.19 7.04675L0 7.65675L5.46 12.3867L3.82 19.4167L10 15.6867Z"
+              fill={`url(#${gradId})`}
+              stroke={strokeColor}
+              stroke-width="1.11111"
+            />
+          </g>
+        </svg>
+      );
+    })
+  }
+</div>

@@ -1,0 +1,313 @@
+---
+import { Image, getImage } from 'astro:assets';
+
+import { Icon } from 'astro-icon/components';
+
+import NoiseBg from '@/components/NoiseBg.astro';
+import IntroBadge from '@/components/IntroBadge.astro';
+import Button from '@/components/ui/Button.astro';
+
+import PersonImage from '@/assets/hero-person.png';
+import gridFrame from '@/assets/grid-frame.png';
+import RatingStars from '@/components/ui/RatingStars.astro';
+import dotImage from '@/assets/dog-image.png';
+import bbaLogo from '@/assets/bbb-logo.png';
+import familyImage from '@/assets/family-image.png';
+
+const gridFrameOp = await getImage({ src: gridFrame });
+---
+
+<NoiseBg class="relative bg-[#171717]">
+  <svg viewBox="0 0 1440 202" fill="none" preserveAspectRatio="none" class="absolute top-0 left-0 h-[200px] w-full">
+    <path
+      d="M1440 -0.421875V201.078H1328.5V145.761L1261.77 67.0781H506V103.578H431.664L373.796 145.981L373.664 146.078H0.5V-0.421875H1440Z"
+      fill="url(#paint0_radial_16502_5679)"
+      fill-opacity="0.54"></path>
+    <path
+      d="M1440 -0.421875V201.078H1328.5V145.761L1261.77 67.0781H506V103.578H431.664L373.796 145.981L373.664 146.078H0.5V-0.421875H1440Z"
+      fill="url(#pattern0_16502_5679)"></path>
+    <path
+      d="M1440 -0.421875V201.078H1328.5V145.761L1261.77 67.0781H506V103.578H431.664L373.796 145.981L373.664 146.078H0.5V-0.421875H1440Z"
+      stroke="url(#paint1_linear_16502_5679)"></path>
+    <defs>
+      <pattern id="pattern0_16502_5679" patternContentUnits="objectBoundingBox" width="1" height="1">
+        <use xlink:href="#image0_16502_5679" transform="matrix(0.000244141 0 0 0.0017516 0 -1.93735)"></use>
+      </pattern>
+      <radialGradient
+        id="paint0_radial_16502_5679"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="translate(720.25 100.328) scale(719.25 100.25)"
+      >
+        <stop stop-color="#303030" stop-opacity="0"></stop>
+        <stop offset="1" stop-color="#303030"></stop>
+      </radialGradient>
+      <linearGradient
+        id="paint1_linear_16502_5679"
+        x1="103.346"
+        y1="0.0781268"
+        x2="606.48"
+        y2="758.479"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="white" stop-opacity="0.2"></stop>
+        <stop offset="0.323131" stop-color="white" stop-opacity="0.3"></stop>
+        <stop offset="1" stop-color="#0D0D0D"></stop>
+      </linearGradient>
+      <image
+        id="image0_16502_5679"
+        width="4096"
+        height="2783"
+        preserveAspectRatio="none"
+        xlink:href={gridFrameOp.src}
+      />
+    </defs>
+  </svg>
+
+  <div class="container py-20">
+    <div class="grid grid-cols-2 gap-x-8">
+      <div class="relative space-y-12 overflow-hidden">
+        <div class="relative h-[543px] max-w-[531px] overflow-hidden px-16">
+          <div class="object-cover">
+            <div class="absolute inset-0 z-10 bg-linear-to-b from-black/0 from-60% to-black/75"></div>
+            <Image
+              src={PersonImage}
+              width={543}
+              height={531}
+              alt="Person"
+              class="h-full w-full rounded-lg object-cover"
+            />
+          </div>
+          <IntroBadge class="absolute bottom-0 left-0 z-10" />
+        </div>
+
+        <div class="relative w-fit rounded-2xl">
+          <div
+            class="pointer-events-none absolute inset-0 rounded-2xl border border-transparent"
+            style={`
+              background: linear-gradient(to right, rgba(30, 30, 30, 1), rgba(58, 58, 58, 1), rgba(63, 63, 63, 1), rgba(131, 131, 131, 1)) border-box;
+              -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+              -webkit-mask-composite: xor;
+              mask-composite: exclude;
+            `}
+          >
+          </div>
+          <ul class="relative flex items-center gap-3 rounded-2xl p-4">
+            <li class="flex items-center gap-x-2.5 p-2">
+              <Icon name="google-logo" class="size-8 text-[#F7B715]" />
+              <div>
+                <div>
+                  <RatingStars rating={5} size={12} fillColor="white" strokeColor="transparent" />
+                </div>
+                <div class="text-sm">5.0 Rating</div>
+              </div>
+            </li>
+
+            <li class="flex items-center gap-x-2.5 p-2">
+              <Icon name="facebook-logo" class="size-8 text-[#F7B715]" />
+              <div>
+                <div>
+                  <RatingStars rating={5} size={12} fillColor="white" strokeColor="transparent" />
+                </div>
+                <div class="text-sm">5.0 Rating</div>
+              </div>
+            </li>
+
+            <li class="flex items-center gap-x-2.5 p-2">
+              <div>
+                <Image src={bbaLogo} alt="Better Business Bureau Logo" width={32} height={32} class="size-8" />
+              </div>
+              <div>
+                <div>
+                  <RatingStars rating={5} size={12} fillColor="white" strokeColor="transparent" />
+                </div>
+                <div class="text-sm">5.0 Rating</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="py-8">
+        <div class="w-full space-y-4">
+          <div class="flex items-center gap-x-3">
+            <div
+              class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
+            >
+            </div>
+            <div>About Black Knight Roofing</div>
+          </div>
+          <h2>Meet Adam Knight — US Army Veteran and Colorado's Stone-Coated Steel Roofing Expert</h2>
+
+          <div class="prose prose-invert">
+            <p>
+              Black Knight Roofing was built to give homeowners something better than the typical roofing contractor.
+              Founded by US Army veteran Adam Knight, the company was created to raise the standard in an industry known
+              for shortcuts and confusion. As part of Black Knight Construction Group, we bring a whole-home,
+              builder-level mindset to every project — not just a roof replacement. Adam is also a licensed General
+              Contractor and President of Black Knight Homes, so every roof gets the attention of someone who
+              understands full-home construction.
+            </p>
+
+            <p>
+              We specialize in asphalt shingle, metal, stone-coated steel, and flat roofing systems, and we're highly
+              experienced in storm and hail damage claims — helping Colorado homeowners navigate insurance correctly and
+              confidently. The result: clear guidance, quality craftsmanship, and a roof designed to protect your home
+              for decades.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Section -->
+  <div class="container">
+    <div class="grid grid-cols-[454px_auto] gap-x-12 rounded-2xl border border-white/10 p-6">
+      <div class="space-y-12">
+        <div class="space-y-2.5">
+          <div class="flex items-center gap-x-3">
+            <div
+              class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
+            >
+            </div>
+            <div>Meet the Team</div>
+          </div>
+
+          <div class="prose prose-invert">
+            <p>
+              Our crew treats every job with the care and attention your home deserves. From the first inspection to the
+              final cleanup, we're respectful, professional, and focused on getting it done right.
+            </p>
+            <p>
+              Led by veteran values of accountability and discipline, our team shows up on time, communicates clearly,
+              and delivers work we're proud to put our name on.
+            </p>
+          </div>
+        </div>
+
+        <Button variant="outline" class="border-white/15 px-8">Learn More About Us</Button>
+
+        <div class="relative flex flex-col items-center">
+          <Image src={dotImage} alt="Decorative dot pattern" width={246} height={229} class="z-10" />
+          <div class="border-primary font-caveat top-[235px] -mt-3.5 w-full border-t-2 text-center text-[32px]">
+            Meet Roofus and the Team
+          </div>
+        </div>
+      </div>
+
+      <!-- Right grid -->
+      <div class="relative rounded-xl">
+        <div class="absolute inset-0 top-0 left-0 z-10 bg-linear-to-b from-black/5 from-60% to-black"></div>
+        <Image
+          src="/placeholders/team-pic.jpg"
+          alt="team pic"
+          width={800}
+          height={800}
+          class="absolute top-0 left-0 h-full w-full rounded-xl object-cover"
+        />
+
+        <!-- Review wedgets -->
+
+        <!-- Review Wedget Card -->
+        <div
+          class="animate-floating from-primary to-secondary absolute top-10 -left-10 z-10 w-full max-w-[372px] rounded-2xl bg-linear-120 p-px"
+        >
+          <div class="flex items-center gap-x-2.5 rounded-2xl bg-[#222] p-4">
+            <div class="size-[74px] rounded-full bg-white/10"></div>
+            <div class="flex-1 space-y-2">
+              <div class="text-primary flex items-center gap-x-2.5 text-sm">
+                <span> Mary Cay </span>
+                <div class="flex items-center gap-x-1">
+                  <Image
+                    alt="G"
+                    width={24}
+                    height={24}
+                    loading="lazy"
+                    src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s48-fcrop64=1,00000000ffffffff-rw"
+                    class="h-4 w-4"
+                  />
+
+                  <RatingStars rating={5} size={12} fillColor="#F7B715" strokeColor="transparent" />
+                </div>
+              </div>
+              <div class="text-sm">I was impressed with Black Knight Roofing. The crew did a great job and ...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review Wedget Card -->
+        <div
+          class="animate-floating from-primary to-secondary absolute -right-5 bottom-10 z-10 w-full max-w-[372px] rounded-2xl bg-linear-120 p-px"
+        >
+          <div class="flex items-center gap-x-2.5 rounded-2xl bg-[#222] p-4">
+            <div class="size-[74px] rounded-full bg-white/10"></div>
+            <div class="flex-1 space-y-2">
+              <div class="text-primary flex items-center gap-x-2.5 text-sm">
+                <span> Mary Cay </span>
+                <div class="flex items-center gap-x-1">
+                  <Image
+                    alt="G"
+                    width={24}
+                    height={24}
+                    loading="lazy"
+                    src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s48-fcrop64=1,00000000ffffffff-rw"
+                    class="h-4 w-4"
+                  />
+
+                  <RatingStars rating={5} size={12} fillColor="#F7B715" strokeColor="transparent" />
+                </div>
+              </div>
+              <div class="text-sm">I was impressed with Black Knight Roofing. The crew did a great job and ...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container pt-12 pb-20">
+    <div class="from-primary to-secondary relative rounded-2xl bg-linear-120 p-px">
+      <div
+        class="absolute inset-y-0 top-0 left-0 z-10 w-8/10 bg-linear-to-r from-[#111] via-[#111] via-30% to-[#111]/10"
+      >
+      </div>
+
+      <NoiseBg class="grid grid-cols-2 items-center rounded-2xl bg-[#252525] p-0">
+        <div class="z-10 h-[631px] overflow-hidden rounded-2xl">
+          <Image
+            src={familyImage}
+            alt="Adam Knight, founder of Black Knight Roofing"
+            width={1200}
+            height={800}
+            class="h-auto w-[631px] rounded-2xl object-cover"
+          />
+        </div>
+        <div class="z-10 space-y-6 pr-16">
+          <div class="space-y-4">
+            <div class="flex items-center gap-x-3">
+              <div
+                class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
+              >
+              </div>
+              <div>Our Promise</div>
+            </div>
+
+            <h2>Partner With a Company That Believes In The Golden Rule</h2>
+          </div>
+
+          <div>
+            Choosing a roofing company can feel overwhelming — especially after storm damage or when facing a big
+            investment. That's why we're selective about the projects we take on. When you partner with us, you get our
+            absolute best: honest guidance, quality work, and a roof that protects your home for decades. Your trust
+            means everything to us.
+          </div>
+
+          <Button class="mt-6 px-8">FREE Roof Inspection</Button>
+        </div>
+      </NoiseBg>
+    </div>
+  </div>
+</NoiseBg>

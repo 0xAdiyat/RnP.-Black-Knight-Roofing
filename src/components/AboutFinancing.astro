@@ -1,0 +1,108 @@
+---
+import { Image } from 'astro:assets';
+import bgTexture from '@/assets/about-financing/bg-texture.png';
+import bgOverlay from '@/assets/about-financing/bg-overlay.png';
+import arrowRight from '@/assets/about-financing/arrow-right.svg';
+---
+
+<section class="relative w-full overflow-hidden bg-[#111] py-16 lg:py-[64px]">
+  <!-- Background Area -->
+  <div class="pointer-events-none absolute inset-0 select-none">
+    <div class="absolute inset-0 bg-linear-to-r from-[#111] to-[#111]"></div>
+    <Image src={bgTexture} alt="" class="absolute inset-0 h-full w-full max-w-none object-cover opacity-4" />
+    <div class="absolute inset-0 overflow-hidden opacity-16">
+      <Image src={bgOverlay} alt="" class="absolute top-0 -left-[20%] h-[111%] w-[141%] max-w-none object-cover" />
+    </div>
+  </div>
+
+  <div
+    class="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-12 px-4 md:px-8 lg:flex-row lg:items-start lg:gap-[48px]"
+  >
+    <!-- Left Content -->
+    <div class="flex w-full flex-1 shrink-0 flex-col items-start gap-6 lg:max-w-[632px] lg:py-[32px]">
+      <!-- Heading section -->
+      <div class="flex w-full shrink-0 flex-col items-start gap-4">
+        <!-- Chip -->
+        <div class="flex h-8 w-fit shrink-0 items-center gap-3 rounded-full">
+          <div class="relative flex h-[21px] w-[21px] shrink-0 items-center justify-center">
+            <div class="absolute inset-0 m-auto h-[12px] w-[12px]">
+              <div class="absolute -inset-[38%] animate-pulse rounded-[5px] bg-[#f7b715] opacity-50"></div>
+              <div class="absolute inset-[2px] rounded-[10px] bg-[#f7d515] shadow-[0_0_4px_rgba(247,213,21,0.5)]"></div>
+            </div>
+          </div>
+          <div class="flex h-full shrink-0 items-center gap-4 text-white/50">
+            <span class="border-b border-white/50 text-base leading-[24px] font-medium"
+              >Roofing Company in Denver, CO</span
+            >
+            <div class="relative h-[16px] w-[10px] shrink-0">
+              <img src={arrowRight.src} alt="" class="absolute block h-full w-full max-w-none" />
+            </div>
+            <span class="border-b border-white/50 text-base leading-[24px] font-medium text-white">Financing</span>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div class="min-w-px flex-[1_0_0]">
+          <h2 class="font-heading text-[48px] leading-[60px] text-white">Industry-Best Warranties & Financing</h2>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="flex w-full shrink-0 flex-col justify-center">
+        <p class="text-[14px] leading-[20px] text-white">
+          <span class="font-bold">Insurance Claim Specialists: </span>
+          <span class="font-normal"
+            >We navigate storm and hail damage claims for you, making insurance stress-free.
+          </span>
+          <span class="font-bold">Insurance Claim Specialists: </span>
+          <span class="font-normal"
+            >We navigate storm and hail damage claims for you, making insurance stress-free.
+          </span>
+          <span class="font-bold">Insurance Claim Specialists: </span>
+          <span class="font-normal"
+            >We navigate storm and hail damage claims for you, making insurance stress-free.
+          </span>
+          <span class="font-bold">Insurance Claim Specialists: </span>
+          <span class="font-normal"
+            >We navigate storm and hail damage claims for you, making insurance stress-free.</span
+          >
+        </p>
+      </div>
+    </div>
+
+    <!-- Right Content (Cards) -->
+    <div class="relative mt-8 flex w-full shrink-0 flex-col items-start pb-[15px] lg:mt-0 lg:w-auto lg:items-end">
+      <!-- Top Card Container -->
+      <div class="relative -mb-[15px] flex shrink-0 items-end gap-[8px]">
+        <div class="relative flex shrink-0 flex-col items-start gap-[10px]">
+          <div class="relative w-full shrink-0 items-center px-[16px]">
+            <span class="text-[32px] leading-[44px] font-bold whitespace-nowrap text-white">Get A</span>
+          </div>
+          <div
+            class="bg-primary relative flex shrink-0 flex-col items-start gap-[10px] px-[32px] py-[16px] whitespace-nowrap text-[#222]"
+          >
+            <div class="relative shrink-0 text-[48px] leading-[60px] font-extrabold">
+              <p class="m-0">Free Roof</p>
+              <p class="m-0">Inspection</p>
+            </div>
+            <p class="relative shrink-0 text-[32px] leading-[44px] font-semibold">(A $1,250 Value!)</p>
+          </div>
+        </div>
+
+        <div class="relative flex shrink-0 items-start justify-center pb-[32px]">
+          <span class="text-[32px] leading-[44px] font-extrabold whitespace-nowrap text-white">Plus Enjoy A</span>
+        </div>
+      </div>
+
+      <!-- Bottom Card Container -->
+      <div class="relative -mb-[15px] flex w-full shrink-0 flex-col items-end justify-center">
+        <div
+          class="bg-primary relative flex shrink-0 flex-col items-start gap-[10px] px-[32px] py-[16px] whitespace-nowrap text-[#222]"
+        >
+          <p class="relative shrink-0 text-[48px] leading-[60px] font-extrabold">10 Year Warranty</p>
+          <p class="relative shrink-0 text-[32px] leading-[44px] font-semibold">On Any Roof Replacement</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

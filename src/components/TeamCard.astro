@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+    teamMember: {
+        image: ImageMetadata | string;
+        name: string;
+        position: string;
+    };
+}
+
+const { teamMember } = Astro.props;
+---
+
+<div class="space-y-4 rounded overflow-hidden flex flex-col items-center"> 
+    <div class="aspect-29/31 overflow-hidden rounded"> 
+{teamMember.image && typeof teamMember.image === 'string' ? (
+        <Image src={teamMember.image} alt={teamMember.name} width={300} height={300} class="rounded"/>
+    ) : teamMember.image ? (
+        <Image src={teamMember.image as ImageMetadata} alt={teamMember.name} width={300} height={300} class="rounded"/>
+    ) : (
+        <div class="aspect-29/31 bg-white/15 rounded" /> 
+    )}
+
+    </div>
+
+    <div class="text-center"> 
+        <div class="text-xl font-semibold leading-8"> {teamMember.name} </div>
+        <p class="text-xs"> {teamMember.position} </p>
+    </div>
+</div>

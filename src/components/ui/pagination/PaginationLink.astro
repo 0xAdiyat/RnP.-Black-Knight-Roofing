@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { cn } from '@/lib/utils';
+import Button from '../Button.astro';
+
+interface Props extends Omit<HTMLAttributes<'a'>, 'type'> {
+  isActive?: boolean;
+  isDisabled?: boolean;
+  class?: string;
+}
+
+const { isActive, isDisabled, class: className, href, ...rest } = Astro.props;
+---
+
+<div class={cn(
+  "p-px rounded-full overflow-hidden transition-all duration-300", 
+  isActive ? "bg-primary shadow-[0_0_12px_rgba(242,199,68,0.3)] scale-110" : "bg-white/10 hover:bg-white/20"
+)}> 
+  <a
+    href={isDisabled ? undefined : (href as string)}
+    class={cn(
+      'flex size-9 items-center justify-center rounded-full text-sm font-medium transition-colors',
+      isActive ? "bg-[#0d0d0d] text-white" : "bg-white/10 backdrop-blur-[16.5px] text-white/70 hover:text-white",
+      isDisabled && 'opacity-30 cursor-not-allowed pointer-events-none',
+      className
+    )}
+    {...rest}
+  >
+    <slot />
+  </a>
+</div>

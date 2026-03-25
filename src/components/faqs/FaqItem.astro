@@ -1,0 +1,112 @@
+---
+import { getImage } from 'astro:assets';
+import noiseImage from '@/assets/noises.png';
+const optimizedNoise = await getImage({ src: noiseImage, width: 1536, height: 1152, format: 'webp' });
+
+interface Props {
+  question: string;
+  answer: string;
+  open?: boolean;
+}
+
+const { question, answer, open = false } = Astro.props;
+---
+
+<div class="via-primary bg-linear-to-r from-[#F2C74400] via-50% to-[#F2C74400] p-px">
+  <faq-item
+    class="block bg-[#252525] p-5"
+    data-open={open.toString()}
+    style={`
+      background-image:
+radial-gradient(50% 50% at 50% 50%, rgba(48,48,48,0) 0%, rgba(48,48,48,0.54) 100%), url('${optimizedNoise.src}');
+      background-position: center, center;
+      background-size: auto, 500px 500px;
+      background-repeat: no-repeat, repeat;
+      background-blend-mode: overlay;
+    `}
+  >
+    <button
+      class="flex w-full items-center justify-between gap-x-4 text-left hover:cursor-pointer"
+      aria-expanded={open}
+    >
+      <div class="text-base">{question}</div>
+      <div class="p-px rounded-full bg-radial-[at_25%_25%] via-50% from-primary via-[#594216] to-[#594216]"> 
+        <div class= 'flex size-8 shrink-0 items-center justify-center bg-[#303030] rounded-full transition-colors duration-300'>
+          <svg
+            class="faq-icon-plus transition-transform duration-300"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14"></path>
+            <path class="faq-icon-vertical" d="M12 5v14"></path>
+          </svg>
+        </div>
+      </div>
+      
+    </button>
+    <div class="faq-answer">
+      <div class="pt-4 text-sm leading-relaxed text-white/60">
+        {answer}
+      </div>
+    </div>
+  </faq-item>
+</div>
+
+<style>
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  faq-item[data-open='true'] .faq-answer {
+    max-height: 500px;
+  }
+
+  faq-item[data-open='true'] .faq-icon-vertical {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+
+  .faq-icon-vertical {
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
+</style>
+
+<script>
+  class FaqItem extends HTMLElement {
+    constructor() {
+      super();
+
+      const button = this.querySelector('button');
+      button?.addEventListener('click', () => {
+        const isOpen = this.dataset.open === 'true';
+        this.dataset.open = (!isOpen).toString();
+        button.setAttribute('aria-expanded', (!isOpen).toString());
+
+        // Update icon container style
+        const iconContainer = button.querySelector('span:last-child') as HTMLElement;
+        if (iconContainer) {
+          if (!isOpen) {
+            iconContainer.classList.remove('border-[#555]', 'bg-transparent');
+            iconContainer.classList.add('border-primary', 'bg-primary/10');
+          } else {
+            iconContainer.classList.remove('border-primary', 'bg-primary/10');
+            iconContainer.classList.add('border-[#555]', 'bg-transparent');
+          }
+        }
+      });
+    }
+  }
+
+  customElements.define('faq-item', FaqItem);
+</script>

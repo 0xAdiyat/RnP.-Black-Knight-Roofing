@@ -1,0 +1,450 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import NoiseBg from '@/components/NoiseBg.astro';
+import Button from '@/components/ui/Button.astro';
+import RatingStars from '@/components/ui/RatingStars.astro';
+import bbbLogo from '@/assets/bbb-logo.png';
+
+interface Props {
+  /** Heading text line 1 */
+  headingLine1?: string;
+  /** Heading text line 2 */
+  headingLine2?: string;
+  /** List of services for the dropdown */
+  services?: string[];
+  /** Star rating to display */
+  rating?: number;
+  /** Additional class for outer wrapper */
+  class?: string;
+}
+
+const {
+  headingLine1 = 'Do Your Roof With The Best Rated',
+  headingLine2 = 'Roofer In Colorado',
+  services = [
+    'Roof Replacement',
+    'Roof Repair',
+    'New Roof Installation',
+    'Roof Inspection',
+    'Storm Damage',
+    'Gutter Installation',
+    'Siding',
+    'Other',
+  ],
+  rating = 5,
+  class: className,
+} = Astro.props;
+---
+
+<div class:list={['rounded-2xl bg-linear-to-t from-[#F2C744]/90 to-[#F2C744]/10 p-2', className]}>
+  <NoiseBg class="space-y-6 rounded-2xl p-8">
+    <!-- Stars -->
+    <div class="flex justify-center">
+      <RatingStars rating={rating} size={20} fillColor="#F7B715" strokeColor="transparent" />
+    </div>
+
+    <!-- Heading -->
+    <h4 class="text-center leading-snug font-semibold">
+      {headingLine1} <br />
+      {headingLine2}
+    </h4>
+
+    <!-- Error message -->
+    <div
+      class="quote-form-error hidden text-center text-sm font-semibold uppercase tracking-wide text-red-500"
+      role="alert"
+    >
+      There was a problem with your submission. Please review the fields below.
+    </div>
+
+    <!-- Step indicator -->
+    <div class="flex items-center justify-center gap-x-0 px-8">
+      <div
+        class="quote-step-dot bg-primary flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-black"
+        data-step="1"
+      >
+        1
+      </div>
+      <div class="quote-step-line h-px flex-1 bg-white/20" data-after-step="1"></div>
+      <div
+        class="quote-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50"
+        data-step="2"
+      >
+        2
+      </div>
+      <div class="quote-step-line h-px flex-1 bg-white/20" data-after-step="2"></div>
+      <div
+        class="quote-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50"
+        data-step="3"
+      >
+        3
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form class="quote-form" novalidate>
+      <!-- Step 1: Zip Code -->
+      <div class="quote-step space-y-4" data-step="1">
+        <label class="block font-medium">Where is Your Project Located?</label>
+        <div class="quote-field-wrapper from-primary rounded-lg bg-radial-[at_25%_25%] to-[#594216] p-px">
+          <NoiseBg class="rounded-lg px-0 py-0">
+            <input
+              type="text"
+              name="zipCode"
+              placeholder="Zip Code"
+              required
+              maxlength="10"
+              class="w-full rounded-lg bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none"
+            />
+          </NoiseBg>
+        </div>
+        <p class="quote-field-error hidden text-xs font-semibold uppercase tracking-wide text-red-500">
+          The field is required.
+        </p>
+      </div>
+
+      <!-- Step 2: Service Selection -->
+      <div class="quote-step hidden space-y-4" data-step="2">
+        <label class="block font-medium">What Service Do You Need?</label>
+        <div class="quote-field-wrapper from-primary relative rounded-lg bg-radial-[at_25%_25%] to-[#594216] p-px">
+          <NoiseBg class="rounded-lg px-0 py-0">
+            <select
+              name="service"
+              required
+              class="w-full appearance-none rounded-lg bg-white/5 px-4 py-3 pr-10 text-sm text-white/40 focus:outline-none"
+            >
+              <option value="" disabled selected>Select Your Service</option>
+              {services.map((service) => (
+                <option value={service} class="bg-[#252525] text-white">
+                  {service}
+                </option>
+              ))}
+            </select>
+            <!-- Chevron icon -->
+            <svg
+              class="pointer-events-none absolute top-1/2 right-4 size-5 -translate-y-1/2 text-white/50"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </NoiseBg>
+        </div>
+        <p class="quote-field-error hidden text-xs font-semibold uppercase tracking-wide text-red-500">
+          Please select a service.
+        </p>
+      </div>
+
+      <!-- Step 3: Contact Details -->
+      <div class="quote-step hidden space-y-4" data-step="3">
+        <label class="block font-medium">Tell Us More About You</label>
+
+        <div class="space-y-4">
+          <div>
+            <div class="quote-field-wrapper from-primary rounded-lg bg-radial-[at_25%_25%] to-[#594216] p-px">
+              <NoiseBg class="rounded-lg px-0 py-0">
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  required
+                  class="w-full rounded-lg bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none"
+                />
+              </NoiseBg>
+            </div>
+            <p class="quote-field-error hidden text-xs font-semibold uppercase tracking-wide text-red-500">
+              First name is required.
+            </p>
+          </div>
+
+          <div>
+            <div class="quote-field-wrapper from-primary rounded-lg bg-radial-[at_25%_25%] to-[#594216] p-px">
+              <NoiseBg class="rounded-lg px-0 py-0">
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  required
+                  class="w-full rounded-lg bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none"
+                />
+              </NoiseBg>
+            </div>
+            <p class="quote-field-error hidden text-xs font-semibold uppercase tracking-wide text-red-500">
+              Last name is required.
+            </p>
+          </div>
+
+          <div>
+            <div class="quote-field-wrapper from-primary rounded-lg bg-radial-[at_25%_25%] to-[#594216] p-px">
+              <NoiseBg class="rounded-lg px-0 py-0">
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone Number"
+                  required
+                  class="w-full rounded-lg bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none"
+                />
+              </NoiseBg>
+            </div>
+            <p class="quote-field-error hidden text-xs font-semibold uppercase tracking-wide text-red-500">
+              Phone number is required.
+            </p>
+          </div>
+
+          <div>
+            <div class="quote-field-wrapper from-primary rounded-lg bg-radial-[at_25%_25%] to-[#594216] p-px">
+              <NoiseBg class="rounded-lg px-0 py-0">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  required
+                  class="w-full rounded-lg bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none"
+                />
+              </NoiseBg>
+            </div>
+            <p class="quote-field-error hidden text-xs font-semibold uppercase tracking-wide text-red-500">
+              A valid email is required.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation buttons -->
+      <div class="mt-6 flex items-center justify-center gap-x-3">
+        <Button
+          type="button"
+          variant="outline"
+          class="quote-btn-back hidden min-w-[120px] justify-center"
+        >
+          Back
+        </Button>
+        <Button type="button" class="quote-btn-next min-w-[120px] justify-center">
+          Next
+        </Button>
+      </div>
+    </form>
+
+    <!-- Ratings row -->
+    <div class="flex items-center justify-center gap-x-6 border-t border-white/10 pt-5">
+      <div class="flex items-center gap-x-2">
+        <Icon name="google-logo" class="size-4 text-white" />
+        <div class="text-xs">
+          <RatingStars rating={5} size={10} fillColor="#F7B715" strokeColor="transparent" />
+          <span class="text-white/60">5.0 Rating</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-x-2">
+        <Icon name="facebook-logo" class="size-4 text-white" />
+        <div class="text-xs">
+          <RatingStars rating={5} size={10} fillColor="#F7B715" strokeColor="transparent" />
+          <span class="text-white/60">5.0 Rating</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-x-2">
+        <Image src={bbbLogo} alt="BBB" width={16} height={16} class="size-4" />
+        <div class="text-xs">
+          <RatingStars rating={5} size={10} fillColor="#F7B715" strokeColor="transparent" />
+          <span class="text-white/60">A+ Rating</span>
+        </div>
+      </div>
+    </div>
+  </NoiseBg>
+</div>
+
+<script>
+  function initQuoteForms() {
+    document.querySelectorAll<HTMLElement>('.quote-form').forEach((form) => {
+      // Prevent duplicate initialization
+      if (form.dataset.initialized) return;
+      form.dataset.initialized = 'true';
+
+      const wrapper = form.closest('.rounded-2xl');
+      if (!wrapper) return;
+
+      const TOTAL_STEPS = 3;
+      let currentStep = 1;
+
+      // Elements
+      const steps = form.querySelectorAll<HTMLElement>('.quote-step');
+      const dots = wrapper.querySelectorAll<HTMLElement>('.quote-step-dot');
+      const lines = wrapper.querySelectorAll<HTMLElement>('.quote-step-line');
+      const btnBack = form.querySelector<HTMLButtonElement>('.quote-btn-back');
+      const btnNext = form.querySelector<HTMLButtonElement>('.quote-btn-next');
+      const globalError = wrapper.querySelector<HTMLElement>('.quote-form-error');
+
+      function showStep(step: number) {
+        // Show/hide step panels
+        steps.forEach((el) => {
+          const s = Number(el.dataset.step);
+          el.classList.toggle('hidden', s !== step);
+        });
+
+        // Update step dots
+        dots.forEach((dot) => {
+          const s = Number(dot.dataset.step);
+          if (s <= step) {
+            // Active / completed
+            dot.className =
+              'quote-step-dot bg-primary flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-black';
+          } else {
+            // Inactive
+            dot.className =
+              'quote-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50';
+          }
+        });
+
+        // Update connector lines
+        lines.forEach((line) => {
+          const afterStep = Number(line.dataset.afterStep);
+          if (afterStep < step) {
+            line.classList.remove('bg-white/20');
+            line.classList.add('bg-primary/40');
+          } else {
+            line.classList.remove('bg-primary/40');
+            line.classList.add('bg-white/20');
+          }
+        });
+
+        // Back button visibility
+        if (btnBack) {
+          btnBack.classList.toggle('hidden', step === 1);
+        }
+
+        // Next button text
+        if (btnNext) {
+          btnNext.textContent = step === TOTAL_STEPS ? 'Submit' : 'Next';
+        }
+
+        currentStep = step;
+      }
+
+      function clearErrors() {
+        // Hide global error
+        globalError?.classList.add('hidden');
+
+        // Hide all field errors
+        form.querySelectorAll('.quote-field-error').forEach((el) => {
+          el.classList.add('hidden');
+        });
+
+        // Remove error ring from wrappers
+        form.querySelectorAll('.quote-field-wrapper').forEach((el) => {
+          el.classList.remove('ring-1', 'ring-red-500');
+        });
+      }
+
+      function validateStep(step: number): boolean {
+        clearErrors();
+        const currentPanel = form.querySelector<HTMLElement>(`.quote-step[data-step="${step}"]`);
+        if (!currentPanel) return true;
+
+        let valid = true;
+        let hasShownGlobal = false;
+
+        // Validate inputs
+        const inputs = currentPanel.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
+          'input[required], select[required]'
+        );
+
+        inputs.forEach((input) => {
+          let fieldValid = true;
+
+          if (input.type === 'email' && input.value.trim()) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            fieldValid = emailRegex.test(input.value.trim());
+          } else if (input.tagName === 'SELECT') {
+            fieldValid = input.value !== '';
+          } else {
+            fieldValid = input.value.trim() !== '';
+          }
+
+          if (!fieldValid) {
+            valid = false;
+
+            // Show field-level error
+            const fieldGroup = input.closest('.quote-step > div, .quote-step > .space-y-4 > div');
+            const fieldError = fieldGroup?.querySelector('.quote-field-error');
+            const fieldWrapper = fieldGroup?.querySelector('.quote-field-wrapper') || input.closest('.quote-field-wrapper');
+
+            if (fieldError) fieldError.classList.remove('hidden');
+            if (fieldWrapper) fieldWrapper.classList.add('ring-1', 'ring-red-500');
+
+            if (!hasShownGlobal) {
+              globalError?.classList.remove('hidden');
+              hasShownGlobal = true;
+            }
+          }
+        });
+
+        // Update select text color when a value is chosen
+        const select = currentPanel.querySelector<HTMLSelectElement>('select');
+        if (select && select.value) {
+          select.classList.remove('text-white/40');
+          select.classList.add('text-white');
+        }
+
+        return valid;
+      }
+
+      // Next button
+      btnNext?.addEventListener('click', () => {
+        if (!validateStep(currentStep)) return;
+
+        if (currentStep < TOTAL_STEPS) {
+          showStep(currentStep + 1);
+        } else {
+          // Final submit
+          handleSubmit();
+        }
+      });
+
+      // Back button
+      btnBack?.addEventListener('click', () => {
+        clearErrors();
+        if (currentStep > 1) {
+          showStep(currentStep - 1);
+        }
+      });
+
+      function handleSubmit() {
+        const formData = new FormData(form as HTMLFormElement);
+        const data = Object.fromEntries(formData.entries());
+
+        // Dispatch a custom event so parent can handle submission
+        form.dispatchEvent(
+          new CustomEvent('quote-submit', {
+            bubbles: true,
+            detail: data,
+          })
+        );
+
+        // You can also log or send to an API here
+        console.log('Quote form submitted:', data);
+      }
+
+      // Update select color on change
+      form.querySelectorAll('select').forEach((select) => {
+        select.addEventListener('change', () => {
+          if (select.value) {
+            select.classList.remove('text-white/40');
+            select.classList.add('text-white');
+          }
+        });
+      });
+
+      // Initialize
+      showStep(1);
+    });
+  }
+
+  // Run on first load
+  initQuoteForms();
+  
+  // Re-run if view transitions are used later
+  document.addEventListener('astro:after-swap', initQuoteForms);
+</script>

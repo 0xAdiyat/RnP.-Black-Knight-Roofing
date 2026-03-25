@@ -1,0 +1,22 @@
+---
+import { buttonVariants, type ButtonVariants } from '@/components/ui/button.variants';
+import { cn } from '@/lib/utils';
+
+interface Props extends ButtonVariants {
+  class?: string;
+  href?: string;
+  disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+}
+
+const { variant, size, class: className, href, disabled, type, ...rest } = Astro.props;
+const classes = cn(
+  buttonVariants({ variant, size }),
+  cn('hover:cursor-pointer active:scale-95 transition-[scale] will-change-transform', className)
+);
+const Comp = href ? 'a' : 'button';
+---
+
+<Comp class={classes} href={href} disabled={disabled} type={href ? undefined : type} {...rest}>
+  <slot />
+</Comp>

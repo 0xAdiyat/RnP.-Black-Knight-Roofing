@@ -1,0 +1,34 @@
+---
+import { cn } from '@/lib/utils';
+import type { HTMLAttributes } from 'astro/types';
+
+export interface Props extends HTMLAttributes<'div'> {
+  errors?: Array<{ message?: string } | undefined>;
+}
+
+const { class: className, errors, ...props } = Astro.props;
+const hasChildren = Astro.slots.has('default');
+
+let uniqueErrors: Array<{ message?: string } | undefined> = [];
+if (errors && errors.length > 0) {
+  uniqueErrors = [...new Map(errors.map(error => [error?.message, error])).values()];
+}
+---
+
+{
+  hasChildren ? (
+    <div role="alert" data-slot="field-error" class={cn('text-destructive text-sm font-normal', className)} {...props}>
+      <slot />
+    </div>
+  ) : uniqueErrors.length > 0 ? (
+    <div role="alert" data-slot="field-error" class={cn('text-destructive text-sm font-normal', className)} {...props}>
+      {uniqueErrors.length === 1 ? (
+        uniqueErrors[0]?.message
+      ) : (
+        <ul class="ml-4 flex list-disc flex-col gap-1">
+          {uniqueErrors.map(error => error?.message && <li>{error.message}</li>)}
+        </ul>
+      )}
+    </div>
+  ) : null
+}

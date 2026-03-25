@@ -1,0 +1,188 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/hero/Hero.astro';
+import Brands from '@/components/Brands.astro';
+import CTASection from '@/components/cta/CTASection.astro';
+import Footer from '@/components/Footer.astro';
+import QuoteForm from '@/components/cta/QuoteForm.astro';
+import Testimonials from '@/components/Testimonials.astro';
+import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
+import NoiseBg from '@/components/NoiseBg.astro';
+import { Icon } from 'astro-icon/components';
+import Button from '@/components/ui/Button.astro';
+import RatingStars from '@/components/ui/RatingStars.astro';
+import sunFlow from '@/assets/sunflow.png';
+import { Image } from 'astro:assets';
+import WorkCard from '@/components/recent-projects/WorkCard.astro';
+import Pagination from '@/components/ui/pagination/Pagination.astro';
+
+const blogs = [
+  {
+    image: '/placeholders/works/1.jpg',
+    date: 'July 1, 2026',
+    readTime: '7 Mins',
+    title: 'Hail Damage: 9 Signs Your Roof Took a Hit (Even If It Looks Fine)',
+    description: 'After a Colorado storm, damage often hides in the details—soft spots, granule loss, bruised tiles, or bent flashing. Here’s a fast visual checklist to know when you should schedule an inspection vs. when you’re safe to wait.',
+  },
+  {
+    image: '/placeholders/works/2.jpg',
+    date: 'July 1, 2026',
+    readTime: '8 Mins',
+    title: 'Roof Replacement Cost: What Actually Changes the Price in Colorado',
+    description: 'Square footage is only the starting point. Material type, roof pitch, tear-off layers, ventilation upgrades, and code requirements can swing the total a lot. We’ll break down the biggest price drivers so your quote makes sense.',
+  },
+  {
+    image: '/placeholders/works/3.jpg',
+    date: 'January 3, 2026',
+    readTime: '3 Mins',
+    title: 'Spring Roof Maintenance: 12-Minute Routine to Prevent Expensive Repairs',
+    description: 'Small issues become leaks when temperatures swing. This quick seasonal routine covers gutters, vents, seal points, and debris zones—plus what you should never DIY on steep roofs. A little prevention now saves a lot later.',
+  },
+  {
+    image: '/placeholders/works/4.jpg',
+    date: 'May 12, 2026',
+    readTime: '6 Mins',
+    title: 'The 5 Roof Leaks That Start Small—and Get Expensive Fast',
+    description: 'Most leaks begin at transitions: flashing, valleys, vents, and skylights. Learn where to look first, what “warning stains” really mean, and when a quick fix becomes a full repair.',
+  },
+  {
+    image: '/placeholders/works/1.jpg',
+    date: 'April 21, 2026',
+    readTime: '12 Mins',
+    title: 'Colorado Wind Uplift: Why Some Roofs Fail Before the Storm Ends',
+    description: 'Wind doesn’t just “blow shingles off”—it lifts edges, breaks seals, and exploits weak decking zones. Here’s how proper fastening, underlayment, and edge metal prevent blow-offs.',
+  },
+  {
+    image: '/placeholders/works/2.jpg',
+    date: 'March 28, 2026',
+    readTime: '8 Mins',
+    title: 'Hail Damage Checklist: What Insurance Adjusters Notice First',
+    description: 'Bruising, mat fractures, granule loss, dented vents—hail signatures look different by material. Use this homeowner-friendly checklist before you file (or skip) a claim.',
+  },
+];
+
+const currentPage = Number(Astro.url.searchParams.get('page') || 1);
+const itemsPerPage = 6;
+const totalPages = Math.ceil(blogs.length / itemsPerPage);
+const displayedBlogs = blogs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+import BlogCard from '@/components/blog/BlogCard.astro';
+---
+
+<Layout>
+  <Navbar />
+  <Hero title="See Past Work In Your <br/> Neighborhood" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
+    <p>
+      Lorem ipsum dolor sit amet consectetur. Dictum morbi ac nibh nibh leo vitae at id faucibus. Ultrices duis tempor
+      eget proin euismod sed dolor eu suspendisse. Amet ridiculus erat sit vulputate. Dui est feugiat risus ultrices.
+    </p>
+
+    <div class="flex items-center gap-x-4">
+      <Button variant="primary" size="lg">
+        <span class="text-xs">
+          $99/month roofs <br />
+          No repayment penalty</span
+        >
+        <span class="h-6 w-0.5 bg-[rgba(133,89,1,0.4)]"></span>
+        <span> <strong> FREE </strong> Estimate</span>
+      </Button>
+
+      <Button variant="link">
+        <Icon name="map" />
+        See Our Past Work
+      </Button>
+    </div>
+
+    <Fragment slot="social-proof">
+      <div class="flex items-center gap-x-4 pr-4">
+        <Icon name="google-logo" size={32} />
+        <div>
+          40+ Five-Star <br />
+          Google Reviews
+        </div>
+      </div>
+
+      <div class="flex items-center gap-x-4 px-4">
+        <Icon name="facebook-logo" size={32} />
+        <div>
+          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
+          <span class="text-sm font-bold"> 5.0 Rating </span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-x-4 pl-4">
+        <Icon name="google-logo" size={32} />
+        <div>
+          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
+          <span class="text-sm font-bold"> 5.0 Rating </span>
+        </div>
+      </div>
+    </Fragment>
+
+    <QuoteForm slot="sidebar" />
+  </Hero>
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+
+  <!-- Gallery/Blogs -->
+  <NoiseBg class="bg-[#222]">
+    <div class="container py-20">
+      <div class="mb-12 space-y-8">
+        <div class="flex flex-col items-center justify-between gap-8 md:flex-row">
+           <div class="space-y-4 text-left">
+              <div class="flex items-center gap-x-2">
+                <div class="relative size-5">
+                   <div class="absolute inset-0 size-full animate-pulse rounded-full bg-primary/20"></div>
+                   <div class="absolute inset-1.5 size-2 rounded-full bg-primary shadow-[0_0_8px_rgba(242,199,68,0.8)]"></div>
+                </div>
+                <span class="text-sm font-bold tracking-wider text-white uppercase">Blogs</span>
+              </div>
+              <h2 class="font-heading text-4xl text-white md:text-5xl">Blog Posts by The Roof Pros</h2>
+           </div>
+           
+           <div class="w-full max-w-md">
+              <div class="relative group">
+                <Icon name="search" class="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-white/40 transition-colors group-focus-within:text-primary" />
+                <input 
+                   type="text" 
+                   placeholder="Search articles about roofing, gutters, etc..." 
+                   class="w-full rounded-2xl border border-primary/20 bg-[#111] py-4 pl-12 pr-4 text-white placeholder-white/40 outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary/50"
+                />
+              </div>
+           </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 border-t border-white/5 pt-6">
+           <span class="pr-2 text-xs font-bold tracking-widest text-white/40 uppercase">Trending:</span>
+           {['Storm Damage', 'Cost Estimates', 'Spring Maintenance'].map(tag => (
+             <button class="rounded-full bg-white/5 px-4 py-1.5 text-sm text-white transition-all hover:bg-primary hover:text-black">
+               {tag}
+             </button>
+           ))}
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {displayedBlogs.map(blog => (
+          <BlogCard {...blog} />
+        ))}
+      </div>
+
+      <!-- Pagination -->
+      <div class="mt-20 flex justify-center">
+        <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl="/blogs" />
+      </div>
+    </div>
+  </NoiseBg>
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+  <CTASection />
+  <Footer />
+</Layout>
