@@ -45,7 +45,7 @@ const dividerImageOp = await getImage({
         </div>
 
         <div class="flex flex-col items-end gap-y-4 text-right">
-          <Button variant="primary" size="md">View All Services</Button>
+          <Button variant="primary" size="md" href="/services">View All Services</Button>
           <div>
             From roof replacements and storm damage repairs to siding, gutters, and full exterior restoration — we
             handle it all. Every project backed by our lifetime workmanship warranty and veteran-owned commitment to
@@ -61,7 +61,10 @@ const dividerImageOp = await getImage({
             description="We install durable, beautiful siding—vinyl and steel options available—to protect and refresh your home's exterior."
             image={serviceRoofingImg}
             imageAlt="Siding"
-            buttons={['Vinyl Siding', 'Steel Siding']}
+            buttons={[
+              { label: 'Vinyl Siding', href: '/services/siding-installation' },
+              { label: 'Steel Siding', href: '/services/siding-installation' },
+            ]}
             class="[&_img[data-slot=thumbnail]]:scale-150"
           />
 
@@ -70,7 +73,10 @@ const dividerImageOp = await getImage({
             description="We offer a complete line up of professional roofing services including inspections, replacements, and repairs."
             image={serviceSidingImg}
             imageAlt="Roofing"
-            buttons={['Shingle Roofing', 'Metal Roofing']}
+            buttons={[
+              { label: 'Shingle Roofing', href: '/services/residential-roofing' },
+              { label: 'Metal Roofing', href: '/services/metal-roofing' },
+            ]}
             class="w-[452px] [&_img[data-slot=thumbnail]]:scale-150"
             borderClass="bg-radial-[50%_50%_at_50%_50%] to-[rgba(89,66,22,1)] via-primary to-[rgba(89,66,22,1)] bg-conic-145 p-0.5"
           />
@@ -80,7 +86,10 @@ const dividerImageOp = await getImage({
             description="Properly installed gutters protect your foundation and landscaping. We handle seamless systems and gutter guards."
             image={serviceGuttersImg}
             imageAlt="Gutters"
-            buttons={['Seamless Gutters', 'Gutter Guards']}
+            buttons={[
+              { label: 'Seamless Gutters', href: '/services/gutters-and-drainage' },
+              { label: 'Gutter Guards', href: '/services/gutters-and-drainage' },
+            ]}
             class="[&_img[data-slot=thumbnail]]:scale-150"
           />
         </div>
@@ -96,7 +105,10 @@ const dividerImageOp = await getImage({
                 description="A premium roofing upgrade for homeowners who want standout curb appeal and serious durability. Concrete tile delivers exceptional longevity, wind resistance, and curb appeal — built to last 50+ years."
                 image={serviceRoofImg}
                 imageAlt="Gutters"
-                buttons={['Seamless Gutters', 'Gutter Guards']}
+                buttons={[
+                  { label: 'Concrete Tile Roofs', href: '/services/tile-roofing' },
+                  { label: 'Free Estimate', href: '/contact-us' },
+                ]}
                 class="h-[480px]"
               />
             </div>
@@ -108,7 +120,10 @@ const dividerImageOp = await getImage({
                 description="We offer stone-coated steel which gives you the strength of metal with the finished look of a premium roof."
                 image={serviceRoofShade}
                 imageAlt="Gutters"
-                buttons={['Seamless Gutters', 'Gutter Guards']}
+                buttons={[
+                  { label: 'Stone Coated Steel', href: '/services/metal-roofing' },
+                  { label: 'Free Estimate', href: '/contact-us' },
+                ]}
                 class="h-[480px]"
                 borderClass="h-full"
               />
@@ -162,7 +177,7 @@ const dividerImageOp = await getImage({
               adjusters, and handling the paperwork.
             </div>
 
-            <Button variant="link" class="px-0">
+            <Button variant="link" class="px-0" href="/services/storm-damage-repair">
               <svg width="13" height="16" viewBox="0 0 13 16" fill="none">
                 <path
                   d="M12.361 8.27675L0.503906 14.866C0.367002 14.9434 0.249442 14.9523 0.151228 14.8928C0.0530134 14.8333 0.00390625 14.7262 0.00390625 14.5714V1.42853C0.00390625 1.27377 0.0530134 1.16663 0.151228 1.10711C0.249442 1.04758 0.367002 1.05651 0.503906 1.13389L12.361 7.72318C12.498 7.80056 12.5664 7.89282 12.5664 7.99996C12.5664 8.10711 12.498 8.19937 12.361 8.27675Z"
@@ -199,7 +214,7 @@ const dividerImageOp = await getImage({
               adjusters, and handling the paperwork.
             </div>
 
-            <Button variant="link" class="px-0">
+            <Button variant="link" class="px-0" href="/services/storm-damage-repair">
               <svg width="13" height="16" viewBox="0 0 13 16" fill="none">
                 <path
                   d="M12.361 8.27675L0.503906 14.866C0.367002 14.9434 0.249442 14.9523 0.151228 14.8928C0.0530134 14.8333 0.00390625 14.7262 0.00390625 14.5714V1.42853C0.00390625 1.27377 0.0530134 1.16663 0.151228 1.10711C0.249442 1.04758 0.367002 1.05651 0.503906 1.13389L12.361 7.72318C12.498 7.80056 12.5664 7.89282 12.5664 7.99996C12.5664 8.10711 12.498 8.19937 12.361 8.27675Z"
