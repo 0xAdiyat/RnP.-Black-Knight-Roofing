@@ -10,7 +10,8 @@ const optimizedNoise = await getImage({ src: noises, width: 100, height: 100, fo
 const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100, format: 'webp' });
 ---
 
-<!-- Top navigation -->
+<div class="sticky top-0 z-50 shadow-lg">
+  <!-- Top navigation -->
   <section
     class="relative flex h-10 items-center gap-x-4 px-4"
     style={`
@@ -44,7 +45,7 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
   </section>
 
   <!-- Main Navbar -->
-  <header class="sticky top-0 z-50 flex h-16 items-center bg-[#111] shadow-lg text-white">
+  <header class="flex h-16 items-center bg-[#111] text-white">
     <nav class="container flex items-center justify-between">
       <div class="flex items-center">
         <ul class="inline-flex items-center gap-x-6">
@@ -76,4 +77,5 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
       </ul>
     </nav>
   </header>
+</div>
 
