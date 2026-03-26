@@ -9,13 +9,14 @@ import gridLines from '@/assets/grid-frame.png';
 import googleLogo from '@/assets/google-logo.svg';
 import RatingStars from './ui/RatingStars.astro';
 import Button from './ui/Button.astro';
+import BadgeTitle from './BadgeTitle.astro';
 
 const sunFlowImageOp = await getImage({ src: sunFlowImage, width: 1536, height: 1152, format: 'webp' });
 const gridLinesOp = await getImage({ src: gridLines, width: 1536, height: 1152, format: 'webp' });
 ---
 
 <section data-testid="testimonials" id="testimonials" class="relative">
-  <div class="container py-20">
+  <div class="py-20">
     <svg
       viewBox="0 0 1536 850"
       class="absolute top-0 left-0 -z-10 h-full w-full"
@@ -80,18 +81,11 @@ const gridLinesOp = await getImage({ src: gridLines, width: 1536, height: 1152, 
       />
     </svg>
 
-    <div class="space-y-4">
+    <div class="space-y-12">
       <!-- Top section -->
-      <div class="flex items-end py-8">
+      <div class="container flex items-end py-8">
         <div class="w-full max-w-[448px]">
-          <div class="flex items-center gap-x-3">
-            <div
-              class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
-            >
-            </div>
-            <div>Homeowner Reviews</div>
-          </div>
-          <h2>Real Reviews from <br /> Colorado Homeowners</h2>
+          <BadgeTitle badge="Homeowner Reviews" title="Real Reviews from Colorado Homeowners" />
         </div>
 
         <div class="flex items-center gap-x-16">
@@ -111,44 +105,54 @@ const gridLinesOp = await getImage({ src: gridLines, width: 1536, height: 1152, 
       </div>
 
       <!-- Testimonial cards -->
-      <div class="w-full overflow-hidden py-20">
-        <Carousel
-          slidesPerView={1}
-          spaceBetween={16}
-          loop={true}
-          autoplay={true}
-          breakpoints={{
-            768: { slidesPerView: 2, spaceBetween: 24 },
-            1024: { slidesPerView: 3, spaceBetween: 32 },
-          }}
-          class="w-full pb-16"
-        >
-          <CarouselSlide>
-            <TestimonialCard />
-          </CarouselSlide>
-          <CarouselSlide>
-            <TestimonialCard />
-          </CarouselSlide>
-          <CarouselSlide>
-            <TestimonialCard />
-          </CarouselSlide>
-          <CarouselSlide>
-            <TestimonialCard />
-          </CarouselSlide>
-
-          <div slot="navigation" class="mt-8 flex justify-center gap-x-2.5">
-            <button
-              class="swiper-button-prev hover:bg-primary group static! mt-0! flex h-10! w-10! items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200 after:content-none!"
-            >
-              <Icon name="chevron-left" class="size-4! text-white group-hover:text-black" />
-            </button>
-            <button
-              class="swiper-button-next hover:bg-primary group static! mt-0! flex h-10! w-10! items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200 after:content-none!"
-            >
-              <Icon name="chevron-right" class="size-4! text-white group-hover:text-black" />
-            </button>
+      <div class="relative w-full overflow-hidden">
+        <div class="relative">
+          <div
+            class="absolute inset-y-0 top-0 left-0 z-10 w-[250px] bg-linear-to-r from-[#151515] via-[rgba(21,21,21,0.5)] to-[#15151500]"
+          >
           </div>
-        </Carousel>
+          <div
+            class="absolute inset-y-0 top-0 right-0 z-10 w-[250px] bg-linear-to-l from-[#151515] via-[rgba(21,21,21,0.8)] to-[#15151500]"
+          >
+          </div>
+          <Carousel
+            slidesPerView={1}
+            spaceBetween={16}
+            loop={true}
+            autoplay={true}
+            breakpoints={{
+              768: { slidesPerView: 2, spaceBetween: 24 },
+              1024: { slidesPerView: 3, spaceBetween: 32 },
+            }}
+            class="w-full pb-16"
+          >
+            <CarouselSlide>
+              <TestimonialCard />
+            </CarouselSlide>
+            <CarouselSlide>
+              <TestimonialCard />
+            </CarouselSlide>
+            <CarouselSlide>
+              <TestimonialCard />
+            </CarouselSlide>
+            <CarouselSlide>
+              <TestimonialCard />
+            </CarouselSlide>
+
+            <div slot="navigation" class="mt-12 flex justify-center gap-x-2.5">
+              <button
+                class="swiper-button-prev hover:bg-primary group static! mt-0! flex h-10! w-10! items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200 after:content-none!"
+              >
+                <Icon name="chevron-left" class="size-4! text-white group-hover:text-black" />
+              </button>
+              <button
+                class="swiper-button-next hover:bg-primary group static! mt-0! flex h-10! w-10! items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200 after:content-none!"
+              >
+                <Icon name="chevron-right" class="size-4! text-white group-hover:text-black" />
+              </button>
+            </div>
+          </Carousel>
+        </div>
       </div>
     </div>
   </div>
