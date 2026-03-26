@@ -5,12 +5,15 @@ import noises from '@/assets/noises.png';
 import sunflow from '@/assets/sunflow.png';
 import heroImage from '@/assets/hero-logo.png';
 import Button from './ui/Button.astro';
+import NavbarItemLink from './navbar/NavbarItemLink.astro';
+import NavbarItemPopover from './navbar/NavbarItemPopover.astro';
+import NavbarItemPopoverLink from './navbar/NavbarItemPopoverLink.astro';
 
 const optimizedNoise = await getImage({ src: noises, width: 100, height: 100, format: 'webp' });
 const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100, format: 'webp' });
 ---
 
-<div class="sticky top-0 z-50 shadow-lg">
+<div id="navbar-wrapper" class="sticky -top-10 z-50 shadow-lg">
   <!-- Top navigation -->
   <section
     class="relative flex h-10 items-center gap-x-4 px-4"
@@ -22,60 +25,449 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
         background-color: var(--inverted); 
     `}
   >
-    <div class="absolute inset-0 bg-black/50">
-      <div class="container flex h-full items-center justify-between text-sm leading-5 font-normal">
-        <div class="flex items-center gap-x-5">
-          <div class="flex items-center gap-x-1.5">
-            <Icon name="location" />
-            <span> 865 Draw St, Lochbuie, CO 80603</span>
-          </div>
-          <div class="flex items-center gap-x-1.5">
-            <Icon name="mail" />
-            <span> Mail: support@blackknightroofing.com</span>
-          </div>
+    <div class="absolute inset-0 bg-black/50"></div>
+    <div
+      class="relative z-10 container flex h-full items-center justify-between text-sm leading-5 font-normal text-white"
+    >
+      <!-- Left content -->
+      <div class="flex items-center gap-x-8">
+        <div class="group hover:text-primary flex cursor-pointer items-center gap-x-1.5 transition-colors">
+          <Icon name="location" class="text-primary h-4 w-4 transition-transform group-hover:scale-110" />
+          <span> 865 Draw St, Lochbuie, CO 80603</span>
         </div>
+        <div class="group hover:text-primary flex cursor-pointer items-center gap-x-1.5 transition-colors">
+          <Icon name="mail" class="text-primary h-4 w-4 transition-transform group-hover:scale-110" />
+          <span> Mail: support@blackknightroofing.com</span>
+        </div>
+      </div>
 
-        <div>
-          <div class="flex items-center gap-x-1.5">
-            <span>Need A Roof Inspection Help?</span>
-          </div>
+      <!-- Right Content -->
+      <div class="relative flex items-center pr-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="67"
+          height="40"
+          viewBox="0 0 67 40"
+          fill="none"
+          class="pointer-events-none absolute -left-16 z-50 translate-y-2.5"
+        >
+          <path
+            d="M19.6052 5.40051L20.723 6.11191L19.6052 5.40051ZM4.10487 7.89726L3.03175 7.12005L4.10487 7.89726ZM27.6052 39.4012L21.5942 25.3317L12.4152 37.5721L27.6052 39.4012ZM25.4903 37.9025L26.2194 36.7961C25.7426 36.4819 25.2446 36.165 24.7304 35.8454L24.031 36.9708L23.3316 38.0961C23.8307 38.4063 24.3082 38.7103 24.7612 39.0088L25.4903 37.9025ZM22.5483 36.0665L23.2304 34.9306C22.7408 34.6366 22.2397 34.3393 21.7308 34.0388L21.0571 35.1798L20.3835 36.3208C20.8894 36.6195 21.3844 36.9132 21.8662 37.2025L22.5483 36.0665ZM19.5655 34.3014L20.2376 33.1595C19.7456 32.87 19.2491 32.5774 18.7496 32.281L18.0735 33.4205L17.3973 34.56C17.901 34.8589 18.4009 35.1534 18.8935 35.4433L19.5655 34.3014ZM16.586 32.5305L17.2713 31.3965C16.7825 31.1011 16.2937 30.8023 15.8068 30.4997L15.1075 31.6252L14.4082 32.7506C14.9059 33.0599 15.4043 33.3645 15.9007 33.6645L16.586 32.5305ZM13.6425 30.6984L14.3607 29.5849C13.8814 29.2758 13.4065 28.963 12.9381 28.6463L12.1959 29.7439L11.4538 30.8416C11.9398 31.1702 12.4308 31.4936 12.9243 31.8119L13.6425 30.6984ZM10.7736 28.7549L11.5452 27.6777C11.083 27.3466 10.6302 27.0116 10.1889 26.6725L9.38151 27.7231L8.57414 28.7737C9.04117 29.1326 9.51797 29.4853 10.0019 29.832L10.7736 28.7549ZM8.02762 26.6389L8.8778 25.6226C8.44424 25.2599 8.02635 24.8932 7.6264 24.5222L6.72535 25.4937L5.82431 26.4651C6.26041 26.8696 6.7125 27.2662 7.17743 27.6552L8.02762 26.6389ZM5.49147 24.277L6.45228 23.3646C6.06968 22.9617 5.71096 22.555 5.37846 22.1443L4.34865 22.978L3.31884 23.8118C3.69926 24.2816 4.10459 24.7407 4.53066 25.1894L5.49147 24.277ZM3.32385 21.5812L4.43091 20.8532C4.13478 20.4029 3.8727 19.9493 3.6468 19.4923L2.45896 20.0793L1.27112 20.6664C1.54912 21.2289 1.86634 21.7764 2.21678 22.3092L3.32385 21.5812ZM1.80615 18.4783L3.06752 18.0726C2.91207 17.5893 2.79771 17.1008 2.727 16.6061L1.41533 16.7935L0.103657 16.981C0.196533 17.6308 0.345778 18.2652 0.544777 18.884L1.80615 18.4783ZM1.32373 15.0667L2.64787 15.1145C2.66543 14.6279 2.72545 14.1294 2.83262 13.6182L1.5358 13.3463L0.238988 13.0745C0.101434 13.7307 0.0226828 14.379 -0.000406146 15.019L1.32373 15.0667ZM2.01734 11.6917L3.25935 12.1533C3.4315 11.6901 3.6428 11.2148 3.89703 10.7272L2.72215 10.1146L1.54727 9.50201C1.24493 10.0819 0.988015 10.6579 0.775335 11.2302L2.01734 11.6917ZM3.60149 8.62516L4.70803 9.354C4.85567 9.12985 5.01222 8.90334 5.17798 8.67447L4.10487 7.89726L3.03175 7.12005C2.84373 7.37966 2.66483 7.63841 2.49495 7.89633L3.60149 8.62516ZM4.10487 7.89726L5.17798 8.67447C5.3389 8.45228 5.50083 8.23748 5.66365 8.0299L4.62109 7.21216L3.57852 6.39443C3.39442 6.62916 3.21214 6.871 3.03175 7.12005L4.10487 7.89726ZM5.71561 5.92876L6.68587 6.8311C7.05387 6.43541 7.4252 6.07311 7.79874 5.7421L6.91999 4.75043L6.04123 3.75875C5.60171 4.14823 5.16946 4.57039 4.74536 5.02641L5.71561 5.92876ZM8.2365 3.7044L9.00152 4.78623C9.43323 4.48095 9.8671 4.21316 10.3017 3.97992L9.67519 2.81241L9.04866 1.6449C8.51656 1.93044 7.99031 2.25568 7.47148 2.62257L8.2365 3.7044ZM11.2108 2.11382L11.6776 3.35386C12.1569 3.17346 12.6373 3.03049 13.1175 2.92185L12.825 1.62952L12.5326 0.337188C11.9352 0.472378 11.3381 0.650117 10.744 0.873771L11.2108 2.11382ZM14.4936 1.37108L14.6066 2.69126C15.1118 2.64802 15.6167 2.63939 16.1194 2.66244L16.1801 1.33884L16.2408 0.0152264C15.6267 -0.0129359 15.0057 -0.00258362 14.3806 0.0509104L14.4936 1.37108ZM17.8585 1.52037L17.6369 2.82672C18.1424 2.91243 18.6435 3.02793 19.1381 3.17008L19.5041 1.89662L19.8701 0.62317C19.2851 0.45505 18.6875 0.317048 18.08 0.214022L17.8585 1.52037ZM21.1005 2.44646L20.6064 3.67592C21.0912 3.87071 21.566 4.0892 22.0282 4.32776L22.6359 3.15033L23.2436 1.97289C22.7103 1.69767 22.1598 1.44415 21.5945 1.217L21.1005 2.44646ZM24.0994 3.99058L23.3896 5.10946C23.8389 5.39444 24.2708 5.69627 24.6826 6.01053L25.4865 4.95723L26.2903 3.90393C25.8188 3.54406 25.3241 3.19837 24.8091 2.8717L24.0994 3.99058ZM26.783 6.03954L25.8896 7.01805C26.2865 7.38042 26.6549 7.75058 26.9914 8.12253L27.9739 7.23348L28.9563 6.34443C28.5616 5.90822 28.1336 5.47849 27.6764 5.06103L26.783 6.03954ZM29.0368 8.54491L27.9604 9.31749C28.275 9.75587 28.5351 10.1811 28.7391 10.583L29.9206 9.98334L31.1022 9.38367C30.8295 8.84642 30.4963 8.30598 30.1133 7.77234L29.0368 8.54491ZM30.509 11.5673L29.2145 11.8498C29.2606 12.0612 29.2799 12.2441 29.2799 12.3989H30.6049H31.9299C31.9299 12.0271 31.884 11.6535 31.8035 11.2848L30.509 11.5673ZM30.6049 12.3989H29.2799C29.2799 12.6451 29.2683 12.8775 29.2466 13.0966L30.5651 13.2275L31.8836 13.3583C31.9144 13.0482 31.9299 12.7283 31.9299 12.3989H30.6049ZM30.2083 14.8331L28.9644 14.3766C28.8113 14.7939 28.6101 15.1423 28.3767 15.4324L29.4092 16.2628L30.4417 17.0933C30.8617 16.571 31.2031 15.9683 31.4522 15.2896L30.2083 14.8331ZM28.1725 17.3415L27.4872 16.2075C27.1468 16.4132 26.7619 16.5681 26.3418 16.6687L26.6503 17.9573L26.9588 19.2459C27.6216 19.0872 28.2642 18.8342 28.8577 18.4755L28.1725 17.3415ZM25.0139 18.1282L25.039 16.8034C24.5985 16.7951 24.1454 16.7361 23.6938 16.627L23.3826 17.9149L23.0714 19.2029C23.703 19.3555 24.3478 19.4408 24.9888 19.4529L25.0139 18.1282ZM21.8304 17.366L22.3974 16.1685C21.9839 15.9727 21.5903 15.7346 21.2281 15.4579L20.4238 16.5109L19.6194 17.5638C20.1342 17.957 20.6877 18.291 21.2634 18.5636L21.8304 17.366ZM19.236 15.3722L20.257 14.5277C19.9769 14.189 19.737 13.8179 19.5458 13.4166L18.3496 13.9865L17.1534 14.5564C17.4425 15.1631 17.8022 15.7176 18.215 16.2167L19.236 15.3722ZM17.8348 12.4244L19.1351 12.17C19.0542 11.7565 19.0177 11.3125 19.0361 10.8375L17.712 10.7863L16.388 10.7352C16.3619 11.4109 16.4134 12.0601 16.5344 12.6789L17.8348 12.4244ZM17.9404 9.16117L19.2293 9.46831C19.333 9.033 19.4807 8.57449 19.6793 8.09341L18.4545 7.58783L17.2298 7.08224C16.9813 7.68417 16.7894 8.27522 16.6515 8.85403L17.9404 9.16117ZM19.174 6.11818L20.3277 6.76989C20.4495 6.5542 20.5811 6.33485 20.723 6.11191L19.6052 5.40051L18.4874 4.68911C18.3213 4.94998 18.1658 5.20912 18.0204 5.46647L19.174 6.11818ZM19.6052 5.40051L20.723 6.11191C20.8526 5.90826 20.9883 5.71915 21.1295 5.54355L20.097 4.71319L19.0644 3.88284C18.8603 4.13673 18.6679 4.40548 18.4874 4.68911L19.6052 5.40051ZM21.2887 3.54923L22.0907 4.60391C22.4465 4.33339 22.8349 4.10837 23.2574 3.92566L22.7313 2.70955L22.2053 1.49343C21.5964 1.75681 21.0211 2.08815 20.4866 2.49455L21.2887 3.54923ZM24.3263 2.21103L24.5972 3.50804C25.051 3.41324 25.5363 3.35236 26.0533 3.32486L25.9829 2.00173L25.9126 0.678603C25.2771 0.712407 24.6564 0.788463 24.0553 0.914032L24.3263 2.21103ZM27.6612 2.01191L27.5825 3.33457C28.0819 3.36429 28.6014 3.41848 29.1401 3.49566L29.328 2.18406L29.5159 0.872455C28.9134 0.786123 28.3206 0.723806 27.7399 0.689249L27.6612 2.01191ZM30.9738 2.47468L30.7049 3.7721C31.2155 3.87793 31.7386 4.00042 32.2735 4.13808L32.6037 2.85491L32.934 1.57174C32.3629 1.42474 31.7987 1.29249 31.2428 1.17726L30.9738 2.47468ZM34.2173 3.30348L33.8399 4.57359C34.3526 4.72593 34.8735 4.88964 35.4019 5.06344L35.8159 3.80476L36.2298 2.54609C35.6797 2.36517 35.1344 2.19372 34.5947 2.03337L34.2173 3.30348ZM37.4013 4.34702L36.9588 5.59598C37.471 5.7774 37.9886 5.96648 38.5111 6.16207L38.9756 4.92116L39.4402 3.68025C38.9047 3.47981 38.3722 3.28531 37.8437 3.09807L37.4013 4.34702ZM40.541 5.51986L40.0596 6.75432C40.5714 6.9539 41.0868 7.15833 41.6052 7.36656L42.0991 6.13704L42.5929 4.90752C42.0675 4.69648 41.5437 4.4887 41.0224 4.28539L40.541 5.51986ZM43.6516 6.76746L43.149 7.99345C43.6612 8.2034 44.1754 8.41586 44.6912 8.62988L45.199 7.40605L45.7068 6.18221C45.1887 5.96722 44.6708 5.75325 44.1541 5.54146L43.6516 6.76746ZM46.7452 8.04951L46.2354 9.27249C46.7504 9.48719 47.2669 9.7026 47.783 9.91723L48.2917 8.6938L48.8005 7.47038C48.2858 7.25632 47.7708 7.04152 47.2551 6.82652L46.7452 8.04951ZM49.8398 9.33488L49.3353 10.56C49.8553 10.7742 50.3751 10.9869 50.8938 11.1968L51.3909 9.96859L51.8881 8.74037C51.3754 8.53287 50.8607 8.32233 50.3444 8.10972L49.8398 9.33488ZM52.9465 10.5905L52.4604 11.8232C52.9878 12.0311 53.5136 12.2353 54.0371 12.4344L54.5082 11.1959L54.9792 9.95751C54.4671 9.76269 53.9513 9.56248 53.4326 9.35792L52.9465 10.5905ZM56.0778 11.7794L55.6264 13.0251C56.1645 13.2201 56.6997 13.4086 57.2311 13.5892L57.6574 12.3346L58.0836 11.08C57.5708 10.9058 57.0525 10.7233 56.5292 10.5337L56.0778 11.7794ZM59.2493 12.8539L58.8551 14.1189C59.4091 14.2915 59.9586 14.454 60.5024 14.6045L60.8559 13.3276L61.2094 12.0506C60.6956 11.9083 60.1734 11.754 59.6436 11.5889L59.2493 12.8539ZM62.4794 13.7432L62.178 15.0334C62.7548 15.1682 63.325 15.2871 63.8869 15.388L64.1209 14.0838L64.3549 12.7796C63.8427 12.6877 63.3177 12.5783 62.7808 12.4529L62.4794 13.7432ZM65.7796 14.3265L65.634 15.6435C65.9296 15.6762 66.2228 15.7028 66.5134 15.723L66.6052 14.4012L66.6969 13.0794C66.4442 13.0618 66.1869 13.0385 65.9251 13.0095L65.7796 14.3265Z"
+            fill="url(#paint0_linear_16346_263562)"></path>
+          <defs>
+            <linearGradient
+              id="paint0_linear_16346_263562"
+              x1="16.1052"
+              y1="37.9012"
+              x2="48.6052"
+              y2="3.4012"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#F2C744"></stop>
+              <stop offset="1" stop-color="#594216"></stop>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div class="flex items-center gap-x-1.5">
+          <span class="text-primary animate-pulse font-medium">Need A Roof Inspection Help?</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Main Navbar -->
-  <header class="flex h-16 items-center bg-[#111] text-white">
-    <nav class="container flex items-center justify-between">
-      <div class="flex items-center">
-        <ul class="inline-flex items-center gap-x-6">
+  <header class="navbar-root bg-bg-default flex h-20 items-center text-white">
+    <nav class="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between px-16 text-white">
+      <div class="flex items-center gap-x-12">
+        <!-- Contact/Phone -->
+        <div
+          class="group hover:text-primary flex shrink-0 cursor-pointer items-center gap-x-2 py-1.5 transition-colors"
+        >
+          <Icon name="phone" class="text-primary size-6" />
+          <span class="font-sans text-[16px] leading-6 font-medium text-white">(720) 805-9666</span>
+        </div>
+
+        <!-- Navigation Links (Left) -->
+        <ul class="flex items-center gap-x-2">
           <li>
-            <a href="/" class="flex items-center gap-x-1.5">
-              <Icon name="phone" />
-              <span> (720) 805-9666</span>
-            </a>
+            <NavbarItemPopover label="About" popoverTitle="About Us">
+              <NavbarItemPopoverLink
+                href="/about"
+                title="Meet the Team"
+                description="Payment plans, estimates, and how financing works."
+                icon="teams"
+              />
+              <NavbarItemPopoverLink
+                href="/process"
+                title="Our Process"
+                description="Quick answers to common roofing questions."
+                icon="progress-line"
+              />
+              <NavbarItemPopoverLink
+                href="/services"
+                title="Roofing Services"
+                description="Practical tips, guides, and roofing insights."
+                icon="home"
+              />
+              <NavbarItemPopoverLink
+                href="/reviews"
+                title="Customer Reviews"
+                description="Practical tips, guides, and roofing insights."
+                icon="message-star"
+              />
+            </NavbarItemPopover>
           </li>
-          <li><a href="/about-us">About</a></li>
-          <li><a href="/services">Services</a></li>
-          <li><a href="/financing"> Financing</a></li>
+          <li>
+            <NavbarItemPopover label="Services" popoverTitle="What We Do">
+              <NavbarItemPopoverLink
+                href="/services/residential"
+                title="Residential Roofing"
+                description="Expert care for your family's home and protection."
+                icon="roof-icon"
+              />
+              <NavbarItemPopoverLink
+                href="/services/commercial"
+                title="Commercial Roofing"
+                description="Professional roofing solutions for your business."
+                icon="briefcase"
+              />
+              <NavbarItemPopoverLink
+                href="/services/repair"
+                title="Roof Repair"
+                description="Quick and reliable repairs for any leak or damage."
+                icon="setting"
+              />
+              <NavbarItemPopoverLink
+                href="/services/storm-damage"
+                title="Storm Damage Specialist"
+                description="Helping you recover from hail, wind, and storm damage."
+                icon="hail"
+              />
+            </NavbarItemPopover>
+          </li>
+          <li>
+            <NavbarItemPopover label="Resources" popoverTitle="Resources">
+              <NavbarItemPopoverLink
+                href="/financing"
+                title="Financing"
+                description="Payment plans, estimates, and how financing works."
+                icon="financing"
+              />
+              <NavbarItemPopoverLink
+                href="/faq"
+                title="Frequently Asked Questions"
+                description="Quick answers to common roofing questions."
+                icon="question-circle"
+              />
+              <NavbarItemPopoverLink
+                href="/blog"
+                title="Blog"
+                description="Practical tips, guides, and roofing insights."
+                icon="newspaper"
+              />
+            </NavbarItemPopover>
+          </li>
         </ul>
       </div>
 
-      <div class="-translate-y-4">
-        <Image src={heroImage} alt="Hero Logo" width={135} height={92} />
+      <!-- CENTER LOGO -->
+      <div class="logo-container -mt-10">
+        <a id="navbar-logo" href="/" class="flex h-[92px] w-[135px]">
+          <Image
+            src={heroImage}
+            alt="Hero Logo"
+            width={135}
+            height={92}
+            class="drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+          />
+        </a>
       </div>
 
-      <ul class="inline-flex items-center gap-x-6">
-        <li><a href="/past-works">Past Work</a></li>
-        <li><a href="/service-areas">Service Areas</a></li>
-        <li><a href="/contact-us">Contact</a></li>
-        <li>
-          <Button href="/financing">
-            <span> Get <strong> FREE</strong> Roof Estimate</span>
+      <div class="flex items-center gap-x-4">
+        <!-- Navigation Links (Right) -->
+        <ul class="flex items-center gap-x-2">
+          <li>
+            <NavbarItemPopover label="Past Work" popoverTitle="Past Work">
+              <NavbarItemPopoverLink
+                href="/gallery"
+                title="Gallery"
+                description="Payment plans, estimates, and how financing works."
+                icon="gallery-image"
+              />
+              <NavbarItemPopoverLink
+                href="/before-after"
+                title="Before / After"
+                description="Quick answers to common roofing questions."
+                icon="before-after"
+              />
+              <NavbarItemPopoverLink
+                href="/case-studies"
+                title="Case Studies"
+                description="Practical tips, guides, and roofing insights."
+                icon="file-search"
+              />
+            </NavbarItemPopover>
+          </li>
+          <li>
+            <NavbarItemPopover
+              label="Service Area"
+              popoverTitle="Service Area"
+              containerClass="w-[780px]"
+              gridClass="grid grid-cols-3 gap-x-12 gap-y-4"
+            >
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/fort-collins"
+                title="Fort Collins, CO"
+                icon="location"
+              />
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/westminster"
+                title="Westminster, CO"
+                icon="location"
+              />
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/lakewood"
+                title="Lakewood, CO"
+                icon="location"
+              />
+
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/loveland"
+                title="Loveland, CO"
+                icon="location"
+              />
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/thornton"
+                title="Thornton, CO"
+                icon="location"
+              />
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/littleton"
+                title="Littleton, CO"
+                icon="location"
+              />
+
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/longmont"
+                title="Longmont, CO"
+                icon="location"
+              />
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/arvada"
+                title="Arvada, CO"
+                icon="location"
+              />
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/centennial"
+                title="Centennial, CO"
+                icon="location"
+              />
+
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/boulder"
+                title="Boulder, CO"
+                icon="location"
+              />
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/denver"
+                title="Denver, CO"
+                icon="location"
+              />
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/castle-rock"
+                title="Castle Rock, CO"
+                icon="location"
+              />
+
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/broomfield"
+                title="Broomfield, CO"
+                icon="location"
+              />
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/aurora"
+                title="Aurora, CO"
+                icon="location"
+              />
+              <NavbarItemPopoverLink
+                variant="location"
+                href="/service-areas/colorado-springs"
+                title="Colorado Springs, CO"
+                icon="location"
+              />
+            </NavbarItemPopover>
+          </li>
+          <li><NavbarItemLink href="/contact-us" label="Contact" /></li>
+        </ul>
+
+        <div class="ml-3 shrink-0">
+          <Button
+            href="/financing"
+            size="sm"
+            class="bg-primary rounded-[4px] px-[18px] py-3 font-bold transition-all hover:shadow-[0_0_20px_rgba(242,199,68,0.3)]"
+          >
+            <span class="text-sm font-bold text-[#1a1a1a]">
+              Get <span class="text-base font-extrabold">FREE</span> Roof Estimate</span
+            >
           </Button>
-        </li>
-      </ul>
+        </div>
+      </div>
+
+      <!-- Common Viewport for popovers -->
+      <div
+        id="popover-viewport"
+        class="pointer-events-none absolute top-full left-0 z-50 mt-2 h-0 w-0 origin-[top_center] opacity-0 transition-all duration-300 ease-out"
+      >
+        <div
+          id="viewport-content"
+          class="animate-in fade-in zoom-in-95 relative h-full w-full overflow-hidden rounded-2xl bg-[#111] shadow-2xl ring-1 ring-white/15"
+        >
+          <!-- Active content will be cloned here -->
+        </div>
+      </div>
     </nav>
   </header>
 </div>
 
+<script>
+  function setupNavbar() {
+    const root = document.querySelector('.navbar-root');
+    const viewport = document.querySelector('#popover-viewport') as HTMLElement;
+    const viewportContent = document.querySelector('#viewport-content') as HTMLElement;
+    const triggers = document.querySelectorAll('.popover-trigger');
+    const popoverItems = document.querySelectorAll('.popover-item');
+
+    let currentId: string | null = null;
+    let leaveTimeout: any;
+
+    function updateViewport(trigger: HTMLElement, id: string) {
+      if (currentId === id) return;
+
+      const content = document.querySelector(`[data-popover-content="${id}"]`) as HTMLElement;
+      if (!content) return;
+
+      // Determine movement direction
+      const previousIndex = Array.from(triggers).findIndex(t => (t as HTMLElement).dataset.popoverId === currentId);
+      const currentIndex = Array.from(triggers).findIndex(t => t === trigger);
+      const direction = currentIndex > previousIndex ? 'right' : 'left';
+
+      currentId = id;
+      viewport.style.opacity = '1';
+      viewport.style.pointerEvents = 'auto';
+
+      // Clone content and apply sliding animation
+      const innerContent = content.firstElementChild?.cloneNode(true) as HTMLElement;
+      viewportContent.innerHTML = '';
+      viewportContent.appendChild(innerContent);
+
+      innerContent.classList.add('animate-in', 'fade-in', 'duration-500');
+      innerContent.classList.add(direction === 'right' ? 'slide-in-from-left-4' : 'slide-in-from-right-4');
+
+      // Position calculations
+      const triggerRect = trigger.getBoundingClientRect();
+      const navRect = root!.getBoundingClientRect();
+      const contentRect = content.getBoundingClientRect();
+
+      // Horizontal center relative to trigger
+      const targetLeft = triggerRect.left + triggerRect.width / 2 - navRect.left;
+
+      viewport.style.width = `${contentRect.width}px`;
+      viewport.style.height = `${contentRect.height}px`;
+      viewport.style.left = `${targetLeft}px`;
+      viewport.style.transform = `translateX(-50%)`;
+
+      // Keep viewport open while hovering trigger
+    }
+
+    function hideViewport() {
+      viewport.style.opacity = '0';
+      viewport.style.pointerEvents = 'none';
+      viewport.style.height = '0';
+      currentId = null;
+    }
+
+    triggers.forEach(trigger => {
+      trigger.addEventListener('mouseenter', () => {
+        clearTimeout(leaveTimeout);
+        const id = (trigger as HTMLElement).dataset.popoverId;
+        if (id) updateViewport(trigger as HTMLElement, id);
+      });
+
+      trigger.addEventListener('mouseleave', () => {
+        leaveTimeout = setTimeout(hideViewport, 200);
+      });
+    });
+
+    viewport.addEventListener('mouseenter', () => {
+      clearTimeout(leaveTimeout);
+    });
+
+    viewport.addEventListener('mouseleave', () => {
+      leaveTimeout = setTimeout(hideViewport, 200);
+    });
+
+    // Scroll handling
+    const navbarWrapper = document.getElementById('navbar-wrapper');
+    function handleScroll() {
+      if (window.scrollY > 40) {
+        navbarWrapper?.classList.add('is-scrolled');
+      } else {
+        navbarWrapper?.classList.remove('is-scrolled');
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+  }
+
+  setupNavbar();
+  document.addEventListener('astro:after-swap', setupNavbar);
+</script>
+
+<style>
+  #navbar-wrapper {
+    --logo-scale: 1;
+  }
+
+  #navbar-wrapper.is-scrolled {
+    --logo-scale: 0.85;
+  }
+
+  #navbar-wrapper.is-scrolled .logo-container {
+    margin-top: 0;
+  }
+
+  #navbar-logo {
+    transform: scale(var(--logo-scale));
+    transition:
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      margin-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #navbar-logo:hover {
+    transform: scale(calc(var(--logo-scale) * 1.05));
+  }
+
+  #navbar-logo:active {
+    transform: scale(calc(var(--logo-scale) * 0.95));
+  }
+
+  .logo-container {
+    transition: margin-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>
