@@ -1,0 +1,33 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from './ui/Button.astro';
+---
+
+<div class="fixed right-0 bottom-0 left-0 z-50 md:hidden">
+  <div class="via-primary h-px w-full bg-linear-to-r from-[#594216] via-15% to-[#594216]"></div>
+  <div
+    class="bg-bg-default/90 container mx-auto flex w-full items-center justify-between gap-4 px-3 py-4 backdrop-blur-xl"
+  >
+    <Button
+      href="tel:(720) 805-9666"
+      class="bg-primary flex h-12 w-fit items-center justify-center gap-3 px-[26px] shadow-[0_4px_20px_rgba(242,199,68,0.25)] transition-transform active:scale-95"
+      size="lg"
+    >
+      <Icon name="phone" class="size-6 text-black" />
+      <span class="text-sm font-extrabold tracking-tight text-black uppercase">Give Us a Call</span>
+    </Button>
+
+    <button
+      id="mobile-menu-toggle"
+      class="group from-primary rounded-full bg-radial-[at_40%_20%] via-[#594216] to-[#594216] p-px active:scale-90"
+      aria-label="Toggle Menu"
+    >
+      <div
+        class="bg-bg-default flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20 transition-all hover:bg-white/10"
+      >
+        <Icon name="menu" class="size-6 text-white" />
+        <span class="sr-only"> Mobile Menu </span>
+      </div>
+    </button>
+  </div>
+</div>

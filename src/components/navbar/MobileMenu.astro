@@ -1,0 +1,241 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Image, getImage } from 'astro:assets';
+import heroImage from '@/assets/hero-logo.png';
+import noises from '@/assets/noises.png';
+import sunflow from '@/assets/sunflow.png';
+import NoiseBg from '../NoiseBg.astro';
+import Button from '../ui/Button.astro';
+
+const optimizedNoise = await getImage({ src: noises, width: 200, height: 200, format: 'webp' });
+
+const menuItems = [
+  { label: 'Home', href: '/' },
+  {
+    label: 'About',
+    icon: 'teams',
+    items: [
+      { title: 'Meet the Team', href: '/about', description: 'Meet the experts behind your roofing project.' },
+      { title: 'Our Process', href: '/process', description: 'A step-by-step guide to how we work.' },
+      { title: 'Roofing Services', href: '/services', description: 'Overview of our professional roofing solutions.' },
+      { title: 'Customer Reviews', href: '/reviews', description: 'See what our customers have to say about us.' },
+    ],
+  },
+  {
+    label: 'Services',
+    icon: 'roof-icon',
+    items: [
+      { title: 'Residential Roofing', href: '/services/residential' },
+      { title: 'Commercial Roofing', href: '/services/commercial' },
+      { title: 'Roof Repair', href: '/services/repair' },
+      { title: 'Storm Damage Specialist', href: '/services/storm-damage' },
+    ],
+  },
+  { label: 'Financing', href: '/financing' },
+  { label: 'Past Work', href: '/gallery' },
+  { label: 'Service Area', href: '/service-area' },
+  { label: 'Contact', href: '/contact-us' },
+];
+---
+
+<div
+  id="mobile-menu-overlay"
+  class="fixed inset-0 z-100 hidden bg-black/40 backdrop-blur-sm transition-opacity duration-300"
+>
+</div>
+
+<NoiseBg
+  id="mobile-menu-drawer"
+  class="bg-bg-default fixed inset-0 z-110 flex opacity-0 invisible flex-col overflow-hidden px-0 py-0 transition-all duration-500 ease-in-out"
+>
+  <Image src={sunflow} alt="" class="absolute top-0 left-0 h-full w-full object-cover opacity-10" />
+
+  <!-- Header / Logo Area -->
+  <div class="relative flex shrink-0 flex-col items-center pt-2 pb-12">
+    <Image src={heroImage} alt="Black Knight Roofing" class="h-auto w-24" />
+    <div class="via-primary/30 mt-4 h-px w-24 bg-linear-to-r from-transparent to-transparent"></div>
+  </div>
+
+  <div id="drawer-scroll-area" class="relative flex-1 overflow-x-hidden overflow-y-auto pb-32">
+    <!-- Single Panel with Accordion -->
+    <div id="main-panel" class="flex w-full flex-col gap-6 px-10 pb-10 transition-transform duration-500">
+      {
+        menuItems.map(item => (
+          <div class="flex flex-col">
+            {item.items ? (
+              <div class="accordion-group flex flex-col">
+                <button
+                  class="accordion-trigger group flex items-center gap-3 text-left transition-all active:scale-95"
+                  aria-expanded="false"
+                >
+                  <span class="text-base font-medium tracking-tight text-white/90 hover:text-white group-aria-expanded:text-primary">{item.label}</span>
+                  <Icon
+                    name="chevron-right"
+                    class="group-aria-expanded:text-primary size-3.5 text-white/30 transition-transform duration-300 group-aria-expanded:rotate-90"
+                  />
+                </button>
+
+                <!-- Sub Menu -->
+                <div class="accordion-content max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out">
+                  <div class="flex flex-col gap-6 pt-8 pb-4 pl-4">
+                    {item.items.map(subItem => (
+                      <a
+                        href={subItem.href}
+                        class="text-base font-medium tracking-tight text-white/60 transition-colors hover:text-white"
+                      >
+                        {subItem.title}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <a
+                href={item.href}
+                class="text-base font-medium tracking-tight text-white/90 transition-all hover:text-white active:scale-95"
+              >
+                {item.label}
+              </a>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="bg-bg-default/80 absolute right-0 bottom-0 left-0 ">
+    <div class="via-primary h-px w-full bg-linear-to-r from-[#594216] via-15% to-[#594216]"></div>
+    <div class="flex items-center justify-between p-4 backdrop-blur-md"> 
+       <Button
+          href="tel:(720) 805-9666"
+          class="bg-primary flex h-12 w-fit items-center justify-center gap-3 px-[26px] shadow-[0_4px_20px_rgba(242,199,68,0.25)] transition-transform active:scale-95"
+          size="lg"
+        >
+          <Icon name="phone" class="size-6 text-black" />
+          <span class="text-sm font-extrabold tracking-tight text-black uppercase">Give Us a Call</span>
+        </Button>
+
+
+      <button
+        id="close-menu"
+        aria-label="Close Menu"
+        class="group from-primary rounded-full bg-radial-[at_40%_20%] via-[#594216] to-[#594216] p-px active:scale-90"
+      >
+        <div
+          class="bg-bg-default flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20 transition-all hover:bg-white/10"
+        >
+          <Icon name="close" class="size-6 text-white" />
+          <span class="sr-only"> Close Menu </span>
+        </div>
+      </button>
+
+
+  </div>
+  </div>
+</NoiseBg>
+
+<script is:inline>
+  function setupMobileMenu() {
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const drawer = document.getElementById('mobile-menu-drawer');
+
+    if (!overlay || !drawer) return;
+
+    function openDrawer() {
+      const toggle = document.getElementById('mobile-menu-toggle');
+      if (toggle) toggle.setAttribute('data-open', 'true');
+
+      overlay.classList.remove('hidden');
+      drawer.classList.remove('opacity-0', 'invisible');
+      drawer.classList.add('opacity-100', 'visible');
+
+      setTimeout(() => {
+        overlay.style.opacity = '1';
+      }, 10);
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      const toggle = document.getElementById('mobile-menu-toggle');
+      if (toggle) toggle.setAttribute('data-open', 'false');
+
+      overlay.style.opacity = '0';
+      drawer.classList.remove('opacity-100', 'visible');
+      drawer.classList.add('opacity-0', 'invisible');
+
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        resetAccordions();
+      }, 510);
+      document.body.style.overflow = '';
+    }
+
+    function resetAccordions() {
+      const triggers = document.querySelectorAll('.accordion-trigger');
+      triggers.forEach(trigger => {
+        trigger.setAttribute('aria-expanded', 'false');
+        const content = trigger.nextElementSibling;
+        if (content) {
+          content.style.maxHeight = '0px';
+          content.style.opacity = '0';
+        }
+      });
+    }
+
+    // Toggle Accordion
+    function toggleAccordion(trigger) {
+      const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+      const content = trigger.nextElementSibling;
+      const group = trigger.closest('.accordion-group');
+
+      // Close all other accordions first (optional, matches premium feel)
+      const allTriggers = document.querySelectorAll('.accordion-trigger');
+      allTriggers.forEach(t => {
+        if (t !== trigger) {
+          t.setAttribute('aria-expanded', 'false');
+          if (t.nextElementSibling) {
+            t.nextElementSibling.style.maxHeight = '0px';
+            t.nextElementSibling.style.opacity = '0';
+          }
+        }
+      });
+
+      if (isExpanded) {
+        trigger.setAttribute('aria-expanded', 'false');
+        content.style.maxHeight = '0px';
+        content.style.opacity = '0';
+      } else {
+        trigger.setAttribute('aria-expanded', 'true');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        content.style.opacity = '1';
+      }
+    }
+
+    // Event Delegation
+    if (!window.__MOBILE_MENU_LISTENER_ADDED__) {
+      document.addEventListener('click', e => {
+        const toggle = e.target.closest('#mobile-menu-toggle');
+        const close = e.target.closest('#close-menu');
+        const accordionTrigger = e.target.closest('.accordion-trigger');
+        const targetOverlay = e.target === overlay;
+
+        if (toggle) {
+          const isOpen = toggle.getAttribute('data-open') === 'true';
+          if (isOpen) closeDrawer();
+          else openDrawer();
+        } else if (close || targetOverlay) {
+          closeDrawer();
+        } else if (accordionTrigger) {
+          toggleAccordion(accordionTrigger);
+        }
+      });
+      window.__MOBILE_MENU_LISTENER_ADDED__ = true;
+    }
+  }
+
+  // Lifecycle
+  setupMobileMenu();
+  document.addEventListener('astro:page-load', setupMobileMenu);
+  document.addEventListener('astro:after-swap', setupMobileMenu);
+</script>
