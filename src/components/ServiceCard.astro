@@ -1,7 +1,6 @@
 ---
-import { Image, getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import NoiseBg from '@/assets/noises.png';
 import Button from './ui/Button.astro';
 import { cn } from '@/lib/utils';
 
@@ -26,54 +25,40 @@ const {
   class: className,
   borderClass: borderClassName,
 } = Astro.props;
-
-const noiseBgOp = await getImage({ src: NoiseBg, width: 500, height: 500 });
 ---
 
-<div class={cn('w-fit rounded-xl bg-linear-to-b from-white/15 to-white/0 p-px', borderClassName)}>
-  <div
-    data-slot="service-card"
-    class={cn('w-[350px] rounded-xl bg-[#171717] p-6', className)}
-    style={`
-      background-image: url('${noiseBgOp.src}');
-      background-position: -99.647px -70.773px;
-      background-size: 169.385% 169.385%;
-      background-repeat: no-repeat;
-      background-blend-mode: overlay;
-    `}
-  >
-    <div data-slot="thumbnail-wrapper" class="relative overflow-hidden pb-10">
-      <Image
-        data-slot="thumbnail"
-        src={image}
-        alt={imageAlt || title}
-        class="h-full w-full scale-100 rounded-lg object-cover"
-      />
-    </div>
-
-    <div class="space-y-4 pb-13 text-center">
-      <h4 data-slot="service-title">{title}</h4>
-      <div data-slot="service-description" class="text-sm text-white/70">
-        {description}
-      </div>
-    </div>
-
-    {
-      buttons.length > 0 && (
-        <div class="flex items-center justify-center gap-x-2">
-          {buttons.map(btn => {
-            if (typeof btn === 'string') {
-              return <Button class="w-fit rounded-full whitespace-nowrap">{btn}</Button>;
-            }
-            const { label, ...restBtnProps } = btn;
-            return (
-              <Button class="w-fit rounded-full whitespace-nowrap" {...restBtnProps}>
-                {label}
-              </Button>
-            );
-          })}
-        </div>
-      )
-    }
+<div data-slot="service-card" class={cn('w-full rounded-xl bg-gradient-radial p-6 border-radial', className)}>
+  <div data-slot="thumbnail-wrapper" class="relative overflow-hidden pb-10">
+    <Image
+      data-slot="thumbnail"
+      src={image}
+      alt={imageAlt || title}
+      class="h-full w-full scale-100 rounded-lg object-cover"
+    />
   </div>
+
+  <div class="space-y-4 pb-13 text-center">
+    <h4 data-slot="service-title">{title}</h4>
+    <div data-slot="service-description" class="text-sm text-white/70">
+      {description}
+    </div>
+  </div>
+
+  {
+    buttons.length > 0 && (
+      <div class="flex items-center justify-center gap-x-2">
+        {buttons.map(btn => {
+          if (typeof btn === 'string') {
+            return <Button class="w-fit rounded-full whitespace-nowrap">{btn}</Button>;
+          }
+          const { label, ...restBtnProps } = btn;
+          return (
+            <Button class="w-fit rounded-full whitespace-nowrap" {...restBtnProps}>
+              {label}
+            </Button>
+          );
+        })}
+      </div>
+    )
+  }
 </div>
