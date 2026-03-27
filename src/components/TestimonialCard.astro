@@ -1,23 +1,10 @@
 ---
 import RatingStars from '@/components/ui/RatingStars.astro';
-import { Image, getImage } from 'astro:assets';
-import noiseImage from '@/assets/noises.webp';
-
-const noiseImageOp = await getImage({ src: noiseImage, width: 1536, height: 1152, format: 'webp' });
+import { Image } from 'astro:assets';
 ---
 
-<div class="from-primary rounded-2xl bg-radial-[at_40%_25%] via-[#594216]/70 to-[#594216]/70 p-px">
-  <div
-    class="relative w-full rounded-2xl bg-[#272727] p-6"
-    style={`
-        background-image:
-radial-gradient(50% 50% at 50% 50%, rgba(48,48,48,0) 0%, rgba(48,48,48,0.54) 100%), url('${noiseImageOp.src}');
-        background-position: center, center;
-        background-size: auto, 300px 300px;
-        background-repeat: no-repeat, repeat;
-        background-blend-mode: overlay;
-    `}
-  >
+<div class="border-radial rounded-2xl">
+  <div class="bg-noise relative w-full rounded-2xl p-6">
     <div class="size-8 rounded-full bg-white/10"></div>
 
     <div class="flex items-center gap-x-2.5 pt-2.5 font-medium">
