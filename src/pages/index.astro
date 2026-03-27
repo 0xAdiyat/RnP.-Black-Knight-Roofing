@@ -1,11 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
-import Hero from '@/components/pages/home/Hero.astro';
+import Hero from '@/components/home/Hero.astro';
 import Brands from '@/components/Brands.astro';
 import Testimonials from '@/components/Testimonials.astro';
-import AboutSection from '@/components/pages/home/AboutSection.astro';
-import Services from '@/components/pages/home/Services.astro';
+import AboutSection from '@/components/home/AboutSection.astro';
+import Services from '@/components/home/Services.astro';
 import ProcessFlow from '@/components/process/Process.astro';
 
 import step1 from '@/assets/steps/step-1.png';
@@ -49,12 +49,13 @@ const processSteps = [
 
 <Layout>
   <Navbar />
-  <!-- <Hero />
+  <!-- <Hero /> -->
+
   <div class="pt-10">
     <Brands />
   </div>
   <Testimonials />
-  <AboutSection />
+  <!-- <AboutSection />
   <Services />
   <ProcessFlow steps={processSteps} />
   <RecentProjects />

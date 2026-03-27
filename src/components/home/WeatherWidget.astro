@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets';
+import Button from '@/components/ui/Button.astro';
+import stormBg from '@/assets/storm-bg.png';
+---
+
+<div class="absolute top-2/5 right-0 z-10 hidden w-[132px] -translate-y-1/2 overflow-hidden rounded-l-[10px] lg:block">
+  <div class="bg-tertiary flex w-full flex-col items-center p-2">
+    <div class="flex flex-col items-center uppercase">
+      <strong> COLORADO</strong>
+      <span> WEATHER</span>
+    </div>
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71" fill="none">
+        <path
+          d="M28.7554 53.605C18.7444 53.605 10.6504 45.511 10.6504 35.5C10.6504 25.489 18.7444 17.395 28.7554 17.395C35.5714 17.395 41.4644 21.158 44.5174 26.696C45.2984 26.554 46.0084 26.483 46.7894 26.483C54.2444 26.483 60.3504 32.518 60.3504 40.044C60.3504 47.499 54.3154 53.605 46.7894 53.605C43.6654 53.605 32.3054 53.605 28.7554 53.605Z"
+          fill="white"></path>
+        <path
+          d="M46.789 49.061C51.759 49.061 55.806 45.014 55.806 40.044C55.806 35.074 51.759 31.027 46.789 31.027C45.014 31.027 43.31 31.595 41.89 32.518C40.47 26.483 35.145 22.01 28.684 22.01C21.229 22.01 15.123 28.045 15.123 35.571C15.123 43.026 21.158 49.132 28.684 49.132C32.802 49.061 43.381 49.061 46.789 49.061Z"
+          fill="#082A40"></path>
+      </svg>
+    </div>
+
+    <h5 class="font-body leading-8 font-medium">45°F</h5>
+    <div class="text-center text-[11px]">scattered clouds</div>
+  </div>
+  <div
+    class="px-4 py-3"
+    style={`
+      background-image:url(${stormBg.src});
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    `}
+  >
+    <div class="space-y-4 py-1">
+      <p class="text-center">
+        Do you have <strong> storm damage?</strong>
+      </p>
+      <Button class="text-xs font-bold" href="/contact-us">Get an Inspection</Button>
+    </div>
+  </div>
+</div>

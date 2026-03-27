@@ -5,6 +5,7 @@ interface Props {
   spaceBetween?: number;
   loop?: boolean;
   autoplay?: boolean;
+  centeredSlides?: boolean;
   breakpoints?: Record<number, any>;
 }
 
@@ -14,6 +15,7 @@ const {
   spaceBetween = 0,
   loop = false,
   autoplay = false,
+  centeredSlides = false,
   breakpoints
 } = Astro.props;
 ---
@@ -24,6 +26,7 @@ const {
   data-space-between={spaceBetween}
   data-loop={loop.toString()}
   data-autoplay={autoplay.toString()}
+  data-centered-slides={centeredSlides.toString()}
   data-breakpoints={breakpoints ? JSON.stringify(breakpoints) : undefined}
 >
   <div class="swiper-wrapper">
@@ -49,6 +52,7 @@ const {
       const spaceBetween = parseInt(this.dataset.spaceBetween || '0', 10);
       const loop = this.dataset.loop === 'true';
       const autoplay = this.dataset.autoplay === 'true';
+      const centeredSlides = this.dataset.centeredSlides === 'true';
       const breakpointsStr = this.dataset.breakpoints;
       const breakpoints = breakpointsStr ? JSON.parse(breakpointsStr) : undefined;
 
@@ -63,6 +67,7 @@ const {
         slidesPerView,
         spaceBetween,
         loop,
+        centeredSlides,
         breakpoints,
       };
 

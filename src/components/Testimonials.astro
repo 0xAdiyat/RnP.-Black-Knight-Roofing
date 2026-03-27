@@ -16,10 +16,18 @@ const gridLinesOp = await getImage({ src: gridLines, width: 1536, height: 1152, 
 ---
 
 <section data-testid="testimonials" id="testimonials" class="relative">
-  <div class="py-20">
+  <Image
+    src={sunFlowImageOp.src}
+    alt="Sunflow"
+    width={sunFlowImageOp.options.width || 1536}
+    height={sunFlowImageOp.options.height || 1152}
+    class="pointer-events-none absolute -z-10 h-full w-full object-cover opacity-10 lg:hidden"
+  />
+
+  <div class="py-12 md:py-20">
     <svg
       viewBox="0 0 1536 850"
-      class="absolute top-0 left-0 -z-10 h-full w-full"
+      class="absolute top-0 left-0 -z-10 hidden h-full w-full lg:block"
       preserveAspectRatio="none"
       fill="none"
     >
@@ -83,46 +91,54 @@ const gridLinesOp = await getImage({ src: gridLines, width: 1536, height: 1152, 
 
     <div class="space-y-12">
       <!-- Top section -->
-      <div class="container flex items-end py-8">
-        <div class="w-full max-w-[448px]">
-          <BadgeTitle badge="Homeowner Reviews" title="Real Reviews from Colorado Homeowners" />
+      <div class="container flex flex-col gap-y-10 lg:flex-row lg:items-end">
+        <div class="w-full max-w-[450px]">
+          <BadgeTitle
+            badge="Homeowner Reviews"
+            title="Real Reviews from Colorado Homeowners"
+            titleClass="text-3xl lg:text-4xl font-bold leading-tight"
+          />
         </div>
 
-        <div class="flex items-center gap-x-16">
-          <div class="flex items-center gap-x-4">
-            <Image src={googleLogo} alt="google Logo" width={100} height={40} class="" />
-            <div class="flex items-center gap-x-4">
-              <span> Excellent </span>
-              <RatingStars rating={5} size={20} fillColor="#F7B715" strokeColor="none" />
-              <span> 5.0 </span>
-              <span class="h-4 w-px bg-white/30"></span>
-              <span> 41 reviews </span>
+        <div class="flex flex-col items-start gap-8 md:flex-row md:items-center lg:gap-x-16">
+          <div class="flex flex-col items-start gap-y-4 sm:flex-row sm:items-center sm:gap-x-8">
+            <Image src={googleLogo} alt="google Logo" width={100} height={40} class="h-8 w-auto object-contain" />
+            <div class="flex flex-wrap items-center gap-x-4 text-sm sm:text-base">
+              <span class="font-medium"> Excellent </span>
+              <RatingStars rating={5} size={18} fillColor="#F7B715" strokeColor="none" />
+              <span class="font-bold"> 5.0 </span>
+              <span class="hidden h-4 w-px bg-white/30 sm:block"></span>
+              <span class="text-white/70"> 41 reviews </span>
             </div>
           </div>
 
-          <Button variant="primary"> Write a Review</Button>
+          <Button variant="primary" class="w-full max-w-[200px] sm:w-auto"> Write a Review</Button>
         </div>
       </div>
 
       <!-- Testimonial cards -->
       <div class="relative w-full overflow-hidden">
         <div class="relative">
+          <!-- Responsive overlays -->
           <div
-            class="absolute inset-y-0 top-0 left-0 z-10 w-[250px] bg-linear-to-r from-[#151515] via-[rgba(21,21,21,0.5)] to-[#15151500]"
+            class="pointer-events-none absolute inset-y-0 top-0 left-0 z-10 w-4 bg-linear-to-r from-[#151515] to-[#15151500] md:w-32 lg:w-[250px]"
           >
           </div>
           <div
-            class="absolute inset-y-0 top-0 right-0 z-10 w-[250px] bg-linear-to-l from-[#151515] via-[rgba(21,21,21,0.8)] to-[#15151500]"
+            class="pointer-events-none absolute inset-y-0 top-0 right-0 z-10 w-4 bg-linear-to-l from-[#151515] to-[#15151500] md:w-32 lg:w-[250px]"
           >
           </div>
           <Carousel
-            slidesPerView={1}
-            spaceBetween={16}
+            slidesPerView={1.3}
+            centeredSlides={true}
+            spaceBetween={12}
             loop={true}
             autoplay={true}
             breakpoints={{
-              768: { slidesPerView: 2, spaceBetween: 24 },
-              1024: { slidesPerView: 3, spaceBetween: 32 },
+              640: { slidesPerView: 1.5, spaceBetween: 20 },
+              768: { slidesPerView: 2, spaceBetween: 24, centeredSlides: false },
+              1024: { slidesPerView: 3, spaceBetween: 32, centeredSlides: false },
+              1440: { slidesPerView: 3.5, spaceBetween: 40, centeredSlides: false },
             }}
             class="w-full pb-16"
           >
@@ -139,7 +155,7 @@ const gridLinesOp = await getImage({ src: gridLines, width: 1536, height: 1152, 
               <TestimonialCard />
             </CarouselSlide>
 
-            <div slot="navigation" class="mt-12 flex justify-center gap-x-2.5">
+            <div slot="navigation" class="mt-8 flex justify-center gap-x-2.5 lg:mt-12">
               <button
                 class="swiper-button-prev hover:bg-primary group static! mt-0! flex h-10! w-10! items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200 after:content-none!"
               >

@@ -3,55 +3,34 @@
 @plugin '@tailwindcss/typography';
 
 :root {
-  --neutral-lighter: oklch(0.8452 0 0);
-  /* #CCCCCC */
+  --neutral-lighter: oklch(0.8452 0 0); /* #CCCCCC */
   --neutral-light: oklch(0.738 0 0); /* #AAA */
+  --primary: oklch(0.845 0.1504 90.12); /* #f2c744 */
+  --secondary: oklch(0.6757 0.1221 79.01); /* #bf8d30 */
+  --tertiary: oklch(0.2733 0.0558 241.8); /* #082a40 */
+  --inverted: oklch(0.1591 0 0); /* #0d0d0d */
+  --brand: oklch(0.2733 0.0558 241.8); /* #082a40 */
 
-  --primary: oklch(0.845 0.1504 90.12);
-  /* #f2c744 */
-  --secondary: oklch(0.6757 0.1221 79.01);
-  /* #bf8d30 */
-  --tertiary: oklch(0.2733 0.0558 241.8);
-  /* #082a40 */
-  --inverted: oklch(0.1591 0 0);
-  /* #0d0d0d */
-  --brand: oklch(0.2733 0.0558 241.8);
-  /* #082a40 */
+  --bg-default: oklch(0.1776 0 0); /* #111111 */
+  --bg-subtle: oklch(0.9612 0 0); /* #f2f2f2 */
+  --bg-inverse: oklch(1 0 0); /* #ffffff */
+  --bg-brand: oklch(0.845 0.1504 90.12); /* #f2c744 */
 
-  --bg-default: oklch(0.1776 0 0);
-  /* #111111 */
-  --bg-subtle: oklch(0.9612 0 0);
-  /* #f2f2f2 */
-  --bg-inverse: oklch(1 0 0);
-  /* #ffffff */
-  --bg-brand: oklch(0.845 0.1504 90.12);
-  /* #f2c744 */
-
-  --tx-heading: oklch(0.1776 0 0);
-  /* #111111 */
-  --tx-body: oklch(1 0 0);
-  /* #ffffff */
+  --tx-heading: oklch(0.1776 0 0); /* #111111 */
+  --tx-body: oklch(1 0 0); /* #ffffff */
   --tx-muted: oklch(0.1776 0 0 / 60%);
   --tx-disabled: oklch(0.1776 0 0 / 40%);
-  --tx-brand: oklch(1 0 0);
-  /* #ffffff */
-  --tx-inverse: oklch(1 0 0);
-  /* #ffffff */
+  --tx-brand: oklch(1 0 0); /* #ffffff */
+  --tx-inverse: oklch(1 0 0); /* #ffffff */
 
-  --border-default: oklch(0.845 0.1504 90.12);
-  /* #f2c744 */
+  --border-default: oklch(0.845 0.1504 90.12); /* #f2c744 */
   --border-subtle: oklch(0.1776 0 0 / 10%);
-  --border-active: oklch(0.6757 0.1221 79.01);
-  /* #bf8d30 */
+  --border-active: oklch(0.6757 0.1221 79.01); /* #bf8d30 */
 
-  --success: oklch(0.6731 0.1624 144.21);
-  /* #4caf50 */
-  --error: oklch(0.6489 0.237 26.97);
-  /* #ff3333 */
-  --warning: oklch(0.7686 0.1647 70.08);
-  /* #f59e0b */
-  --info: oklch(0.6847 0.1479 237.32);
-  /* #0ea5e9 */
+  --success: oklch(0.6731 0.1624 144.21); /* #4caf50 */
+  --error: oklch(0.6489 0.237 26.97); /* #ff3333 */
+  --warning: oklch(0.7686 0.1647 70.08); /* #f59e0b */
+  --info: oklch(0.6847 0.1479 237.32); /* #0ea5e9 */
 }
 
 @theme {
@@ -117,6 +96,7 @@
     mask-composite: exclude;
   }
 }
+
 
 @layer base {
   body {

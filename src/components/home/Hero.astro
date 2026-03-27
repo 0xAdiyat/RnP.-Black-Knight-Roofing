@@ -4,42 +4,41 @@ import { getImage, Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 
 import Button from '@/components/ui/Button.astro';
-import InputGroup from '@/components/ui/input-group/InputGroup.astro';
-import InputGroupInput from '@/components/ui/input-group/InputGroupInput.astro';
-import InputGroupAddon from '@/components/ui/input-group/InputGroupAddon.astro';
 import NoiseBg from '@/components/NoiseBg.astro';
 
+import WeatherWidget from './WeatherWidget.astro';
+import FreeQuoteForm from './FreeQuoteForm.astro';
+
 import heroBgImage from '@/assets/hero-bg.jpg';
-import heroShield from '@/assets/hero-shield.png';
 import trustBadgeSSL from '@/assets/trust-badge-ssl.png';
 import heroPerson from '@/assets/hero-person.png';
 import gridFrame from '@/assets/grid-frame.png';
-import stormBg from '@/assets/storm-bg.png';
 import noiseBg from '@/assets/noises.png';
+import RatingStars from '@/components/ui/RatingStars.astro';
+import bbbLogo from '@/assets/bbb-logo.png';
 
 const optimizedHeroBg = await getImage({ src: heroBgImage, width: 1536, height: 1152, format: 'webp' });
 const gridFrameOp = await getImage({ src: gridFrame });
 const noiseBgOp = await getImage({ src: noiseBg });
 ---
 
-<section
-  class="grid-line relative max-h-[833px]"
-  style={`
-      background-image:linear-gradient(to right,var(--inverted),rgba(0,0,0,0.1)),url(${optimizedHeroBg.src});
-      background-size:cover, cover;
-      background-repeat: no-repeat, no-repeat;
-      background-position: center, center;
-  `}
->
-  <!-- Hero Left Shape -->
+<section class="relative h-fit lg:max-h-[800px]">
+  <!-- Background Image -->
+  <Image
+    alt="background Image"
+    src={optimizedHeroBg.src}
+    width={1536}
+    height={1152}
+    class="absolute -z-10 h-full w-full object-cover"
+  />
 
+  <!-- Hero Left Shape -->
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    width="1209"
-    height="837"
     viewBox="0 0 1209 837"
     fill="none"
+    class="h-[800px]"
   >
     <path
       d="M819.084 237.203L878 2H0V835H639.679C641.218 835 642.75 834.778 644.226 834.34L1194.6 671.197C1207.87 667.262 1210.22 649.468 1198.43 642.223L978.072 506.887C976.049 505.645 974.328 503.968 973.034 501.978L825.41 275.04C818.134 263.855 815.842 250.146 819.084 237.203Z"
@@ -104,58 +103,22 @@ const noiseBgOp = await getImage({ src: noiseBg });
       />
     </defs>
   </svg>
-
   <!-- End Hero Left Shape -->
 
   <!-- Weather widget -->
-  <div class="absolute top-2/5 right-0 z-10 w-[132px] -translate-y-1/2 overflow-hidden rounded-l-[10px]">
-    <div class="bg-tertiary flex w-full flex-col items-center p-2">
-      <div class="flex flex-col items-center uppercase">
-        <strong> COLORADO</strong>
-        <span> WEATHER</span>
-      </div>
-      <div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71" fill="none">
-          <path
-            d="M28.7554 53.605C18.7444 53.605 10.6504 45.511 10.6504 35.5C10.6504 25.489 18.7444 17.395 28.7554 17.395C35.5714 17.395 41.4644 21.158 44.5174 26.696C45.2984 26.554 46.0084 26.483 46.7894 26.483C54.2444 26.483 60.3504 32.518 60.3504 40.044C60.3504 47.499 54.3154 53.605 46.7894 53.605C43.6654 53.605 32.3054 53.605 28.7554 53.605Z"
-            fill="white"></path>
-          <path
-            d="M46.789 49.061C51.759 49.061 55.806 45.014 55.806 40.044C55.806 35.074 51.759 31.027 46.789 31.027C45.014 31.027 43.31 31.595 41.89 32.518C40.47 26.483 35.145 22.01 28.684 22.01C21.229 22.01 15.123 28.045 15.123 35.571C15.123 43.026 21.158 49.132 28.684 49.132C32.802 49.061 43.381 49.061 46.789 49.061Z"
-            fill="#082A40"></path>
-        </svg>
-      </div>
+  <WeatherWidget />
 
-      <h5 class="font-body leading-8 font-medium">45°F</h5>
-      <div class="text-center text-[11px]">scattered clouds</div>
-    </div>
-    <div
-      class="px-4 py-3"
-      style={`
-        background-image:url(${stormBg.src});
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-      `}
-    >
-      <div class="space-y-4 py-1">
-        <p class="text-center">
-          Do you have <strong> storm damage?</strong>
-        </p>
-        <Button class="text-xs font-bold" href="/contact-us">Get an Inspection</Button>
-      </div>
-    </div>
-  </div>
-
-  <!-- End weather widget -->
+  <!-- Main Hero Content -->
   <div class="absolute inset-0 top-0 left-0">
     <div class="container space-y-6 py-20">
       <div class="flex items-stretch gap-x-8">
         <div class="relative h-full w-full max-w-[720px] text-white">
           <div class="space-y-8">
             <div class="space-y-6">
+              <!-- Hero section title -->
               <div class="space-y-4">
-                <div class="flex items-center gap-x-1.5">
-                  <Icon name="badge-tick" />
+                <div class="flex items-start gap-x-1.5">
+                  <Icon name="badge-tick" class="mt-1" />
                   <span> Veteran-Owned. Licensed General Contractor. Denver, CO.</span>
                 </div>
 
@@ -166,14 +129,16 @@ const noiseBgOp = await getImage({ src: noiseBg });
                 </div>
               </div>
 
+              <!-- Hero section list -->
               <ul class="space-y-3">
-                <li class="flex items-center gap-x-2">
+                <li class="flex items-center gap-x-2 text-[clamp(14px,1.5vw,16px)]">
                   <Icon name="shield" size={36} />
                   <span class="flex-1">
                     Veteran Discipline, Builder Standards: Most roofers just replace shingles. As a licensed general
                     contractor and Army veteran, Adam inspects your whole home — and builds to last.
                   </span>
                 </li>
+
                 <li class="flex items-center gap-x-2">
                   <Icon name="helmet" size={36} />
                   <span class="flex-1">
@@ -181,6 +146,7 @@ const noiseBgOp = await getImage({ src: noiseBg });
                     steel and concrete tile — because we know they're the best thing on your roof.
                   </span>
                 </li>
+
                 <li class="flex items-center gap-x-2">
                   <Icon name="star-leaf" size={36} />
                   <span class="flex-1">
@@ -190,7 +156,8 @@ const noiseBgOp = await getImage({ src: noiseBg });
                 </li>
               </ul>
 
-              <div class="flex items-center gap-x-4">
+              <!-- CTA Section -->
+              <div class="flex flex-col items-center gap-x-4 md:flex-row">
                 <Button variant="primary" size="lg" href="/contact-us">
                   <span class="text-xs"> 0% interest & <br /> 12 month no-pay</span>
                   <span class="h-6 w-0.5 bg-[rgba(133,89,1,0.4)]"></span>
@@ -204,36 +171,37 @@ const noiseBgOp = await getImage({ src: noiseBg });
               </div>
             </div>
 
+            <!-- Social Proof -->
             <div class="flex items-center divide-x py-2 text-sm">
               <div class="flex items-center gap-x-4 pr-4">
                 <Icon name="google-logo" size={32} />
-                <span>
-                  40+ Five-Star <br />
-                  Google Reviews
-                </span>
+                <div class="flex flex-col gap-y-1">
+                  <RatingStars rating={5} size="12" fillColor="white" strokeColor="transparent" />
+                  <span> 5.0 Rating </span>
+                </div>
               </div>
 
               <div class="flex items-center gap-x-4 px-4">
                 <Icon name="facebook-logo" size={32} />
-                <span>
-                  40+ Five-Star <br />
-                  Facebook Reviews
-                </span>
+                <div class="flex flex-col gap-y-1">
+                  <RatingStars rating={5} size="12" fillColor="white" strokeColor="transparent" />
+                  <span> 5.0 Rating </span>
+                </div>
               </div>
 
               <div class="flex items-center gap-x-4 pl-4">
-                <Icon name="google-logo" size={32} />
-                <span>
-                  40+ Five-Star <br />
-                  Google Reviews
-                </span>
+                <Image src={bbbLogo} alt="BBB Logo" width={64} height={64} class="size-8" />
+                <div class="flex flex-col gap-y-1">
+                  <RatingStars rating={5} size="12" fillColor="white" strokeColor="transparent" />
+                  <span> A+ Rating </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Profile  -->
-        <div class="relative flex min-h-full items-end">
+        <div class="relative hidden min-h-full items-end lg:flex">
           <Image src={heroPerson} alt="Hero Person" width={443} height={631} class="h-full object-cover" />
           <div class="absolute top-2/3 -left-20 flex h-[92px] w-[315px] items-center gap-x-2">
             <svg
@@ -348,50 +316,9 @@ const noiseBgOp = await getImage({ src: noiseBg });
           </div>
         </div>
       </div>
-
-      <!-- Free Quote Form -->
-      <div
-        class="from-primary/50 to-secondary/50 after:form-transparent after:via-primary relative -translate-y-20 rounded-[12px] bg-linear-to-b p-px after:absolute after:-inset-x-px after:bottom-0 after:z-10 after:h-0.5 after:bg-linear-to-r after:to-transparent after:opacity-50 after:content-['']"
-      >
-        <NoiseBg class="relative z-10 rounded-[12px] bg-[#212121]">
-          <Image src={heroShield} alt="Hero Shield" width={100} height={100} class="mx-auto -mt-20" />
-          <div class="[&_span]:text-primary backdrop-blue-[24px] flex w-full flex-col items-center gap-y-8">
-            <h3>Get Your <span> FREE</span> Quote</h3>
-
-            <form class="flex w-full items-center gap-x-2.5">
-              <InputGroup class="h-[52px] border-white/15 px-4 py-4">
-                <InputGroupInput id="inline-end-input" type="text" placeholder="Name" />
-                <InputGroupAddon align="inline-end">
-                  <Icon name="contact" />
-                </InputGroupAddon>
-              </InputGroup>
-
-              <InputGroup class="h-[52px] border-white/15 px-4 py-4">
-                <InputGroupInput id="inline-end-input" type="tel" placeholder="Phone" />
-                <InputGroupAddon align="inline-end">
-                  <Icon name="call" />
-                </InputGroupAddon>
-              </InputGroup>
-
-              <InputGroup class="h-[52px] border-white/15 px-4 py-4">
-                <InputGroupInput id="inline-end-input" type="email" placeholder="Email" />
-                <InputGroupAddon align="inline-end">
-                  <Icon name="mail2" />
-                </InputGroupAddon>
-              </InputGroup>
-
-              <InputGroup class="h-[52px] border-white/15 px-4 py-4">
-                <InputGroupInput id="inline-end-input" type="text" placeholder="How can we assist you?" />
-                <InputGroupAddon align="inline-end">
-                  <Icon name="chat" />
-                </InputGroupAddon>
-              </InputGroup>
-
-              <Button class="h-[52px] px-8 py-4">Submit</Button>
-            </form>
-          </div>
-        </NoiseBg>
-      </div>
     </div>
   </div>
 </section>
+
+<!-- Free Quote Form -->
+<!-- <FreeQuoteForm /> -->
