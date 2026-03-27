@@ -27,7 +27,13 @@ const {
 } = Astro.props;
 ---
 
-<div data-slot="service-card" class={cn('w-full rounded-xl bg-gradient-radial p-6 border-radial', className)}>
+<div
+  data-slot="service-card"
+  class={cn(
+    'w-full rounded-xl bg-gradient-radial p-6 border-radial transition-all duration-200 ease-out will-change-transform',
+    className
+  )}
+>
   <div data-slot="thumbnail-wrapper" class="relative overflow-hidden pb-10">
     <Image
       data-slot="thumbnail"

@@ -54,27 +54,29 @@ const {
 
 <NoiseBg class:list={['relative space-y-12 overflow-hidden px-0 py-20', className]}>
   <!-- Top Section -->
-  <div class="container flex items-center">
-    <div class="flex-1 space-y-4">
+  <div class="container flex flex-col gap-y-12 lg:flex-row lg:items-center">
+    <div class="w-full space-y-4 lg:flex-1">
       <div class="flex items-center gap-x-3">
         <div
           class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
         >
         </div>
-        <div>{badge}</div>
+        <div class="text-sm font-bold tracking-wider uppercase opacity-80">{badge}</div>
       </div>
 
-      <h2><Fragment set:html={heading} /></h2>
+      <h2 class="text-3xl leading-tight font-bold md:text-5xl lg:text-5xl">
+        <Fragment set:html={heading} />
+      </h2>
     </div>
 
     {
       quote && (
-        <div>
-          <div class="via-primary ml-10 rounded-2xl bg-gradient-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-px">
-            <NoiseBg class="relative flex items-center rounded-2xl py-7 pl-12">
+        <div class="mx-auto w-[320px] lg:w-auto">
+          <div class="via-primary rounded-2xl bg-linear-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-px lg:ml-10">
+            <NoiseBg class="relative flex min-h-[100px] items-center rounded-2xl py-6 pr-6 pl-12 lg:py-7 lg:pl-12">
               {/* Profile image */}
-              <div class="via-primary absolute -ml-20 flex w-fit items-center justify-center rounded-full bg-gradient-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-0.5">
-                <div class="from-primary to-tertiary relative h-[73px] w-[73px] overflow-hidden rounded-full bg-conic-150">
+              <div class="via-primary absolute -left-6 flex w-fit items-center justify-center rounded-full bg-linear-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-0.5 lg:-ml-20">
+                <div class="from-primary to-tertiary relative h-[60px] w-[60px] overflow-hidden rounded-full bg-conic-150 lg:h-[73px] lg:w-[73px]">
                   <Image
                     src={quote.profileImage || '/placeholders/profile.png'}
                     alt={quote.profileAlt || 'profile'}
@@ -85,9 +87,9 @@ const {
                 </div>
               </div>
 
-              <div>
-                <div>&ldquo;{quote.quote}&rdquo;</div>
-                <div>{quote.author}</div>
+              <div class="pl-4 lg:pl-0">
+                <div class="text-sm leading-relaxed italic md:text-base">&ldquo;{quote.quote}&rdquo;</div>
+                <div class="text-tx-brand mt-1 text-xs font-bold md:text-sm">{quote.author}</div>
               </div>
             </NoiseBg>
           </div>
@@ -98,27 +100,27 @@ const {
 
   <!-- Slider container -->
   <div class="container">
-    <div class="rounded-[52px] bg-linear-to-b from-white/15 to-white/5 p-px">
-      <NoiseBg class="rounded-[52px] p-16">
-        <div class="flex items-center justify-between gap-x-8">
+    <div class="rounded-[32px] bg-linear-to-b from-white/15 to-white/5 p-px lg:rounded-[52px]">
+      <NoiseBg class="rounded-[32px] p-6 sm:p-10 lg:rounded-[52px] lg:p-16">
+        <div class="flex flex-col gap-12 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
           <!-- Content -->
-          <div>
-            <div class="mb-[100px] flex max-w-[436px] items-center">
+          <div class="flex-1">
+            <div class="mb-12 flex max-w-[436px] items-center text-center lg:mb-[100px] lg:text-left">
               <div class="space-y-4">
-                <h3>{subheading}</h3>
-                <div class="text-neutral-lighter">
+                <h3 class="text-2xl font-bold md:text-3xl lg:text-4xl">{subheading}</h3>
+                <div class="text-neutral-lighter text-sm leading-relaxed md:text-base">
                   {subheadingDescription}
                 </div>
               </div>
             </div>
 
-            <div class="relative w-fit rounded-2xl">
+            <div class="relative mx-auto w-fit rounded-2xl lg:mx-0">
               <Image
                 src={dogImage}
                 alt=""
-                width={256}
-                height={256}
-                class="absolute right-10 -mt-[85px] h-[92px] w-[102px]"
+                width={128}
+                height={128}
+                class="absolute top-0 right-0 z-20 -mt-[60px] h-[70px] w-[80px] lg:right-10 lg:-mt-[85px] lg:h-[92px] lg:w-[102px]"
               />
 
               <div
@@ -131,36 +133,48 @@ const {
             `}
               >
               </div>
-              <ul class="relative flex items-center gap-3 rounded-2xl p-4">
+              <ul
+                class="relative flex flex-wrap items-center justify-center gap-3 rounded-2xl bg-black/20 p-4 sm:flex-row"
+              >
                 <li class="flex items-center gap-x-2.5 p-2">
-                  <Icon name="google-logo" class="size-8 text-[#F7B715]" />
+                  <Icon name="google-logo" class="size-6 text-[#F7B715] lg:size-8" />
                   <div>
                     <div>
-                      <RatingStars rating={5} size={12} fillColor="white" strokeColor="transparent" />
+                      <RatingStars rating={5} size={10} fillColor="white" strokeColor="transparent" />
                     </div>
-                    <div class="text-sm">5.0 Rating</div>
+                    <div class="text-xs lg:text-sm">5.0 Rating</div>
                   </div>
                 </li>
 
+                <li class="hidden h-8 w-px bg-white/10 sm:block"></li>
+
                 <li class="flex items-center gap-x-2.5 p-2">
-                  <Icon name="facebook-logo" class="size-8 text-[#F7B715]" />
+                  <Icon name="facebook-logo" class="size-6 text-[#F7B715] lg:size-8" />
                   <div>
                     <div>
-                      <RatingStars rating={5} size={12} fillColor="white" strokeColor="transparent" />
+                      <RatingStars rating={5} size={10} fillColor="white" strokeColor="transparent" />
                     </div>
-                    <div class="text-sm">5.0 Rating</div>
+                    <div class="text-xs lg:text-sm">5.0 Rating</div>
                   </div>
                 </li>
 
+                <li class="hidden h-8 w-px bg-white/10 sm:block"></li>
+
                 <li class="flex items-center gap-x-2.5 p-2">
                   <div>
-                    <Image src={bbaLogo} alt="Better Business Bureau Logo" width={32} height={32} class="size-8" />
+                    <Image
+                      src={bbaLogo}
+                      alt="Better Business Bureau Logo"
+                      width={32}
+                      height={32}
+                      class="size-6 lg:size-8"
+                    />
                   </div>
-                  <div>
+                  <div class="flex flex-col items-start">
                     <div>
-                      <RatingStars rating={5} size={12} fillColor="white" strokeColor="transparent" />
+                      <RatingStars rating={5} size={10} fillColor="white" strokeColor="transparent" />
                     </div>
-                    <div class="text-sm">5.0 Rating</div>
+                    <div class="text-xs lg:text-sm">5.0 Rating</div>
                   </div>
                 </li>
               </ul>
@@ -168,8 +182,8 @@ const {
           </div>
 
           <!-- Process Cards Swiper -->
-          <div class="flex flex-col items-center gap-y-6">
-            <process-cards-swiper class="swiper block w-[421px]">
+          <div class="flex w-full flex-col items-center gap-y-6 lg:w-auto">
+            <process-cards-swiper class="swiper block w-full max-w-[320px] sm:max-w-[421px]">
               <div class="swiper-wrapper">
                 {
                   steps.length > 0 ? (
