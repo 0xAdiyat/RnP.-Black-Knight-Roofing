@@ -7,48 +7,49 @@ import AreaButton from '@/components/ui/AreaButton.astro';
 import BadgeTitle from '@/components/BadgeTitle.astro';
 ---
 
-<NoiseBg class="relative overflow-hidden">
+<NoiseBg class="relative space-y-12 overflow-hidden px-0 py-12">
   <Image
     src={sunFlow}
-    alt=""
-    width={1500}
-    height={500}
-    class="pointer-events-none absolute inset-0 top-0 left-0 opacity-20"
+    alt="Background Decoration"
+    class="pointer-events-none absolute top-0 left-0 h-full w-full opacity-10"
   />
-  <div class="container space-y-12">
-    <div class="flex items-center py-8">
+
+  <div class="relative z-10 container space-y-12">
+    <div class="flex flex-col items-start gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-4 md:py-8">
       <BadgeTitle
         badge="Service Area"
         title="Serving Homeowners from Colorado Springs to Fort Collins"
-        titleClass="max-w-[530px]"
+        titleClass="max-w-[530px] font-bold text-3xl sm:text-4xl"
       />
-      <Button> View All Service Areas </Button>
-    </div>
+      <Button class="w-fit shrink-0 px-8 sm:w-auto">View All Service Areas</Button>
 
-    <div class="rounded-2xl bg-linear-to-b from-white/15 via-white/5 via-60% to-white/0 to-100% px-0.5 pt-0.5">
-      <NoiseBg class="flex flex-col items-center gap-y-3 rounded-2xl bg-[#252525] py-8">
-        <ul class="flex flex-wrap items-center justify-center gap-3">
-          <li><AreaButton area="Aurora" /></li>
-          <li><AreaButton area="Aurora" /></li>
-          <li><AreaButton area="Aurora" /></li>
-        </ul>
-        <ul class="flex flex-wrap items-center justify-center gap-3">
-          <li><AreaButton area="Aurora" /></li>
-          <li><AreaButton area="Aurora" /></li>
-          <li><AreaButton area="Aurora" /></li>
-          <li><AreaButton area="Aurora" /></li>
-          <li><AreaButton area="Aurora" /></li>
-          <li><AreaButton area="Aurora" /></li>
-        </ul>
-        <ul class="flex flex-wrap items-center justify-center gap-3">
-          <li><AreaButton area="Aurora" /></li>
-          <li><AreaButton area="Aurora" /></li>
-          <li><AreaButton area="Aurora" /></li>
-          <li><AreaButton area="Aurora" /></li>
-        </ul>
-      </NoiseBg>
+      <div class="pt-2">
+        Based in Denver, we proudly serve homeowners across the entire Colorado Front Range. Whether you're in the city,
+        suburbs, or foothills, you get the same reliable service, quality workmanship, and lifetime warranty.
+      </div>
     </div>
+  </div>
 
-    <div class="border-primary/10 container h-[575px] rounded-2xl border-2 bg-[#111]"></div>
+  <div class="rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm sm:p-10">
+    <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+      <li><AreaButton area="Aurora" /></li>
+      <li><AreaButton area="Brighton" /></li>
+      <li><AreaButton area="Boulder" /></li>
+      <li><AreaButton area="Centennial" /></li>
+      <li><AreaButton area="Denver" /></li>
+      <li><AreaButton area="Englewood" /></li>
+      <li><AreaButton area="Fort Collins" /></li>
+      <li><AreaButton area="Greeley" /></li>
+      <li><AreaButton area="Lafayette" /></li>
+      <li><AreaButton area="Longmont" /></li>
+      <li><AreaButton area="Thornton" /></li>
+      <li><AreaButton area="Westminster" /></li>
+    </ul>
+  </div>
+
+  <div
+    class="border-primary/5 container h-[300px] overflow-hidden rounded-3xl border bg-[#111] shadow-2xl sm:h-[575px]"
+  >
+    <!-- Map placeholder or iframe could go here -->
   </div>
 </NoiseBg>
