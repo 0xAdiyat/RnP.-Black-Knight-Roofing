@@ -22,25 +22,52 @@ const {
 } = Astro.props;
 ---
 
-<div class:list={['relative h-[387px] w-[358px] overflow-hidden', className]}>
+<div class:list={['group relative aspect-358/387 w-full overflow-hidden rounded-2xl', className]}>
   {
     typeof image === 'string' ? (
-      <Image src={image} alt={imageAlt} width={358} height={387} class="h-full w-full object-cover" />
+      <Image
+        src={image}
+        alt={imageAlt}
+        width={600}
+        height={600}
+        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+      />
     ) : (
-      <Image src={image} alt={imageAlt} width={358} height={387} class="h-full w-full object-cover" />
+      <Image
+        src={image}
+        alt={imageAlt}
+        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+      />
     )
   }
+
   <div
-    class="absolute inset-0 top-0 left-0 flex h-full items-end bg-linear-to-b from-black/0 from-75% to-black/90 to-100% p-5"
+    class="absolute inset-0 flex h-full flex-col justify-end bg-linear-to-b from-black/0 from-40% via-black/60 to-black/90 p-6 transition-all duration-300"
   >
-    <div class="flex w-full items-center justify-between">
-      <div class="flex flex-1 flex-col gap-y-2">
-        <div class="max-w-[156px] font-bold">{title}</div>
-        <div class="text-xs text-white/60">{category}</div>
+    <div class="flex items-center justify-between gap-x-4">
+      <div class="space-y-1">
+        <h4 class="font-heading text-xl leading-tight text-white drop-shadow-sm lg:text-2xl">{title}</h4>
+        <p class="text-xs font-semibold tracking-widest text-white/70 uppercase">{category}</p>
       </div>
-      <div>
-        <Button class="rounded-full" {...(href ? { href } : {})}> + </Button>
-      </div>
+      <Button
+        class="border-gradient size-10 shrink-0 rounded-full p-0 transition-transform duration-300 group-hover:scale-110 before:bg-white/20"
+        {...(href ? { href } : {})}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </Button>
     </div>
   </div>
 </div>
