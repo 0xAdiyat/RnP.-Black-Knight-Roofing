@@ -11,17 +11,16 @@ interface Props {
   image?: string;
 }
 
-const { 
-  title = 'Denver Roofing Company | Black Knight Roofing', 
+const {
+  title = 'Top Veteran Roofing Company | Black Knight Roofing',
   description = 'Veteran-owned roofing company serving Denver & all of Colorado. Stone-coated steel specialists. 41+ five-star reviews. Free inspections. Call (720) 805-9666.',
-  image = '/social-preview.png'
+  image = '/social-preview.png',
 } = Astro.props;
 
 const siteUrl = Astro.site || Astro.url.origin || 'https://rnp-black-knight-roofing.vercel.app';
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const socialImageURL = new URL(image, siteUrl);
 ---
-
 
 <!doctype html>
 <html lang="en">
@@ -31,7 +30,7 @@ const socialImageURL = new URL(image, siteUrl);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    
+
     <!-- SEO Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
