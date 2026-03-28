@@ -17,7 +17,7 @@ import familyImage from '@/assets/family-image.png';
 const gridFrameOp = await getImage({ src: gridFrame });
 ---
 
-<NoiseBg class="relative bg-[#181818] px-0">
+<NoiseBg class="relative px-0">
   <svg
     viewBox="0 0 1440 202"
     fill="none"
@@ -290,18 +290,16 @@ const gridFrameOp = await getImage({ src: gridFrame });
 
   <!-- Our Promises section -->
   <div class="container pt-12 pb-20">
-    <div class="from-primary to-secondary relative flex rounded-2xl p-px lg:bg-linear-120">
-      <div
-        class="absolute inset-0 z-10 hidden bg-linear-to-r from-[#111] via-[#111] via-30% to-[#111]/10 lg:block lg:w-8/10"
-      >
+    <div
+      class="border-gradient rounded-2xl [--mask-border-bg:linear-gradient(to_right,transparent_30%,var(--color-primary)_100%)]"
+    >
+      <div class="absolute inset-0 z-10 hidden bg-linear-to-r from-[#111]/90 to-[#111]/10 to-50% lg:block lg:w-8/10">
       </div>
 
       <NoiseBg
-        class="relative flex w-full flex-col items-stretch overflow-hidden rounded-2xl bg-[#191919] px-0 lg:flex-row-reverse lg:bg-[#303030]"
+        class="relative flex w-full flex-col items-stretch rounded-2xl px-0 py-0 [--noise-overlay:linear-gradient(to_right,rgba(0,0,0,1)_20%,rgba(0,0,0,.85)_80%)] [--noise-radial:radial-gradient(50%_50%_at_50%_50%,rgba(48,48,48,0.3)_0%,rgba(48,48,48,0.54)_50%)] lg:flex-row"
       >
-        <div
-          class="relative z-0 w-full shrink-0 border-b border-white/10 lg:h-[631px] lg:w-1/2 lg:border-b-0 lg:border-l"
-        >
+        <div class="relative z-0 w-full shrink-0 border-b border-white/10 lg:w-1/2 lg:border-b-0 lg:border-l">
           <Image
             src={familyImage}
             alt="Adam Knight with family"
@@ -323,20 +321,27 @@ const gridFrameOp = await getImage({ src: gridFrame });
                   class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
                 >
                 </div>
-                <div class="text-sm font-medium tracking-wide text-white/80 uppercase">Our Promise</div>
+                <div class="text-sm font-medium tracking-wide text-white/80">Our Promise</div>
               </div>
 
-              <h2 class="text-3xl font-bold lg:text-4xl">Partner With a Company That Believes In The Golden Rule</h2>
+              <h3 class="font-bold">Partner With a Company That Believes In The Golden Rule</h3>
             </div>
 
-            <div class="text-white/70">
-              Choosing a roofing company can feel overwhelming — especially after storm damage or when facing a big
-              investment. That's why we're selective about the projects we take on. When you partner with us, you get
-              our absolute best: honest guidance, quality work, and a roof that protects your home for decades. Your
-              trust means everything to us.
+            <div class="space-y-4 text-white/70">
+              <p>
+                Most homeowners have been burned before — a contractor who didn't show, an estimate that changed after
+                the job started, a repair that didn't hold. We built this company on the opposite of that. Every project
+                gets our full attention, our honest assessment, and our name on the warranty.
+              </p>
+              <p>
+                We're A+ accredited by the Better Business Bureau, rated Best of 2026, and Tamko Pro Certified — which
+                means we've passed background checks, product training, and manufacturer testing to unlock enhanced
+                warranties most roofers simply can't offer you. That's accountability.
+              </p>
             </div>
 
-            <Button class="mt-4 w-full px-8 sm:w-auto" href="/contact-us">Schedule a FREE Roof Inspection</Button>
+            <Button class="mt-4 w-fit px-8 text-sm font-bold" href="/contact-us">Schedule a FREE Roof Inspection</Button
+            >
           </div>
         </div>
       </NoiseBg>

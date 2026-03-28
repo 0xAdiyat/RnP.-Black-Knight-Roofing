@@ -29,42 +29,41 @@ const {
 
 <div
   data-slot="service-card"
-  class={cn(
-    'w-full rounded-xl bg-gradient-radial p-6 border-radial transition-all duration-200 ease-out will-change-transform',
-    className
-  )}
+  class={cn('w-full rounded-xl border-radial transition-all duration-200 ease-out will-change-transform', className)}
 >
-  <div data-slot="thumbnail-wrapper" class="relative overflow-hidden pb-10">
-    <Image
-      data-slot="thumbnail"
-      src={image}
-      alt={imageAlt || title}
-      class="h-full w-full scale-100 rounded-lg object-cover"
-    />
-  </div>
-
-  <div class="space-y-4 pb-13 text-center">
-    <h4 data-slot="service-title">{title}</h4>
-    <div data-slot="service-description" class="text-sm text-white/70">
-      {description}
+  <div class="bg-gradient-radial h-full w-full rounded-xl p-6">
+    <div data-slot="thumbnail-wrapper" class="relative overflow-hidden pb-10">
+      <Image
+        data-slot="thumbnail"
+        src={image}
+        alt={imageAlt || title}
+        class="h-full w-full scale-100 rounded-lg object-cover"
+      />
     </div>
-  </div>
 
-  {
-    buttons.length > 0 && (
-      <div class="flex items-center justify-center gap-x-2">
-        {buttons.map(btn => {
-          if (typeof btn === 'string') {
-            return <Button class="w-fit rounded-full whitespace-nowrap">{btn}</Button>;
-          }
-          const { label, ...restBtnProps } = btn;
-          return (
-            <Button class="w-fit rounded-full whitespace-nowrap" {...restBtnProps}>
-              {label}
-            </Button>
-          );
-        })}
+    <div class="space-y-4 pb-13 text-center">
+      <h4 data-slot="service-title">{title}</h4>
+      <div data-slot="service-description" class="text-sm text-white/70">
+        {description}
       </div>
-    )
-  }
+    </div>
+
+    {
+      buttons.length > 0 && (
+        <div class="flex items-center justify-center gap-x-2">
+          {buttons.map(btn => {
+            if (typeof btn === 'string') {
+              return <Button class="w-fit rounded-full whitespace-nowrap">{btn}</Button>;
+            }
+            const { label, ...restBtnProps } = btn;
+            return (
+              <Button class="w-fit rounded-full whitespace-nowrap" {...restBtnProps}>
+                {label}
+              </Button>
+            );
+          })}
+        </div>
+      )
+    }
+  </div>
 </div>

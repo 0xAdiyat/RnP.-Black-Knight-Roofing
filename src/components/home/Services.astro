@@ -24,7 +24,7 @@ const rawHeadline = `Complete Roofing \ Solutions for Colorado Homes`;
 const headline = await marked.parse(rawHeadline);
 ---
 
-<NoiseBg class="relative bg-[#202020] px-0 py-20">
+<NoiseBg class="relative px-0 py-20">
   <div class="">
     <div
       class="absolute inset-0 top-0 left-0 flex h-20 w-full items-center justify-center"
@@ -101,10 +101,8 @@ const headline = await marked.parse(rawHeadline);
           />
         </div>
 
-        <div
-          class="via-primary w-full max-w-[950px] rounded-3xl bg-conic-145 from-[rgba(89,66,22,0.5)] via-70% to-[rgba(89,66,22,0.5)] p-0.5"
-        >
-          <div class="grid grid-cols-1 gap-6 rounded-3xl bg-[#171717] p-4 lg:grid-cols-2 lg:gap-x-3 lg:p-2.5">
+        <div class="border-radial w-full max-w-[950px] rounded-3xl">
+          <div class="grid grid-cols-1 gap-6 rounded-3xl p-4 lg:grid-cols-2 lg:gap-x-3 lg:p-2.5">
             <div class="relative h-full">
               <Image src={popularBadge} alt="Popular" class="absolute top-2 left-2 z-10 w-16 lg:w-20" />
               <ServiceCard
@@ -116,7 +114,7 @@ const headline = await marked.parse(rawHeadline);
                   { label: 'Concrete Tile Roofs', href: '/services/tile-roofing' },
                   { label: 'Free Estimate', href: '/contact-us' },
                 ]}
-                class="h-full min-h-[480px] w-full"
+                class="border-gradient h-full min-h-[480px] w-full"
               />
             </div>
 
@@ -131,8 +129,7 @@ const headline = await marked.parse(rawHeadline);
                   { label: 'Stone Coated Steel', href: '/services/metal-roofing' },
                   { label: 'Free Estimate', href: '/contact-us' },
                 ]}
-                class="h-full min-h-[480px]"
-                borderClass="h-full"
+                class="border-gradient h-full min-h-[480px]"
               />
             </div>
           </div>

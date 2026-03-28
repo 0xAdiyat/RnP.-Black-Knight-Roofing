@@ -82,17 +82,31 @@
 }
 
 
-@utility bg-noise {
-    background: 
+@utility testimonial-bg-noise {
+  background: 
     radial-gradient(50% 50% at 50% 50%, rgba(48, 48, 48, 0.4) 0%, rgba(48, 48, 48, 0.54) 100%),
-    linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+    linear-gradient(var(--noise-from, rgba(0,0,0,0.8)), var(--noise-to, rgba(0,0,0,0.8))), 
     url('/noises.webp') 50% / cover no-repeat var(--inverted, #0d0d0d);
-
   background-blend-mode: normal, normal, normal;
 }
 
+
+
+@utility bg-noise {
+  --noise-radial: radial-gradient(50% 50% at 50% 50%, rgba(48, 48, 48, 0) 0%, rgba(48, 48, 48, 0.4) 100%);
+  --noise-overlay: linear-gradient(to bottom, rgba(0,0,0,0.93), rgba(0,0,0,0.9));
+  --noise-bg: #111;
+
+  background: 
+    var(--noise-radial),
+    var(--noise-overlay), 
+    url('/noises.webp') 50% / cover no-repeat var(--noise-bg);
+}
+
+
+
 @utility bg-gradient-radial {
-  background-image: radial-gradient(50% 50% at 50% 50%, rgba(48, 48, 48, 0) 0%, rgba(48, 48, 48, 0.54) 100%);
+  background-image: radial-gradient(50% 50% at 50% 50%, rgba(48, 48, 48, 0.3) 0%, rgba(48, 48, 48, 0.54) 100%);
 }
 
 @utility container {
@@ -108,7 +122,7 @@
     inset: 0;
     padding: 1px;
     border-radius: inherit;
-    background: var(--mask-border-bg, linear-gradient(to bottom, rgba(255, 255, 255, 0.15), transparent));
+    background: var(--mask-border-bg, linear-gradient(to bottom, rgba(255, 255, 255, 0.34), transparent));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -119,8 +133,10 @@
 }
 
 @utility border-radial {
-  --mask-border-bg: radial-gradient(72.74% 74.7% at 27.26% 2.83%, oklch(0.845 0.1504 90.12) 0%, oklch(0.395 0.0675 80.57) 100%);
   @apply border-gradient;
+  &::before {
+    background: var(--mask-border-bg, radial-gradient(72.74% 74.7% at 27.26% 2.83%, oklch(0.845 0.1504 90.12) 0%, oklch(0.395 0.0675 80.57) 100%));
+  }
 }
   
 
