@@ -4,7 +4,6 @@ import '@fontsource-variable/manrope';
 import '@fontsource/instrument-serif';
 import '@fontsource-variable/jetbrains-mono';
 import '@fontsource-variable/caveat';
-import socialPreview from '@/assets/social-previews/social-preview.png';
 
 interface Props {
   title?: string;
@@ -15,11 +14,12 @@ interface Props {
 const { 
   title = 'Denver Roofing Company | Black Knight Roofing', 
   description = 'Veteran-owned roofing company serving Denver & all of Colorado. Stone-coated steel specialists. 41+ five-star reviews. Free inspections. Call (720) 805-9666.',
-  image = socialPreview.src
+  image = '/social-preview.png'
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://blackknightroofing.com');
-const socialImageURL = new URL(image, Astro.site || 'https://blackknightroofing.com');
+const siteUrl = Astro.site || Astro.url.origin || 'https://blackknightroofing.com';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const socialImageURL = new URL(image, siteUrl);
 ---
 
 <!doctype html>
