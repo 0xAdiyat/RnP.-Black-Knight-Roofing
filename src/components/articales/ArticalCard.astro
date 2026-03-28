@@ -30,13 +30,15 @@ const {
 <a
   href={href}
   class:list={[
-    'group block overflow-hidden rounded-[16px] border border-white/30 bg-[#111111] transition-all hover:bg-white/5',
+    'group border-gradient block overflow-hidden rounded-2xl transition-all duration-300 before:bg-linear-to-b before:from-white/34 before:to-white/4 hover:shadow-2xl',
     className,
   ]}
 >
-  <NoiseBg class="px-0 py-0">
-    <!-- Image -->
-    <div class="relative h-[260px] overflow-hidden">
+  <NoiseBg
+    class="px-0 py-0 [--noise-overlay:linear-gradient(to_bottom,rgba(0,0,0,0.9),rgba(0,0,0,0.9))] [--noise-radial:radial-gradient(50%_50%_at_50%_50%,rgba(48,48,48,0.2)_0%,rgba(48,48,48,0.5)_100%)]"
+  >
+    <!-- Image Container -->
+    <div class="relative aspect-video w-full overflow-hidden">
       {
         typeof image === 'string' ? (
           <img
@@ -52,30 +54,36 @@ const {
           />
         )
       }
+      <!-- Overlay Gradient -->
+      <div
+        class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      >
+      </div>
+
       <!-- Diamond accent -->
-      <div class="absolute right-4 bottom-4 opacity-50">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 0L10 6L16 8L10 10L8 16L6 10L0 8L6 6L8 0Z" fill="white"></path>
+      <div class="absolute right-4 bottom-4 opacity-50 transition-transform duration-300 group-hover:rotate-45">
+        <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 0L10 6L16 8L10 10L8 16L6 10L0 8L6 6L8 0Z" fill="currentColor" class="text-primary"></path>
         </svg>
       </div>
     </div>
 
     <!-- Content -->
-    <div class="space-y-4 p-4">
+    <div class="space-y-5 p-6 md:p-8">
       <!-- Meta -->
-      <div class="flex items-center gap-x-6 text-[14.5px] text-[#ccc]">
+      <div class="flex items-center gap-x-6 text-sm font-medium text-white/50">
         {
           date && (
-            <div class="flex items-center gap-x-2">
-              <Icon name="calender-2" class="size-[21px] shrink-0" />
+            <div class="flex items-center gap-x-2 transition-colors group-hover:text-white/80">
+              <Icon name="calender-2" class="size-5 shrink-0" />
               <span>{date}</span>
             </div>
           )
         }
         {
           readTime && (
-            <div class="flex items-center gap-x-2">
-              <Icon name="clock-2" class="size-[17px] shrink-0" />
+            <div class="flex items-center gap-x-2 transition-colors group-hover:text-white/80">
+              <Icon name="clock-2" class="size-4 shrink-0" />
               <span>{readTime}</span>
             </div>
           )
@@ -84,13 +92,23 @@ const {
 
       <!-- Title & Description -->
       <div class="space-y-3">
-        <h5 class="font-heading leading-[32px] font-normal text-white">{title}</h5>
-        {description && <p class="line-clamp-3 text-sm leading-[24px] text-[#ccc]">{description}</p>}
+        <h4
+          class="font-heading group-hover:text-primary text-2xl leading-snug font-semibold text-white transition-colors"
+        >
+          {title}
+        </h4>
+        {description && <p class="line-clamp-2 text-sm leading-relaxed text-white/60">{description}</p>}
       </div>
 
       <!-- Read More -->
-      <div class="inline-block border-b border-white pb-0.5">
-        <span class="text-base font-semibold text-white">Read More</span>
+      <div class="flex items-center gap-x-2 pt-2">
+        <span class="group-hover:text-primary text-sm font-bold tracking-wider text-white uppercase transition-colors"
+          >Read More</span
+        >
+        <Icon
+          name="arow-open-link"
+          class="text-primary size-4 transition-transform duration-300 group-hover:translate-x-1"
+        />
       </div>
     </div>
   </NoiseBg>

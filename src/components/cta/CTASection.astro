@@ -2,71 +2,76 @@
 import { Image } from 'astro:assets';
 import Button from '@/components/ui/Button.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
-import roof from '@/assets/roof.png';
+import roof from '@/assets/roof.webp';
 import { getImage } from 'astro:assets';
 
 const roofimage = await getImage({ src: roof, width: 512, height: 512, format: 'webp' });
 ---
 
 <div
-  class="relative  py-12"
+  class="relative overflow-hidden py-16 lg:py-24"
   style={`
-    background-image: linear-gradient(259deg, rgba(0,0,0,0.24) 38.06%, rgba(0,0,0,0.90) 83.55%), url("${roofimage.src}");
-    background-position: center, 0px -127.292px;
-    background-size: cover, 100% 257.83%;
-    background-repeat: no-repeat, no-repeat;
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.95) 100%), url("${roofimage.src}");
+    background-position: center bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
     background-color: #111;
   `}
 >
-  <div class="absolute inset-x-0 bottom-0 h-0.5 bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+  <div class="via-primary/50 absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent to-transparent"></div>
 
-  <div class="grid grid-cols-2 container items-center gap-12">
+  <div class="relative z-10 container grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-24">
     <!-- Left Content -->
-    <div class="space-y-8">
+    <div class="flex flex-col space-y-8 text-center lg:items-start lg:text-left">
       <div class="space-y-4">
-        <div class="flex items-center gap-x-3">
+        <div class="flex items-center justify-center gap-x-3 lg:justify-start">
           <div
-            class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
+            class="bg-primary/50 relative size-5 rounded-[5px] drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
           >
           </div>
-          <div>Get Started</div>
+          <div class="text-sm font-medium tracking-wide text-white/80 uppercase">Get Started</div>
         </div>
-        <h2>
-          Your Roof Deserves a Contractor <br /> Who Treats It Like Their Own
+        <h2 class="text-4xl leading-tight font-bold lg:text-5xl lg:leading-tight">
+          Your Roof Deserves a Contractor <br class="hidden sm:block" /> Who Treats It Like Their Own
         </h2>
       </div>
 
-      <p class="max-w-[500px] text-sm leading-relaxed text-white/60">
+      <p class="mx-auto max-w-[500px] text-base leading-relaxed text-white/70 lg:mx-0">
         &ldquo;When you call us, you get honesty, real craftsmanship, and a team that genuinely wants the best outcome
         for your home &mdash; not just the easiest job.&rdquo;
       </p>
 
       <!-- Profile -->
-      <div class="flex items-center gap-x-3">
-        <div
-          class="via-primary flex w-fit items-center justify-center rounded-full bg-linear-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-0.5"
-        >
-          <div class="from-primary to-tertiary relative h-14 w-14 overflow-hidden rounded-full bg-conic-150">
-            <Image
-              src="/placeholders/profile.png"
-              alt="Adam Knight"
-              width={256}
-              height={256}
-              class="absolute h-full w-full object-cover"
-            />
-          </div>
+      <div class="flex items-center justify-center gap-x-4 lg:justify-start">
+        <div class="border-primary/20 relative size-14 shrink-0 overflow-hidden rounded-full border-2 p-0.5">
+          <Image
+            src="/placeholders/profile.png"
+            alt="Adam Knight"
+            width={128}
+            height={128}
+            class="h-full w-full rounded-full object-cover"
+          />
         </div>
-        <div>
-          <span class="font-semibold">Adam Knight</span><span class="text-white/60">, President</span>
+        <div class="text-left">
+          <div class="font-bold text-white">Adam Knight</div>
+          <div class="text-sm text-white/50">President</div>
         </div>
       </div>
 
       <!-- CTA + Handwritten text -->
-      <div class="flex items-end gap-x-6">
-        <Button>Contact Our Team</Button>
-        <div class="flex items-center gap-x-2 pb-1">
+      <div class="flex flex-col items-center gap-4 sm:flex-row sm:items-end sm:gap-12 lg:gap-x-10">
+        <Button class="w-fit px-10 py-4 font-bold sm:w-auto">Contact Our Team</Button>
+
+        <div class="relative flex items-center justify-center sm:pb-2">
           <!-- Arrow -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="49" height="33" viewBox="0 0 49 33" fill="none">
+          <svg
+            class="absolute -top-12 -left-12 hidden rotate-[-15deg] opacity-50 sm:static sm:block sm:rotate-0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="49"
+            height="33"
+            viewBox="0 0 49 33"
+            fill="none"
+          >
             <path
               d="M2.86718 26.1025C9.70051 17.1025 25.9672 -0.497461 36.3672 1.10254C49.3672 3.10254 48.8672 17.1025 45.8672 23.6025C43.4672 28.8025 41.8665 31.1025 41.3662 31.6025"
               stroke="url(#paint0_linear_16793_5676)"
@@ -91,7 +96,7 @@ const roofimage = await getImage({ src: roof, width: 512, height: 512, format: '
           </svg>
 
           <span
-            class="font-caveat -translate-x-8 translate-y-10 rotate-20 text-center text-[28px] text-white/70 italic"
+            class="font-caveat text-primary/80 mt-4 text-center text-2xl text-nowrap italic sm:mt-0 sm:ml-4 sm:translate-y-8 sm:-rotate-6"
           >
             No Obligation<br />Free Roof Inspection
           </span>
@@ -100,6 +105,8 @@ const roofimage = await getImage({ src: roof, width: 512, height: 512, format: '
     </div>
 
     <!-- Right Card - Form -->
-    <QuoteForm />
+    <div class="relative mx-auto w-full max-w-lg lg:max-w-none">
+      <QuoteForm />
+    </div>
   </div>
 </div>
