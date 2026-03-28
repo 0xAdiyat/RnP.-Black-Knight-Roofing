@@ -1,8 +1,5 @@
 ---
-import { getImage } from 'astro:assets';
-import noiseImage from '@/assets/noises.webp';
 import { cn } from '@/lib/utils';
-const optimizedNoise = await getImage({ src: noiseImage, width: 1536, height: 1152, format: 'webp' });
 
 interface Props {
   question: string;
@@ -16,20 +13,10 @@ const { question, answer, open = false } = Astro.props;
 <faq-item
   data-open={open.toString()}
   class={cn(
-    'via-primary/30 group/faq-item bg-linear-to-r from-transparent rounded-2xl via-50% to-transparent pb-px px-px data-[open=true]:pt-px data-[open=true]:from-[#F2C74422] data-[open=true]:via-primary/30 data-[open=true]:to-[#F2C74422] transition-all duration-200 ease-in-out'
+    'border-gradient before:via-primary/30 before:pt-0 group/faq-item before:bg-linear-to-r before:from-transparent rounded-2xl before:via-50% before:to-transparent data-[open=true]:before:pt-px data-[open=true]:before:from-[#F2C74422] data-[open=true]:before:via-primary data-[open=true]:before:to-[#F2C74422] transition-all duration-200 ease-in-out'
   )}
 >
-  <div
-    class={cn('block bg-[#191919] p-5 rounded-2xl', open && 'rounded-2xl')}
-    style={`
-      background-image:
-radial-gradient(50% 50% at 50% 50%, rgba(48,48,48,0) 0%, rgba(48,48,48,0.54) 100%), url('${optimizedNoise.src}');
-      background-position: center, center;
-      background-size: auto, 500px 500px;
-      background-repeat: no-repeat, repeat;
-      background-blend-mode: overlay;
-    `}
-  >
+  <div class={cn('bg-[#171717] lg:bg-bg-default block p-5 rounded-2xl', open && 'rounded-2xl')}>
     <button
       class="flex w-full items-center justify-between gap-x-4 text-left hover:cursor-pointer"
       aria-expanded={open}
