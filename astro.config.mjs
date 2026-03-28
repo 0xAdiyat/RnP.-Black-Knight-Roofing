@@ -6,6 +6,7 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://rnp-black-knight-roofing.vercel.app",
   vite: {
     plugins: [tailwindcss()],
   },

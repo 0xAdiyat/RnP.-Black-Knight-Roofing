@@ -17,10 +17,11 @@ const {
   image = '/social-preview.png'
 } = Astro.props;
 
-const siteUrl = Astro.site || Astro.url.origin || 'https://blackknightroofing.com';
+const siteUrl = Astro.site || Astro.url.origin || 'https://rnp-black-knight-roofing.vercel.app';
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const socialImageURL = new URL(image, siteUrl);
 ---
+
 
 <!doctype html>
 <html lang="en">
