@@ -2,7 +2,7 @@
 import { getImage, Image } from 'astro:assets';
 
 import trustBadgeSSL from '@/assets/trust-badge-ssl.png';
-import noiseBg from '@/assets/noises.webp';
+import noiseBg from '@/assets/noises.avif';
 import { cn } from '@/lib/utils';
 import type { ImageMetadata } from 'astro';
 
@@ -22,7 +22,7 @@ const {
   imageAlt = 'Trust Badge SSL',
 } = Astro.props;
 
-const noiseBgOp = await getImage({ src: noiseBg });
+const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
 ---
 
 <div class={cn('relative flex h-[92px] w-[315px] items-center gap-x-2', className)}>

@@ -84,7 +84,7 @@
   background:
     radial-gradient(50% 50% at 50% 50%, rgba(48, 48, 48, 0.4) 0%, rgba(48, 48, 48, 0.54) 100%),
     linear-gradient(var(--noise-from, rgba(0, 0, 0, 0.8)), var(--noise-to, rgba(0, 0, 0, 0.8))),
-    url('/noises.webp') 50% / cover no-repeat var(--inverted, #0d0d0d);
+    url('/noises.avif') 50% / cover no-repeat var(--inverted, #0d0d0d);
   background-blend-mode: normal, normal, normal;
 }
 
@@ -96,7 +96,7 @@
   background:
     var(--noise-radial),
     var(--noise-overlay),
-    url('/noises.webp') 50% / cover no-repeat var(--noise-bg);
+    url('/noises.avif') 50% / cover no-repeat var(--noise-bg);
 }
 
 @utility bg-gradient-radial {

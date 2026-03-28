@@ -1,9 +1,9 @@
 ---
 import { Image, getImage } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import noises from '@/assets/noises.webp';
-import sunflow from '@/assets/sunflow.webp';
-import heroImage from '@/assets/hero-logo.png';
+import noises from '@/assets/noises.avif';
+import sunflow from '@/assets/sunflow.avif';
+import heroImage from '@/assets/hero-logo.avif';
 import Button from './ui/Button.astro';
 import NavbarItemLink from './navbar/NavbarItemLink.astro';
 import NavbarItemPopover from './navbar/NavbarItemPopover.astro';
@@ -11,8 +11,8 @@ import NavbarItemPopoverLink from './navbar/NavbarItemPopoverLink.astro';
 import MobileStickyNav from './MobileStickyNav.astro';
 import MobileMenu from './navbar/MobileMenu.astro';
 
-const optimizedNoise = await getImage({ src: noises, width: 100, height: 100, format: 'webp' });
-const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100, format: 'webp' });
+const optimizedNoise = await getImage({ src: noises, width: 100, height: 100, format: 'avif' });
+const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100, format: 'avif' });
 ---
 
 <div id="navbar-wrapper" class="sticky top-0 z-50 shadow-lg md:-top-10">

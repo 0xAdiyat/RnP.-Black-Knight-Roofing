@@ -30,11 +30,11 @@ const services = [
 ];
 ---
 
-<NoiseBg class="space-y-12 px-0 py-0">
-  <div class="container pt-16">
-    <div class="flex items-center gap-x-12">
+<NoiseBg class="px-0 py-0">
+  <div class="container pt-16 pb-8 md:py-16 lg:pt-24">
+    <div class="flex flex-col gap-16 lg:flex-row lg:items-start lg:gap-12 xl:gap-24">
       <!-- Left Content -->
-      <div class="flex w-full max-w-[304px] flex-col gap-y-4">
+      <div class="flex w-full flex-col gap-y-6 lg:max-w-[304px]">
         <!-- Logo -->
         <div>
           <Image
@@ -145,19 +145,23 @@ const services = [
                 href="https://www.facebook.com/yourpage"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="bg-primary flex items-center justify-center rounded-full p-2"
+                class="bg-primary text-inverted flex items-center justify-center rounded-full p-2"
+                arial-label="Facebook"
               >
-                <Icon name="facebook" size={20} class="text-black" />
+                <Icon name="facebook" size={20} />
+                <span class="sr-only">Facebook</span>
               </a>
             </li>
             <li>
               <a
-                href="https://www.twitter.com/yourprofile"
+                href="https://www.instagram.com/yourprofile"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="bg-primary flex items-center justify-center rounded-full p-2"
+                class="bg-primary text-inverted flex items-center justify-center rounded-full p-2 transition-transform hover:scale-110"
+                arial-label="Instagram"
               >
-                <Icon name="instragram" size={20} class="text-black" />
+                <Icon name="instragram" size={20} />
+                <span class="sr-only">Instagram</span>
               </a>
             </li>
 
@@ -166,9 +170,11 @@ const services = [
                 href="https://www.twitter.com/yourprofile"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="bg-primary flex items-center justify-center rounded-full p-2"
+                class="bg-primary text-inverted flex items-center justify-center rounded-full p-2"
+                arial-label="Twitter"
               >
-                <Icon name="yelp" size={20} class="text-black" />
+                <Icon name="yelp" size={20} />
+                <span class="sr-only">Yelp</span>
               </a>
             </li>
           </ul>
@@ -176,22 +182,22 @@ const services = [
       </div>
 
       <!-- Right content -->
-      <div>
+      <div class="flex flex-1 flex-col gap-y-12">
         <!-- Quick Links and Services -->
-        <div class="flex items-center gap-x-8">
+        <div class="flex flex-col gap-12 sm:flex-row sm:items-start lg:gap-8 xl:gap-16">
           <!-- Quick links -->
-          <div class="flex flex-col gap-y-8">
-            <h4>Quick Links</h4>
-            <ul class="columns-3 gap-x-8">
+          <div class="flex flex-1 flex-col gap-y-6">
+            <h4 class="text-lg font-bold text-white">Quick Links</h4>
+            <ul class="columns-2 gap-x-8 sm:columns-3 md:columns-2 lg:columns-3">
               {
                 quickLinks.map(link => (
                   <li class="py-1">
                     <a
                       href={link.url}
-                      class="group flex items-center gap-x-2 text-sm font-medium text-white/80 hover:text-white"
+                      class="group hover:text-primary flex items-center gap-x-2 text-sm font-medium text-white/70 transition-colors"
                     >
                       {link.label}
-                      <Icon name="send" class="opacity-0 group-hover:opacity-100" />
+                      <Icon name="send" class="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
                     </a>
                   </li>
                 ))
@@ -199,21 +205,21 @@ const services = [
             </ul>
           </div>
 
-          <div class="h-40 w-px bg-white/15"></div>
+          <div class="hidden h-40 w-px bg-white/10 md:block"></div>
 
           <!-- Quick Service Link -->
-          <div class="flex flex-col gap-y-8 pl-8">
-            <h4>Our Services</h4>
-            <ul class="columns-3 gap-x-8">
+          <div class="flex flex-1 flex-col gap-y-6">
+            <h4 class="text-lg font-bold text-white">Our Services</h4>
+            <ul class="columns-2 gap-x-8 sm:columns-3 md:columns-2 lg:columns-3">
               {
                 services.map(link => (
                   <li class="py-1">
                     <a
                       href={link.url}
-                      class="group flex items-center gap-x-2 text-sm font-medium text-white/80 hover:text-white"
+                      class="group hover:text-primary flex items-center gap-x-2 text-sm font-medium text-white/70 transition-colors"
                     >
                       {link.label}
-                      <Icon name="send" class="opacity-0 group-hover:opacity-100" />
+                      <Icon name="send" class="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
                     </a>
                   </li>
                 ))
@@ -223,42 +229,57 @@ const services = [
         </div>
 
         <!-- Get Started banner -->
-        <div class="from-primary mt-12 rounded-lg bg-radial-[at_25%_25%] to-[#F7B715]/10 p-px">
-          <NoiseBg class="rounded-lg">
-            <div class="flex items-center justify-between p-6">
-              <div>
-                <h4 class="to-primary bg-linear-to-r from-[#E5E7EB] bg-clip-text text-transparent">
+        <div class="border-radial mt-4 rounded-xl">
+          <NoiseBg class="rounded-xl">
+            <div class="flex flex-col items-center justify-between gap-6 p-6 sm:flex-row sm:gap-4 lg:p-8">
+              <div class="text-center sm:text-left">
+                <h4
+                  class="to-primary bg-linear-to-r from-white bg-clip-text text-xl font-bold text-transparent lg:text-2xl"
+                >
                   Get Your FREE Roof Inspection Done!
                 </h4>
-                <p>NEED ANY ROOF REPAIR HELP? GET IN TOUCH TODAY!</p>
+                <p class="mt-1 text-sm text-white/60">NEED ANY ROOF REPAIR HELP? GET IN TOUCH TODAY!</p>
               </div>
-              <Button> Get Started </Button>
+              <Button class="w-full shrink-0 px-8 sm:w-auto">Get Started</Button>
             </div>
           </NoiseBg>
         </div>
 
-        <div class="flex items-center justify-between gap-x-4 pt-12">
-          <div class="flex items-center gap-x-2.5">
-            <Icon name="phone-call" size={32} />
+        <div class="grid grid-cols-1 items-start gap-8 pt-5 sm:grid-cols-2 md:pt-12 lg:grid-cols-3">
+          <div class="flex items-center gap-x-4">
+            <div class="text-primary flex size-12 items-center justify-center rounded-full bg-white/5">
+              <Icon name="phone-call" size={24} />
+            </div>
             <div>
-              <div class="text-sm font-medium text-[#909090]">Phone:</div>
-              <div>(720) 805-9666</div>
+              <div class="text-xs font-bold tracking-wider text-white/40 uppercase">Phone</div>
+              <a href="tel:7208059666" class="hover:text-primary text-base font-semibold text-white transition-colors">
+                (720) 805-9666
+              </a>
             </div>
           </div>
 
-          <div class="flex items-center gap-x-2.5">
-            <Icon name="mail" size={32} class="text-primary" />
+          <div class="flex items-center gap-x-4">
+            <div class="text-primary flex size-12 items-center justify-center rounded-full bg-white/5">
+              <Icon name="mail" size={24} />
+            </div>
             <div>
-              <div class="text-sm font-medium text-[#909090]">Email:</div>
-              <div>support@blackknightroofing.com</div>
+              <div class="text-xs font-bold tracking-wider text-white/40 uppercase">Email</div>
+              <a
+                href="mailto:support@blackknightroofing.com"
+                class="hover:text-primary text-base font-semibold text-white transition-colors"
+              >
+                support@blackknightroofing.com
+              </a>
             </div>
           </div>
 
-          <div class="flex items-center gap-x-2.5">
-            <Icon name="clock-time" size={32} class="text-primary" />
+          <div class="flex items-center gap-x-4">
+            <div class="text-primary flex size-12 items-center justify-center rounded-full bg-white/5">
+              <Icon name="clock-time" size={24} />
+            </div>
             <div>
-              <div class="text-sm font-medium text-[#909090]">Hours:</div>
-              <div>Mon–Fri, 9am–5pm</div>
+              <div class="text-xs font-bold tracking-wider text-white/40 uppercase">Hours</div>
+              <div class="text-base font-semibold text-white">Mon–Fri, 9am–5pm</div>
             </div>
           </div>
         </div>
@@ -266,13 +287,13 @@ const services = [
     </div>
   </div>
 
-  <footer class="container">
-    <div class="border-primary flex items-center justify-between border-t py-6">
-      <div class="[&_span]:text-primary">
-        Copywrite @ 2026 <span> Black Knight Roofing </span> - All Rights Reserved
+  <footer class="container mt-12 border-t border-white/10 py-8">
+    <div class="flex flex-col items-center justify-between gap-4 text-center text-sm lg:flex-row lg:text-left">
+      <div class="[&_span]:text-primary text-nowrap text-white/40 [&_span]:font-semibold">
+        Copyright &copy; 2026 <span> Black Knight Roofing </span> - All Rights Reserved
       </div>
-      <div class="[&_span]:text-primary">
-        Developed by <span> Tarunsoft Co. </span>, The Creative Design Company For Roofers
+      <div class="[&_span]:text-primary text-white/40 [&_span]:font-semibold">
+        Developed by <span> Tarunsoft Co. </span>, The Creative Design Agency for Roofers
       </div>
     </div>
   </footer>

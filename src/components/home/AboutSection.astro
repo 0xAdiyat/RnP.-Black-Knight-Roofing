@@ -7,71 +7,29 @@ import NoiseBg from '@/components/NoiseBg.astro';
 import IntroBadge from '@/components/IntroBadge.astro';
 import Button from '@/components/ui/Button.astro';
 
-import PersonImage from '@/assets/hero-person.png';
-import gridFrame from '@/assets/grid-frame.png';
+import PersonImage from '@/assets/hero-person.avif';
 import RatingStars from '@/components/ui/RatingStars.astro';
-import dotImage from '@/assets/dog-image.png';
-import bbaLogo from '@/assets/bbb-logo.png';
-import familyImage from '@/assets/family-image.png';
+import dotImage from '@/assets/dog-image.avif';
+import familyImage from '@/assets/family-image.avif';
+import GoogleIcon from '@/assets/google-icon-logo.avif';
 
-const gridFrameOp = await getImage({ src: gridFrame });
+import TopFrameImage from '@/assets/top-frame.avif';
 ---
 
 <NoiseBg class="relative px-0">
-  <svg
-    viewBox="0 0 1440 202"
-    fill="none"
-    preserveAspectRatio="none"
-    class="absolute top-0 left-0 hidden h-[200px] w-full lg:block"
-  >
-    <path
-      d="M1440 -0.421875V201.078H1328.5V145.761L1261.77 67.0781H506V103.578H431.664L373.796 145.981L373.664 146.078H0.5V-0.421875H1440Z"
-      fill="url(#paint0_radial_16502_5679)"
-      fill-opacity="0.54"></path>
-    <path
-      d="M1440 -0.421875V201.078H1328.5V145.761L1261.77 67.0781H506V103.578H431.664L373.796 145.981L373.664 146.078H0.5V-0.421875H1440Z"
-      fill="url(#pattern0_16502_5679)"></path>
-    <path
-      d="M1440 -0.421875V201.078H1328.5V145.761L1261.77 67.0781H506V103.578H431.664L373.796 145.981L373.664 146.078H0.5V-0.421875H1440Z"
-      stroke="url(#paint1_linear_16502_5679)"></path>
-    <defs>
-      <pattern id="pattern0_16502_5679" patternContentUnits="objectBoundingBox" width="1" height="1">
-        <use xlink:href="#image0_16502_5679" transform="matrix(0.000244141 0 0 0.0017516 0 -1.93735)"></use>
-      </pattern>
-      <radialGradient
-        id="paint0_radial_16502_5679"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(720.25 100.328) scale(719.25 100.25)"
-      >
-        <stop stop-color="#303030" stop-opacity="0"></stop>
-        <stop offset="1" stop-color="#303030"></stop>
-      </radialGradient>
-      <linearGradient
-        id="paint1_linear_16502_5679"
-        x1="103.346"
-        y1="0.0781268"
-        x2="606.48"
-        y2="758.479"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stop-color="white" stop-opacity="0.2"></stop>
-        <stop offset="0.323131" stop-color="white" stop-opacity="0.3"></stop>
-        <stop offset="1" stop-color="#0D0D0D"></stop>
-      </linearGradient>
-      <image
-        id="image0_16502_5679"
-        width="4096"
-        height="2783"
-        preserveAspectRatio="none"
-        xlink:href={gridFrameOp.src}
-      />
-    </defs>
-  </svg>
+  <!-- Top Frame Image -->
+  <Image
+    src={TopFrameImage}
+    alt="Top Frame"
+    width={1440}
+    height={202}
+    class="h-auto w-full"
+    loading="eager"
+    fetchpriority="high"
+    format="avif"
+  />
 
-  <div class="container py-12 lg:py-20">
+  <div class="container pb-12 lg:pb-20">
     <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-x-8">
       <div class="relative flex flex-col items-center space-y-8 lg:items-start lg:space-y-12">
         <!-- Person Image container -->
@@ -125,7 +83,15 @@ const gridFrameOp = await getImage({ src: gridFrame });
 
             <li class="flex items-center gap-x-2.5 p-2">
               <div>
-                <Image src={bbaLogo} alt="BBB Logo" width={32} height={32} class="size-6 sm:size-8" />
+                <Image
+                  src="/bba.avif"
+                  loading="eager"
+                  format="avif"
+                  alt="BBB Logo"
+                  width={32}
+                  height={32}
+                  class="size-6 sm:size-8"
+                />
               </div>
               <div>
                 <div>
@@ -223,30 +189,26 @@ const gridFrameOp = await getImage({ src: gridFrame });
       <div class="relative min-h-[400px] rounded-xl lg:min-h-full">
         <div class="absolute inset-x-0 bottom-0 z-10 h-1/2 bg-linear-to-t from-black via-black/50 to-transparent"></div>
         <Image
-          src="/placeholders/team-pic.jpg"
+          src="/placeholders/team-pic.avif"
           alt="team pic"
           width={800}
           height={800}
+          format="avif"
+          loading="eager"
           class="absolute inset-0 h-full w-full rounded-xl object-cover"
         />
 
         <!-- Review Wedget Card 1 -->
         <div
-          class="animate-floating from-primary to-secondary absolute top-8 -left-4 z-20 w-[90%] max-w-[320px] rounded-2xl bg-linear-120 p-px sm:left-[-20px] sm:w-full lg:max-w-[372px]"
+          class="animate-floating border-radial absolute top-8 -left-4 z-20 w-[90%] max-w-[320px] rounded-2xl p-px sm:left-[-20px] sm:w-full lg:max-w-[372px]"
         >
           <div class="flex items-center gap-x-3 rounded-2xl bg-[#222]/95 p-3 backdrop-blur-sm sm:p-4">
             <div class="size-12 shrink-0 rounded-full bg-white/10 sm:size-[74px]"></div>
             <div class="flex-1 space-y-1 sm:space-y-2">
               <div class="text-primary flex items-center gap-x-2 text-xs sm:text-sm">
-                <span class="font-bold"> Mary Cay </span>
+                <span class="font-normal"> Mary Cay </span>
                 <div class="flex items-center gap-x-1">
-                  <Image
-                    alt="G"
-                    width={16}
-                    height={16}
-                    src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s48-fcrop64=1,00000000ffffffff-rw"
-                    class="size-3 sm:size-4"
-                  />
+                  <Image alt="G" width={16} height={16} src={GoogleIcon} class="size-3 sm:size-4" />
                   <RatingStars rating={5} size={10} fillColor="#F7B715" strokeColor="transparent" />
                 </div>
               </div>
@@ -259,22 +221,16 @@ const gridFrameOp = await getImage({ src: gridFrame });
 
         <!-- Review Wedget Card 2 -->
         <div
-          class="animate-floating from-primary to-secondary absolute -right-4 bottom-8 z-20 w-[90%] max-w-[320px] rounded-2xl bg-linear-120 p-px sm:right-[-20px] sm:w-full lg:max-w-[372px]"
+          class="animate-floating border-radial absolute -right-4 bottom-8 z-20 w-[90%] max-w-[320px] rounded-2xl p-px sm:right-[-20px] sm:w-full lg:max-w-[372px]"
           style="animation-delay: -2s;"
         >
           <div class="flex items-center gap-x-3 rounded-2xl bg-[#222]/95 p-3 backdrop-blur-sm sm:p-4">
             <div class="size-12 shrink-0 rounded-full bg-white/10 sm:size-[74px]"></div>
             <div class="flex-1 space-y-1 sm:space-y-2">
               <div class="text-primary flex items-center gap-x-2 text-xs sm:text-sm">
-                <span class="font-bold"> Mark T. </span>
+                <span class="font-normal"> Mark T. </span>
                 <div class="flex items-center gap-x-1">
-                  <Image
-                    alt="G"
-                    width={16}
-                    height={16}
-                    src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s48-fcrop64=1,00000000ffffffff-rw"
-                    class="size-3 sm:size-4"
-                  />
+                  <Image alt="G" width={16} height={16} src={GoogleIcon} class="size-3 sm:size-4" />
                   <RatingStars rating={5} size={10} fillColor="#F7B715" strokeColor="transparent" />
                 </div>
               </div>

@@ -9,7 +9,7 @@ import serviceGuttersImg from '@/assets/services/service-gutter.png';
 import serviceRoofImg from '@/assets/services/service-roof.png';
 import serviceRoofShade from '@/assets/services/service-roof-shade.png';
 import NoiseBg from '@/components/NoiseBg.astro';
-import sunflow from '@/assets/sunflow.webp';
+import sunflow from '@/assets/sunflow.avif';
 import popularBadge from '@/assets/popular-badge.png';
 import { marked } from 'marked';
 import { Icon } from 'astro-icon/components';
@@ -52,7 +52,7 @@ const headline = await marked.parse(rawHeadline);
         </div>
 
         <div class="flex flex-col items-start gap-y-4 lg:items-end lg:text-right">
-          <Button variant="primary" size="md" class="w-full sm:w-auto" href="/services">View All Services</Button>
+          <Button variant="primary" size="md" class="w-fit sm:w-auto" href="/services">View All Services</Button>
           <div class="max-w-[500px] text-white/70">
             From roof replacements and storm damage repairs to siding, gutters, and full exterior restoration — we
             handle it all. Every project backed by our lifetime workmanship warranty and veteran-owned commitment to

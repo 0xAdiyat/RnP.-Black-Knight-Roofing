@@ -1,13 +1,13 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { Image, getImage } from 'astro:assets';
-import heroImage from '@/assets/hero-logo.png';
-import noises from '@/assets/noises.webp';
-import sunflow from '@/assets/sunflow.webp';
+import heroImage from '@/assets/hero-logo.avif';
+import noises from '@/assets/noises.avif';
+import sunflow from '@/assets/sunflow.avif';
 import NoiseBg from '../NoiseBg.astro';
 import Button from '../ui/Button.astro';
 
-const optimizedNoise = await getImage({ src: noises, width: 200, height: 200, format: 'webp' });
+const optimizedNoise = await getImage({ src: noises, width: 200, height: 200, format: 'avif' });
 
 const menuItems = [
   { label: 'Home', href: '/' },

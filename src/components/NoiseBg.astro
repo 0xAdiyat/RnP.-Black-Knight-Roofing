@@ -1,6 +1,6 @@
 ---
 import { getImage, Image } from 'astro:assets';
-import noiseImage from '@/assets/noises.webp';
+import noiseImage from '@/assets/noises.avif';
 import { cn } from '@/lib/utils';
 import type { HTMLAttributes } from 'astro/types';
 
@@ -8,7 +8,7 @@ interface Props extends HTMLAttributes<'section'> {}
 
 const { class: className, ...props } = Astro.props;
 
-const optimizedNoise = await getImage({ src: noiseImage, width: 1536, height: 1152, format: 'webp' });
+const optimizedNoise = await getImage({ src: noiseImage, width: 1536, height: 1152, format: 'avif' });
 ---
 
 <section class={cn('relative bg-noise pt-[42px] pb-6 px-8 gap-x-4', className)} {...props}>
