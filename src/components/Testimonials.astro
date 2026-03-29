@@ -15,7 +15,7 @@ const bgShape = await getImage({ src: bgShapeImage, width: 1536, height: 850, fo
 ---
 
 <section data-testid="testimonials" id="testimonials" class="relative overflow-hidden">
-  <!-- Background Fix for Lighthouse LCP -->
+  <!-- Background Image -->
   <div class="pointer-events-none absolute inset-0 -z-10 bg-[#151515]">
     <Image
       src={sunFlowImage}
@@ -32,7 +32,7 @@ const bgShape = await getImage({ src: bgShapeImage, width: 1536, height: 850, fo
     <div class="absolute inset-0 bg-[#151515]/85"></div>
   </div>
   <div
-    class="py-20"
+    class="py-20 lg:bg-size-[auto_100%] lg:bg-position-[top_right]"
     style={`
       background-image: url(${bgShape.src});
       background-repeat: no-repeat;

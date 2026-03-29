@@ -3,10 +3,9 @@ import { getImage, Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import Button from '@/components/ui/Button.astro';
 import WeatherWidget from './WeatherWidget.astro';
-
 import heroBgImage from '@/assets/hero-bg.webp';
 import trustBadgeSSL from '@/assets/trust-badge-ssl.png';
-import heroPerson from '@/assets/hero-person.png';
+import heroPerson from '@/assets/hero-person.avif';
 import noiseBg from '@/assets/noises.avif';
 import heroLeftShape from '@/assets/hero-left-shape.avif';
 import FreeQuoteForm from './FreeQuoteForm.astro';
@@ -32,10 +31,11 @@ const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
   <Image
     src={heroLeftShape}
     alt="Hero Left Shape"
-    width={1209}
-    height={837}
-    class="absolute top-0 -left-20 -z-10 hidden h-full w-[1309px] lg:block"
+    width={heroLeftShape.width || 1209}
+    height={heroLeftShape.height || 837}
+    class="absolute top-0 -left-20 -z-10 -mt-0.5 hidden h-full w-[1309px] lg:block"
     fetchpriority="high"
+    sizes="(max-width: 1024px) 100vw, 50vw"
     loading="eager"
   />
 
@@ -75,29 +75,27 @@ const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
               <ul class="space-y-4 lg:space-y-3">
                 <li class="flex items-start gap-x-3 text-[clamp(14px,1.5vw,16px)] lg:items-center lg:gap-x-2">
                   <Icon name="shield" class="size-6 shrink-0 lg:size-9" />
-                  <span class="flex-1">
-                    <span class="text-primary font-bold lg:font-normal lg:text-white"
-                      >Veteran Discipline, Builder Standards:</span
-                    > Most roofers just replace shingles. As a licensed general contractor and Army veteran, Adam inspects
-                    your whole home — and builds to last.
+                  <span class="text-normal flex-1">
+                    <strong class="font-semibold text-white">Veteran Discipline, Builder Standards:</strong>
+                    Most roofers just replace shingles. As a licensed general contractor and Army veteran, Adam inspects your
+                    whole home — and builds to last.
                   </span>
                 </li>
 
                 <li class="flex items-start gap-x-3 lg:items-center lg:gap-x-2">
                   <Icon name="helmet" class="size-6 shrink-0 lg:size-9" />
-                  <span class="flex-1">
-                    <span class="text-primary font-bold lg:font-normal lg:text-white">Stone-Coated Steel Experts:</span> We
-                    specialize in the materials most roofers won't touch — stone-coated steel and concrete tile — because
-                    we know they're the best thing on your roof.
+                  <span class="text-normal flex-1">
+                    <strong class="font-semibold text-white">Stone-Coated Steel Experts:</strong> We specialize in the materials
+                    most roofers won't touch — stone-coated steel and concrete tile — because we know they're the best thing
+                    on your roof.
                   </span>
                 </li>
 
                 <li class="flex items-start gap-x-3 lg:items-center lg:gap-x-2">
                   <Icon name="star-leaf" class="size-6 shrink-0 lg:size-9" />
-                  <span class="flex-1">
-                    <span class="text-primary font-bold lg:font-normal lg:text-white"
-                      >Insurance Claim Specialists + Lifetime Guarantee:</span
-                    > We handle insurance claim and provide lifetime workmanship warranty plus manufacturer guarantees.
+                  <span class="text-normal flex-1">
+                    <strong class="font-semibold text-white">Insurance Claim Specialists + Lifetime Guarantee:</strong>
+                    We handle insurance claim and provide lifetime workmanship warranty plus manufacturer guarantees.
                   </span>
                 </li>
               </ul>
@@ -123,23 +121,21 @@ const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
 
         <!-- Profile  -->
         <div class="relative hidden min-h-full items-end lg:flex lg:flex-1">
-          <Image src={heroPerson} alt="Hero Person" width={443} height={631} class="h-full object-cover" />
+          <Image
+            src={heroPerson}
+            alt="Hero Person"
+            width={443}
+            height={631}
+            class="h-full object-cover"
+            fetchpriority="high"
+            loading="eager"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            format="avif"
+          />
+
           <div class="absolute top-2/3 -left-20 flex h-[92px] w-[315px] items-center gap-x-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              width="300"
-              height="96"
-              viewBox="0 0 300 96"
-              fill="none"
-              class="h-[96px] w-[300px]"
-            >
-              <foreignObject x="-14" y="-14" width="327.331" height="123.275">
-                <div
-                  style="backdrop-filter:blur(7px);clip-path:url(#bgblur_0_16409_61398_clip_path);height:100%;width:100%"
-                >
-                </div>
-              </foreignObject><g data-figma-bg-blur-radius="14">
+            <svg width="300" height="96" viewBox="0 0 300 96" fill="none" class="h-[96px] w-[300px]">
+              <g>
                 <path
                   d="M278.126 0.974854C292.04 0.974854 301.793 14.7072 297.21 27.845L278.755 80.7454C275.923 88.862 268.267 94.3 259.671 94.3H21.2148C6.22081 94.3 -3.55368 78.5471 3.10449 65.1125L29.3232 12.2112C32.7343 5.32911 39.7516 0.974949 47.4326 0.974854H278.126Z"
                   fill="#0D0D0D"></path>
@@ -157,11 +153,7 @@ const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
                   stroke-width="1.95046"></path>
               </g>
               <defs>
-                <clipPath id="bgblur_0_16409_61398_clip_path" transform="translate(14 14)"
-                  ><path
-                    d="M278.126 0.974854C292.04 0.974854 301.793 14.7072 297.21 27.845L278.755 80.7454C275.923 88.862 268.267 94.3 259.671 94.3H21.2148C6.22081 94.3 -3.55368 78.5471 3.10449 65.1125L29.3232 12.2112C32.7343 5.32911 39.7516 0.974949 47.4326 0.974854H278.126Z"
-                  ></path>
-                </clipPath><pattern
+                <pattern
                   id="pattern0_16409_61398"
                   patternContentUnits="objectBoundingBox"
                   width="1"
