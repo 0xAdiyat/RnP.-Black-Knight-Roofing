@@ -1,59 +1,97 @@
 ---
 import Button from '@/components/ui/Button.astro';
 import ArticalCard from './ArticalCard.astro';
-
+import Carousel from '../ui/Carousel.astro';
+import CarouselSlide from '../ui/CarouselSlide.astro';
 import sunFlow from '@/assets/sunflow.avif';
 import { Image } from 'astro:assets';
+import BadgeTitle from '../BadgeTitle.astro';
+
+const breakpoints = {
+  320: { slidesPerView: 1.1, spaceBetween: 16 },
+  500: { slidesPerView: 1.5, spaceBetween: 20 },
+  768: { slidesPerView: 2, spaceBetween: 32 },
+  1024: { slidesPerView: 3, spaceBetween: 32 },
+};
 ---
 
 <section class="bg-noise relative overflow-hidden border-t border-white/10 py-16 lg:py-24">
   <div class="relative z-10 container">
     <!-- Header -->
     <div
-      class="mb-12 flex flex-col justify-between gap-8 border-b border-[#444444] pb-12 md:flex-row md:items-end md:border-b-0 md:pb-0"
+      class="mb-12 flex flex-col justify-between gap-8 border-b border-[#444444] pb-12 md:flex-row md:items-center md:border-b-0 md:pb-0"
     >
-      <div class="space-y-4">
-        <!-- Section Chip -->
-        <div class="flex items-center gap-3">
-          <div class="relative flex size-5 items-center justify-center">
-            <div class="absolute size-[21px] rounded-[5px] bg-[#F7B715] opacity-50"></div>
-            <div class="relative size-2 rounded-full bg-[#F7D515] shadow-[0_0_4px_rgba(247,213,21,0.5)]"></div>
-          </div>
-          <span class="text-sm font-semibold tracking-wider text-white uppercase">Recent Articles</span>
-        </div>
-
-        <h2 class="max-w-2xl text-4xl leading-tight font-bold text-white lg:text-5xl lg:leading-tight">
-          Blog Posts By <br class="hidden sm:block" /> The Roof Pros
-        </h2>
-      </div>
-
-      <Button href="/blogs" class="w-full px-8 py-3.5 text-sm font-bold sm:w-auto"> View all articles </Button>
+      <BadgeTitle badge="Recent Articles" title="Roofing Advice for Colorado Homeowners" />
+      <Button href="/blogs" class="px:px-8 w-fit py-3.5 text-sm font-bold"> View all articles </Button>
     </div>
 
-    <!-- Articles Grid -->
-    <div class="z-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-      <ArticalCard
-        image="/placeholders/works/1.jpg"
-        title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
-        description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
-        date="July 1, 2026"
-        readTime="15 Mins"
-      />
-      <ArticalCard
-        image="/placeholders/works/2.jpg"
-        title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
-        description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
-        date="July 1, 2026"
-        readTime="15 Mins"
-      />
-      <ArticalCard
-        image="/placeholders/works/3.jpg"
-        title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
-        description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
-        date="July 1, 2026"
-        readTime="15 Mins"
-      />
-    </div>
+    <!-- Articles Carousel -->
+    <Carousel
+      slidesPerView="auto"
+      spaceBetween={32}
+      breakpoints={breakpoints}
+      centeredSlides={true}
+      loop={true}
+      loopedSlides={6}
+      autoplay={true}
+      class="z-10 w-full"
+    >
+      <CarouselSlide>
+        <ArticalCard
+          image="/placeholders/works/1.jpg"
+          title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
+          description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
+          date="July 1, 2026"
+          readTime="15 Mins"
+        />
+      </CarouselSlide>
+      <CarouselSlide>
+        <ArticalCard
+          image="/placeholders/works/2.jpg"
+          title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
+          description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
+          date="July 1, 2026"
+          readTime="15 Mins"
+        />
+      </CarouselSlide>
+      <CarouselSlide>
+        <ArticalCard
+          image="/placeholders/works/3.jpg"
+          title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
+          description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
+          date="July 1, 2026"
+          readTime="15 Mins"
+        />
+      </CarouselSlide>
+      <!-- Group 2 (Duplicate for seamless loop) -->
+      <CarouselSlide>
+        <ArticalCard
+          image="/placeholders/works/1.jpg"
+          title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
+          description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
+          date="July 1, 2026"
+          readTime="15 Mins"
+        />
+      </CarouselSlide>
+      <CarouselSlide>
+        <ArticalCard
+          image="/placeholders/works/2.jpg"
+          title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
+          description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
+          date="July 1, 2026"
+          readTime="15 Mins"
+        />
+      </CarouselSlide>
+      <CarouselSlide>
+        <ArticalCard
+          image="/placeholders/works/3.jpg"
+          title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
+          description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
+          date="July 1, 2026"
+          readTime="15 Mins"
+        />
+      </CarouselSlide>
+    </Carousel>
   </div>
 
   <Image

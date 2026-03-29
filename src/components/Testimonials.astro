@@ -5,7 +5,9 @@ import TestimonialCard from './TestimonialCard.astro';
 import Carousel from './ui/Carousel.astro';
 import CarouselSlide from './ui/CarouselSlide.astro';
 import sunFlowImage from '@/assets/sunflow.avif';
+
 import googleLogo from '@/assets/google-logo.avif';
+
 import RatingStars from './ui/RatingStars.astro';
 import Button from './ui/Button.astro';
 import BadgeTitle from './BadgeTitle.astro';
@@ -32,7 +34,7 @@ const bgShape = await getImage({ src: bgShapeImage, width: 1536, height: 850, fo
     <div class="absolute inset-0 bg-[#151515]/85"></div>
   </div>
   <div
-    class="py-20 lg:bg-size-[auto_100%] lg:bg-position-[top_right]"
+    class="z-10 py-20 lg:bg-size-[auto_100%] lg:bg-position-[top_right]"
     style={`
       background-image: url(${bgShape.src});
       background-repeat: no-repeat;
@@ -50,17 +52,15 @@ const bgShape = await getImage({ src: bgShapeImage, width: 1536, height: 850, fo
         </div>
 
         <div class="flex flex-col items-start gap-8 md:flex-row md:items-center lg:gap-x-16">
-          <div class="flex flex-col items-start gap-y-4 sm:flex-row sm:items-center sm:gap-x-8">
+          <div class="flex flex-col items-start gap-y-4 sm:flex-row sm:items-center sm:gap-x-4">
             <Image
               fetchpriority="high"
               loading="eager"
               src={googleLogo}
               alt="google Logo"
-              width={100}
-              height={40}
-              format="avif"
-              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-              class="h-8 w-auto object-contain"
+              width={googleLogo.width}
+              height={googleLogo.height}
+              class="h-8 w-fit object-contain"
             />
 
             <div class="flex flex-wrap items-center gap-x-4 text-sm sm:text-base">

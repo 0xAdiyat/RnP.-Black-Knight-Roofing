@@ -6,6 +6,7 @@ interface Props {
   loop?: boolean;
   autoplay?: boolean;
   centeredSlides?: boolean;
+  loopedSlides?: number;
   breakpoints?: Record<number, any>;
 }
 
@@ -16,6 +17,7 @@ const {
   loop = false,
   autoplay = false,
   centeredSlides = false,
+  loopedSlides,
   breakpoints
 } = Astro.props;
 ---
@@ -27,6 +29,7 @@ const {
   data-loop={loop.toString()}
   data-autoplay={autoplay.toString()}
   data-centered-slides={centeredSlides.toString()}
+  data-looped-slides={loopedSlides ? loopedSlides.toString() : undefined}
   data-breakpoints={breakpoints ? JSON.stringify(breakpoints) : undefined}
 >
   <div class="swiper-wrapper">
@@ -45,9 +48,11 @@ const {
   import 'swiper/css/pagination';
 
   class SwiperCarousel extends HTMLElement {
-    constructor() {
-      super();
-      
+    private swiperInstance: any = null;
+
+    connectedCallback() {
+      if (this.swiperInstance) return;
+
       const slidesPerViewAttr = this.dataset.slidesPerView;
       const spaceBetween = parseInt(this.dataset.spaceBetween || '0', 10);
       const loop = this.dataset.loop === 'true';
@@ -55,6 +60,7 @@ const {
       const centeredSlides = this.dataset.centeredSlides === 'true';
       const breakpointsStr = this.dataset.breakpoints;
       const breakpoints = breakpointsStr ? JSON.parse(breakpointsStr) : undefined;
+      const loopedSlides = this.dataset.loopedSlides ? parseInt(this.dataset.loopedSlides, 10) : undefined;
 
       const slidesPerView = slidesPerViewAttr === 'auto' ? 'auto' : parseFloat(slidesPerViewAttr || '1');
 
@@ -68,6 +74,7 @@ const {
         spaceBetween,
         loop,
         centeredSlides,
+        loopedSlides,
         breakpoints,
       };
 
@@ -86,9 +93,18 @@ const {
         swiperOptions.navigation = { nextEl, prevEl };
       }
 
-      new Swiper(this, swiperOptions);
+      this.swiperInstance = new Swiper(this, swiperOptions);
+    }
+    
+    disconnectedCallback() {
+      if (this.swiperInstance) {
+        this.swiperInstance.destroy();
+        this.swiperInstance = null;
+      }
     }
   }
 
-  customElements.define('swiper-carousel', SwiperCarousel);
+  if (!customElements.get('swiper-carousel')) {
+    customElements.define('swiper-carousel', SwiperCarousel);
+  }
 </script>

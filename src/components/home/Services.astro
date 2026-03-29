@@ -13,6 +13,7 @@ import sunflow from '@/assets/sunflow.avif';
 import popularBadge from '@/assets/popular-badge.png';
 import { marked } from 'marked';
 import { Icon } from 'astro-icon/components';
+import BadgeTitle from '../BadgeTitle.astro';
 
 const dividerImageOp = await getImage({
   src: dividerImage,
@@ -39,17 +40,7 @@ const headline = await marked.parse(rawHeadline);
     <div class="z-10 container space-y-12 py-8 lg:py-12">
       <!-- Heading Content -->
       <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:items-start lg:gap-x-12">
-        <div class="space-y-4">
-          <div class="flex items-center gap-x-3">
-            <div
-              class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
-            >
-            </div>
-            <div class="text-sm font-medium tracking-wide whitespace-nowrap text-white/80 uppercase">Our Services</div>
-          </div>
-
-          <h2 class="font-bold" set:html={headline} />
-        </div>
+        <BadgeTitle badge="Our Services" title={headline} />
 
         <div class="flex flex-col items-start gap-y-4 lg:items-end lg:text-right">
           <Button variant="primary" size="md" class="w-fit sm:w-auto" href="/services">View All Services</Button>
@@ -73,7 +64,7 @@ const headline = await marked.parse(rawHeadline);
               { label: 'Vinyl Siding', href: '/services/siding-installation' },
               { label: 'Steel Siding', href: '/services/siding-installation' },
             ]}
-            class="hover:scale-110 [&_img[data-slot=thumbnail]]:scale-150"
+            class="[&_img[data-slot=thumbnail]]:scale-150"
           />
 
           <ServiceCard
@@ -85,7 +76,7 @@ const headline = await marked.parse(rawHeadline);
               { label: 'Shingle Roofing', href: '/services/residential-roofing' },
               { label: 'Metal Roofing', href: '/services/metal-roofing' },
             ]}
-            class="hover:scale-110 [&_img[data-slot=thumbnail]]:scale-150"
+            class="lg:scale-110 [&_img[data-slot=thumbnail]]:scale-150"
           />
 
           <ServiceCard
@@ -97,12 +88,12 @@ const headline = await marked.parse(rawHeadline);
               { label: 'Seamless Gutters', href: '/services/gutters-and-drainage' },
               { label: 'Gutter Guards', href: '/services/gutters-and-drainage' },
             ]}
-            class="hover:scale-110 [&_img[data-slot=thumbnail]]:scale-150"
+            class="[&_img[data-slot=thumbnail]]:scale-150"
           />
         </div>
 
         <div class="border-radial w-full max-w-[950px] rounded-3xl">
-          <div class="grid grid-cols-1 gap-6 rounded-3xl p-4 lg:grid-cols-2 lg:gap-x-3 lg:p-2.5">
+          <div class="grid grid-cols-1 gap-6 rounded-3xl p-2 lg:grid-cols-2 lg:gap-x-3">
             <div class="relative h-full">
               <Image src={popularBadge} alt="Popular" class="absolute top-2 left-2 z-10 w-16 lg:w-20" />
               <ServiceCard

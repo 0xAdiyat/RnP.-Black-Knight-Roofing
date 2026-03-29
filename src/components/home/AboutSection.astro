@@ -1,19 +1,19 @@
 ---
-import { Image, getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 
 import { Icon } from 'astro-icon/components';
-
 import NoiseBg from '@/components/NoiseBg.astro';
 import IntroBadge from '@/components/IntroBadge.astro';
 import Button from '@/components/ui/Button.astro';
-
-import PersonImage from '@/assets/hero-person.avif';
 import RatingStars from '@/components/ui/RatingStars.astro';
+
+// Static Assets
+import PersonImage from '@/assets/hero-person.avif';
 import dotImage from '@/assets/dog-image.avif';
 import familyImage from '@/assets/family-image.avif';
 import GoogleIcon from '@/assets/google-icon-logo.avif';
-
 import TopFrameImage from '@/assets/top-frame.avif';
+import BadgeTitle from '../BadgeTitle.astro';
 ---
 
 <NoiseBg class="relative px-0 py-0">
@@ -38,9 +38,10 @@ import TopFrameImage from '@/assets/top-frame.avif';
             <div class="absolute inset-0 z-10 bg-linear-to-b from-black/0 from-60% to-black/75"></div>
             <Image
               src={PersonImage}
-              width={543}
-              height={531}
+              width={PersonImage.width}
+              height={PersonImage.height}
               alt="Adam Knight"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               class="h-full w-full rounded-2xl object-cover lg:rounded-lg"
             />
           </div>
@@ -65,7 +66,7 @@ import TopFrameImage from '@/assets/top-frame.avif';
               <Icon name="google-logo" class="size-6 text-[#F7B715] sm:size-8" />
               <div>
                 <div>
-                  <RatingStars rating={5} size={12} fillColor="white" strokeColor="transparent" />
+                  <RatingStars rating={5} size={10} fillColor="white" strokeColor="transparent" />
                 </div>
                 <div class="text-xs sm:text-sm">5.0 Rating</div>
               </div>
@@ -75,7 +76,7 @@ import TopFrameImage from '@/assets/top-frame.avif';
               <Icon name="facebook-logo" class="size-6 text-[#F7B715] sm:size-8" />
               <div>
                 <div>
-                  <RatingStars rating={5} size={12} fillColor="white" strokeColor="transparent" />
+                  <RatingStars rating={5} size={10} fillColor="white" strokeColor="transparent" />
                 </div>
                 <div class="text-xs sm:text-sm">5.0 Rating</div>
               </div>
@@ -84,7 +85,7 @@ import TopFrameImage from '@/assets/top-frame.avif';
             <li class="flex items-center gap-x-2.5 p-2">
               <div>
                 <Image
-                  src="/bba.avif"
+                  src="/bbb-logo.avif"
                   loading="eager"
                   format="avif"
                   alt="BBB Logo"
@@ -95,7 +96,7 @@ import TopFrameImage from '@/assets/top-frame.avif';
               </div>
               <div>
                 <div>
-                  <RatingStars rating={5} size={12} fillColor="white" strokeColor="transparent" />
+                  <RatingStars rating={5} size={10} fillColor="white" strokeColor="transparent" />
                 </div>
                 <div class="text-xs sm:text-sm">5.0 Rating</div>
               </div>
@@ -106,16 +107,10 @@ import TopFrameImage from '@/assets/top-frame.avif';
 
       <div class="flex flex-col justify-center py-4 lg:py-8">
         <div class="w-full space-y-6 lg:space-y-4">
-          <div class="flex items-center gap-x-3">
-            <div
-              class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
-            >
-            </div>
-            <div class="text-sm font-medium tracking-wide text-white/80 uppercase">About Black Knight Roofing</div>
-          </div>
-          <h2 class="text-3xl font-bold lg:text-4xl">
-            Meet Adam Knight — US Army Veteran and Colorado's Stone-Coated Steel Roofing Expert
-          </h2>
+          <BadgeTitle
+            badge="About Black Knight Roofing"
+            title="Meet Adam Knight — US Army Veteran and Colorado's Stone-Coated Steel Roofing Expert"
+          />
 
           <div class="prose prose-invert max-w-none text-white/70">
             <p>
@@ -132,6 +127,20 @@ import TopFrameImage from '@/assets/top-frame.avif';
               — helping Colorado homeowners navigate insurance correctly and confidently.
             </p>
           </div>
+
+          <div class="flex items-center gap-x-4 pt-10">
+            <Button
+              class="bg-primary text-inverted rounded-sm px-[26px] py-3 text-sm leading-5 transition-colors duration-200 ease-out"
+            >
+              About Us
+            </Button>
+            <Button
+              variant="outline"
+              class="hover:text-inverted rounded-sm border-white px-[26px] py-3 text-sm leading-5 text-white transition-colors duration-200 ease-out"
+            >
+              See Our Past Work
+            </Button>
+          </div>
         </div>
       </div>
     </div>
@@ -142,13 +151,7 @@ import TopFrameImage from '@/assets/top-frame.avif';
     <div class="grid grid-cols-1 gap-12 rounded-2xl border border-white/10 p-6 lg:grid-cols-2 lg:p-12">
       <div class="flex flex-col space-y-10 lg:space-y-12">
         <div class="space-y-6">
-          <div class="flex items-center gap-x-3">
-            <div
-              class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
-            >
-            </div>
-            <div class="text-sm font-medium tracking-wide text-white/80 uppercase">Meet the Team</div>
-          </div>
+          <BadgeTitle badge="Meet the Team" title="" />
 
           <div class="prose prose-invert max-w-none text-white/70">
             <p>
@@ -164,15 +167,10 @@ import TopFrameImage from '@/assets/top-frame.avif';
 
         <Button
           variant="outline"
-          class="from-primary h-fit w-fit border-none bg-linear-to-r to-[#E5E5E51A] p-px"
+          class="bg-bg-default hover:text-inverted hover:bg-primary flex h-11 w-fit items-center gap-x-1.5 rounded border border-white px-[26px] py-3 text-sm"
           href="/about-us"
         >
-          <div
-            class="bg-bg-default hover:text-inverted hover:bg-primary flex h-12 w-full items-center gap-x-1.5 rounded px-8 sm:w-auto"
-          >
-            <span> Learn More About Us </span>
-            <span> <Icon name="arow-open-link" class="size-3" /> </span>
-          </div>
+          <span> Learn More About Us </span>
         </Button>
 
         <div class="relative mt-8 flex flex-col items-center lg:items-start">
@@ -255,12 +253,15 @@ import TopFrameImage from '@/assets/top-frame.avif';
       <NoiseBg
         class="relative flex w-full flex-col items-stretch rounded-2xl px-0 py-0 [--noise-overlay:linear-gradient(to_right,rgba(0,0,0,1)_20%,rgba(0,0,0,.85)_80%)] [--noise-radial:radial-gradient(50%_50%_at_50%_50%,rgba(48,48,48,0.3)_0%,rgba(48,48,48,0.54)_50%)] lg:flex-row"
       >
-        <div class="relative z-0 w-full shrink-0 border-b border-white/10 lg:w-1/2 lg:border-b-0 lg:border-l">
+        <div
+          class="relative z-0 max-h-[700px] w-full shrink-0 border-b border-white/10 lg:w-1/2 lg:border-b-0 lg:border-l"
+        >
           <Image
             src={familyImage}
             alt="Adam Knight with family"
-            width={1200}
-            height={800}
+            width={familyImage.width}
+            height={familyImage.height}
+            sizes="(max-width: 1024px) 100vw, 50vw"
             class="h-full w-full object-cover"
           />
         </div>
@@ -271,17 +272,7 @@ import TopFrameImage from '@/assets/top-frame.avif';
           <div
             class="bg-bg-default relative z-20 flex h-full flex-col justify-center gap-6 rounded-2xl p-8 sm:p-12 lg:bg-transparent lg:pr-12 lg:pl-16"
           >
-            <div class="space-y-4">
-              <div class="flex items-center gap-x-3">
-                <div
-                  class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
-                >
-                </div>
-                <div class="text-sm font-medium tracking-wide text-white/80">Our Promise</div>
-              </div>
-
-              <h3 class="font-bold">Partner With a Company That Believes In The Golden Rule</h3>
-            </div>
+            <BadgeTitle badge="Our Promise" title="Partner With a Roofing Company That Believes In The Golden Rule" />
 
             <div class="space-y-4 text-white/70">
               <p>
@@ -296,7 +287,8 @@ import TopFrameImage from '@/assets/top-frame.avif';
               </p>
             </div>
 
-            <Button class="mt-4 w-fit px-8 text-sm font-bold" href="/contact-us">Schedule a FREE Roof Inspection</Button
+            <Button class="mt-4 w-fit px-[26px] text-sm font-bold" href="/contact-us"
+              >Schedule a FREE Roof Inspection</Button
             >
           </div>
         </div>

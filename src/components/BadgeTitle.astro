@@ -10,10 +10,10 @@ interface Props {
 const { badge, title, as: Tag = 'h2', titleClass = '', class: className = '' } = Astro.props;
 ---
 
-<div class:list={['flex-1 space-y-4', className]}>
+<div class:list={['space-y-4', className]}>
   {
     badge && (
-      <div class="flex items-center gap-x-3">
+      <div class="flex items-center gap-x-3 text-base">
         <div class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']" />
         <div>{badge}</div>
       </div>
@@ -21,7 +21,7 @@ const { badge, title, as: Tag = 'h2', titleClass = '', class: className = '' } =
   }
   {
     title ? (
-      <Tag class:list={[titleClass]}>
+      <Tag class:list={['text-medium text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]', titleClass]}>
         <Fragment set:html={title} />
       </Tag>
     ) : (

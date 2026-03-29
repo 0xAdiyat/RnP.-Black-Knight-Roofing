@@ -7,15 +7,10 @@ import RatingStars from '@/components/ui/RatingStars.astro';
 import bbbLogo from '@/assets/bbb-logo.png';
 
 interface Props {
-  /** Heading text line 1 */
   headingLine1?: string;
-  /** Heading text line 2 */
   headingLine2?: string;
-  /** List of services for the dropdown */
   services?: string[];
-  /** Star rating to display */
   rating?: number;
-  /** Additional class for outer wrapper */
   class?: string;
 }
 
@@ -46,20 +41,21 @@ const {
 
     <!-- Heading -->
     <h4 class="text-center leading-snug font-semibold">
-      {headingLine1} <br />
+      {headingLine1}
+      <br />
       {headingLine2}
     </h4>
 
     <!-- Error message -->
     <div
-      class="quote-form-error hidden text-center text-sm font-semibold uppercase tracking-wide text-red-500"
+      class="quote-form-error hidden text-center text-sm font-semibold tracking-wide text-red-500 uppercase"
       role="alert"
     >
       There was a problem with your submission. Please review the fields below.
     </div>
 
     <!-- Step indicator -->
-    <div class="flex items-center justify-center gap-x-0 px-8">
+    <div class="flex items-center justify-center gap-x-2 px-8">
       <div
         class="quote-step-dot bg-primary flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-black"
         data-step="1"
@@ -99,7 +95,7 @@ const {
             />
           </NoiseBg>
         </div>
-        <p class="quote-field-error hidden text-xs font-semibold uppercase tracking-wide text-red-500">
+        <p class="quote-field-error hidden text-xs font-semibold tracking-wide text-red-500 uppercase">
           The field is required.
         </p>
       </div>
@@ -115,11 +111,13 @@ const {
               class="w-full appearance-none rounded-lg bg-white/5 px-4 py-3 pr-10 text-sm text-white/40 focus:outline-none"
             >
               <option value="" disabled selected>Select Your Service</option>
-              {services.map((service) => (
-                <option value={service} class="bg-[#252525] text-white">
-                  {service}
-                </option>
-              ))}
+              {
+                services.map(service => (
+                  <option value={service} class="bg-[#252525] text-white">
+                    {service}
+                  </option>
+                ))
+              }
             </select>
             <!-- Chevron icon -->
             <svg
@@ -134,7 +132,7 @@ const {
             </svg>
           </NoiseBg>
         </div>
-        <p class="quote-field-error hidden text-xs font-semibold uppercase tracking-wide text-red-500">
+        <p class="quote-field-error hidden text-xs font-semibold tracking-wide text-red-500 uppercase">
           Please select a service.
         </p>
       </div>
@@ -156,7 +154,7 @@ const {
                 />
               </NoiseBg>
             </div>
-            <p class="quote-field-error hidden text-xs font-semibold uppercase tracking-wide text-red-500">
+            <p class="quote-field-error hidden text-xs font-semibold tracking-wide text-red-500 uppercase">
               First name is required.
             </p>
           </div>
@@ -173,7 +171,7 @@ const {
                 />
               </NoiseBg>
             </div>
-            <p class="quote-field-error hidden text-xs font-semibold uppercase tracking-wide text-red-500">
+            <p class="quote-field-error hidden text-xs font-semibold tracking-wide text-red-500 uppercase">
               Last name is required.
             </p>
           </div>
@@ -190,7 +188,7 @@ const {
                 />
               </NoiseBg>
             </div>
-            <p class="quote-field-error hidden text-xs font-semibold uppercase tracking-wide text-red-500">
+            <p class="quote-field-error hidden text-xs font-semibold tracking-wide text-red-500 uppercase">
               Phone number is required.
             </p>
           </div>
@@ -207,7 +205,7 @@ const {
                 />
               </NoiseBg>
             </div>
-            <p class="quote-field-error hidden text-xs font-semibold uppercase tracking-wide text-red-500">
+            <p class="quote-field-error hidden text-xs font-semibold tracking-wide text-red-500 uppercase">
               A valid email is required.
             </p>
           </div>
@@ -216,39 +214,33 @@ const {
 
       <!-- Navigation buttons -->
       <div class="mt-6 flex items-center justify-center gap-x-3">
-        <Button
-          type="button"
-          variant="outline"
-          class="quote-btn-back hidden min-w-[120px] justify-center"
-        >
+        <Button type="button" variant="outline" class="quote-btn-back hidden min-w-[120px] justify-center">
           Back
         </Button>
-        <Button type="button" class="quote-btn-next min-w-[120px] justify-center">
-          Next
-        </Button>
+        <Button type="button" class="quote-btn-next min-w-[120px] justify-center"> Next </Button>
       </div>
     </form>
 
     <!-- Ratings row -->
     <div class="flex items-center justify-center gap-x-6 border-t border-white/10 pt-5">
       <div class="flex items-center gap-x-2">
-        <Icon name="google-logo" class="size-4 text-white" />
+        <Icon name="google-logo" class="size-5 text-white" />
         <div class="text-xs">
-          <RatingStars rating={5} size={10} fillColor="#F7B715" strokeColor="transparent" />
+          <RatingStars rating={5} size={8} fillColor="#fff" strokeColor="transparent" />
           <span class="text-white/60">5.0 Rating</span>
         </div>
       </div>
       <div class="flex items-center gap-x-2">
-        <Icon name="facebook-logo" class="size-4 text-white" />
+        <Icon name="facebook-logo" class="size-5 text-white" />
         <div class="text-xs">
-          <RatingStars rating={5} size={10} fillColor="#F7B715" strokeColor="transparent" />
+          <RatingStars rating={5} size={8} fillColor="#fff" strokeColor="transparent" />
           <span class="text-white/60">5.0 Rating</span>
         </div>
       </div>
       <div class="flex items-center gap-x-2">
-        <Image src={bbbLogo} alt="BBB" width={16} height={16} class="size-4" />
+        <Image src={bbbLogo} alt="BBB" width={16} height={16} class="size-5" />
         <div class="text-xs">
-          <RatingStars rating={5} size={10} fillColor="#F7B715" strokeColor="transparent" />
+          <RatingStars rating={5} size={8} fillColor="#fff" strokeColor="transparent" />
           <span class="text-white/60">A+ Rating</span>
         </div>
       </div>
@@ -258,7 +250,7 @@ const {
 
 <script>
   function initQuoteForms() {
-    document.querySelectorAll<HTMLElement>('.quote-form').forEach((form) => {
+    document.querySelectorAll<HTMLElement>('.quote-form').forEach(form => {
       // Prevent duplicate initialization
       if (form.dataset.initialized) return;
       form.dataset.initialized = 'true';
@@ -279,13 +271,13 @@ const {
 
       function showStep(step: number) {
         // Show/hide step panels
-        steps.forEach((el) => {
+        steps.forEach(el => {
           const s = Number(el.dataset.step);
           el.classList.toggle('hidden', s !== step);
         });
 
         // Update step dots
-        dots.forEach((dot) => {
+        dots.forEach(dot => {
           const s = Number(dot.dataset.step);
           if (s <= step) {
             // Active / completed
@@ -299,7 +291,7 @@ const {
         });
 
         // Update connector lines
-        lines.forEach((line) => {
+        lines.forEach(line => {
           const afterStep = Number(line.dataset.afterStep);
           if (afterStep < step) {
             line.classList.remove('bg-white/20');
@@ -328,12 +320,12 @@ const {
         globalError?.classList.add('hidden');
 
         // Hide all field errors
-        form.querySelectorAll('.quote-field-error').forEach((el) => {
+        form.querySelectorAll('.quote-field-error').forEach(el => {
           el.classList.add('hidden');
         });
 
         // Remove error ring from wrappers
-        form.querySelectorAll('.quote-field-wrapper').forEach((el) => {
+        form.querySelectorAll('.quote-field-wrapper').forEach(el => {
           el.classList.remove('ring-1', 'ring-red-500');
         });
       }
@@ -351,7 +343,7 @@ const {
           'input[required], select[required]'
         );
 
-        inputs.forEach((input) => {
+        inputs.forEach(input => {
           let fieldValid = true;
 
           if (input.type === 'email' && input.value.trim()) {
@@ -369,7 +361,8 @@ const {
             // Show field-level error
             const fieldGroup = input.closest('.quote-step > div, .quote-step > .space-y-4 > div');
             const fieldError = fieldGroup?.querySelector('.quote-field-error');
-            const fieldWrapper = fieldGroup?.querySelector('.quote-field-wrapper') || input.closest('.quote-field-wrapper');
+            const fieldWrapper =
+              fieldGroup?.querySelector('.quote-field-wrapper') || input.closest('.quote-field-wrapper');
 
             if (fieldError) fieldError.classList.remove('hidden');
             if (fieldWrapper) fieldWrapper.classList.add('ring-1', 'ring-red-500');
@@ -428,7 +421,7 @@ const {
       }
 
       // Update select color on change
-      form.querySelectorAll('select').forEach((select) => {
+      form.querySelectorAll('select').forEach(select => {
         select.addEventListener('change', () => {
           if (select.value) {
             select.classList.remove('text-white/40');
@@ -444,7 +437,7 @@ const {
 
   // Run on first load
   initQuoteForms();
-  
+
   // Re-run if view transitions are used later
   document.addEventListener('astro:after-swap', initQuoteForms);
 </script>

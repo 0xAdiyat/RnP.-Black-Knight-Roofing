@@ -16,20 +16,15 @@ interface Props {
   borderClass?: string;
 }
 
-const {
-  title,
-  description,
-  image,
-  imageAlt = '',
-  buttons = [],
-  class: className,
-  borderClass: borderClassName,
-} = Astro.props;
+const { title, description, image, imageAlt = '', buttons = [], class: className } = Astro.props;
 ---
 
 <div
   data-slot="service-card"
-  class={cn('w-full rounded-xl border-radial transition-all duration-200 ease-out will-change-transform', className)}
+  class={cn(
+    'w-full group/service-card rounded-xl border-radial transition-all duration-200 ease-out will-change-transform',
+    className
+  )}
 >
   <div class="bg-gradient-radial h-full w-full rounded-xl p-6">
     <div data-slot="thumbnail-wrapper" class="relative overflow-hidden pb-10">
@@ -41,29 +36,40 @@ const {
       />
     </div>
 
-    <div class="space-y-4 pb-13 text-center">
+    <div class="space-y-4 text-center">
       <h4 data-slot="service-title">{title}</h4>
       <div data-slot="service-description" class="text-sm text-white/70">
         {description}
       </div>
     </div>
 
-    {
-      buttons.length > 0 && (
-        <div class="flex items-center justify-center gap-x-2">
-          {buttons.map(btn => {
-            if (typeof btn === 'string') {
-              return <Button class="w-fit rounded-full whitespace-nowrap">{btn}</Button>;
-            }
-            const { label, ...restBtnProps } = btn;
-            return (
-              <Button class="w-fit rounded-full whitespace-nowrap" {...restBtnProps}>
-                {label}
-              </Button>
-            );
-          })}
-        </div>
-      )
-    }
+    <div class="relative flex flex-col items-center space-y-6 pt-13">
+      <button class="absolute top-4 hidden items-center gap-1.5 group-hover/service-card:flex">
+        <svg width="13" height="14" viewBox="0 0 13 14" fill="none">
+          <path
+            d="M12.3571 7.20839L0.5 13.7977C0.363095 13.8751 0.245536 13.884 0.147321 13.8245C0.0491071 13.7649 0 13.6578 0 13.503V0.360175C0 0.205414 0.0491071 0.0982704 0.147321 0.0387468C0.245536 -0.0207767 0.363095 -0.0118484 0.5 0.0655327L12.3571 6.65482C12.494 6.7322 12.5625 6.82446 12.5625 6.9316C12.5625 7.03875 12.494 7.13101 12.3571 7.20839Z"
+            fill="white"></path>
+        </svg>
+        <span class="text-sm text-white underline underline-offset-4">Learn More</span>
+      </button>
+
+      {
+        buttons.length > 0 && (
+          <div class="flex flex-wrap items-center justify-center gap-2">
+            {buttons.map(btn => {
+              if (typeof btn === 'string') {
+                return <Button class="w-fit rounded-full whitespace-nowrap">{btn}</Button>;
+              }
+              const { label, ...restBtnProps } = btn;
+              return (
+                <Button class="w-fit rounded-full whitespace-nowrap" {...restBtnProps}>
+                  {label}
+                </Button>
+              );
+            })}
+          </div>
+        )
+      }
+    </div>
   </div>
 </div>
