@@ -6,7 +6,8 @@ import { Icon } from 'astro-icon/components';
 import { cn } from '@/lib/utils';
 
 import heroBgImage from '@/assets/hero-bg.avif';
-import gridFrame from '@/assets/grid-frame.png';
+import gridFrame from '@/assets/grid-frame.avif';
+import { Image } from 'astro:assets';
 
 interface Props {
   backgroundImage?: ImageMetadata | string;
@@ -28,27 +29,36 @@ const hasSidebar = Astro.slots.has('sidebar');
 const hasSocialProof = Astro.slots.has('social-proof');
 ---
 
-<section
-  class={cn('grid-line relative max-h-[833px]', className)}
-  style={`
-      background-image:url(${heroBgSrc});
-      background-size:cover;
-      background-repeat: no-repeat;
-      background-position: center;
-  `}
->
+<section class={cn('relative lg:max-h-[833px]', className)}>
+  <Image
+    src={heroBgSrc}
+    alt="hero-bg"
+    width={1536}
+    height={1152}
+    format="avif"
+    fetchpriority="high"
+    loading="eager"
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+    class="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-80"
+  />
+
+  <Image
+    src={gridFrameOp.src}
+    alt="grid-frame"
+    width={1536}
+    height={1152}
+    format="avif"
+    fetchpriority="high"
+    loading="eager"
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+    class="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-50"
+  />
+
   <div
-    style={`
-      background-image:
-          url("${gridFrameOp.src}"),
-          linear-gradient( 200deg, rgba(8, 42, 64, 0) 34.45%, #082A40 64.34%, #0D0D0D 97.01%);
-      background-position: -178.686px -1.253px, center;
-      background-size:  124.644% 151.637%, auto;
-      background-repeat: no-repeat, no-repeat;
-  `}
+    class="bg-[linear-gradient(234deg,rgba(0,0,0,0.0)_28.39%,rgba(0,0,0,0.20)_72.48%,rgba(0,0,0,0.20)_89.9%),linear-gradient(200deg,rgba(8,42,64,0)_34.45%,#082A40_64.34%,#0D0D0D_97.01%)]"
   >
-    <div class="container space-y-6 py-20">
-      <div class="flex items-stretch gap-x-8">
+    <div class="container space-y-6 py-12 lg:py-20">
+      <div class="flex flex-col items-stretch gap-y-10 lg:flex-row lg:gap-x-8">
         <div class="relative h-full w-full max-w-[720px] text-white">
           <div class="space-y-8">
             <div class="space-y-6">
@@ -63,7 +73,10 @@ const hasSocialProof = Astro.slots.has('social-proof');
                 }
 
                 <div>
-                  <h1 class="font-heading leading-16 font-normal" set:html={title} />
+                  <h1
+                    class="font-heading text-4xl leading-tight font-normal lg:text-[4rem] lg:leading-16"
+                    set:html={title}
+                  />
                 </div>
               </div>
 
@@ -72,7 +85,7 @@ const hasSocialProof = Astro.slots.has('social-proof');
 
             {
               hasSocialProof && (
-                <div class="flex items-center divide-x py-2 text-sm">
+                <div class="flex flex-col items-center gap-4 divide-white/20 py-2 text-sm sm:flex-row sm:divide-x lg:justify-start">
                   <slot name="social-proof" />
                 </div>
               )

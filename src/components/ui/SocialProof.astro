@@ -1,0 +1,62 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import RatingStars from '@/components/ui/RatingStars.astro';
+import bbbLogo from '@/assets/bbb-logo.png';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  className?: string;
+}
+
+const { className } = Astro.props;
+---
+
+<div
+  class={cn(
+    'flex items-center justify-center gap-4 divide-white/20 py-2 text-sm sm:divide-x md:justify-start lg:gap-x-0',
+    className
+  )}
+>
+  <!-- Google Rating -->
+  <div class="flex items-center gap-x-4 pr-4">
+    <Icon name="google-logo" class="size-5 md:size-8" />
+    <div class="flex flex-col gap-y-1">
+      <RatingStars
+        rating={5}
+        fillColor="white"
+        strokeColor="transparent"
+        class="[&_svg]:size-2 md:[&_svg]:size-3"
+      />
+      <span class="text-xs md:text-sm"> 5.0 Rating </span>
+    </div>
+  </div>
+
+  <!-- Facebook Rating -->
+  <div class="flex items-center gap-x-4 px-0 sm:px-4">
+    <Icon name="facebook-logo" class="size-5 md:size-8" />
+    <div class="flex flex-col gap-y-1">
+      <RatingStars
+        rating={5}
+        fillColor="white"
+        strokeColor="transparent"
+        class="[&_svg]:size-2 md:[&_svg]:size-3"
+      />
+      <span class="text-xs md:text-sm"> 5.0 Rating </span>
+    </div>
+  </div>
+
+  <!-- BBB Rating -->
+  <div class="flex items-center gap-x-4 pl-0 sm:pl-4">
+    <Image src={bbbLogo} alt="BBB Logo" width={64} height={64} class="size-5 md:size-8" />
+    <div class="flex flex-col gap-y-1">
+      <RatingStars
+        rating={5}
+        class="[&_svg]:size-2 md:[&_svg]:size-3"
+        fillColor="white"
+        strokeColor="transparent"
+      />
+      <span class="text-xs md:text-sm"> A+ Rating </span>
+    </div>
+  </div>
+</div>

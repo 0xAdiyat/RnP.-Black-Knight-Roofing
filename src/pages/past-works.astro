@@ -16,6 +16,8 @@ import sunFlow from '@/assets/sunflow.avif';
 import { Image } from 'astro:assets';
 import WorkCard from '@/components/recent-projects/WorkCard.astro';
 import Pagination from '@/components/ui/pagination/Pagination.astro';
+import Statistics from '@/components/ui/Statistics.astro';
+import SocialProof from '@/components/ui/SocialProof.astro';
 
 const works = [
   {
@@ -76,14 +78,17 @@ const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage
 
 <Layout title="Denver Roofing Portfolio | Black Knight Roofing">
   <Navbar />
+
+  <!-- Hero section -->
+
   <Hero title="See Past Work In Your <br/> Neighborhood" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
     <p>
       Lorem ipsum dolor sit amet consectetur. Dictum morbi ac nibh nibh leo vitae at id faucibus. Ultrices duis tempor
       eget proin euismod sed dolor eu suspendisse. Amet ridiculus erat sit vulputate. Dui est feugiat risus ultrices.
     </p>
 
-    <div class="flex items-center gap-x-4">
-      <Button variant="primary" size="lg">
+    <div class="flex flex-col items-center gap-4 sm:flex-row sm:gap-x-6">
+      <Button variant="primary" size="lg" class="w-full sm:w-auto">
         <span class="text-xs">
           $99/month roofs <br />
           No repayment penalty</span
@@ -92,36 +97,14 @@ const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage
         <span> <strong> FREE </strong> Estimate</span>
       </Button>
 
-      <Button variant="link">
+      <Button variant="link" class="lg:text-lg">
         <Icon name="map" />
         See Our Past Work
       </Button>
     </div>
 
     <Fragment slot="social-proof">
-      <div class="flex items-center gap-x-4 pr-4">
-        <Icon name="google-logo" size={32} />
-        <div>
-          40+ Five-Star <br />
-          Google Reviews
-        </div>
-      </div>
-
-      <div class="flex items-center gap-x-4 px-4">
-        <Icon name="facebook-logo" size={32} />
-        <div>
-          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
-          <span class="text-sm font-bold"> 5.0 Rating </span>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-x-4 pl-4">
-        <Icon name="google-logo" size={32} />
-        <div>
-          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
-          <span class="text-sm font-bold"> 5.0 Rating </span>
-        </div>
-      </div>
+      <SocialProof />
     </Fragment>
 
     <QuoteForm slot="sidebar" />
@@ -139,6 +122,10 @@ const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage
       alt="sun-flow"
       width={1920}
       height={1080}
+      fetchpriority="high"
+      loading="eager"
+      format="avif"
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
       class="absolute inset-0 h-full w-full object-cover opacity-20"
     />
     <div class="container py-20">
@@ -147,31 +134,26 @@ const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage
           <div>Filter GALLERY By:</div>
         </div>
 
-        <div class="flex items-center gap-2">
-          <div class="h-[135px] w-[116px] rounded-xl bg-white/15"></div>
-          <div class="h-[135px] w-[116px] rounded-xl bg-white/15"></div>
-          <div class="h-[135px] w-[116px] rounded-xl bg-white/15"></div>
-          <div class="h-[135px] w-[116px] rounded-xl bg-white/15"></div>
-          <div class="h-[90px] w-px bg-white/15"></div>
-          <div class="h-[135px] w-[116px] rounded-xl bg-white/15"></div>
-          <div class="h-[135px] w-[116px] rounded-xl bg-white/15"></div>
+        <div class="flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-white/24 p-1">
+          <div class="border-gradient h-[135px] w-[116px] shrink-0 rounded-xl bg-white/15"></div>
+          <div class="border-gradient h-[135px] w-[116px] shrink-0 rounded-xl bg-white/15"></div>
+          <div class="border-gradient h-[135px] w-[116px] shrink-0 rounded-xl bg-white/15"></div>
+          <div class="border-gradient h-[135px] w-[116px] shrink-0 rounded-xl bg-white/15"></div>
+          <div class="hidden h-[90px] w-px bg-white/15 md:block"></div>
+          <div class="border-radial h-[135px] w-[116px] shrink-0 rounded-xl bg-white/15"></div>
+          <div class="border-radial h-[135px] w-[116px] shrink-0 rounded-xl bg-white/15"></div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Gallery -->
-  <NoiseBg>
+  <NoiseBg class="px-0">
     <div class="container py-20">
-      <div class="grid grid-cols-4 gap-x-2 gap-y-4">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {
-          displayedWorks.map((work) => (
-            <WorkCard
-              image={work.image}
-              title={work.title}
-              subtitle={work.subtitle}
-              category={work.category}
-            />
+          displayedWorks.map(work => (
+            <WorkCard image={work.image} title={work.title} subtitle={work.subtitle} category={work.category} />
           ))
         }
       </div>
@@ -183,57 +165,7 @@ const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage
     </div>
   </NoiseBg>
 
-  <!-- Statistics -->
-  <div class="container grid grid-cols-4 gap-x-2 py-16">
-    <!-- Total Projects Completed -->
-    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
-      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
-        <div class="font-heading text-primary text-[2rem]">129+</div>
-        <div>
-          <div class="text-lg font-bold">Roofing Projects</div>
-          <div class="text-[#AAAAAA]">in Colorado</div>
-        </div>
-      </NoiseBg>
-    </div>
-
-    <!-- Google Retings -->
-    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
-      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
-        <div class="text-primary text-[2rem] font-bold">5.0</div>
-        <div class="space-y-1">
-          <div class="text-lg font-bold">
-            <RatingStars rating={5} size={16} fillColor="#F7B715" strokeColor="none" />
-          </div>
-          <div class="text-[#AAAAAA]">40+ Google Reviews</div>
-        </div>
-      </NoiseBg>
-    </div>
-
-    <!-- Workmanship Warranty -->
-    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
-      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
-        <div class="text-primary size-12 font-bold">
-          <Icon name="shield-check" size={48} />
-        </div>
-        <div>
-          <div class="font-heading text-[2rem] leading-11 font-normal">Licensed</div>
-          <div class="text-[#AAAAAA]">Bonded & Insured</div>
-        </div>
-      </NoiseBg>
-    </div>
-
-    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
-      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
-        <div class="text-primary size-12 font-bold">
-          <Icon name="badge" size={48} />
-        </div>
-        <div>
-          <div class="font-heading text-[2rem] leading-11 font-normal">Lifetime</div>
-          <div class="text-[#AAAAAA]">Workmanship Warranty</div>
-        </div>
-      </NoiseBg>
-    </div>
-  </div>
+  <Statistics />
 
   <Testimonials />
   <ServiceAreas />

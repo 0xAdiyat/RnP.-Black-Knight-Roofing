@@ -8,10 +8,9 @@ import heroBgImage from '@/assets/hero-bg.webp';
 import trustBadgeSSL from '@/assets/trust-badge-ssl.png';
 import heroPerson from '@/assets/hero-person.png';
 import noiseBg from '@/assets/noises.avif';
-import RatingStars from '@/components/ui/RatingStars.astro';
-import bbbLogo from '@/assets/bbb-logo.png';
 import heroLeftShape from '@/assets/hero-left-shape.avif';
 import FreeQuoteForm from './FreeQuoteForm.astro';
+import SocialProof from '@/components/ui/SocialProof.astro';
 
 const optimizedHeroBg = await getImage({ src: heroBgImage, width: 1536, height: 1152, format: 'webp' });
 const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
@@ -118,49 +117,7 @@ const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
               </div>
             </div>
 
-            <!-- Social Proof -->
-            <div
-              class="flex items-center justify-center gap-4 divide-white/20 py-2 text-sm sm:divide-x md:justify-start lg:gap-x-0"
-            >
-              <div class="flex items-center gap-x-4 pr-4">
-                <Icon name="google-logo" class="size-5 md:size-8" />
-                <div class="flex flex-col gap-y-1">
-                  <RatingStars
-                    rating={5}
-                    fillColor="white"
-                    strokeColor="transparent"
-                    class="[&_svg]:size-2 md:[&_svg]:size-3"
-                  />
-                  <span class="text-xs md:text-sm"> 5.0 Rating </span>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-x-4 px-0 sm:px-4">
-                <Icon name="facebook-logo" class="size-5 md:size-8" />
-                <div class="flex flex-col gap-y-1">
-                  <RatingStars
-                    rating={5}
-                    fillColor="white"
-                    strokeColor="transparent"
-                    class="[&_svg]:size-2 md:[&_svg]:size-3"
-                  />
-                  <span class="text-xs md:text-sm"> 5.0 Rating </span>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-x-4 pl-0 sm:pl-4">
-                <Image src={bbbLogo} alt="BBB Logo" width={64} height={64} class="size-5 md:size-8" />
-                <div class="flex flex-col gap-y-1">
-                  <RatingStars
-                    rating={5}
-                    class="[&_svg]:size-2 md:[&_svg]:size-3"
-                    fillColor="white"
-                    strokeColor="transparent"
-                  />
-                  <span class="text-xs md:text-sm"> A+ Rating </span>
-                </div>
-              </div>
-            </div>
+            <SocialProof />
           </div>
         </div>
 
