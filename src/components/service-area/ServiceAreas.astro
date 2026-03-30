@@ -5,6 +5,12 @@ import sunFlow from '@/assets/sunflow.avif';
 import Button from '../ui/Button.astro';
 import AreaButton from '@/components/ui/AreaButton.astro';
 import BadgeTitle from '@/components/BadgeTitle.astro';
+
+const chipRows = [
+  ['Denver', 'Aurora', 'Thornton'],
+  ['Westminster', 'Arvada', 'Brighton', 'Lochbuie', 'Greeley', 'Longmont'],
+  ['Boulder', 'Loveland', 'Fort Collins', 'Colorado Springs'],
+];
 ---
 
 <NoiseBg class="relative space-y-12 overflow-hidden px-0 py-12">
@@ -27,26 +33,27 @@ import BadgeTitle from '@/components/BadgeTitle.astro';
     </div>
   </div>
 
-  <div class="rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm sm:p-10">
-    <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-      <li><AreaButton area="Aurora" /></li>
-      <li><AreaButton area="Brighton" /></li>
-      <li><AreaButton area="Boulder" /></li>
-      <li><AreaButton area="Centennial" /></li>
-      <li><AreaButton area="Denver" /></li>
-      <li><AreaButton area="Englewood" /></li>
-      <li><AreaButton area="Fort Collins" /></li>
-      <li><AreaButton area="Greeley" /></li>
-      <li><AreaButton area="Lafayette" /></li>
-      <li><AreaButton area="Longmont" /></li>
-      <li><AreaButton area="Thornton" /></li>
-      <li><AreaButton area="Westminster" /></li>
-    </ul>
+  <div class="container">
+    <div class="rounded-3xl border border-white/10 bg-white/5 px-4 py-6 backdrop-blur-sm sm:px-8 sm:py-8 lg:px-12 lg:py-10">
+      <div class="mx-auto flex max-w-[1220px] flex-col gap-6">
+        {
+          chipRows.map(row => (
+            <ul class="flex flex-wrap items-center justify-center gap-4 lg:flex-nowrap lg:gap-5">
+              {row.map(area => <li><AreaButton area={area} /></li>)}
+            </ul>
+          ))
+        }
+      </div>
+    </div>
   </div>
 
-  <div
-    class="border-primary/5 container h-[300px] overflow-hidden rounded-3xl border bg-[#111] shadow-2xl sm:h-[575px]"
-  >
-    <!-- Map placeholder or iframe could go here -->
+  <div class="container h-[300px] overflow-hidden rounded-3xl sm:h-[575px]">
+    <iframe
+      src="https://www.google.com/maps/d/u/0/embed?mid=1LrnEinjqfTPQXxHVs9jcBOubADuHS8A&ehbc=2E312F&noprof=1"
+      title="Black Knight Roofing service area map"
+      class="block h-full w-full rounded-[inherit] border-0"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
   </div>
 </NoiseBg>
