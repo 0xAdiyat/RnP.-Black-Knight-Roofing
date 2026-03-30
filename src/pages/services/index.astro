@@ -25,6 +25,8 @@ import BadgeTitle from '@/components/BadgeTitle.astro';
 import ServiceCard from '@/components/services/ServiceCard.astro';
 
 import { services } from '@/data/services';
+import { cn } from '@/lib/utils';
+import SocialProof from '@/components/ui/SocialProof.astro';
 
 // Row pattern: defines how many cards per row (repeats if more services exist)
 const rowPattern = [3, 2, 3, 4];
@@ -82,16 +84,16 @@ const processSteps = [
     title="Roofing Services Built for Colorado Homes and Colorado Weather"
     subtitle="Colorado's #1 Veteran-Owned Roofing Company"
   >
-    <p>
+    <p class="text-sm">
       Need a repair, a storm-damage game plan, or a premium roof upgrade that changes the look of your home? Black
       Knight Roofing helps homeowners and property owners from Colorado Springs to Fort Collins with roof replacement,
       storm restoration, gutters, siding, windows, and premium roofing systems like stone-coated steel and concrete
       tile.
     </p>
 
-    <div class="flex items-center gap-x-4">
-      <Button variant="primary" size="lg">
-        <span class="text-xs">
+    <div class="flex flex-col items-center gap-4 sm:flex-row sm:gap-x-6">
+      <Button variant="primary" size="lg" class="text-base font-bold">
+        <span class="text-center text-[10px] text-[#855901]">
           $99/month roofs <br />
           No repayment penalty</span
         >
@@ -106,29 +108,7 @@ const processSteps = [
     </div>
 
     <Fragment slot="social-proof">
-      <div class="flex items-center gap-x-4 pr-4">
-        <Icon name="google-logo" size={32} />
-        <div>
-          40+ Five-Star <br />
-          Google Reviews
-        </div>
-      </div>
-
-      <div class="flex items-center gap-x-4 px-4">
-        <Icon name="facebook-logo" size={32} />
-        <div>
-          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
-          <span class="text-sm font-bold"> 5.0 Rating </span>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-x-4 pl-4">
-        <Icon name="google-logo" size={32} />
-        <div>
-          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
-          <span class="text-sm font-bold"> 5.0 Rating </span>
-        </div>
-      </div>
+      <SocialProof />
     </Fragment>
 
     <QuoteForm slot="sidebar" />
@@ -142,18 +122,20 @@ const processSteps = [
   <NoiseBg class="px-0 py-0">
     <div class="container py-20">
       <BadgeTitle badge="Our Services" title="Services We Offer" class="flex flex-col items-center text-center" />
-      <div class="grid grid-cols-12 pt-16 gap-x-4 gap-y-8">
-        {services.map((service, index) => (
-          <ServiceCard
-            image={service.image}
-            title={service.title}
-            description={service.description}
-            icon={service.icon}
-            tags={service.tags}
-            href={`/services/${service.slug}`}
-            class={cn('col-span-12', getColSpanClass(index))}
-          />
-        ))}
+      <div class="grid grid-cols-12 gap-x-4 gap-y-8 pt-16">
+        {
+          services.map((service, index) => (
+            <ServiceCard
+              image={service.image}
+              title={service.title}
+              description={service.description}
+              icon={service.icon}
+              tags={service.tags}
+              href={`/services/${service.slug}`}
+              class={cn('col-span-12', getColSpanClass(index))}
+            />
+          ))
+        }
       </div>
     </div>
   </NoiseBg>
