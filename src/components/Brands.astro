@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import googleLogo from '@/assets/brands/google-logo.avif';
+import googleLogo from '@/assets/brands/google-reviews.avif';
 import mraLogo from '@/assets/brands/mra.avif';
 import businessLogo from '@/assets/brands/business-rate.avif';
 import bbaLogo from '@/assets/brands/bba.avif';
@@ -17,7 +17,7 @@ const classes = cn('relative px-0 py-10 sm:p-16', className);
 <section class={classes}>
   <div class="absolute inset-x-0 bottom-0 h-0.5 bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
 
-  <div class="container px-4">
+  <div class="container relative px-0">
     <div class="swiper brands-swiper overflow-hidden">
       <div class="swiper-wrapper items-center">
         <!-- Group 1 -->
@@ -58,7 +58,7 @@ const classes = cn('relative px-0 py-10 sm:p-16', className);
             loading="eager"
             width={bbaLogo.width}
             height={bbaLogo.height}
-            class="h-[72px] w-auto object-contain"
+            class="h-[60px] w-auto object-contain"
           />
         </div>
         <div class="swiper-slide w-auto! px-8 lg:px-12">
@@ -119,7 +119,7 @@ const classes = cn('relative px-0 py-10 sm:p-16', className);
             loading="eager"
             width={bbaLogo.width}
             height={bbaLogo.height}
-            class="h-[72px] w-auto object-contain"
+            class="h-[60px] w-auto object-contain"
           />
         </div>
         <div class="swiper-slide w-auto! px-8 lg:px-12">
@@ -144,6 +144,17 @@ const classes = cn('relative px-0 py-10 sm:p-16', className);
         </div>
       </div>
     </div>
+
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-32 lg:w-40"
+      style="background: linear-gradient(90deg, var(--Primitives-Background-Default, #111) 0%, rgba(17, 17, 17, 0) 100%);"
+    ></div>
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-32 lg:w-40"
+      style="background: linear-gradient(270deg, var(--Primitives-Background-Default, #111) 0%, rgba(17, 17, 17, 0) 100%);"
+    ></div>
   </div>
 </section>
 
@@ -161,7 +172,7 @@ const classes = cn('relative px-0 py-10 sm:p-16', className);
       slidesPerView: 'auto',
       centeredSlides: false,
       spaceBetween: 0,
-      speed: 3000,
+      speed: 5500,
       autoplay: {
         delay: 0,
         disableOnInteraction: false,
