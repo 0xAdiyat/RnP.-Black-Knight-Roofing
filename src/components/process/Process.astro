@@ -77,16 +77,15 @@ const {
       quote && (
         <div class="mx-auto w-[320px] lg:w-auto">
           <div class="before:via-primary border-gradient rounded-2xl p-px before:bg-linear-to-r before:from-[rgba(255,255,255,0.15)] before:to-[rgba(255,255,255,0.15)] lg:ml-10">
-            <NoiseBg class="relative flex min-h-[100px] items-center rounded-2xl py-6 pr-6 pl-12 lg:py-7 lg:pl-12">
-              {/* Profile image */}
-              <div class="via-primary absolute -left-6 flex w-fit items-center justify-center rounded-full bg-linear-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-0.5 lg:-ml-20">
+            <NoiseBg class="relative flex min-h-[100px] items-center rounded-2xl py-6 pr-6 pl-12 lg:py-7 lg:pl-16">
+              <div class="via-primary absolute -left-6 flex w-fit items-center justify-center rounded-full bg-linear-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-0.5">
                 <div class="from-primary to-tertiary relative h-[60px] w-[60px] overflow-hidden rounded-full bg-conic-150 lg:h-[73px] lg:w-[73px]">
                   <Image
                     src={quote.profileImage || '/placeholders/profile.png'}
                     alt={quote.profileAlt || 'profile'}
                     width={256}
                     height={256}
-                    class="absolute h-full w-full object-cover"
+                    class="absolute h-full w-full scale-125 object-cover"
                   />
                 </div>
               </div>

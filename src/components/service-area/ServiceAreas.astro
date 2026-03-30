@@ -5,12 +5,15 @@ import sunFlow from '@/assets/sunflow.avif';
 import Button from '../ui/Button.astro';
 import AreaButton from '@/components/ui/AreaButton.astro';
 import BadgeTitle from '@/components/BadgeTitle.astro';
+import { serviceAreas } from '@/data/service-areas';
 
 const chipRows = [
   ['Denver', 'Aurora', 'Thornton'],
   ['Westminster', 'Arvada', 'Brighton', 'Lochbuie', 'Greeley', 'Longmont'],
   ['Boulder', 'Loveland', 'Fort Collins', 'Colorado Springs'],
 ];
+
+const areaSlugMap = new Map(serviceAreas.map(area => [area.city, area.slug]));
 ---
 
 <NoiseBg class="relative space-y-12 overflow-hidden px-0 py-12">
@@ -29,7 +32,7 @@ const chipRows = [
         class="w-full flex-1"
       />
 
-      <Button class="w-fit shrink-0 px-8 sm:w-auto">View All Service Areas</Button>
+      <Button class="w-fit shrink-0 px-8 sm:w-auto" href="/service-areas">View All Service Areas</Button>
     </div>
   </div>
 
@@ -39,7 +42,13 @@ const chipRows = [
         {
           chipRows.map(row => (
             <ul class="flex flex-wrap items-center justify-center gap-4 lg:flex-nowrap lg:gap-5">
-              {row.map(area => <li><AreaButton area={area} /></li>)}
+              {
+                row.map(area => (
+                  <li>
+                    <AreaButton area={area} href={`/service-areas/${areaSlugMap.get(area)}`} />
+                  </li>
+                ))
+              }
             </ul>
           ))
         }

@@ -1,14 +1,22 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 
-interface Props extends HTMLAttributes<'button'> {
+interface Props extends HTMLAttributes<'a'> {
   area: string;
+  href?: string;
 }
 
-const { area, ...attrs } = Astro.props;
+const { area, href, ...attrs } = Astro.props;
 ---
 
-<button {...attrs} class:list={['rounded-3xl border border-white/20 p-px', attrs.class]}>
+<a
+  href={href}
+  {...attrs}
+  class:list={[
+    'inline-block rounded-3xl border border-white/20 p-px no-underline transition-colors hover:border-white/35',
+    attrs.class,
+  ]}
+>
   <div class="flex h-10 items-center justify-between gap-x-4 p-1 pr-4 text-sm">
     <div class="bg-primary text-inverted rounded-3xl px-4 py-1.5">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -27,4 +35,4 @@ const { area, ...attrs } = Astro.props;
 
     <span>{area}</span>
   </div>
-</button>
+</a>

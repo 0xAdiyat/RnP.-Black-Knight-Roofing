@@ -6,6 +6,7 @@ export interface ServiceArea {
 }
 
 export const serviceAreas: ServiceArea[] = [
+  { city: 'Brighton', state: 'CO', image: '/placeholders/works/1.jpg', slug: 'brighton' },
   { city: 'Fort Collins', state: 'CO', image: '/placeholders/works/1.jpg', slug: 'fort-collins' },
   { city: 'Westminster', state: 'CO', image: '/placeholders/works/2.jpg', slug: 'westminster' },
   { city: 'Lakewood', state: 'CO', image: '/placeholders/works/3.jpg', slug: 'lakewood' },
@@ -20,5 +21,7 @@ export const serviceAreas: ServiceArea[] = [
   { city: 'Castle Rock', state: 'CO', image: '/placeholders/works/4.jpg', slug: 'castle-rock' },
   { city: 'Broomfield', state: 'CO', image: '/placeholders/works/1.jpg', slug: 'broomfield' },
   { city: 'Aurora', state: 'CO', image: '/placeholders/works/2.jpg', slug: 'aurora' },
+  { city: 'Greeley', state: 'CO', image: '/placeholders/works/3.jpg', slug: 'greeley' },
+  { city: 'Lochbuie', state: 'CO', image: '/placeholders/works/4.jpg', slug: 'lochbuie' },
   { city: 'Colorado Springs', state: 'CO', image: '/placeholders/works/3.jpg', slug: 'colorado-springs' },
 ];
