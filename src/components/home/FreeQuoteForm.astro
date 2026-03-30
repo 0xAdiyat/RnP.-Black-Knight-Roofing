@@ -11,19 +11,22 @@ import heroShield from '@/assets/hero-shield.png';
 
 <div class="container pt-8">
   <div class="border-radial relative -mt-10 rounded-[12px] p-px lg:-mt-40">
-    <NoiseBg class="bg-testim testimonial-bg-noise relative z-10 rounded-[12px] px-0 backdrop-blur-md">
+    <div class="testimonial-bg-noise relative z-10 space-y-8 rounded-[12px] px-6 pt-10 pb-6 backdrop-blur-md lg:px-8">
       <Image
         src={heroShield}
         alt="Hero Shield"
         width={100}
         height={100}
-        class="mx-auto -mt-[70px] h-16 w-auto lg:-mt-20 lg:h-24"
+        class="absolute -top-10 left-1/2 mx-auto h-16 w-auto -translate-x-1/2 lg:h-24"
         loading="eager"
       />
-      <div class="[&_span]:text-primary flex w-full flex-col items-center gap-y-4 p-6 lg:px-8 lg:pt-8 lg:pb-6">
-        <h3 class="text-2xl font-normal lg:text-3xl">Get Your <span> FREE</span> Quote</h3>
+      <div class="[&_span]:text-primary flex w-full flex-col items-center gap-y-4">
+        <h3>Get Your <span> FREE</span> Quote</h3>
 
-        <form class="hero-free-quote-form flex w-full flex-col items-start gap-4 lg:flex-row lg:items-start lg:gap-x-3" novalidate>
+        <form
+          class="hero-free-quote-form flex w-full flex-col items-start gap-4 lg:flex-row lg:items-start lg:gap-x-3"
+          novalidate
+        >
           <div class="hero-free-quote-field w-full">
             <InputGroup class="hero-free-quote-group h-[52px] w-full border-white/15 px-4 py-4">
               <InputGroupInput id="name-input" name="name" type="text" placeholder="Name" autocomplete="name" />
@@ -36,22 +39,40 @@ import heroShield from '@/assets/hero-shield.png';
 
           <div class="hero-free-quote-field w-full">
             <InputGroup class="hero-free-quote-group h-[52px] w-full border-white/15 px-4 py-4">
-              <InputGroupInput id="phone-input" name="phone" type="tel" placeholder="Phone" autocomplete="tel" inputmode="tel" />
+              <InputGroupInput
+                id="phone-input"
+                name="phone"
+                type="tel"
+                placeholder="Phone"
+                autocomplete="tel"
+                inputmode="tel"
+              />
               <InputGroupAddon align="inline-end">
                 <Icon name="call" />
               </InputGroupAddon>
             </InputGroup>
-            <p class="hero-free-quote-error mt-2 hidden text-xs font-medium text-[#FF8B8B]">Please enter a valid phone number.</p>
+            <p class="hero-free-quote-error mt-2 hidden text-xs font-medium text-[#FF8B8B]">
+              Please enter a valid phone number.
+            </p>
           </div>
 
           <div class="hero-free-quote-field w-full">
             <InputGroup class="hero-free-quote-group h-[52px] w-full border-white/15 px-4 py-4">
-              <InputGroupInput id="email-input" name="email" type="email" placeholder="Email" autocomplete="email" inputmode="email" />
+              <InputGroupInput
+                id="email-input"
+                name="email"
+                type="email"
+                placeholder="Email"
+                autocomplete="email"
+                inputmode="email"
+              />
               <InputGroupAddon align="inline-end">
                 <Icon name="mail2" />
               </InputGroupAddon>
             </InputGroup>
-            <p class="hero-free-quote-error mt-2 hidden text-xs font-medium text-[#FF8B8B]">Please enter a valid email address.</p>
+            <p class="hero-free-quote-error mt-2 hidden text-xs font-medium text-[#FF8B8B]">
+              Please enter a valid email address.
+            </p>
           </div>
 
           <div class="hero-free-quote-field w-full">
@@ -61,7 +82,9 @@ import heroShield from '@/assets/hero-shield.png';
                 <Icon name="chat" />
               </InputGroupAddon>
             </InputGroup>
-            <p class="hero-free-quote-error mt-2 hidden text-xs font-medium text-[#FF8B8B]">Please tell us how we can assist you.</p>
+            <p class="hero-free-quote-error mt-2 hidden text-xs font-medium text-[#FF8B8B]">
+              Please tell us how we can assist you.
+            </p>
           </div>
 
           <div class="w-full lg:w-auto lg:self-start">
@@ -69,12 +92,12 @@ import heroShield from '@/assets/hero-shield.png';
           </div>
         </form>
       </div>
-    </NoiseBg>
+    </div>
   </div>
 </div>
 
-<script>
-  const forms = document.querySelectorAll('.hero-free-quote-form');
+<script lang="ts">
+  const forms = document.querySelectorAll<HTMLFormElement>('.hero-free-quote-form');
 
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
