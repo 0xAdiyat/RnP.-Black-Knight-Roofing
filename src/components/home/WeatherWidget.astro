@@ -3,7 +3,7 @@ import Button from '@/components/ui/Button.astro';
 import stormBg from '@/assets/storm-bg.png';
 ---
 
-<div class="absolute top-2/5 right-0 z-10 hidden w-[132px] -translate-y-1/2 overflow-hidden rounded-l-[10px] lg:block">
+<div class="weather-widget absolute top-[62%] right-0 z-10 hidden w-[132px] -translate-y-1/2 overflow-hidden rounded-l-[10px] lg:block">
   <div class="bg-tertiary flex w-full flex-col items-center p-2">
     <div class="flex flex-col items-center uppercase">
       <strong> COLORADO</strong>
@@ -33,10 +33,37 @@ import stormBg from '@/assets/storm-bg.png';
     `}
   >
     <div class="space-y-4 py-1">
-      <p class="text-center">
-        Do you have <strong> storm damage?</strong>
+      <p class="font-[Inter] text-center">
+        <span class="underline decoration-white/80 underline-offset-4">
+          Do you have <strong class="font-[Inter] font-semibold"> storm damage?</strong>
+        </span>
       </p>
-      <Button class="text-xs font-bold" href="/contact-us">Get an Inspection</Button>
+      <Button class="text-center text-xs font-bold" href="/contact-us">Get an Inspection</Button>
     </div>
   </div>
 </div>
+
+<style>
+  .weather-widget {
+    animation: weather-widget-enter 700ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+    will-change: transform, opacity;
+  }
+
+  @keyframes weather-widget-enter {
+    from {
+      opacity: 0;
+      transform: translateX(48px) translateY(-50%);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0) translateY(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .weather-widget {
+      animation: none;
+    }
+  }
+</style>
