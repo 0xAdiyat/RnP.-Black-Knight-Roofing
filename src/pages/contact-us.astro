@@ -25,7 +25,7 @@ import ContactUsForm from '@/components/contact-us/ContactUsForm.astro';
 
 import { services } from '@/data/services';
 import { serviceAreas } from '@/data/service-areas';
-import heroBg from '@/assets/bg/contact-us.png';
+import heroBg from '@/assets/bg/contact-us.avif';
 import sunFlow from '@/assets/sunflow.avif';
 import { Image } from 'astro:assets';
 import Hero2 from '@/components/hero/Hero2.astro';
@@ -95,7 +95,7 @@ const processSteps = [
     subtitle="Contact Us"
   >
     <Fragment slot="social-proof">
-      <div class="flex items-center gap-x-4 pr-4">
+      <div class="flex items-center gap-x-4 px-6 py-4 md:py-0">
         <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5">
           <Icon name="phone" size={24} />
         </div>
@@ -105,23 +105,25 @@ const processSteps = [
         </div>
       </div>
 
-      <div class="flex items-center gap-x-4 px-4">
+      <div class="flex items-center gap-x-4 px-6 py-4 md:py-0">
         <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5">
           <Icon name="send-message" size={24} class="text-primary" />
         </div>
         <div class="flex flex-col items-start text-start">
-          <div class="text-lg font-semibold">Send us an Message</div>
+          <div class="text-lg font-semibold">Send us a Message</div>
           <div class="text-sm">support@blackknightroofing.com</div>
         </div>
       </div>
 
-      <div class="flex items-center gap-x-4 pl-4">
+      <div class="flex items-center gap-x-4 px-6 py-4 md:py-0">
         <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5">
           <Icon name="location-02" size={24} class="text-primary" />
         </div>
         <div class="flex flex-col items-start text-start">
           <div class="text-lg font-semibold">Visit Our Office</div>
-          <div class="text-sm">600 N Washington Ave <br /> Suite C203 Minneapolis MN</div>
+          <div class="text-sm">
+            600 N Washington Ave <br /> Suite C203 Minneapolis MN
+          </div>
         </div>
       </div>
     </Fragment>
