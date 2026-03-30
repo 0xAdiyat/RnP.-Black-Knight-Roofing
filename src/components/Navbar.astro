@@ -10,6 +10,7 @@ import NavbarItemPopover from './navbar/NavbarItemPopover.astro';
 import NavbarItemPopoverLink from './navbar/NavbarItemPopoverLink.astro';
 import MobileStickyNav from './MobileStickyNav.astro';
 import MobileMenu from './navbar/MobileMenu.astro';
+import ServiceNavView from './services/ServiceNavView.astro';
 
 const optimizedNoise = await getImage({ src: noises, width: 100, height: 100, format: 'avif' });
 const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100, format: 'avif' });
@@ -79,7 +80,7 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
   </section>
 
   <!-- Main Navbar -->
-  <header class="navbar-root bg-bg-default flex h-20 items-center text-white">
+  <header class="navbar-root bg-bg-default relative flex h-20 items-center text-white">
     <nav class="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between px-4 text-white md:px-16">
       <div class="hidden items-center gap-x-12 md:flex">
         <!-- Contact/Phone -->
@@ -121,31 +122,8 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
             </NavbarItemPopover>
           </li>
           <li>
-            <NavbarItemPopover label="Services" popoverTitle="What We Do">
-              <NavbarItemPopoverLink
-                href="/services/residential"
-                title="Residential Roofing"
-                description="Expert care for your family's home and protection."
-                icon="roof-icon"
-              />
-              <NavbarItemPopoverLink
-                href="/services/commercial"
-                title="Commercial Roofing"
-                description="Professional roofing solutions for your business."
-                icon="briefcase"
-              />
-              <NavbarItemPopoverLink
-                href="/services/repair"
-                title="Roof Repair"
-                description="Quick and reliable repairs for any leak or damage."
-                icon="setting"
-              />
-              <NavbarItemPopoverLink
-                href="/services/storm-damage"
-                title="Storm Damage Specialist"
-                description="Helping you recover from hail, wind, and storm damage."
-                icon="hail"
-              />
+            <NavbarItemPopover label="Services" plain full containerClass="w-full">
+              <ServiceNavView />
             </NavbarItemPopover>
           </li>
           <li>
@@ -330,19 +308,20 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
         </div>
       </div>
 
-      <!-- Common Viewport for popovers -->
-      <div
-        id="popover-viewport"
-        class="pointer-events-none absolute top-full left-0 z-50 mt-2 h-0 w-0 origin-[top_center] opacity-0 transition-all duration-300 ease-out"
-      >
-        <div
-          id="viewport-content"
-          class="animate-in fade-in zoom-in-95 relative h-full w-full overflow-hidden rounded-2xl bg-[#111] shadow-2xl ring-1 ring-white/15"
-        >
-          <!-- Active content will be cloned here -->
-        </div>
-      </div>
     </nav>
+
+    <!-- Common Viewport for popovers (Outside nav to allow 100vw) -->
+    <div
+      id="popover-viewport"
+      class="pointer-events-none absolute top-full left-0 z-50 h-0 w-0 origin-[top_center] opacity-0 transition-all duration-300 ease-out"
+    >
+      <div
+        id="viewport-content"
+        class="animate-in fade-in zoom-in-95 relative h-full w-full overflow-hidden rounded-2xl bg-[#111] shadow-2xl ring-1 ring-white/15"
+      >
+        <!-- Active content will be cloned here -->
+      </div>
+    </div>
   </header>
   <MobileStickyNav />
   <MobileMenu />
@@ -382,18 +361,28 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
       innerContent.classList.add('animate-in', 'fade-in', 'duration-500');
       innerContent.classList.add(direction === 'right' ? 'slide-in-from-left-4' : 'slide-in-from-right-4');
 
+      const isFullWidth = content.dataset.popoverFull === 'true';
+
       // Position calculations
       const triggerRect = trigger.getBoundingClientRect();
-      const navRect = root!.getBoundingClientRect();
+      const navRect = root!.querySelector('nav')!.getBoundingClientRect();
       const contentRect = content.getBoundingClientRect();
 
-      // Horizontal center relative to trigger
-      const targetLeft = triggerRect.left + triggerRect.width / 2 - navRect.left;
-
-      viewport.style.width = `${contentRect.width}px`;
       viewport.style.height = `${contentRect.height}px`;
-      viewport.style.left = `${targetLeft}px`;
-      viewport.style.transform = `translateX(-50%)`;
+
+      if (isFullWidth) {
+        viewport.style.width = `100vw`;
+        viewport.style.left = `0`;
+        viewport.style.transform = `none`;
+        viewportContent.classList.remove('rounded-2xl', 'ring-1', 'shadow-2xl');
+      } else {
+        // Horizontal center relative to trigger
+        const targetLeft = triggerRect.left + triggerRect.width / 2;
+        viewport.style.width = `${contentRect.width}px`;
+        viewport.style.left = `${targetLeft}px`;
+        viewport.style.transform = `translateX(-50%)`;
+        viewportContent.classList.add('rounded-2xl', 'ring-1', 'shadow-2xl');
+      }
 
       // Keep viewport open while hovering trigger
     }

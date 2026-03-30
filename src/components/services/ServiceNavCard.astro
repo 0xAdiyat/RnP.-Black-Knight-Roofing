@@ -1,0 +1,43 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  link: string;
+}
+
+const { title, description, icon, link } = Astro.props;
+---
+
+<a
+  href={link}
+  aria-labelledby={title}
+  class="border-radial rounded-xl transition-[scale] duration-200 ease-out will-change-transform hover:scale-102 active:scale-97"
+>
+  <div
+    class="testimonial-bg-noise relative flex flex-1 flex-col justify-between space-y-4 overflow-hidden rounded-xl p-4"
+  >
+    <div class="space-y-3">
+      <div class="flex items-center gap-x-2.5">
+        <Icon name={icon} class="text-primary size-6 animate-pulse" />
+        <h4 class="font-body text-sm font-medium text-white">{title}</h4>
+      </div>
+      <p class="line-clamp-3 text-[12px] leading-[1.4] text-white/80">{description}</p>
+    </div>
+
+    <div class="group/link flex w-fit items-center gap-x-2 text-xs font-bold text-white">
+      <div class="flex size-4 -scale-y-100 items-center justify-center">
+        <svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12.3571 7.20839L0.5 13.7977C0.363095 13.8751 0.245536 13.884 0.147321 13.8245C0.0491071 13.7649 0 13.6578 0 13.503V0.360175C0 0.205414 0.0491071 0.0982704 0.147321 0.0387468C0.245536 -0.0207767 0.363095 -0.0118484 0.5 0.0655327L12.3571 6.65482C12.494 6.7322 12.5625 6.82446 12.5625 6.9316C12.5625 7.03875 12.494 7.13101 12.3571 7.20839Z"
+            fill="currentColor"></path>
+        </svg>
+      </div>
+      <span class="group-hover:text-primary group-hover:border-primary border-b border-white transition-all">
+        Learn More
+      </span>
+    </div>
+  </div>
+</a>

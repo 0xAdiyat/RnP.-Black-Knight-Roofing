@@ -8,9 +8,11 @@ interface Props {
   href?: string;
   containerClass?: string;
   gridClass?: string;
+  plain?: boolean;
+  full?: boolean;
 }
 
-const { label, popoverTitle, href = '#', containerClass, gridClass } = Astro.props;
+const { label, popoverTitle, href = '#', containerClass, gridClass, plain, full } = Astro.props;
 ---
 
 <div class="popover-item group relative py-1">
@@ -29,19 +31,24 @@ const { label, popoverTitle, href = '#', containerClass, gridClass } = Astro.pro
   <!-- Template Content (hidden, moved to viewport by JS) -->
   <div
     class={cn(
-      'popover-content pointer-events-none invisible absolute top-full left-1/2 mt-4 -translate-x-1/2 opacity-0',
+      'popover-content pointer-events-none invisible absolute top-full left-1/2 -translate-x-1/2 opacity-0',
       containerClass ? containerClass : 'w-[313px]'
     )}
     data-popover-content={label.toLowerCase().replace(/\s+/g, '-')}
+    data-popover-full={full ? 'true' : 'false'}
   >
-    <div
-      class="relative flex flex-col gap-y-5 overflow-hidden rounded-2xl bg-[#111] p-6 shadow-2xl ring-1 ring-white/15"
-    >
-      {popoverTitle && <h6 class="font-heading text-xl font-normal text-white">{popoverTitle}</h6>}
-
-      <div class={cn('flex flex-col gap-y-4', gridClass)}>
+    {
+      plain ? (
         <slot />
-      </div>
-    </div>
+      ) : (
+        <div class="relative flex flex-col gap-y-5 overflow-hidden rounded-2xl bg-[#111] p-6 shadow-2xl ring-1 ring-white/15">
+          {popoverTitle && <h6 class="font-heading text-xl font-normal text-white">{popoverTitle}</h6>}
+
+          <div class={cn('flex flex-col gap-y-4', gridClass)}>
+            <slot />
+          </div>
+        </div>
+      )
+    }
   </div>
 </div>

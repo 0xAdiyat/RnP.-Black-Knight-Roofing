@@ -1,0 +1,159 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import roofingImg from '@/assets/services/service-roofing.png';
+import commercialImg from '@/assets/services/service-roof.png';
+import metalImg from '@/assets/services/service-roof-shade.png';
+import sidingImg from '@/assets/services/service-siding.png';
+import stormBg from '@/assets/storm-bg.png';
+import ServiceNavCard from './ServiceNavCard.astro';
+import PopularBadgeImg from '@/assets/popular-badge.avif';
+
+const services = [
+  {
+    title: 'Residential Roofing',
+    description:
+      "We're the roofing experts that your home deserves! We're detail-oriented, installing each shingle to perfection.",
+    image: '/placeholders/services/1.png',
+    tags: ['Shingle Roofing', 'Metal Roofing'],
+    icon: 'roof-icon',
+    href: '/services/residential',
+  },
+  {
+    title: 'Commercial Roofing',
+    description:
+      "We're the commercial roofing specialists your business can rely on! We focus on precision, installing every panel with expert care.",
+    image: '/placeholders/services/2.png',
+    icon: 'briefcase',
+    href: '/services/commercial',
+  },
+  {
+    title: 'Metal Roofing',
+    description:
+      "We're the metal roofing specialists your home needs! We focus on precision, fitting each panel flawlessly.",
+    image: '/placeholders/services/3.png',
+    icon: 'materials',
+    href: '/services/metal',
+  },
+  {
+    title: 'Stone Coated Roofing',
+    description: "We're the stone-coated roofing experts your home needs, installing each panel with care.",
+    image: '/placeholders/services/4.png',
+    icon: 'shield-check',
+    href: '/services/stone-coated',
+    isPopular: true,
+  },
+  {
+    title: 'Concrete Tile Roofs',
+    description:
+      "We're the concrete tile roofing specialists your home needs! We focus on precision, fitting each tile flawlessly.",
+    image: '/placeholders/services/5.png',
+    icon: 'setting',
+    href: '/services/concrete-tile',
+    isPopular: true,
+  },
+];
+
+const financeOptions = [
+  {
+    title: 'Storm Damage Repair',
+    description:
+      'We specialize in storm damage restoration and insurance claims—documenting damage, working with adjuster.',
+    icon: 'storm',
+    link: '/services/storm-damage',
+    bg: stormBg,
+  },
+  {
+    title: 'Flexible Financing',
+    description: 'We offer low-interest, long-term financing through Service Finance and Wisetack, plus veteran.',
+    icon: 'financing',
+    link: '/financing',
+    bg: stormBg, // using same bg for now
+  },
+];
+---
+
+<div class="relative mx-auto flex w-full max-w-none items-stretch gap-x-2.5 overflow-hidden bg-[#0d0d0d]">
+  <div class="border-radial before:px-0">
+    <div class="container flex w-full items-stretch gap-x-2.5 p-8">
+      <!-- Services Grid -->
+      <div class="flex flex-[1_0_0] items-stretch gap-2">
+        {
+          services.map(service => (
+            <a
+              href={service.href}
+              class="group relative flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-2xl transition-all duration-500 hover:flex-[1.5_0_0]"
+            >
+              {service.isPopular && (
+                <div class="pointer-events-none absolute top-0 left-0 z-10 size-16 overflow-hidden">
+                  <Image
+                    src={PopularBadgeImg}
+                    alt="Popular Badge"
+                    width={PopularBadgeImg.width}
+                    height={PopularBadgeImg.height}
+                    format={PopularBadgeImg.format}
+                    fetchpriority="high"
+                    loading="eager"
+                  />
+                </div>
+              )}
+
+              {/* Background Image */}
+              <div class="absolute inset-0">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  width={186}
+                  height={324}
+                  inferSize={true}
+                  class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div class="absolute inset-0 rounded-2xl bg-linear-to-b from-black/0 via-black/20 to-black" />
+              </div>
+
+              {/* Content */}
+              <div class="relative z-10 mt-auto flex flex-col p-3 pb-5">
+                <div class="flex flex-col gap-y-3">
+                  <div class="flex items-center gap-x-3">
+                    <div class="flex size-8 shrink-0 items-center justify-center rounded-full bg-white p-1.5 shadow-md">
+                      <Icon name={service.icon} class="size-full text-[#0d0d0d]" />
+                    </div>
+                    <h4 class="truncate text-sm font-medium text-white drop-shadow-sm">{service.title}</h4>
+                  </div>
+
+                  <p class="line-clamp-3 text-[10px] leading-[1.6] text-white">{service.description}</p>
+                </div>
+
+                {service.tags && (
+                  <div class="flex max-h-0 translate-y-6 gap-1 overflow-hidden opacity-0 transition-all delay-300 duration-500 group-hover:max-h-20 group-hover:translate-y-0 group-hover:opacity-100">
+                    <div class="flex gap-1 pt-3">
+                      {service.tags.map(tag => (
+                        <span class="bg-primary rounded-full px-3 py-1 text-[9px] font-bold whitespace-nowrap text-[#111]">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Finance Section -->
+      <div class="flex w-[300px] shrink-0 flex-col gap-y-2.5">
+        {
+          financeOptions.map(option => (
+            <ServiceNavCard
+              title={option.title}
+              description={option.description}
+              icon={option.icon}
+              link={option.link}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
