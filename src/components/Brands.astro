@@ -11,7 +11,7 @@ import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'section'> {}
 const { class: className } = Astro.props;
-const classes = cn('relative px-0 py-10 sm:p-16', className);
+const classes = cn('relative px-0 py-[22px] sm:p-16', className);
 ---
 
 <section class={classes}>
@@ -21,88 +21,88 @@ const classes = cn('relative px-0 py-10 sm:p-16', className);
     <div class="swiper brands-swiper overflow-hidden">
       <div class="swiper-wrapper items-center">
         <!-- Group 1 -->
-        <div class="swiper-slide w-auto! px-8 lg:px-12">
+        <div class="swiper-slide w-auto! px-4 sm:px-6 lg:px-12">
           <Image
             src={googleLogo}
             alt="Google Reviews"
             loading="eager"
             width={googleLogo.width}
             height={googleLogo.height}
-            class="h-[72px] w-auto object-contain"
+            class="h-[40px] sm:h-[52px] lg:h-[72px] w-auto object-contain"
           />
         </div>
-        <div class="swiper-slide w-auto! px-8 lg:px-12">
+        <div class="swiper-slide w-auto! px-4 sm:px-6 lg:px-12">
           <Image
             src={mraLogo}
             alt="MRA Contractor Member"
             loading="eager"
             width={mraLogo.width}
             height={mraLogo.height}
-            class="h-[72px] w-auto object-contain"
+            class="h-[40px] sm:h-[52px] lg:h-[72px] w-auto object-contain"
           />
         </div>
-        <div class="swiper-slide w-auto! px-8 lg:px-12">
+        <div class="swiper-slide w-auto! px-4 sm:px-6 lg:px-12">
           <Image
             src={businessLogo}
             alt="Best of 2024 Business Rate"
             loading="eager"
             width={businessLogo.width}
             height={businessLogo.height}
-            class="h-[72px] w-auto object-contain"
+            class="h-[40px] sm:h-[52px] lg:h-[72px] w-auto object-contain"
           />
         </div>
-        <div class="swiper-slide w-auto! px-8 lg:px-12">
+        <div class="swiper-slide w-auto! px-4 sm:px-6 lg:px-12">
           <Image
             src={bbaLogo}
             alt="BBB Accredited Business A+ Rating"
             loading="eager"
             width={bbaLogo.width}
             height={bbaLogo.height}
-            class="h-[60px] w-auto object-contain"
+            class="h-[34px] sm:h-[46px] lg:h-[60px] w-auto object-contain"
           />
         </div>
-        <div class="swiper-slide w-auto! px-8 lg:px-12">
+        <div class="swiper-slide w-auto! px-4 sm:px-6 lg:px-12">
           <Image
             src={tamkoLogo}
             alt="Tamko Pro Certified Contractor"
             loading="eager"
             width={tamkoLogo.width}
             height={tamkoLogo.height}
-            class="h-[72px] w-auto object-contain"
+            class="h-[40px] sm:h-[52px] lg:h-[72px] w-auto object-contain"
           />
         </div>
-        <div class="swiper-slide w-auto! px-8 lg:px-12">
+        <div class="swiper-slide w-auto! px-4 sm:px-6 lg:px-12">
           <Image
             src={westlate}
             alt="Westlake Royal Window Solutions"
             loading="eager"
             width={westlate.width}
             height={westlate.height}
-            class="h-[72px] w-auto object-contain"
+            class="h-[40px] sm:h-[52px] lg:h-[72px] w-auto object-contain"
           />
         </div>
         <!-- Group 2 (Duplicate for seamless loop) -->
-        <div class="swiper-slide w-auto! px-8 lg:px-12">
+        <div class="swiper-slide w-auto! px-4 sm:px-6 lg:px-12">
           <Image
             src={googleLogo}
             alt="Google Reviews"
             loading="eager"
             width={googleLogo.width}
             height={googleLogo.height}
-            class="h-[72px] w-auto object-contain"
+            class="h-[40px] sm:h-[52px] lg:h-[72px] w-auto object-contain"
           />
         </div>
-        <div class="swiper-slide w-auto! px-8 lg:px-12">
+        <div class="swiper-slide w-auto! px-4 sm:px-6 lg:px-12">
           <Image
             src={mraLogo}
             alt="MRA Contractor Member"
             loading="eager"
             width={mraLogo.width}
             height={mraLogo.height}
-            class="h-[72px] w-auto object-contain"
+            class="h-[40px] sm:h-[52px] lg:h-[72px] w-auto object-contain"
           />
         </div>
-        <div class="swiper-slide w-auto! px-8 lg:px-12">
+        <div class="swiper-slide w-auto! px-4 sm:px-6 lg:px-12">
           <Image
             src={businessLogo}
             alt="Best of 2024 Business Rate"
@@ -119,27 +119,27 @@ const classes = cn('relative px-0 py-10 sm:p-16', className);
             loading="eager"
             width={bbaLogo.width}
             height={bbaLogo.height}
-            class="h-[60px] w-auto object-contain"
+            class="h-[34px] sm:h-[46px] lg:h-[60px] w-auto object-contain"
           />
         </div>
-        <div class="swiper-slide w-auto! px-8 lg:px-12">
+        <div class="swiper-slide w-auto! px-4 sm:px-6 lg:px-12">
           <Image
             src={tamkoLogo}
             alt="Tamko Pro Certified Contractor"
             loading="eager"
             width={tamkoLogo.width}
             height={tamkoLogo.height}
-            class="h-[72px] w-auto object-contain"
+            class="h-[40px] sm:h-[52px] lg:h-[72px] w-auto object-contain"
           />
         </div>
-        <div class="swiper-slide w-auto! px-8 lg:px-12">
+        <div class="swiper-slide w-auto! px-4 sm:px-6 lg:px-12">
           <Image
             src={westlate}
             alt="Westlake Royal Window Solutions"
             loading="eager"
             width={westlate.width}
             height={westlate.height}
-            class="h-[72px] w-auto object-contain"
+            class="h-[40px] sm:h-[52px] lg:h-[72px] w-auto object-contain"
           />
         </div>
       </div>

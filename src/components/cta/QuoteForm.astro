@@ -247,24 +247,24 @@ const {
     </form>
 
     <!-- Ratings row -->
-    <div class="flex items-center justify-center gap-x-6 border-t border-white/10 pt-5">
+    <div class="flex items-center justify-center gap-x-3 border-t border-white/10 pt-5 sm:gap-x-6">
       <div class="flex items-center gap-x-2">
-        <Icon name="google-logo" class="size-5 text-white" />
-        <div class="text-xs">
+        <Icon name="google-logo" class="size-4 text-white sm:size-5" />
+        <div class="flex flex-col gap-y-[2px] text-[11px] leading-tight sm:text-xs">
           <RatingStars rating={5} size={8} fillColor="#fff" strokeColor="transparent" />
           <span class="font-semibold text-white">5.0 Rating</span>
         </div>
       </div>
       <div class="flex items-center gap-x-2">
-        <Icon name="facebook-logo" class="size-5 text-white" />
-        <div class="text-xs">
+        <Icon name="facebook-logo" class="size-4 text-white sm:size-5" />
+        <div class="flex flex-col gap-y-[2px] text-[11px] leading-tight sm:text-xs">
           <RatingStars rating={5} size={8} fillColor="#fff" strokeColor="transparent" />
           <span class="font-semibold text-white">5.0 Rating</span>
         </div>
       </div>
       <div class="flex items-center gap-x-2">
-        <Image src={bbbLogo} alt="BBB" width={16} height={16} class="size-5" />
-        <div class="text-xs">
+        <Image src={bbbLogo} alt="BBB" width={16} height={16} class="size-4 sm:size-5" />
+        <div class="flex flex-col gap-y-[2px] text-[11px] leading-tight sm:text-xs">
           <RatingStars rating={5} size={8} fillColor="#fff" strokeColor="transparent" />
           <span class="font-semibold text-white">A+ Rating</span>
         </div>
