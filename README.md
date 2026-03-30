@@ -5,7 +5,6 @@ pnpm create astro@latest -- --template basics
 ```
 
 
-
 > 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
 ## 🚀 Project Structure
