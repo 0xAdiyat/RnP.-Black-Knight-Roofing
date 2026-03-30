@@ -6,10 +6,10 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary: 'bg-primary text-tx-heading hover:bg-[#f0bf33]',
-        secondary: '',
+        secondary: 'border border-white/80 bg-transparent text-white hover:border-white hover:bg-white hover:text-[#111]',
         danger: 'bg-error text-tx-body',
         ghost: 'bg-transparent text-tx-primary hover:bg-white/6',
-        outline: 'border border-border-default bg-transparent text-tx-primary hover:border-white/40 hover:bg-white/4 hover:text-white',
+        outline: 'border border-white/80 bg-transparent text-white hover:border-white hover:bg-white hover:text-[#111]',
         link: 'bg-transparent text-tx-primary hover:underline',
       },
 
