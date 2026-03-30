@@ -30,7 +30,7 @@ const {
 <a
   href={href}
   class:list={[
-    'group border-gradient block overflow-hidden rounded-2xl transition-all duration-300 before:bg-linear-to-b before:from-white/34 before:to-white/4 hover:shadow-2xl',
+    'group border-gradient block overflow-hidden rounded-2xl before:bg-linear-to-b before:from-white/34 before:to-white/4',
     className,
   ]}
 >
@@ -38,27 +38,24 @@ const {
     class="px-0 py-0 [--noise-overlay:linear-gradient(to_bottom,rgba(0,0,0,0.9),rgba(0,0,0,0.9))] [--noise-radial:radial-gradient(50%_50%_at_50%_50%,rgba(48,48,48,0.2)_0%,rgba(48,48,48,0.5)_100%)]"
   >
     <!-- Image Container -->
-    <div class="relative aspect-video w-full overflow-hidden">
+    <div class="group/image relative aspect-video w-full overflow-hidden">
       {
         typeof image === 'string' ? (
           <img
             src={image}
             alt={imageAlt || title}
-            class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover/image:scale-105"
           />
         ) : (
           <Image
             src={image}
             alt={imageAlt || title}
-            class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover/image:scale-105"
           />
         )
       }
       <!-- Overlay Gradient -->
-      <div
-        class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-      >
-      </div>
+      <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0"></div>
     </div>
 
     <!-- Content -->
@@ -67,7 +64,7 @@ const {
       <div class="flex items-center gap-x-6 text-sm font-medium">
         {
           date && (
-            <div class="flex items-center gap-x-2 text-[#CCCCCC] transition-colors group-hover:text-white/80">
+            <div class="flex items-center gap-x-2 text-[#CCCCCC]">
               <Icon name="calender-2" class="size-5 shrink-0" />
               <span>{date}</span>
             </div>
@@ -75,7 +72,7 @@ const {
         }
         {
           readTime && (
-            <div class="flex items-center gap-x-2 text-[#CCCCCC] transition-colors group-hover:text-white/80">
+            <div class="flex items-center gap-x-2 text-[#CCCCCC]">
               <Icon name="clock-2" class="size-5 shrink-0" />
               <span>{readTime}</span>
             </div>
@@ -85,7 +82,7 @@ const {
 
       <!-- Title & Description -->
       <div class="space-y-3">
-        <h4 class="font-heading group-hover:text-primary text-2xl leading-8 font-normal text-white transition-colors">
+        <h4 class="font-heading text-2xl leading-8 font-normal text-white">
           {title}
         </h4>
         {description && <p class="line-clamp-2 text-sm leading-relaxed text-white/60">{description}</p>}
@@ -94,7 +91,7 @@ const {
       <!-- Read More -->
       <div class="flex items-center gap-x-2">
         <span
-          class="group-hover:text-primary text-sm font-bold tracking-wider text-white underline underline-offset-4 transition-colors"
+          class="text-sm font-bold tracking-wider text-white underline underline-offset-4 transition-colors duration-200 group-hover:text-primary"
           >Read More</span
         >
       </div>
