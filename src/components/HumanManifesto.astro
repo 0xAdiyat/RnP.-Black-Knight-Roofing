@@ -143,10 +143,8 @@
     function setMode(isMachine: boolean) {
       if (isMachine) {
         document.documentElement.classList.add('view-mode-human');
-        localStorage.setItem('view-mode', 'machine');
       } else {
         document.documentElement.classList.remove('view-mode-human');
-        localStorage.setItem('view-mode', 'human');
       }
       window.dispatchEvent(new CustomEvent('view-mode-changed', { detail: { isHuman: !isMachine, isMachine } }));
     }

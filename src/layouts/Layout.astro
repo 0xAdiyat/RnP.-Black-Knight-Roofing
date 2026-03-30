@@ -52,13 +52,6 @@ const socialImageURL = new URL(image, siteUrl);
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
 
-    <!-- Inline script to restore Machine mode only when it was explicitly saved -->
-    <script is:inline>
-      const mode = localStorage.getItem('view-mode');
-      if (mode === 'machine') {
-        document.documentElement.classList.add('view-mode-human');
-      }
-    </script>
   </head>
   <body>
     <slot />
