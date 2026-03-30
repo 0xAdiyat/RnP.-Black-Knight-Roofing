@@ -34,14 +34,20 @@ const services = [
   <div class="container pt-16 pb-8 md:py-16 lg:pt-24">
     <div class="flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-12">
       <!-- Left Content -->
-      <div class="flex w-full flex-col gap-y-6 lg:max-w-[304px]">
+      <div class="flex w-full flex-col items-center gap-y-6 text-center lg:max-w-[304px] lg:items-start lg:text-left">
         <!-- Logo -->
         <div class="w-fit">
-          <Image src="/placeholders/logo.png" alt="Logo" width={256} height={256} class="h-auto w-fit object-contain" />
+          <Image
+            src="/placeholders/logo.png"
+            alt="Logo"
+            width={256}
+            height={256}
+            class="h-auto w-[140px] object-contain sm:w-fit"
+          />
         </div>
 
         <!-- content -->
-        <div class="flex flex-col gap-y-4 pb-8">
+        <div class="flex flex-col items-center gap-y-4 pb-8 lg:items-start">
           <p>Colorado's trusted full-construction roofer—veteran owned, lifetime guaranteed.</p>
 
           <div class="flex w-fit items-center rounded-full border border-white/12 bg-white/8 p-0.5 shadow-[0_10px_30px_rgba(0,0,0,0.18)] backdrop-blur-sm">
@@ -290,7 +296,7 @@ const services = [
             <div class="flex flex-col items-center justify-between gap-6 p-6 sm:flex-row sm:gap-4">
               <div class="text-center sm:text-left">
                 <h4
-                  class="font-heading bg-linear-to-r from-[#E5E7EB] to-primary bg-clip-text text-[2rem] leading-[2.75rem] font-normal text-transparent [-webkit-text-fill-color:transparent] [-webkit-background-clip:text]"
+                  class="font-heading bg-linear-to-r from-[#E5E7EB] to-primary bg-clip-text text-[1.75rem] leading-[2.25rem] font-normal text-transparent sm:text-[2rem] sm:leading-[2.75rem] [-webkit-text-fill-color:transparent] [-webkit-background-clip:text]"
                 >
                   Get Your FREE Roof Inspection Done!
                 </h4>
@@ -343,13 +349,28 @@ const services = [
     </div>
   </div>
 
-  <footer class="container mt-12 border-t border-white/10 py-8">
-    <div class="flex flex-col items-center justify-between gap-4 text-center text-sm lg:flex-row lg:text-left">
-      <div class="[&_span]:text-primary text-nowrap text-white/40 [&_span]:font-semibold">
-        Copyright &copy; 2026 <span> Black Knight Roofing </span> - All Rights Reserved
+  <footer class="container mt-12 border-t border-white/10 pt-8 pb-28">
+    <div class="mx-auto max-w-[520px] space-y-6 text-center text-sm leading-6 text-white/70">
+      <div>
+        <span>&copy; 2026 </span>
+        <span class="font-semibold text-primary">Black Knight Roofing</span>
+        <span> - All Rights Reserved | This site secured by Google ReCapture (see </span>
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="font-semibold text-white transition-colors hover:text-primary">
+          Privacy &amp; Terms
+        </a>
+        <span>).</span>
+        <div class="font-semibold text-white">
+          <a href="/privacy-policy" class="transition-colors hover:text-primary">Privacy</a>
+          <span> | </span>
+          <a href="/accessibility" class="transition-colors hover:text-primary">Accessibility</a>
+          <span> | </span>
+          <a href="/company-info" class="transition-colors hover:text-primary">Company Info</a>
+        </div>
       </div>
-      <div class="text-white/40">
-        Developed by <a href="https://sensory-creative.com" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold transition-colors hover:underline">Sensory Creative</a>, The Creative Design Agency for Roofers
+
+      <div class="text-sm leading-6 text-white/70">
+        Developed by <a href="https://sensory-creative.com" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary transition-colors hover:underline">Sensory-Creative</a>, The
+        Design Company For Roofers
       </div>
     </div>
   </footer>

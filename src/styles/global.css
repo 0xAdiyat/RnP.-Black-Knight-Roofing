@@ -145,6 +145,14 @@
     @apply text-tx-body bg-bg-default font-body;
   }
 
+  @media (max-width: 767px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px;
+    }
+  }
+
   h1 {
     @apply font-heading text-[3.5rem];
   }
