@@ -58,3 +58,14 @@ const socialImageURL = new URL(image, siteUrl);
     <HumanManifesto />
   </body>
 </html>
+
+<style is:global>
+  html {
+    scrollbar-gutter: stable;
+  }
+  @supports not (scrollbar-gutter: stable) {
+    html {
+      overflow-y: scroll;
+    }
+  }
+</style>
