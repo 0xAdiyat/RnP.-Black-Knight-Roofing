@@ -263,14 +263,14 @@ import MaryCayHeadshot from '@/assets/review-headshot-mary-cay.avif';
     <div
       class="border-gradient rounded-2xl [--mask-border-bg:linear-gradient(to_right,transparent_30%,var(--color-primary)_100%)]"
     >
-      <div class="absolute inset-0 z-10 hidden bg-linear-to-r from-[#111]/90 to-[#111]/10 to-50% lg:block lg:w-8/10">
+      <div class="absolute inset-0 z-10 hidden rounded-2xl bg-linear-to-r from-[#111]/90 to-[#111]/10 to-50% lg:block lg:w-8/10">
       </div>
 
       <NoiseBg
         class="relative flex w-full flex-col items-stretch rounded-2xl px-0 py-0 [--noise-overlay:linear-gradient(to_right,rgba(0,0,0,1)_20%,rgba(0,0,0,.85)_80%)] [--noise-radial:radial-gradient(50%_50%_at_50%_50%,rgba(48,48,48,0.3)_0%,rgba(48,48,48,0.54)_50%)] lg:flex-row"
       >
         <div
-          class="relative z-0 max-h-[700px] w-full shrink-0 border-b border-white/10 lg:w-1/2 lg:border-b-0 lg:border-l"
+          class="relative z-0 max-h-[700px] w-full shrink-0 overflow-hidden rounded-t-2xl border-b border-white/10 lg:w-1/2 lg:rounded-t-none lg:rounded-l-2xl lg:border-b-0 lg:border-l"
         >
           <Image
             src={familyImage}
@@ -278,7 +278,7 @@ import MaryCayHeadshot from '@/assets/review-headshot-mary-cay.avif';
             width={familyImage.width}
             height={familyImage.height}
             sizes="(max-width: 1024px) 100vw, 50vw"
-            class="h-full w-full object-cover"
+            class="h-full w-full rounded-t-2xl object-cover lg:rounded-t-none lg:rounded-l-2xl"
           />
         </div>
 
