@@ -43,8 +43,9 @@ const textOrderClass = imagePosition === 'right' ? 'order-1' : 'order-2';
     height={900}
     class="pointer-events-none absolute top-0 left-0 h-full w-full opacity-10"
   />
-  <div class="container py-20">
-    <div class="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
+
+  <div class="container py-10 lg:py-20">
+    <div class="grid grid-cols-1 items-center gap-y-8 md:grid-cols-2 lg:gap-12">
       <!-- Image Content -->
       <div class={imageOrderClass}>
         {
@@ -74,9 +75,19 @@ const textOrderClass = imagePosition === 'right' ? 'order-1' : 'order-2';
             )
           }
 
-          {title && <h2 class="max-w-[530px] text-3xl leading-tight font-bold md:text-4xl">{title}</h2>}
+          {
+            title && (
+              <h2 class="max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)] font-medium">
+                {title}
+              </h2>
+            )
+          }
 
-          {description && <p class="text-muted-foreground text-lg leading-relaxed">{description}</p>}
+          {
+            description && (
+              <p class="text-neutral-lighter text-sm leading-relaxed font-normal lg:text-base">{description}</p>
+            )
+          }
 
           <slot />
         </div>
@@ -85,8 +96,7 @@ const textOrderClass = imagePosition === 'right' ? 'order-1' : 'order-2';
           buttonText && (
             <Button href={buttonHref}>
               <span>
-                {' '}
-                <strong>{buttonText.split(' ')[0]}</strong> {buttonText.split(' ').slice(1).join(' ')}{' '}
+                <strong>{buttonText.split(' ')[0]}</strong> {buttonText.split(' ').slice(1).join(' ')}
               </span>
             </Button>
           )

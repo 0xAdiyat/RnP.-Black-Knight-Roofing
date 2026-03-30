@@ -10,6 +10,7 @@ import bbaLogo from '@/assets/bbb-logo.avif';
 import dogImage from '@/assets/dog-image.avif';
 import bottomShape from '@/assets/bottom-shape.png';
 import shineImage from '@/assets/sunflow.avif';
+import BadgeTitle from '../BadgeTitle.astro';
 
 interface ProcessStep {
   image: ImageMetadata;
@@ -56,30 +57,19 @@ const {
 } = Astro.props;
 ---
 
-<NoiseBg class:list={['relative space-y-12 overflow-hidden px-0 py-20', className]}>
+<NoiseBg class:list={['relative space-y-12 overflow-hidden px-0 py-10 lg:py-20', className]}>
   <!-- Top Section -->
-  <div class="z-10 order-2 container flex flex-col gap-y-12 lg:order-1 lg:flex-row lg:items-center">
-    <div class="w-full space-y-4 lg:flex-1">
-      <div class="flex items-center gap-x-3">
-        <div
-          class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
-        >
-        </div>
-        <div class="text-sm font-bold tracking-wider uppercase opacity-80">{badge}</div>
-      </div>
-
-      <h2 class:list={['text-3xl leading-tight font-normal md:text-5xl lg:text-5xl', headingClass]}>
-        <Fragment set:html={heading} />
-      </h2>
-    </div>
+  <div class="z-10 order-2 container flex flex-col gap-y-12 lg:order-1 lg:flex-row lg:items-center lg:justify-between">
+    <BadgeTitle badge={badge} title={heading} class="w-full max-w-[500px]" />
 
     {
       quote && (
-        <div class="mx-auto w-[320px] lg:w-auto">
+        <div class="ml-8 w-full max-w-[320px] flex-1 sm:ml-auto md:max-w-[400px]">
           <div class="before:via-primary border-gradient rounded-2xl p-px before:bg-linear-to-r before:from-[rgba(255,255,255,0.15)] before:to-[rgba(255,255,255,0.15)] lg:ml-10">
-            <NoiseBg class="relative flex min-h-[100px] items-center rounded-2xl py-6 pr-6 pl-12 lg:py-7 lg:pl-16">
-              <div class="via-primary absolute -left-6 flex w-fit items-center justify-center rounded-full bg-linear-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-0.5">
-                <div class="from-primary to-tertiary relative h-[60px] w-[60px] overflow-hidden rounded-full bg-conic-150 lg:h-[73px] lg:w-[73px]">
+            <NoiseBg class="relative flex items-center rounded-2xl py-6 pr-6 pl-0 lg:py-7">
+              {/* Profile image */}
+              <div class="via-primary z-10 -ml-8 flex w-fit items-center justify-center rounded-full bg-linear-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-0.5">
+                <div class="from-primary border-raidal to-tertiary relative h-[60px] w-[60px] overflow-hidden rounded-full bg-conic-150 lg:h-[73px] lg:w-[73px]">
                   <Image
                     src={quote.profileImage || '/placeholders/profile.png'}
                     alt={quote.profileAlt || 'profile'}
@@ -90,7 +80,7 @@ const {
                 </div>
               </div>
 
-              <div class="pl-4 lg:pl-0">
+              <div class="lg:pl-0">
                 <div class="text-sm leading-relaxed italic md:text-base">&ldquo;{quote.quote}&rdquo;</div>
                 <div class="text-tx-brand mt-1 text-xs font-bold md:text-sm">{quote.author}</div>
               </div>
@@ -130,13 +120,18 @@ const {
               />
 
               <ul
-                class="border-gradient relative flex flex-wrap items-center justify-center gap-2 rounded-2xl bg-black/20 p-2.5 py-4 before:bg-linear-to-l before:from-white/34 before:to-transparent sm:flex-row sm:gap-3 sm:p-4"
+                class="border-gradient relative flex flex-wrap items-center justify-center gap-3 rounded-2xl bg-black/20 p-2.5 py-4 before:bg-linear-to-l before:from-white/34 before:to-transparent sm:flex-row sm:p-4"
               >
-                <li class="flex items-center gap-x-2.5 py-2 sm:p-2">
-                  <Icon name="google-logo" class="size-6 text-[#F7B715] lg:size-8" />
+                <li class="flex items-center gap-x-2 py-2 sm:p-2">
+                  <Icon name="google-logo" class="size-4 text-[#F7B715] sm:size-6 lg:size-8" />
                   <div>
                     <div>
-                      <RatingStars rating={5} size={10} fillColor="white" strokeColor="transparent" />
+                      <RatingStars
+                        rating={5}
+                        fillColor="white"
+                        strokeColor="transparent"
+                        class="[&_svg]:size-2 sm:[&_svg]:size-2.5"
+                      />
                     </div>
                     <div class="text-xs lg:text-sm">5.0 Rating</div>
                   </div>
@@ -144,11 +139,16 @@ const {
 
                 <li class="hidden h-8 w-px bg-white/10 sm:block"></li>
 
-                <li class="flex items-center gap-x-2.5 py-2 sm:p-2">
-                  <Icon name="facebook-logo" class="size-6 text-[#F7B715] lg:size-8" />
+                <li class="flex items-center gap-x-2 py-2 sm:p-2">
+                  <Icon name="facebook-logo" class="size-4 text-[#F7B715] sm:size-6 lg:size-8" />
                   <div>
                     <div>
-                      <RatingStars rating={5} size={10} fillColor="white" strokeColor="transparent" />
+                      <RatingStars
+                        rating={5}
+                        fillColor="white"
+                        strokeColor="transparent"
+                        class="[&_svg]:size-2 sm:[&_svg]:size-2.5"
+                      />
                     </div>
                     <div class="text-xs lg:text-sm">5.0 Rating</div>
                   </div>
@@ -156,19 +156,24 @@ const {
 
                 <li class="hidden h-8 w-px bg-white/10 sm:block"></li>
 
-                <li class="flex items-center gap-x-2.5 py-2 sm:p-2">
+                <li class="flex items-center gap-x-2 py-2 sm:p-2">
                   <div>
                     <Image
                       src={bbaLogo}
                       alt="Better Business Bureau Logo"
                       width={32}
                       height={32}
-                      class="size-6 lg:size-8"
+                      class="size-5 text-[#F7B715] sm:size-6 lg:size-8"
                     />
                   </div>
                   <div class="flex flex-col items-start">
                     <div>
-                      <RatingStars rating={5} size={10} fillColor="white" strokeColor="transparent" />
+                      <RatingStars
+                        rating={5}
+                        fillColor="white"
+                        strokeColor="transparent"
+                        class="[&_svg]:size-2 sm:[&_svg]:size-2.5"
+                      />
                     </div>
                     <div class="text-xs lg:text-sm">5.0 Rating</div>
                   </div>

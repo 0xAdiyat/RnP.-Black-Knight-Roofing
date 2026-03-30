@@ -1,0 +1,48 @@
+---
+import Button from '@/components/ui/Button.astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  title: string;
+  description: string;
+  image: string;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<div class="relative flex h-auto w-full flex-col pl-3 md:pl-6 lg:block lg:h-[490px] lg:pr-20">
+  <div class="h-[250px] w-full sm:h-[350px] lg:h-full">
+    {
+      image && (
+        <Image
+          src={image}
+          alt={title || ''}
+          width={600}
+          height={490}
+          class="h-full w-full rounded-2xl object-cover shadow-xl"
+        />
+      )
+    }
+  </div>
+  <div
+    class="bg-primary text-inverted relative z-10 mx-6 -mt-16 rounded-2xl p-4 shadow-2xl sm:-mt-20 sm:p-10 lg:absolute lg:top-1/2 lg:right-0 lg:m-0 lg:w-[448px] lg:-translate-y-1/2 lg:rounded-xl lg:px-12 lg:py-8"
+  >
+    <div class="space-y-4 lg:space-y-6">
+      <div class="space-y-2 lg:space-y-4">
+        <h4 class="text-xl leading-tight font-bold text-black lg:text-3xl">{title}</h4>
+        <p class="text-[13px] leading-relaxed font-normal text-[#444444] lg:text-base">
+          {description}
+        </p>
+      </div>
+      <div class="pt-2">
+        <Button
+          variant="outline"
+          class="border-black font-bold text-black transition-all hover:bg-black hover:text-white"
+        >
+          Learn More
+        </Button>
+      </div>
+    </div>
+  </div>
+</div>

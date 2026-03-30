@@ -10,6 +10,7 @@ import RatingStars from '@/components/ui/RatingStars.astro';
 import Brands from '@/components/Brands.astro';
 import RecentArticales from '@/components/articales/RecentArticales.astro';
 import CTASection from '@/components/cta/CTASection.astro';
+import Breadcrumb from '@/components/ui/Breadcrumb.astro';
 
 const defaultAuthor = {
   name: 'Adam Knight',
@@ -608,13 +609,13 @@ const pageTitle = `${blog.title} | Black Knight Roofing`;
         class="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,760px)_250px] lg:justify-between xl:grid-cols-[minmax(0,820px)_280px]"
       >
         <article class="min-w-0">
-          <nav class="mb-7 flex flex-wrap items-center gap-2 text-[12px] text-white/45">
-            <a href="/" class="transition-colors hover:text-white">Roofing Company in Denver, CO</a>
-            <Icon name="chevron-right" class="size-3 text-white/25" />
-            <a href="/blogs" class="transition-colors hover:text-white">Blog</a>
-            <Icon name="chevron-right" class="size-3 text-white/25" />
-            <span class="max-w-full truncate text-white/75">{blog.title}</span>
-          </nav>
+          <Breadcrumb
+            items={[
+              { label: 'Roofing Company in Denver, CO', href: '/' },
+              { label: 'Blog', href: '/blogs' },
+              { label: blog.title },
+            ]}
+          />
 
           <header class="mb-8 space-y-4">
             <div
