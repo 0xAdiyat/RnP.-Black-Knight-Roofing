@@ -100,7 +100,7 @@ const {
         <div class="text-sm text-white/60">Still can't find your answers? Call us:</div>
         <a
           href={`tel:${phoneNumber.replace(/[^+\d]/g, '')}`}
-          class:list={['flex items-center gap-x-2 text-xl font-bold', phoneLinkClass]}
+          class:list={['flex items-center gap-x-2 text-[20px] leading-8 font-medium text-white underline', phoneLinkClass]}
         >
           <Icon name="phone" class="text-primary size-5" />
           {phoneNumber}
@@ -118,7 +118,7 @@ const {
       <div class="text-sm text-white/60">Still can't find your answers? Call us:</div>
       <a
         href={`tel:${phoneNumber.replace(/[^+\d]/g, '')}`}
-        class:list={['flex items-center gap-x-2 text-xl font-bold', phoneLinkClass]}
+        class:list={['flex items-center gap-x-2 text-[20px] leading-8 font-medium text-white underline', phoneLinkClass]}
       >
         <Icon name="phone" class="text-primary size-5" />
         {phoneNumber}
