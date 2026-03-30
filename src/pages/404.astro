@@ -9,32 +9,32 @@ import { Icon } from 'astro-icon/components';
 <Layout title="404 - Page Not Found | Black Knight Roofing" description="The page you are looking for does not exist. Return to Black Knight Roofing home page for expert roofing services in Denver.">
   <Navbar />
   
-  <main class="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-noise px-4 py-32 text-center md:py-48">
+  <main class="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-noise px-4 py-16 text-center md:py-24">
     <!-- Animated background glow -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 opacity-20 select-none pointer-events-none">
        <div class="w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-primary blur-[100px] md:blur-[150px] rounded-full animate-pulse"></div>
     </div>
-
+ 
     <!-- Background 404 Text - Fixed for responsiveness -->
     <div class="absolute inset-0 flex items-center justify-center -z-10 select-none pointer-events-none overflow-hidden">
-      <span class="font-heading text-[12rem] sm:text-[20rem] md:text-[30rem] lg:text-[40rem] leading-none text-white/[0.03] tracking-tighter transition-all duration-500">
+      <span class="font-heading text-[10rem] sm:text-[15rem] md:text-[20rem] lg:text-[25rem] leading-none text-white/[0.03] tracking-tighter transition-all duration-500">
         404
       </span>
     </div>
-
-    <div class="container relative z-10 flex flex-col items-center justify-center max-w-4xl pt-16 md:pt-24">
-      <h1 class="font-heading text-6xl sm:text-[8rem] md:text-[10rem] lg:text-[12rem] text-white leading-none text-balance mb-8">
+ 
+    <div class="container relative z-10 flex flex-col items-center justify-center max-w-4xl">
+      <h1 class="font-heading text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-white leading-none text-balance mb-4">
           404
       </h1>
       
       <!-- Content -->
-      <div class="max-w-2xl space-y-8 md:space-y-10">
-        <p class="text-lg sm:text-xl md:text-2xl text-tx-body/80 text-pretty leading-relaxed">
+      <div class="max-w-2xl space-y-6 md:space-y-8">
+        <p class="text-base sm:text-lg md:text-xl text-tx-body/80 text-pretty leading-relaxed">
           It looks like this page has been weathered away or moved to a new location. Don't worry, our structural integrity remains intact.
         </p>
         
         <!-- Actions -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 pt-4">
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 pt-2">
           <Button variant="primary" size="lg" href="/" class="w-full sm:w-auto min-w-[200px]">
             <span>Back to Home</span>
           </Button>
