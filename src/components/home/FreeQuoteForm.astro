@@ -20,41 +20,158 @@ import heroShield from '@/assets/hero-shield.png';
         class="mx-auto -mt-[70px] h-16 w-auto lg:-mt-20 lg:h-24"
         loading="eager"
       />
-      <div class="[&_span]:text-primary flex w-full flex-col items-center gap-y-8 p-6 lg:p-10">
-        <h3 class="text-2xl font-bold lg:text-3xl">Get Your <span> FREE</span> Quote</h3>
+      <div class="[&_span]:text-primary flex w-full flex-col items-center gap-y-4 p-6 lg:px-8 lg:pt-8 lg:pb-6">
+        <h3 class="text-2xl font-normal lg:text-3xl">Get Your <span> FREE</span> Quote</h3>
 
-        <form class="flex w-full flex-col items-center gap-4 lg:flex-row lg:gap-x-2.5">
-          <InputGroup class="h-[52px] w-full border-white/15 px-4 py-4">
-            <InputGroupInput id="name-input" type="text" placeholder="Name" />
-            <InputGroupAddon align="inline-end">
-              <Icon name="contact" />
-            </InputGroupAddon>
-          </InputGroup>
+        <form class="hero-free-quote-form flex w-full flex-col items-start gap-4 lg:flex-row lg:items-start lg:gap-x-3" novalidate>
+          <div class="hero-free-quote-field w-full">
+            <InputGroup class="hero-free-quote-group h-[52px] w-full border-white/15 px-4 py-4">
+              <InputGroupInput id="name-input" name="name" type="text" placeholder="Name" autocomplete="name" />
+              <InputGroupAddon align="inline-end">
+                <Icon name="contact" />
+              </InputGroupAddon>
+            </InputGroup>
+            <p class="hero-free-quote-error mt-2 hidden text-xs font-medium text-[#FF8B8B]">Please enter your name.</p>
+          </div>
 
-          <InputGroup class="h-[52px] w-full border-white/15 px-4 py-4">
-            <InputGroupInput id="phone-input" type="tel" placeholder="Phone" />
-            <InputGroupAddon align="inline-end">
-              <Icon name="call" />
-            </InputGroupAddon>
-          </InputGroup>
+          <div class="hero-free-quote-field w-full">
+            <InputGroup class="hero-free-quote-group h-[52px] w-full border-white/15 px-4 py-4">
+              <InputGroupInput id="phone-input" name="phone" type="tel" placeholder="Phone" autocomplete="tel" inputmode="tel" />
+              <InputGroupAddon align="inline-end">
+                <Icon name="call" />
+              </InputGroupAddon>
+            </InputGroup>
+            <p class="hero-free-quote-error mt-2 hidden text-xs font-medium text-[#FF8B8B]">Please enter a valid phone number.</p>
+          </div>
 
-          <InputGroup class="h-[52px] w-full border-white/15 px-4 py-4">
-            <InputGroupInput id="email-input" type="email" placeholder="Email" />
-            <InputGroupAddon align="inline-end">
-              <Icon name="mail2" />
-            </InputGroupAddon>
-          </InputGroup>
+          <div class="hero-free-quote-field w-full">
+            <InputGroup class="hero-free-quote-group h-[52px] w-full border-white/15 px-4 py-4">
+              <InputGroupInput id="email-input" name="email" type="email" placeholder="Email" autocomplete="email" inputmode="email" />
+              <InputGroupAddon align="inline-end">
+                <Icon name="mail2" />
+              </InputGroupAddon>
+            </InputGroup>
+            <p class="hero-free-quote-error mt-2 hidden text-xs font-medium text-[#FF8B8B]">Please enter a valid email address.</p>
+          </div>
 
-          <InputGroup class="h-[52px] w-full border-white/15 px-4 py-4">
-            <InputGroupInput id="assist-input" type="text" placeholder="How can we assist you?" />
-            <InputGroupAddon align="inline-end">
-              <Icon name="chat" />
-            </InputGroupAddon>
-          </InputGroup>
+          <div class="hero-free-quote-field w-full">
+            <InputGroup class="hero-free-quote-group h-[52px] w-full border-white/15 px-4 py-4">
+              <InputGroupInput id="assist-input" name="assist" type="text" placeholder="How can we assist you?" />
+              <InputGroupAddon align="inline-end">
+                <Icon name="chat" />
+              </InputGroupAddon>
+            </InputGroup>
+            <p class="hero-free-quote-error mt-2 hidden text-xs font-medium text-[#FF8B8B]">Please tell us how we can assist you.</p>
+          </div>
 
-          <Button class="h-[52px] w-full px-8 py-4 lg:w-auto">Submit</Button>
+          <div class="w-full lg:w-auto lg:self-start">
+            <Button type="submit" class="h-[52px] w-full px-8 py-4 lg:w-auto">Submit</Button>
+          </div>
         </form>
       </div>
     </NoiseBg>
   </div>
 </div>
+
+<script>
+  const forms = document.querySelectorAll('.hero-free-quote-form');
+
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function digitsOnly(value) {
+    return value.replace(/\D/g, '');
+  }
+
+  function getFieldMessage(name, value) {
+    const trimmed = value.trim();
+
+    if (name === 'name') {
+      return trimmed.length >= 2 ? '' : 'Please enter your name.';
+    }
+
+    if (name === 'phone') {
+      return digitsOnly(trimmed).length >= 10 ? '' : 'Please enter a valid phone number.';
+    }
+
+    if (name === 'email') {
+      return EMAIL_RE.test(trimmed) ? '' : 'Please enter a valid email address.';
+    }
+
+    if (name === 'assist') {
+      return trimmed.length >= 5 ? '' : 'Please tell us how we can assist you.';
+    }
+
+    return '';
+  }
+
+  function setFieldState(input, message, forceShowError = false) {
+    const wrapper = input.closest('.hero-free-quote-field');
+    const group = wrapper?.querySelector('[data-slot="input-group"]');
+    const error = wrapper?.querySelector('.hero-free-quote-error');
+    const hasValue = input.value.trim().length > 0;
+    const isValid = hasValue && !message;
+
+    input.setAttribute('aria-invalid', message ? 'true' : 'false');
+
+    group?.classList.remove('border-[#2C8A4B]', 'border-[#C44E4E]');
+
+    if (message && (hasValue || forceShowError)) {
+      group?.classList.add('border-[#C44E4E]');
+      error?.classList.remove('hidden');
+      if (error) error.textContent = message;
+    } else {
+      error?.classList.add('hidden');
+    }
+
+    if (isValid) {
+      group?.classList.add('border-[#2C8A4B]');
+    }
+
+    return isValid;
+  }
+
+  function validateField(input, forceShowError = false) {
+    const message = getFieldMessage(input.name, input.value);
+    return setFieldState(input, message, forceShowError);
+  }
+
+  forms.forEach(form => {
+    const inputs = Array.from(form.querySelectorAll('input'));
+
+    inputs.forEach(input => {
+      input.addEventListener('focus', () => {
+        const group = input.closest('.hero-free-quote-group');
+        group?.classList.add('border-white/30', 'ring-1', 'ring-white/10');
+      });
+
+      input.addEventListener('blur', () => validateField(input));
+      input.addEventListener('blur', () => {
+        const group = input.closest('.hero-free-quote-group');
+        group?.classList.remove('border-white/30', 'ring-1', 'ring-white/10');
+      });
+      input.addEventListener('input', () => {
+        if (input.getAttribute('aria-invalid') === 'true' || input.value.trim().length > 0) {
+          validateField(input);
+        }
+      });
+    });
+
+    form.addEventListener('submit', event => {
+      let firstInvalid = null;
+      let formIsValid = true;
+
+      inputs.forEach(input => {
+        const valid = validateField(input, true);
+        if (!valid) {
+          formIsValid = false;
+          if (!firstInvalid) firstInvalid = input;
+        }
+      });
+
+      if (!formIsValid) {
+        event.preventDefault();
+        firstInvalid?.focus();
+      }
+    });
+  });
+</script>

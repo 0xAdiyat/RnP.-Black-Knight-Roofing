@@ -7,9 +7,36 @@ import sunFlow from '@/assets/sunflow.avif';
 import { Image } from 'astro:assets';
 import BadgeTitle from '../BadgeTitle.astro';
 
+const articles = [
+  {
+    image: '/placeholders/works/1.jpg',
+    title: 'Vinyl vs Fiber Cement Siding: 7 Key Differences Explained',
+    description:
+      'When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ...',
+    date: 'July 1, 2026',
+    readTime: '15 Mins',
+  },
+  {
+    image: '/placeholders/works/2.jpg',
+    title: 'Vinyl vs Fiber Cement Siding: 7 Key Differences Explained',
+    description:
+      'When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ...',
+    date: 'July 1, 2026',
+    readTime: '15 Mins',
+  },
+  {
+    image: '/placeholders/works/3.jpg',
+    title: 'Vinyl vs Fiber Cement Siding: 7 Key Differences Explained',
+    description:
+      'When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ...',
+    date: 'July 1, 2026',
+    readTime: '15 Mins',
+  },
+];
+
 const breakpoints = {
-  320: { slidesPerView: 1.1, spaceBetween: 16 },
-  500: { slidesPerView: 1.5, spaceBetween: 20 },
+  320: { slidesPerView: 1.08, spaceBetween: 12 },
+  500: { slidesPerView: 1.18, spaceBetween: 14 },
   768: { slidesPerView: 2, spaceBetween: 32 },
   1024: { slidesPerView: 3, spaceBetween: 32 },
 };
@@ -30,67 +57,18 @@ const breakpoints = {
       slidesPerView="auto"
       spaceBetween={32}
       breakpoints={breakpoints}
-      centeredSlides={true}
-      loop={true}
-      loopedSlides={6}
+      centeredSlides={false}
+      loop={false}
       autoplay={false}
-      class="z-10 w-full"
+      class="z-10 w-full overflow-visible md:overflow-hidden"
     >
-      <CarouselSlide>
-        <ArticalCard
-          image="/placeholders/works/1.jpg"
-          title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
-          description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
-          date="July 1, 2026"
-          readTime="15 Mins"
-        />
-      </CarouselSlide>
-      <CarouselSlide>
-        <ArticalCard
-          image="/placeholders/works/2.jpg"
-          title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
-          description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
-          date="July 1, 2026"
-          readTime="15 Mins"
-        />
-      </CarouselSlide>
-      <CarouselSlide>
-        <ArticalCard
-          image="/placeholders/works/3.jpg"
-          title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
-          description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
-          date="July 1, 2026"
-          readTime="15 Mins"
-        />
-      </CarouselSlide>
-      <!-- Group 2 (Duplicate for seamless loop) -->
-      <CarouselSlide>
-        <ArticalCard
-          image="/placeholders/works/1.jpg"
-          title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
-          description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
-          date="July 1, 2026"
-          readTime="15 Mins"
-        />
-      </CarouselSlide>
-      <CarouselSlide>
-        <ArticalCard
-          image="/placeholders/works/2.jpg"
-          title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
-          description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
-          date="July 1, 2026"
-          readTime="15 Mins"
-        />
-      </CarouselSlide>
-      <CarouselSlide>
-        <ArticalCard
-          image="/placeholders/works/3.jpg"
-          title="Vinyl vs Fiber Cement Siding: 7 Key Differences Explained"
-          description="When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ..."
-          date="July 1, 2026"
-          readTime="15 Mins"
-        />
-      </CarouselSlide>
+      {
+        articles.map((article) => (
+          <CarouselSlide>
+            <ArticalCard {...article} />
+          </CarouselSlide>
+        ))
+      }
     </Carousel>
   </div>
 
