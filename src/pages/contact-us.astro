@@ -95,34 +95,34 @@ const processSteps = [
     subtitle="Contact Us"
   >
     <Fragment slot="social-proof">
-      <div class="flex items-center gap-x-4 px-6 py-4 md:py-0">
+      <div class="flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
         <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5">
-          <Icon name="phone" size={24} />
+          <Icon name="phone" size={24} class="text-primary" />
         </div>
-        <div class="flex flex-col items-start text-start">
-          <div class="text-lg font-semibold">Give us a Call</div>
+        <div class="flex min-w-0 flex-col items-start text-start">
+          <div class="text-[18px] leading-7 font-bold text-white sm:whitespace-nowrap">Give us a Call</div>
           <div class="text-sm">303-555-5555</div>
         </div>
       </div>
 
-      <div class="flex items-center gap-x-4 px-6 py-4 md:py-0">
+      <div class="flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
         <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5">
           <Icon name="send-message" size={24} class="text-primary" />
         </div>
-        <div class="flex flex-col items-start text-start">
-          <div class="text-lg font-semibold">Send us a Message</div>
+        <div class="flex min-w-0 flex-col items-start text-start">
+          <div class="text-[18px] leading-7 font-bold text-white sm:whitespace-nowrap">Send us a Message</div>
           <div class="text-sm">support@blackknightroofing.com</div>
         </div>
       </div>
 
-      <div class="flex items-center gap-x-4 px-6 py-4 md:py-0">
+      <div class="flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
         <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5">
           <Icon name="location-02" size={24} class="text-primary" />
         </div>
-        <div class="flex flex-col items-start text-start">
-          <div class="text-lg font-semibold">Visit Our Office</div>
-          <div class="text-sm">
-            600 N Washington Ave <br /> Suite C203 Minneapolis MN
+        <div class="flex min-w-0 flex-col items-start text-start">
+          <div class="text-[18px] leading-7 font-bold text-white sm:whitespace-nowrap">Visit Our Office</div>
+          <div class="text-xs leading-4 font-medium text-white">
+            865 Draw St <br /> Lochbuie, CO 80603
           </div>
         </div>
       </div>
@@ -159,14 +159,16 @@ const processSteps = [
           </div>
         </div>
 
-        <h2 class="font-heading text-5xl leading-tight text-white">The #1 Choice For Colorado Residents</h2>
+        <h2 class="font-heading text-[28px] leading-10 font-normal text-white lg:text-5xl lg:leading-tight">
+          The #1 Choice For Colorado Residents
+        </h2>
 
         <p class="text-lg text-[#ccc]">
-          At Black Knight Roofing, we are proud to serve the residents of Southern Florida with top-quality roofing
-          solutions tailored to their unique needs. Our team understands the challenges posed by the region’s climate,
-          and we are committed to providing durable and stylish roofing options that stand up to harsh weather. Whether
-          you’re in need of a new roof or expert advice, we are always just a call away, ready to assist with reliable
-          service and personalized support.
+          At Black Knight Roofing, we're proud to serve homeowners and businesses across the Denver metro and Colorado's
+          Front Range. Our team knows this region's roofing challenges — hail, wind, rapid temperature swings, and
+          everything that comes with living at elevation. Whether you need a free inspection after a storm, want to talk
+          through a full replacement, or just have questions about your insurance claim, we're easy to reach and fast to
+          respond. A real conversation with our team costs you nothing.
         </p>
 
         <Button variant="primary">FREE Roof Estimate</Button>
@@ -230,8 +232,15 @@ const processSteps = [
     </div>
   </div>
 
-  <Process steps={processSteps} />
-  <Faqs />
+  <Process
+    steps={processSteps}
+    headingClass="font-heading text-[28px] leading-10 font-normal text-white md:text-5xl md:leading-tight lg:text-5xl lg:leading-tight"
+    subheadingClass="font-normal"
+  />
+  <Faqs
+    headingClass="font-heading text-[28px] leading-10 font-normal text-white lg:text-5xl lg:leading-tight"
+    phoneLinkClass="text-white text-[20px] leading-8 font-medium underline"
+  />
 
   <div class="relative">
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>

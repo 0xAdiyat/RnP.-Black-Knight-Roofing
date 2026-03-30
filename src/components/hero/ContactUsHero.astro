@@ -70,7 +70,10 @@ background-repeat: no-repeat, no-repeat, no-repeat;
                 }
 
                 <div>
-                  <h1 class="font-heading text-5xl leading-tight font-normal sm:text-7xl" set:html={title} />
+                  <h1
+                    class="font-heading text-[40px] leading-[52px] font-normal text-[#FFFFEC] sm:text-7xl sm:leading-tight sm:text-white"
+                    set:html={title}
+                  />
                 </div>
               </div>
 
@@ -81,7 +84,7 @@ background-repeat: no-repeat, no-repeat, no-repeat;
 
             {
               hasSocialProof && (
-                <div class="flex flex-col items-center divide-y divide-white/10 py-6 text-sm md:flex-row md:justify-center md:divide-x md:divide-y-0 md:divide-white/20 md:py-2">
+                <div class="flex w-full flex-col items-stretch divide-y divide-white/10 py-6 text-sm md:flex-row md:items-center md:justify-between md:divide-x md:divide-y-0 md:divide-white/20 md:py-2">
                   <slot name="social-proof" />
                 </div>
               )

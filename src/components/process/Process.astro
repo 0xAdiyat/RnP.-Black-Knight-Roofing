@@ -29,7 +29,9 @@ interface QuoteInfo {
 interface Props {
   badge?: string;
   heading?: string;
+  headingClass?: string;
   subheading?: string;
+  subheadingClass?: string;
   subheadingDescription?: string;
   quote?: QuoteInfo;
   steps?: ProcessStep[];
@@ -39,7 +41,9 @@ interface Props {
 const {
   badge = 'Our Process',
   heading = 'A Clear 4-step Plan <br />From Kick-off to Project',
+  headingClass,
   subheading = 'And Here is How!',
+  subheadingClass,
   subheadingDescription = "You shouldn't have to worry about not getting a call back, wondering when your project will start, or who to contact. Know what to expect with our clear, straightforward process!",
   quote = {
     profileImage: '/placeholders/profile.png',
@@ -64,7 +68,7 @@ const {
         <div class="text-sm font-bold tracking-wider uppercase opacity-80">{badge}</div>
       </div>
 
-      <h2 class="text-3xl leading-tight font-normal md:text-5xl lg:text-5xl">
+      <h2 class:list={['text-3xl leading-tight font-normal md:text-5xl lg:text-5xl', headingClass]}>
         <Fragment set:html={heading} />
       </h2>
     </div>
@@ -109,7 +113,7 @@ const {
           <div class="flex-1">
             <div class="mb-12 flex max-w-[436px] items-center lg:mb-[100px] lg:text-left">
               <div class="space-y-4">
-                <h3 class="text-2xl font-bold md:text-3xl lg:text-4xl">{subheading}</h3>
+                <h3 class:list={['text-2xl font-bold md:text-3xl lg:text-4xl', subheadingClass]}>{subheading}</h3>
                 <div class="text-neutral-lighter text-sm leading-relaxed md:text-base">
                   {subheadingDescription}
                 </div>

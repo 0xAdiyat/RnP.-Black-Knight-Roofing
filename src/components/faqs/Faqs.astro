@@ -12,9 +12,11 @@ interface FaqData {
 interface Props {
   badge?: string;
   heading?: string;
+  headingClass?: string;
   buttonLabel?: string;
   buttonHref?: string;
   phoneNumber?: string;
+  phoneLinkClass?: string;
   faqs?: FaqData[];
   class?: string;
 }
@@ -22,9 +24,11 @@ interface Props {
 const {
   badge = 'FAQs',
   heading = "Got Question? <br /> We've Got Answers",
+  headingClass,
   buttonLabel = 'View All Questions',
   buttonHref,
   phoneNumber = '(720) 805-9666',
+  phoneLinkClass,
   faqs = [
     {
       question: "Will my homeowner's insurance cover a new roof?",
@@ -84,7 +88,7 @@ const {
             </div>
             <div class="text-sm font-medium tracking-wide text-white/80 uppercase">{badge}</div>
           </div>
-          <h2 class="text-4xl leading-tight font-normal lg:text-5xl lg:leading-tight">
+          <h2 class:list={['text-4xl leading-tight font-normal lg:text-5xl lg:leading-tight', headingClass]}>
             <Fragment set:html={heading} />
           </h2>
         </div>
@@ -94,7 +98,10 @@ const {
       <!-- Call us -->
       <div class="border-primary mt-8 hidden space-y-2 border-l-2 pl-4 lg:mt-12 lg:block">
         <div class="text-sm text-white/60">Still can't find your answers? Call us:</div>
-        <a href={`tel:${phoneNumber.replace(/[^+\d]/g, '')}`} class="flex items-center gap-x-2 text-xl font-bold">
+        <a
+          href={`tel:${phoneNumber.replace(/[^+\d]/g, '')}`}
+          class:list={['flex items-center gap-x-2 text-xl font-bold', phoneLinkClass]}
+        >
           <Icon name="phone" class="text-primary size-5" />
           {phoneNumber}
         </a>
@@ -109,7 +116,10 @@ const {
     <!-- Call us -->
     <div class="border-primary space-y-2 border-l-2 pl-4 lg:hidden">
       <div class="text-sm text-white/60">Still can't find your answers? Call us:</div>
-      <a href={`tel:${phoneNumber.replace(/[^+\d]/g, '')}`} class="flex items-center gap-x-2 text-xl font-bold">
+      <a
+        href={`tel:${phoneNumber.replace(/[^+\d]/g, '')}`}
+        class:list={['flex items-center gap-x-2 text-xl font-bold', phoneLinkClass]}
+      >
         <Icon name="phone" class="text-primary size-5" />
         {phoneNumber}
       </a>
