@@ -7,18 +7,20 @@ interface TabItem {
 interface Props {
   tabs: TabItem[];
   defaultTab?: string;
+  class?: string;
+  listClass?: string;
 }
 
-const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
+const { tabs, defaultTab = tabs[0]?.id, class: className = '', listClass = '' } = Astro.props;
 ---
 
-<div class="tabs-container w-full" data-default-tab={defaultTab}>
+<div class={`tabs-container w-full ${className}`} data-default-tab={defaultTab}>
   <!-- Tab Headers -->
-  <div class="flex items-center gap-x-10 border-b border-white/15">
+  <div class={`flex flex-row items-center gap-x-6 lg:gap-x-10 border-b border-white/15 overflow-x-auto no-scrollbar ${listClass}`}>
     {
       tabs.map(tab => (
         <button
-          class="tab-trigger py-4 transition-all duration-300 cursor-pointer text-[#828282] hover:text-white relative"
+          class="tab-trigger py-3 lg:py-4 transition-all duration-300 cursor-pointer text-[#828282] hover:text-white relative text-center whitespace-nowrap shrink-0"
           data-tab-id={tab.id}
         >
           {tab.label}
@@ -29,7 +31,7 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
   </div>
 
   <!-- Tab Contents -->
-  <div class="tabs-content pt-10">
+  <div class="tabs-content pt-6 lg:pt-10">
     <slot />
   </div>
 </div>

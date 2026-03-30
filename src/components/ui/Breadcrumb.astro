@@ -1,0 +1,43 @@
+---
+import { Icon } from 'astro-icon/components';
+import { cn } from '@/lib/utils';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  class?: string;
+}
+
+const { items, class: className } = Astro.props;
+---
+
+<nav class={cn('flex items-center gap-x-3 text-sm text-white', className)}>
+  {/* Decorative Dot Indicator */}
+  <div
+    class="relative size-5 shrink-0 rounded-[5px] bg-primary/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-primary before:content-['']"
+  >
+  </div>
+
+  {
+    items.map((item, index) => (
+      <div class="flex items-center gap-x-3">
+        {index > 0 && <Icon name="chevron-right" class="size-4 opacity-50 shrink-0" />}
+
+        {item.href ? (
+          <a
+            href={item.href}
+            class={cn('transition-colors hover:text-white', index === items.length - 1 ? 'text-white' : 'opacity-50')}
+          >
+            {item.label}
+          </a>
+        ) : (
+          <span class={index === items.length - 1 ? 'text-white' : 'opacity-50'}>{item.label}</span>
+        )}
+      </div>
+    ))
+  }
+</nav>
