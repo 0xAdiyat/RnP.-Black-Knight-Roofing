@@ -33,14 +33,14 @@ const {
 ---
 
 <div class:list={['rounded-2xl bg-linear-to-t from-[#F2C744]/90 to-[#F2C744]/10 p-2', className]}>
-  <NoiseBg class="space-y-6 rounded-2xl p-8">
+  <NoiseBg class="space-y-6 rounded-2xl bg-[#222222] p-8">
     <!-- Stars -->
     <div class="flex justify-center">
       <RatingStars rating={rating} size={20} fillColor="#F7B715" strokeColor="transparent" />
     </div>
 
     <!-- Heading -->
-    <h4 class="text-center leading-snug font-semibold">
+    <h4 class="text-center leading-snug font-normal">
       {headingLine1}
       <br />
       {headingLine2}
@@ -48,40 +48,52 @@ const {
 
     <!-- Error message -->
     <div
-      class="quote-form-error hidden text-center text-sm font-semibold tracking-wide text-red-500 uppercase"
+      class="quote-form-error pointer-events-none max-h-0 overflow-hidden text-center text-sm font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
       role="alert"
+      aria-hidden="true"
     >
-      There was a problem with your submission. Please review the fields below.
+      <div class="pt-1">
+        <span class="block">There was a problem with your submission.</span>
+        <span class="block">Please review the fields below.</span>
+      </div>
     </div>
 
     <!-- Step indicator -->
     <div class="flex items-center justify-center gap-x-2 px-8">
       <div
-        class="quote-step-dot bg-primary flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-black"
+        class="quote-step-dot bg-primary flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-black transition-all duration-300 ease-out"
         data-step="1"
+        data-state="active"
       >
-        1
+        <span class="quote-step-label">1</span>
       </div>
-      <div class="quote-step-line h-px flex-1 bg-white/20" data-after-step="1"></div>
       <div
-        class="quote-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50"
+        class="quote-step-line h-px flex-1 bg-white/20 transition-colors duration-300 ease-out"
+        data-after-step="1"></div>
+      <div
+        class="quote-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50 transition-all duration-300 ease-out"
         data-step="2"
+        data-state="upcoming"
       >
-        2
+        <span class="quote-step-label">2</span>
       </div>
-      <div class="quote-step-line h-px flex-1 bg-white/20" data-after-step="2"></div>
       <div
-        class="quote-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50"
+        class="quote-step-line h-px flex-1 bg-white/20 transition-colors duration-300 ease-out"
+        data-after-step="2"></div>
+      <div
+        class="quote-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50 transition-all duration-300 ease-out"
         data-step="3"
+        data-state="upcoming"
       >
-        3
+        <span class="quote-step-label">3</span>
       </div>
     </div>
 
     <!-- Form -->
     <form class="quote-form" novalidate>
+      <div class="quote-steps-shell relative overflow-hidden">
       <!-- Step 1: Zip Code -->
-      <div class="quote-step space-y-4" data-step="1">
+      <div class="quote-step is-active space-y-4" data-step="1" aria-hidden="false">
         <label class="block font-medium">Where is Your Project Located?</label>
         <div class="quote-field-wrapper from-primary rounded-lg bg-radial-[at_25%_25%] to-[#594216] p-px">
           <NoiseBg class="rounded-lg px-0 py-0">
@@ -95,13 +107,15 @@ const {
             />
           </NoiseBg>
         </div>
-        <p class="quote-field-error hidden text-xs font-semibold tracking-wide text-red-500 uppercase">
-          The field is required.
+        <p
+          class="quote-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+          aria-hidden="true">
+          <span class="block pt-2">The field is required.</span>
         </p>
       </div>
 
       <!-- Step 2: Service Selection -->
-      <div class="quote-step hidden space-y-4" data-step="2">
+      <div class="quote-step space-y-4" data-step="2" aria-hidden="true">
         <label class="block font-medium">What Service Do You Need?</label>
         <div class="quote-field-wrapper from-primary relative rounded-lg bg-radial-[at_25%_25%] to-[#594216] p-px">
           <NoiseBg class="rounded-lg px-0 py-0">
@@ -132,13 +146,15 @@ const {
             </svg>
           </NoiseBg>
         </div>
-        <p class="quote-field-error hidden text-xs font-semibold tracking-wide text-red-500 uppercase">
-          Please select a service.
+        <p
+          class="quote-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+          aria-hidden="true">
+          <span class="block pt-2">Please select a service.</span>
         </p>
       </div>
 
       <!-- Step 3: Contact Details -->
-      <div class="quote-step hidden space-y-4" data-step="3">
+      <div class="quote-step space-y-4" data-step="3" aria-hidden="true">
         <label class="block font-medium">Tell Us More About You</label>
 
         <div class="space-y-4">
@@ -154,8 +170,10 @@ const {
                 />
               </NoiseBg>
             </div>
-            <p class="quote-field-error hidden text-xs font-semibold tracking-wide text-red-500 uppercase">
-              First name is required.
+            <p
+              class="quote-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+              aria-hidden="true">
+              <span class="block pt-2">First name is required.</span>
             </p>
           </div>
 
@@ -171,8 +189,10 @@ const {
                 />
               </NoiseBg>
             </div>
-            <p class="quote-field-error hidden text-xs font-semibold tracking-wide text-red-500 uppercase">
-              Last name is required.
+            <p
+              class="quote-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+              aria-hidden="true">
+              <span class="block pt-2">Last name is required.</span>
             </p>
           </div>
 
@@ -188,8 +208,10 @@ const {
                 />
               </NoiseBg>
             </div>
-            <p class="quote-field-error hidden text-xs font-semibold tracking-wide text-red-500 uppercase">
-              Phone number is required.
+            <p
+              class="quote-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+              aria-hidden="true">
+              <span class="block pt-2">Phone number is required.</span>
             </p>
           </div>
 
@@ -205,11 +227,14 @@ const {
                 />
               </NoiseBg>
             </div>
-            <p class="quote-field-error hidden text-xs font-semibold tracking-wide text-red-500 uppercase">
-              A valid email is required.
+            <p
+              class="quote-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+              aria-hidden="true">
+              <span class="block pt-2">A valid email is required.</span>
             </p>
           </div>
         </div>
+      </div>
       </div>
 
       <!-- Navigation buttons -->
@@ -248,6 +273,31 @@ const {
   </NoiseBg>
 </div>
 
+<style>
+  .quote-steps-shell {
+    transition: height 320ms ease;
+  }
+
+  .quote-step {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(14px);
+    pointer-events: none;
+    transition:
+      opacity 280ms ease,
+      transform 320ms ease;
+  }
+
+  .quote-step.is-active {
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+</style>
+
 <script>
   function initQuoteForms() {
     document.querySelectorAll<HTMLElement>('.quote-form').forEach(form => {
@@ -268,29 +318,154 @@ const {
       const btnBack = form.querySelector<HTMLButtonElement>('.quote-btn-back');
       const btnNext = form.querySelector<HTMLButtonElement>('.quote-btn-next');
       const globalError = wrapper.querySelector<HTMLElement>('.quote-form-error');
+      const stepsShell = form.querySelector<HTMLElement>('.quote-steps-shell');
+      let activeStepObserver: ResizeObserver | null = null;
 
-      function showStep(step: number) {
-        // Show/hide step panels
-        steps.forEach(el => {
-          const s = Number(el.dataset.step);
-          el.classList.toggle('hidden', s !== step);
+      function setShellHeight(targetStep = currentStep) {
+        if (!stepsShell) return;
+        const activeStep = form.querySelector<HTMLElement>(`.quote-step[data-step="${targetStep}"]`);
+        if (!activeStep) return;
+
+        const nextHeight = Math.ceil(Math.max(activeStep.offsetHeight, activeStep.scrollHeight)) + 8;
+        stepsShell.style.height = `${nextHeight}px`;
+      }
+
+      function observeActiveStep(step: number) {
+        if (activeStepObserver) {
+          activeStepObserver.disconnect();
+        }
+
+        const activeStep = form.querySelector<HTMLElement>(`.quote-step[data-step="${step}"]`);
+        if (!activeStep || typeof ResizeObserver === 'undefined') return;
+
+        activeStepObserver = new ResizeObserver(() => {
+          setShellHeight(step);
         });
 
-        // Update step dots
+        activeStepObserver.observe(activeStep);
+      }
+
+      function toggleMessageVisibility(element: Element | null, visible: boolean) {
+        if (!(element instanceof HTMLElement)) return;
+
+        element.style.maxHeight = visible ? `${element.scrollHeight}px` : '0px';
+        element.style.opacity = visible ? '1' : '0';
+        element.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      }
+
+      function setGlobalErrorVisibility(visible: boolean) {
+        toggleMessageVisibility(globalError, visible);
+      }
+
+      function setFieldErrorVisibility(fieldError: Element | null, visible: boolean) {
+        toggleMessageVisibility(fieldError, visible);
+      }
+
+      function getFieldElements(input: HTMLInputElement | HTMLSelectElement) {
+        const fieldGroup =
+          input.closest('.quote-step > div, .quote-step > .space-y-4 > div') || input.parentElement;
+        const fieldError = fieldGroup?.querySelector('.quote-field-error');
+        const fieldWrapper =
+          fieldGroup?.querySelector('.quote-field-wrapper') || input.closest('.quote-field-wrapper');
+
+        return { fieldGroup, fieldError, fieldWrapper };
+      }
+
+      function getFieldValidationMessage(input: HTMLInputElement | HTMLSelectElement) {
+        const value = input.value.trim();
+
+        if (input.tagName === 'SELECT') {
+          return input.value ? '' : 'Please select a service.';
+        }
+
+        if (input.name === 'zipCode') {
+          if (!value) return 'The field is required.';
+          const digits = value.replace(/\D/g, '');
+          return digits.length >= 5 ? '' : 'Please enter a valid ZIP code.';
+        }
+
+        if (input.name === 'phone') {
+          if (!value) return 'Phone number is required.';
+          const digits = value.replace(/\D/g, '');
+          return digits.length >= 10 ? '' : 'Please enter a valid phone number.';
+        }
+
+        if (input.type === 'email') {
+          if (!value) return 'A valid email is required.';
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(value) ? '' : 'Please enter a valid email address.';
+        }
+
+        if (!value) {
+          switch (input.name) {
+            case 'firstName':
+              return 'First name is required.';
+            case 'lastName':
+              return 'Last name is required.';
+            default:
+              return 'The field is required.';
+          }
+        }
+
+        return '';
+      }
+
+      function updateFieldState(input: HTMLInputElement | HTMLSelectElement, showError = false) {
+        const { fieldError, fieldWrapper } = getFieldElements(input);
+        const message = getFieldValidationMessage(input);
+        const isValid = message === '';
+
+        if (fieldError) {
+          const content = fieldError.querySelector('span');
+          if (content) content.textContent = message;
+          setFieldErrorVisibility(fieldError, showError && !isValid);
+        }
+
+        if (fieldWrapper) {
+          fieldWrapper.classList.toggle('ring-1', !isValid && showError);
+          fieldWrapper.classList.toggle('ring-red-500', !isValid && showError);
+        }
+
+        if (input instanceof HTMLSelectElement) {
+          input.classList.toggle('text-white/40', !input.value);
+          input.classList.toggle('text-white', Boolean(input.value));
+        }
+
+        return isValid;
+      }
+
+      function showStep(step: number) {
+        steps.forEach(el => {
+          const s = Number(el.dataset.step);
+          const isActive = s === step;
+          el.classList.toggle('is-active', isActive);
+          el.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        });
+
         dots.forEach(dot => {
           const s = Number(dot.dataset.step);
-          if (s <= step) {
-            // Active / completed
+          const label = dot.querySelector<HTMLElement>('.quote-step-label');
+          const isCompleted = s < step;
+          const isActive = s === step;
+
+          if (isCompleted) {
+            dot.dataset.state = 'complete';
             dot.className =
-              'quote-step-dot bg-primary flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-black';
+              'quote-step-dot bg-primary flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-black transition-all duration-300 ease-out';
+            if (label) label.textContent = '✓';
+          } else if (isActive) {
+            dot.dataset.state = 'active';
+            dot.className =
+              'quote-step-dot bg-primary flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-black transition-all duration-300 ease-out';
+            if (label) label.textContent = String(s);
           } else {
-            // Inactive
+            dot.dataset.state = 'upcoming';
             dot.className =
-              'quote-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50';
+              'quote-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50 transition-all duration-300 ease-out';
+            if (label) label.textContent = String(s);
           }
         });
 
-        // Update connector lines
         lines.forEach(line => {
           const afterStep = Number(line.dataset.afterStep);
           if (afterStep < step) {
@@ -313,74 +488,47 @@ const {
         }
 
         currentStep = step;
+        observeActiveStep(step);
+        requestAnimationFrame(() => setShellHeight(step));
       }
 
       function clearErrors() {
-        // Hide global error
-        globalError?.classList.add('hidden');
+        setGlobalErrorVisibility(false);
 
-        // Hide all field errors
         form.querySelectorAll('.quote-field-error').forEach(el => {
-          el.classList.add('hidden');
+          setFieldErrorVisibility(el, false);
         });
 
-        // Remove error ring from wrappers
         form.querySelectorAll('.quote-field-wrapper').forEach(el => {
           el.classList.remove('ring-1', 'ring-red-500');
         });
+
+        requestAnimationFrame(() => setShellHeight());
       }
 
       function validateStep(step: number): boolean {
-        clearErrors();
         const currentPanel = form.querySelector<HTMLElement>(`.quote-step[data-step="${step}"]`);
         if (!currentPanel) return true;
 
+        clearErrors();
         let valid = true;
-        let hasShownGlobal = false;
 
-        // Validate inputs
         const inputs = currentPanel.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
           'input[required], select[required]'
         );
 
         inputs.forEach(input => {
-          let fieldValid = true;
-
-          if (input.type === 'email' && input.value.trim()) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            fieldValid = emailRegex.test(input.value.trim());
-          } else if (input.tagName === 'SELECT') {
-            fieldValid = input.value !== '';
-          } else {
-            fieldValid = input.value.trim() !== '';
-          }
-
+          const fieldValid = updateFieldState(input, true);
           if (!fieldValid) {
             valid = false;
-
-            // Show field-level error
-            const fieldGroup = input.closest('.quote-step > div, .quote-step > .space-y-4 > div');
-            const fieldError = fieldGroup?.querySelector('.quote-field-error');
-            const fieldWrapper =
-              fieldGroup?.querySelector('.quote-field-wrapper') || input.closest('.quote-field-wrapper');
-
-            if (fieldError) fieldError.classList.remove('hidden');
-            if (fieldWrapper) fieldWrapper.classList.add('ring-1', 'ring-red-500');
-
-            if (!hasShownGlobal) {
-              globalError?.classList.remove('hidden');
-              hasShownGlobal = true;
-            }
           }
         });
 
-        // Update select text color when a value is chosen
-        const select = currentPanel.querySelector<HTMLSelectElement>('select');
-        if (select && select.value) {
-          select.classList.remove('text-white/40');
-          select.classList.add('text-white');
+        if (!valid) {
+          setGlobalErrorVisibility(true);
         }
 
+        requestAnimationFrame(() => setShellHeight(step));
         return valid;
       }
 
@@ -405,6 +553,8 @@ const {
       });
 
       function handleSubmit() {
+        if (!validateStep(currentStep)) return;
+
         const formData = new FormData(form as HTMLFormElement);
         const data = Object.fromEntries(formData.entries());
 
@@ -420,18 +570,46 @@ const {
         console.log('Quote form submitted:', data);
       }
 
-      // Update select color on change
-      form.querySelectorAll('select').forEach(select => {
-        select.addEventListener('change', () => {
-          if (select.value) {
-            select.classList.remove('text-white/40');
-            select.classList.add('text-white');
-          }
-        });
-      });
+      form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input[required], select[required]').forEach(
+        input => {
+          const validateCurrentField = () => {
+            const hasVisibleError =
+              form.querySelector('.quote-form-error')?.getAttribute('aria-hidden') === 'false' ||
+              input.closest('.quote-step')?.querySelector('.quote-field-error[aria-hidden="false"]');
 
-      // Initialize
+            updateFieldState(input, Boolean(hasVisibleError));
+
+            const currentPanel = input.closest<HTMLElement>('.quote-step');
+            const hasStepErrors = currentPanel?.querySelector('.quote-field-error[aria-hidden="false"]');
+            setGlobalErrorVisibility(Boolean(hasStepErrors));
+            requestAnimationFrame(() => setShellHeight());
+          };
+
+          input.addEventListener('input', validateCurrentField);
+          input.addEventListener('blur', () => {
+            updateFieldState(input, true);
+            const currentPanel = input.closest<HTMLElement>('.quote-step');
+            const hasStepErrors = currentPanel?.querySelector('.quote-field-error[aria-hidden="false"]');
+            setGlobalErrorVisibility(Boolean(hasStepErrors));
+            requestAnimationFrame(() => setShellHeight());
+          });
+
+          if (input instanceof HTMLSelectElement) {
+            input.addEventListener('change', () => {
+              updateFieldState(input, true);
+              const currentPanel = input.closest<HTMLElement>('.quote-step');
+              const hasStepErrors = currentPanel?.querySelector('.quote-field-error[aria-hidden="false"]');
+              setGlobalErrorVisibility(Boolean(hasStepErrors));
+              requestAnimationFrame(() => setShellHeight());
+            });
+          }
+        }
+      );
+
+      window.addEventListener('resize', () => setShellHeight(currentStep));
+
       showStep(1);
+      requestAnimationFrame(() => setShellHeight(1));
     });
   }
 
