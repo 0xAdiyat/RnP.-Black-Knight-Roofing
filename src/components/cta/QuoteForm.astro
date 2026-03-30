@@ -52,7 +52,10 @@ const {
       role="alert"
       aria-hidden="true"
     >
-      <div class="pt-1">There was a problem with your submission. Please review the fields below.</div>
+      <div class="pt-1">
+        <span class="block">There was a problem with your submission.</span>
+        <span class="block">Please review the fields below.</span>
+      </div>
     </div>
 
     <!-- Step indicator -->
@@ -316,14 +319,30 @@ const {
       const btnNext = form.querySelector<HTMLButtonElement>('.quote-btn-next');
       const globalError = wrapper.querySelector<HTMLElement>('.quote-form-error');
       const stepsShell = form.querySelector<HTMLElement>('.quote-steps-shell');
+      let activeStepObserver: ResizeObserver | null = null;
 
       function setShellHeight(targetStep = currentStep) {
         if (!stepsShell) return;
         const activeStep = form.querySelector<HTMLElement>(`.quote-step[data-step="${targetStep}"]`);
         if (!activeStep) return;
 
-        const nextHeight = Math.max(activeStep.offsetHeight, activeStep.scrollHeight);
+        const nextHeight = Math.ceil(Math.max(activeStep.offsetHeight, activeStep.scrollHeight)) + 8;
         stepsShell.style.height = `${nextHeight}px`;
+      }
+
+      function observeActiveStep(step: number) {
+        if (activeStepObserver) {
+          activeStepObserver.disconnect();
+        }
+
+        const activeStep = form.querySelector<HTMLElement>(`.quote-step[data-step="${step}"]`);
+        if (!activeStep || typeof ResizeObserver === 'undefined') return;
+
+        activeStepObserver = new ResizeObserver(() => {
+          setShellHeight(step);
+        });
+
+        activeStepObserver.observe(activeStep);
       }
 
       function toggleMessageVisibility(element: Element | null, visible: boolean) {
@@ -469,6 +488,7 @@ const {
         }
 
         currentStep = step;
+        observeActiveStep(step);
         requestAnimationFrame(() => setShellHeight(step));
       }
 
