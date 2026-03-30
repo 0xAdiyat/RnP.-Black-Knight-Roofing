@@ -8,7 +8,7 @@ interface Props extends HTMLAttributes<'button'> {
 const { area, ...attrs } = Astro.props;
 ---
 
-<button {...attrs} class:list={['rounded-3xl border border-[#444444] p-px', attrs.class]}>
+<button {...attrs} class:list={['rounded-3xl border border-white/20 p-px', attrs.class]}>
   <div class="flex h-10 items-center justify-between gap-x-4 p-1 pr-4 text-sm">
     <div class="bg-primary text-inverted rounded-3xl px-4 py-1.5">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
