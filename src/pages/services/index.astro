@@ -31,9 +31,9 @@ const rowPattern = [3, 2, 3, 4];
 
 // Map of cards-per-row to Tailwind col-span class (must be literal for Tailwind to detect)
 const colSpanMap: Record<number, string> = {
-  2: 'col-span-6',
-  3: 'col-span-4',
-  4: 'col-span-3',
+  2: 'md:col-span-6',
+  3: 'md:col-span-4',
+  4: 'md:col-span-3',
 };
 
 // Compute col-span class for each service based on its position in the pattern
@@ -151,7 +151,7 @@ const processSteps = [
             icon={service.icon}
             tags={service.tags}
             href={`/services/${service.slug}`}
-            class={getColSpanClass(index)}
+            class={cn('col-span-12', getColSpanClass(index))}
           />
         ))}
       </div>
