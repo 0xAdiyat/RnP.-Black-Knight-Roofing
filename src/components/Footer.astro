@@ -45,10 +45,57 @@ const services = [
           <p>Colorado's trusted full-construction roofer—veteran owned, lifetime guaranteed.</p>
 
           <div class="flex w-fit items-center rounded-full border border-white/12 bg-white/8 p-0.5">
-            <button class="rounded-full bg-[#171717] px-4 py-1"> Human </button>
-            <button class="rounded-full px-4 py-1 text-[#aaa]"> Machine </button>
+            <button id="footer-human-mode-btn" class="rounded-full bg-[#171717] px-4 py-1"> Human </button>
+            <button id="footer-machine-mode-btn" class="rounded-full px-4 py-1 text-[#aaa]"> Machine </button>
           </div>
         </div>
+
+        <script>
+          function setupFooterToggles() {
+            const humanBtn = document.getElementById('footer-human-mode-btn');
+            const machineBtn = document.getElementById('footer-machine-mode-btn');
+
+            function updateUI() {
+              const isMachine = document.documentElement.classList.contains('view-mode-human');
+              if (isMachine) {
+                machineBtn?.classList.add('bg-[#171717]', 'text-white');
+                machineBtn?.classList.remove('text-[#aaa]');
+                humanBtn?.classList.remove('bg-[#171717]', 'text-white');
+                humanBtn?.classList.add('text-[#aaa]');
+              } else {
+                humanBtn?.classList.add('bg-[#171717]', 'text-white');
+                humanBtn?.classList.remove('text-[#aaa]');
+                machineBtn?.classList.remove('bg-[#171717]', 'text-white');
+                machineBtn?.classList.add('text-[#aaa]');
+              }
+            }
+
+            humanBtn?.addEventListener('click', () => {
+              window.dispatchEvent(
+                new CustomEvent('toggle-view-mode', {
+                  detail: { mode: 'human', isHuman: true, isMachine: false },
+                }),
+              );
+            });
+
+            machineBtn?.addEventListener('click', () => {
+              window.dispatchEvent(
+                new CustomEvent('toggle-view-mode', {
+                  detail: { mode: 'machine', isHuman: false, isMachine: true },
+                }),
+              );
+            });
+
+            // Initial UI sync
+            updateUI();
+            
+            // Listen for changes from other components (e.g. within HumanManifesto)
+            window.addEventListener('view-mode-changed', updateUI);
+          }
+
+          setupFooterToggles();
+          document.addEventListener('astro:after-swap', setupFooterToggles);
+        </script>
 
         <!-- Reviews -->
         <div class="flex items-center gap-x-4">
