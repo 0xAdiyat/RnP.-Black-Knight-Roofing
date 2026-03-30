@@ -93,7 +93,7 @@ const hasSocialProof = Astro.slots.has('social-proof');
           </div>
         </div>
 
-        {hasSidebar && <slot name="sidebar" />}
+        {hasSidebar && <div class="w-full lg:ml-auto lg:max-w-[34.375rem]"><slot name="sidebar" /></div>}
       </div>
     </div>
   </div>
