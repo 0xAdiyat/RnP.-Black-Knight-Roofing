@@ -94,40 +94,40 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
         <!-- Navigation Links (Left) -->
         <ul class="flex items-center gap-x-2">
           <li>
-            <NavbarItemPopover label="About" popoverTitle="About Us">
+            <NavbarItemPopover label="About" href="/about-us" popoverTitle="About Us">
               <NavbarItemPopoverLink
-                href="/about"
+                href="/about-us#meet-the-team"
                 title="Meet the Team"
-                description="Payment plans, estimates, and how financing works."
+                description="The veteran-owned crew behind every project we take on."
                 icon="teams"
               />
               <NavbarItemPopoverLink
-                href="/process"
+                href="/about-us#our-process"
                 title="Our Process"
-                description="Quick answers to common roofing questions."
+                description="How we go from first call to finished roof — step by step."
                 icon="progress-line"
               />
               <NavbarItemPopoverLink
                 href="/services"
                 title="Roofing Services"
-                description="Practical tips, guides, and roofing insights."
+                description="Residential, commercial, storm damage, and premium systems."
                 icon="home"
               />
               <NavbarItemPopoverLink
                 href="/reviews"
                 title="Customer Reviews"
-                description="Practical tips, guides, and roofing insights."
+                description="Five-star Google reviews from Colorado homeowners."
                 icon="message-star"
               />
             </NavbarItemPopover>
           </li>
           <li>
-            <NavbarItemPopover label="Services" plain full containerClass="w-full">
+            <NavbarItemPopover label="Services" href="/services" plain full containerClass="w-full">
               <ServiceNavView />
             </NavbarItemPopover>
           </li>
           <li>
-            <NavbarItemPopover label="Resources" popoverTitle="Resources">
+            <NavbarItemPopover label="Resources" href="/financing" popoverTitle="Resources">
               <NavbarItemPopoverLink
                 href="/financing"
                 title="Financing"
@@ -135,7 +135,7 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
                 icon="financing"
               />
               <NavbarItemPopoverLink
-                href="/faq"
+                href="/faqs"
                 title="Frequently Asked Questions"
                 description="Quick answers to common roofing questions."
                 icon="question-circle"
@@ -168,23 +168,23 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
         <!-- Navigation Links (Right) -->
         <ul class="flex items-center gap-x-2">
           <li>
-            <NavbarItemPopover label="Past Work" popoverTitle="Past Work">
+            <NavbarItemPopover label="Past Work" href="/past-works" popoverTitle="Past Work">
               <NavbarItemPopoverLink
-                href="/gallery"
+                href="/past-works"
                 title="Gallery"
-                description="Payment plans, estimates, and how financing works."
+                description="Real projects we've completed across the Front Range."
                 icon="gallery-image"
               />
               <NavbarItemPopoverLink
                 href="/before-after"
                 title="Before / After"
-                description="Quick answers to common roofing questions."
+                description="See the difference a Black Knight roof makes."
                 icon="before-after"
               />
               <NavbarItemPopoverLink
                 href="/case-studies"
                 title="Case Studies"
-                description="Practical tips, guides, and roofing insights."
+                description="Full breakdowns of complex jobs — what we found and how we fixed it."
                 icon="file-search"
               />
             </NavbarItemPopover>
@@ -192,6 +192,7 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
           <li>
             <NavbarItemPopover
               label="Service Area"
+              href="/service-areas"
               popoverTitle="Service Area"
               containerClass="w-[780px]"
               gridClass="grid grid-cols-3 gap-x-12 gap-y-4"

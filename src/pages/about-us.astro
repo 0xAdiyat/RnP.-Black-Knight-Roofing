@@ -110,7 +110,7 @@ const processSteps = [
   </div>
   <AboutSection />
 
-  <NoiseBg>
+  <NoiseBg id="meet-the-team">
     <div class="container space-y-12 py-20">
       <h2>Meet the Black Knight Roofing Team</h2>
       <div class="grid grid-cols-4 gap-x-5 gap-y-12">
@@ -176,7 +176,9 @@ const processSteps = [
   </NoiseBg>
 
   <Testimonials />
-  <Process steps={processSteps} />
+  <div id="our-process">
+    <Process steps={processSteps} />
+  </div>
   <ServiceAreas />
   <Faqs />
   <RecentArticales />

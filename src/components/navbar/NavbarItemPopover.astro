@@ -13,12 +13,14 @@ interface Props {
 }
 
 const { label, popoverTitle, href = '#', containerClass, gridClass, plain, full } = Astro.props;
+const TriggerTag = href && href !== '#' ? 'a' : 'button';
 ---
 
 <div class="popover-item group relative py-1">
-  <button
+  <TriggerTag
     class="popover-trigger group/trigger hover:text-primary flex cursor-pointer items-center gap-x-1.5 px-3 transition-colors active:scale-95"
     data-popover-id={label.toLowerCase().replace(/\s+/g, '-')}
+    href={TriggerTag === 'a' ? href : undefined}
   >
     <span class="text-sm font-medium">{label}</span>
     <Icon
@@ -26,7 +28,7 @@ const { label, popoverTitle, href = '#', containerClass, gridClass, plain, full 
       size={10}
       class="shrink-0 text-[#AFB1B6] transition-transform group-hover/trigger:rotate-180"
     />
-  </button>
+  </TriggerTag>
 
   <!-- Template Content (hidden, moved to viewport by JS) -->
   <div
