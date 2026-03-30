@@ -4,6 +4,7 @@ import { Icon } from 'astro-icon/components';
 import topShape from '@/assets/top-shape.png';
 import NoiseBg from '../NoiseBg.astro';
 import RecentProjectCard from './RecentProjectCard.astro';
+import BadgeTitle from '../BadgeTitle.astro';
 
 const projects = [
   {
@@ -32,16 +33,11 @@ const projects = [
 <NoiseBg class="relative overflow-hidden px-0 py-20 pb-32">
   <Image src={topShape} alt="Top Shape" class="pointer-events-none absolute top-0 left-0 -mt-11 w-full opacity-50" />
 
-  <div class="relative z-10 container flex flex-col items-center space-y-4 border-b border-white/10 pb-12 text-center">
-    <div class="flex items-center gap-x-3">
-      <div
-        class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
-      >
-      </div>
-      <div class="text-sm font-medium tracking-wide text-white/80 uppercase">Our Recent Work</div>
-    </div>
-    <h2 class="text-4xl font-normal lg:text-5xl">Our Handcrafted Roofs</h2>
-  </div>
+  <BadgeTitle
+    badge="Our Recent Work"
+    title="Our Handcrafted Roofs"
+    class="relative z-10 container flex flex-col items-center space-y-4 border-b border-white/10 pb-12 text-center"
+  />
 
   <div class="container mt-16 px-4">
     <div class="sm:hidden">
@@ -79,7 +75,11 @@ const projects = [
     </div>
 
     <div class="hidden grid-cols-1 gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {projects.map(project => <RecentProjectCard image={project.image} title={project.title} category={project.category} />)}
+      {
+        projects.map(project => (
+          <RecentProjectCard image={project.image} title={project.title} category={project.category} />
+        ))
+      }
     </div>
   </div>
 
@@ -93,13 +93,12 @@ const projects = [
       type="button"
       class="absolute inset-0"
       data-project-lightbox-close
-      aria-label="Close full screen project view"
-    ></button>
+      aria-label="Close full screen project view"></button>
 
     <div class="relative z-10 flex h-full w-full max-w-6xl items-center justify-center">
       <button
         type="button"
-        class="border border-white/20 text-white absolute top-4 right-0 z-20 flex size-11 items-center justify-center rounded-full bg-[#1A1A1A]/90 backdrop-blur-sm transition-colors hover:border-white/40"
+        class="absolute top-4 right-0 z-20 flex size-11 items-center justify-center rounded-full border border-white/20 bg-[#1A1A1A]/90 text-white backdrop-blur-sm transition-colors hover:border-white/40"
         data-project-lightbox-close
         aria-label="Close full screen project view"
       >
@@ -117,14 +116,11 @@ const projects = [
         <Icon name="chevron-left" size={16} />
       </button>
 
-      <div class="mx-auto flex max-h-full w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-[#111111] shadow-2xl">
+      <div
+        class="mx-auto flex max-h-full w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-[#111111] shadow-2xl"
+      >
         <div class="relative min-h-0 flex-1 bg-black">
-          <img
-            src=""
-            alt=""
-            class="h-[55vh] w-full object-contain md:h-[72vh]"
-            data-project-lightbox-image
-          />
+          <img src="" alt="" class="h-[55vh] w-full object-contain md:h-[72vh]" data-project-lightbox-image />
         </div>
         <div class="flex items-center justify-between gap-4 border-t border-white/10 px-5 py-4 md:px-6">
           <div class="min-w-0">
@@ -132,7 +128,8 @@ const projects = [
             <p
               class="mt-1 text-xs font-semibold tracking-widest text-white/70 uppercase"
               data-project-lightbox-category
-            ></p>
+            >
+            </p>
           </div>
           <div class="flex items-center gap-3 md:hidden">
             <button

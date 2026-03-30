@@ -78,25 +78,25 @@ const profiles = [
           titleClass="text-5xl lg:text-7xl font-heading mb-4"
       />
       <p class="text-[#CCCCCC] max-w-2xl text-lg leading-relaxed">
-        Choose a profile that matches your home’s architecture—then explore CRRC cool roof color options.
+        Choose a profile that matches your home's architecture—then explore CRRC cool roof color options.
       </p>
     </div>
 
     <div class="styles-tabs-container">
       <!-- Tabs Pill -->
-      <NoiseBg class="flex flex-wrap justify-center gap-2 p-1.5 border border-white/10 rounded-2xl mb-20 max-w-fit mx-auto backdrop-blur-xl">
+      <div class="no-scrollbar flex flex-nowrap justify-start gap-2 overflow-x-auto rounded-2xl border border-white/10 p-1.5 backdrop-blur-xl lg:justify-center mx-auto w-full lg:w-auto max-w-full lg:max-w-fit mb-20">
         {profiles.map((profile, idx) => (
           <button 
             class:list={[
-              "style-tab-trigger px-8 py-3.5 rounded-xl text-lg font-medium transition-all duration-500 cursor-pointer whitespace-nowrap outline-none",
-              idx === 0 ? "bg-linear-to-r from-[#292929] to-[#171717] border border-primary text-primary shadow-[0_0_20px_rgba(247,183,21,0.1)] active-tab" : "text-[#888888] border border-transparent hover:text-white hover:bg-white/5"
+              "style-tab-trigger whitespace-nowrap px-4 py-3 [&.active-tab]:border-radial [&.active-tab]:text-primary rounded-xl text-base lg:text-lg font-medium transition-all text-[#888] border-white/5 border hover:bg-white/5 duration-500 cursor-pointer outline-none shrink-0",
+              idx === 0 && "active-tab"
             ]}
             data-id={profile.id}
           >
             {profile.label}
           </button>
         ))}
-      </NoiseBg>
+      </div>
 
       <!-- Panels -->
       {profiles.map((profile, idx) => (
@@ -106,7 +106,13 @@ const profiles = [
         >
           <!-- Left: Preview -->
           <div class="flex-1 w-full relative aspect-4/5 lg:aspect-758/767 rounded-[40px] overflow-hidden group/preview shadow-2xl">
-            <Image src={profile.previewImage} alt={profile.title} class="w-full h-full object-cover transition-transform duration-1000 group-hover/preview:scale-105" />
+
+            <Image src={profile.previewImage}
+            width={profile.previewImage.width}
+            height={profile.previewImage.height}
+             alt={profile.title} 
+             loading="eager"
+             class="w-full h-full object-cover transition-transform duration-1000 group-hover/preview:scale-105" />
             
             <!-- Overlay Gradients -->
             <div class="absolute inset-0 bg-linear-to-t from-black/95 via-black/20 to-transparent opacity-90"></div>
@@ -123,15 +129,15 @@ const profiles = [
                 </div>
             </div>
 
-            <div class="absolute bottom-12 left-12 right-12 space-y-6">
-                <h3 class="text-6xl lg:text-8xl leading-none font-medium text-white tracking-tight">{profile.title}</h3>
+            <div class="absolute bottom-0 left-0 inset-x-0 p-4 md:p-12 space-y-2">
+                <h3 class="text-[clamp(3rem,6vw,5rem)] leading-none font-medium text-white tracking-tight">{profile.title}</h3>
                 
-                <div class="flex items-center gap-x-3 bg-white/5 backdrop-blur-md w-fit px-5 py-2 rounded-full border border-white/10 group/color">
+                <div class="flex items-center gap-x-3 bg-white/5 backdrop-blur-md w-fit px-3 py-2 rounded-full border border-white/10 group/color">
                   <div class="size-4 rounded-full bg-[#333333] border border-white/20 shadow-inner group-hover/color:scale-110 transition-transform" />
                   <span class="text-sm font-semibold text-white/90 active-color-label">Charcoal</span>
                 </div>
 
-                <p class="text-[#CCCCCC] text-xl leading-relaxed max-w-xl font-light">
+                <p class="text-[#CCCCCC] text-base leading-relaxed max-w-xl font-light">
                   {profile.description}
                 </p>
             </div>
@@ -140,14 +146,14 @@ const profiles = [
           <!-- Right: Color Grid -->
           <div class="w-full lg:w-[540px] flex flex-col">
             <div class="mb-10 flex items-center gap-4">
-                <span class="text-primary font-bold text-xl tracking-wide uppercase">Color Options</span>
+                <span class="text-primary font-bold text-base tracking-wide uppercase">Color Options</span>
                 <div class="h-px flex-1 bg-linear-to-r from-primary/30 to-transparent"></div>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-y-12">
                 {profile.colors.map(color => (
                   <div class="space-y-5 group/swatch cursor-pointer swatch-trigger" data-color-name={color.name}>
-                    <div class="relative aspect-square rounded-[32px] overflow-hidden bg-[#1A1A1A] p-0.5 shadow-xl transition-all duration-500 group-hover/swatch:shadow-primary/20 group-hover/swatch:-translate-y-2 ring-primary ring-offset-[6px] ring-offset-black transition-all group-hover/swatch:ring-2 ring-0">
+                    <div class="relative aspect-square rounded-[32px] overflow-hidden bg-[#1A1A1A] p-0.5 shadow-xl transition-all duration-500 group-hover/swatch:shadow-primary/20 group-hover/swatch:-translate-y-2 ring-primary ring-offset-[6px] ring-offset-black transtion-all group-hover/swatch:ring-2 ring-0">
                         <div class="w-full h-full rounded-[30px] overflow-hidden relative">
                           <Image src={swatchImg} alt={color.name} class="w-full h-full object-cover scale-[1.3] transition-transform duration-700 group-hover/swatch:scale-[1.4]" />
                           <!-- Color Tint Overlays for high-fidelity look -->
@@ -156,6 +162,7 @@ const profiles = [
                           <div class="absolute inset-0 shadow-[inset_0_0_60px_rgba(0,0,0,0.4)]"></div>
                         </div>
                     </div>
+
                     <div class="text-center md:text-left space-y-1 pl-1">
                         <div class="text-white font-bold text-sm tracking-[0.15em] transition-colors group-hover/swatch:text-primary italic uppercase">{color.name}</div>
                         <div class="text-[#666666] text-xs font-semibold tracking-widest">{color.code}</div>
@@ -185,11 +192,9 @@ const profiles = [
         
         triggers.forEach(t => {
             if (t === trigger) {
-                t.classList.add('bg-linear-to-r', 'from-[#292929]', 'to-[#171717]', 'border-primary', 'text-primary', 'shadow-[0_0_20px_rgba(247,183,21,0.1)]', 'active-tab');
-                t.classList.remove('text-[#888888]', 'border-transparent');
+                t.classList.add('active-tab');
             } else {
-                t.classList.remove('bg-linear-to-r', 'from-[#292929]', 'to-[#171717]', 'border-primary', 'text-primary', 'shadow-[0_0_20px_rgba(247,183,21,0.1)]', 'active-tab');
-                t.classList.add('text-[#888888]', 'border-transparent');
+                t.classList.remove('active-tab');
             }
         });
 

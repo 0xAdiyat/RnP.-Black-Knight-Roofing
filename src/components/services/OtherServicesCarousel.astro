@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import NoiseBg from '@/components/NoiseBg.astro';
+import BadgeTitle from '@/components/BadgeTitle.astro';
+import Carousel from '@/components/ui/Carousel.astro';
+import CarouselSlide from '@/components/ui/CarouselSlide.astro';
+import ServiceCard from '@/components/services/ServiceCard.astro';
+import { services } from '@/data/services';
+import sunflow from '@/assets/sunflow.avif';
+
+interface Props {
+  title?: string;
+  count?: number;
+}
+
+const { 
+  title = "Roofing Services In Colorado",
+  count = 8
+} = Astro.props;
+
+const displayServices = services.slice(0, count);
+---
+
+<NoiseBg class="relative px-0 py-0 overflow-hidden">
+  <div class="z-10 container space-y-4 py-10 lg:py-20">
+    <div class="py-4 text-center">
+      <BadgeTitle as="h2" title={title} />
+    </div>
+
+    <Carousel
+      slidesPerView={1.2}
+      spaceBetween={20}
+      breakpoints={{
+        640: { slidesPerView: 2.5 },
+        1024: { slidesPerView: 4 },
+      }}
+    >
+      {
+        displayServices.map(s => (
+          <CarouselSlide>
+            <ServiceCard
+              image={s.image}
+              title={s.title}
+              description={s.description}
+              icon={s.icon}
+              tags={s.tags}
+              href={`/services/${s.slug}`}
+            />
+          </CarouselSlide>
+        ))
+      }
+    </Carousel>
+  </div>
+
+  <Image
+    src={sunflow}
+    alt="Background Noise"
+    width={1520}
+    height={900}
+    loading="lazy"
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+    class="pointer-events-none absolute bottom-0 rotate-180 opacity-10"
+  />
+</NoiseBg>

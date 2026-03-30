@@ -7,10 +7,12 @@ import Footer from '@/components/Footer.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
 import NoiseBg from '@/components/NoiseBg.astro';
+import BadgeTitle from '@/components/BadgeTitle.astro';
+import ServiceCard from '@/components/services/ServiceCard.astro';
 import WhyChooseUs from '@/components/WhyChooseUs.astro';
 import Button from '@/components/ui/Button.astro';
 import { Icon } from 'astro-icon/components';
-import { type Service } from '@/data/services';
+import { services, type Service } from '@/data/services';
 import Breadcrumb from '@/components/ui/Breadcrumb.astro';
 import Hero from '@/components/hero/Hero.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
@@ -25,12 +27,17 @@ import RecentProjects from '@/components/recent-projects/RecentProjects.astro';
 import RecentArticales from '@/components/articales/RecentArticales.astro';
 import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
 import StylesProfiles from '@/components/services/StylesProfiles.astro';
-import OtherServicesCarousel from '@/components/services/OtherServicesCarousel.astro';
+import sunflow from '@/assets/sunflow.avif';
 import PopularRoofingMaterials from '@/components/services/PopularRoofingMaterials.astro';
 import ComparisonSection from '@/components/services/ComparisonSection.astro';
 import ComparisonTable from '@/components/services/ComparisonTable.astro';
+
+
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
+import Carousel from '@/components/ui/Carousel.astro';
+import CarouselSlide from '@/components/ui/CarouselSlide.astro';
+
 
 const roofingMaterials = [
   {
@@ -82,17 +89,36 @@ const processSteps = [
     description: 'Our expert team completes the project to the highest standards with a final walkthrough.',
   },
 ];
+
+export async function getStaticPaths() {
+  return services.map(service => ({
+    params: { serviceId: service.slug },
+    props: { service },
+  }));
+}
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+
+// Get other services for the "Other Services" section (exclude current)
+const otherServices = services.filter(s => s.slug !== service.slug).slice(0, 3);
 ---
 
 <Layout>
   <Navbar />
 
-  <Hero title="Residential Roofing in Denver, CO" subtitle="Residential Roofing Services">
+  <Hero
+    title="Roofing Services Built for Colorado Homes and Colorado Weather"
+    subtitle="Colorado's #1 Veteran-Owned Roofing Company"
+  >
     <p class="text-sm">
-      From roof repairs and full replacements to premium upgrades, Black Knight Roofing helps Colorado homeowners choose
-      the right residential roofing system for protection, curb appeal, and long-term value. We install asphalt
-      shingles, metal roofing, flat roofing, tile, stone-coated steel, and concrete tile systems from Colorado Springs
-      to Fort Collins.
+      Need a repair, a storm-damage game plan, or a premium roof upgrade that changes the look of your home? Black
+      Knight Roofing helps homeowners and property owners from Colorado Springs to Fort Collins with roof replacement,
+      storm restoration, gutters, siding, windows, and premium roofing systems like stone-coated steel and concrete
+      tile.
     </p>
 
     <div class="flex flex-col items-center gap-4 sm:flex-row sm:gap-x-6">
@@ -130,7 +156,7 @@ const processSteps = [
         <!-- Left contents -->
         <div class="space-y-8 py-8">
           <div class="flex-1 space-y-4">
-            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Residential Roofing' }]} />
+            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: service.title }]} />
 
             <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
               Repairs vs. Replacement: Which Is Right For You?
@@ -145,7 +171,7 @@ const processSteps = [
             </p>
           </div>
 
-          <Button class="px-8 py-4 text-base">
+          <Button>
             <span> <strong> FREE </strong> Roof Estimate </span>
           </Button>
         </div>
@@ -153,13 +179,7 @@ const processSteps = [
         <!-- Right Contents -->
 
         <div class="">
-          <Image
-            src="/placeholders/thumbnails/residential-1.png"
-            alt="Residential Roofing"
-            width={600}
-            height={400}
-            class="rounded-lg object-cover"
-          />
+          <Image src={service.image} alt={service.title} width={600} height={400} class="rounded-lg object-cover" />
         </div>
       </div>
     </div>
@@ -170,23 +190,72 @@ const processSteps = [
 
   <WhyChooseUs
     badgeText="Expert Quality & Care"
-    title="Residential Roofing in Denver, CO"
-    description="Your roof should do more than keep water out. It should fit the look of your home, hold up to Colorado weather, and add lasting value without hidden fees or corner-cutting. Black Knight Roofing brings builder-level oversight, straightforward pricing, and residential roofing guidance that helps you feel good about the result long after the crew leaves."
-    image="/placeholders/thumbnails/residential-2.png"
+    title={service.title}
+    description={service.description}
+    image={service.image}
     buttonText="FREE Roof Estimate"
     imagePosition="left"
   />
 
-  <div class="via-primary container h-px bg-linear-to-r from-transparent to-transparent lg:hidden"></div>
-
   <Process steps={processSteps} />
-  <OtherServicesCarousel />
+
+  <NoiseBg class="relative px-0 py-0">
+    <div class="z-10 container space-y-4 py-10 lg:py-20">
+      <div class="py-4 text-center">
+        <BadgeTitle as="h2" title="Roofing Services In Colorado" />
+      </div>
+
+      <Carousel
+        slidesPerView={1.2}
+        spaceBetween={20}
+        breakpoints={{
+          640: { slidesPerView: 2.5 },
+          1024: { slidesPerView: 4 }
+        }}
+      >
+        {
+          services
+            .slice(0, 8)
+            .map(s => (
+              <CarouselSlide>
+                <ServiceCard
+                  image={s.image}
+                  title={s.title}
+                  description={s.description}
+                  icon={s.icon}
+                  tags={s.tags}
+                  href={`/services/${s.slug}`}
+                />
+              </CarouselSlide>
+            ))
+        }
+      </Carousel>
+    </div>
+
+    <Image
+      src={sunflow}
+      alt="Background Noise"
+      width={1520}
+      height={900}
+      loading="eager"
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      class="pointer-events-none absolute bottom-0 rotate-180 opacity-10"
+    />
+  </NoiseBg>
+
   <PopularRoofingMaterials materials={roofingMaterials} />
+
+  <ComparisonSection />
+
+  <ComparisonTable />
+
+  <!-- style & profit -->
+  <StylesProfiles />
+
   <RecentProjects />
   <ServiceAreas />
   <Faqs />
   <RecentArticales />
-
   <div class="relative">
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
     <Brands />
