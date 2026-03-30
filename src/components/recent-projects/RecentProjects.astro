@@ -1,8 +1,32 @@
 ---
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import topShape from '@/assets/top-shape.png';
 import NoiseBg from '../NoiseBg.astro';
 import RecentProjectCard from './RecentProjectCard.astro';
+
+const projects = [
+  {
+    image: '/placeholders/projects/project-1.jpg',
+    title: 'EDCO Metal Siding (Charcoal Gray)',
+    category: 'Roofing',
+  },
+  {
+    image: '/placeholders/projects/project-2.jpg',
+    title: 'Asphalt Shingle Replacement',
+    category: 'Roofing',
+  },
+  {
+    image: '/placeholders/projects/project-3.jpg',
+    title: 'Cedar Shake Restoration',
+    category: 'Siding',
+  },
+  {
+    image: '/placeholders/projects/project-4.jpg',
+    title: 'Standing Seam Metal Roof',
+    category: 'Roofing',
+  },
+];
 ---
 
 <NoiseBg class="relative overflow-hidden px-0 py-20 pb-32">
@@ -20,27 +44,229 @@ import RecentProjectCard from './RecentProjectCard.astro';
   </div>
 
   <div class="container mt-16 px-4">
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      <RecentProjectCard
-        image="/placeholders/projects/project-1.jpg"
-        title="EDCO Metal Siding (Charcoal Gray)"
-        category="Roofing"
-      />
-      <RecentProjectCard
-        image="/placeholders/projects/project-2.jpg"
-        title="Asphalt Shingle Replacement"
-        category="Roofing"
-      />
-      <RecentProjectCard
-        image="/placeholders/projects/project-3.jpg"
-        title="Cedar Shake Restoration"
-        category="Siding"
-      />
-      <RecentProjectCard
-        image="/placeholders/projects/project-4.jpg"
-        title="Standing Seam Metal Roof"
-        category="Roofing"
-      />
+    <div class="sm:hidden">
+      <div
+        class="recent-projects-mobile-scroll -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        data-recent-projects-scroll
+      >
+        {
+          projects.map(project => (
+            <div class="w-[min(84vw,360px)] shrink-0 snap-center">
+              <RecentProjectCard image={project.image} title={project.title} category={project.category} />
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-8 flex items-center justify-center gap-3">
+        <button
+          type="button"
+          class="recent-projects-nav hover:bg-primary hover:text-inverted flex h-10 w-10 items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200"
+          data-recent-projects-prev
+          aria-label="Previous recent project"
+        >
+          <Icon name="chevron-left" size={16} />
+        </button>
+        <button
+          type="button"
+          class="recent-projects-nav hover:bg-primary hover:text-inverted flex h-10 w-10 items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200"
+          data-recent-projects-next
+          aria-label="Next recent project"
+        >
+          <Icon name="chevron-right" size={16} />
+        </button>
+      </div>
+    </div>
+
+    <div class="hidden grid-cols-1 gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {projects.map(project => <RecentProjectCard image={project.image} title={project.title} category={project.category} />)}
+    </div>
+  </div>
+
+  <div
+    class="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-black/90 px-4 py-6 opacity-0 transition-opacity duration-300"
+    data-project-lightbox
+    aria-hidden="true"
+  >
+    <button
+      type="button"
+      class="absolute inset-0"
+      data-project-lightbox-close
+      aria-label="Close full screen project view"
+    ></button>
+
+    <div class="relative z-10 flex h-full w-full max-w-6xl items-center justify-center">
+      <button
+        type="button"
+        class="border border-white/20 text-white absolute top-4 right-0 z-20 flex size-11 items-center justify-center rounded-full bg-[#1A1A1A]/90 backdrop-blur-sm transition-colors hover:border-white/40"
+        data-project-lightbox-close
+        aria-label="Close full screen project view"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="hover:bg-primary hover:text-inverted absolute left-0 hidden h-10 w-10 items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200 md:flex"
+        data-project-lightbox-prev
+        aria-label="Previous project"
+      >
+        <Icon name="chevron-left" size={16} />
+      </button>
+
+      <div class="mx-auto flex max-h-full w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-[#111111] shadow-2xl">
+        <div class="relative min-h-0 flex-1 bg-black">
+          <img
+            src=""
+            alt=""
+            class="h-[55vh] w-full object-contain md:h-[72vh]"
+            data-project-lightbox-image
+          />
+        </div>
+        <div class="flex items-center justify-between gap-4 border-t border-white/10 px-5 py-4 md:px-6">
+          <div class="min-w-0">
+            <h3 class="font-heading text-2xl leading-tight text-white md:text-3xl" data-project-lightbox-title></h3>
+            <p
+              class="mt-1 text-xs font-semibold tracking-widest text-white/70 uppercase"
+              data-project-lightbox-category
+            ></p>
+          </div>
+          <div class="flex items-center gap-3 md:hidden">
+            <button
+              type="button"
+              class="hover:bg-primary hover:text-inverted flex h-10 w-10 items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200"
+              data-project-lightbox-prev
+              aria-label="Previous project"
+            >
+              <Icon name="chevron-left" size={16} />
+            </button>
+            <button
+              type="button"
+              class="hover:bg-primary hover:text-inverted flex h-10 w-10 items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200"
+              data-project-lightbox-next
+              aria-label="Next project"
+            >
+              <Icon name="chevron-right" size={16} />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="hover:bg-primary hover:text-inverted absolute right-0 hidden h-10 w-10 items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200 md:flex"
+        data-project-lightbox-next
+        aria-label="Next project"
+      >
+        <Icon name="chevron-right" size={16} />
+      </button>
     </div>
   </div>
 </NoiseBg>
+
+<script>
+  function initRecentProjectsMobileScroll() {
+    document.querySelectorAll<HTMLElement>('[data-recent-projects-scroll]').forEach(scrollArea => {
+      if (scrollArea.dataset.initialized) return;
+      scrollArea.dataset.initialized = 'true';
+
+      const parent = scrollArea.parentElement;
+      const prevButton = parent?.querySelector<HTMLButtonElement>('[data-recent-projects-prev]');
+      const nextButton = parent?.querySelector<HTMLButtonElement>('[data-recent-projects-next]');
+
+      const getScrollAmount = () => {
+        const firstCard = scrollArea.querySelector<HTMLElement>(':scope > div');
+        if (!firstCard) return scrollArea.clientWidth;
+
+        const styles = window.getComputedStyle(scrollArea);
+        const gap = Number.parseFloat(styles.columnGap || styles.gap || '0');
+        return firstCard.getBoundingClientRect().width + gap;
+      };
+
+      prevButton?.addEventListener('click', () => {
+        scrollArea.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+      });
+
+      nextButton?.addEventListener('click', () => {
+        scrollArea.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+      });
+    });
+  }
+
+  function initRecentProjectsLightbox() {
+    const lightbox = document.querySelector<HTMLElement>('[data-project-lightbox]');
+    if (!lightbox || lightbox.dataset.initialized) return;
+    lightbox.dataset.initialized = 'true';
+
+    const triggers = Array.from(document.querySelectorAll<HTMLElement>('[data-project-trigger]'));
+    const image = lightbox.querySelector<HTMLImageElement>('[data-project-lightbox-image]');
+    const title = lightbox.querySelector<HTMLElement>('[data-project-lightbox-title]');
+    const category = lightbox.querySelector<HTMLElement>('[data-project-lightbox-category]');
+    const closeButtons = lightbox.querySelectorAll<HTMLElement>('[data-project-lightbox-close]');
+    const prevButtons = lightbox.querySelectorAll<HTMLElement>('[data-project-lightbox-prev]');
+    const nextButtons = lightbox.querySelectorAll<HTMLElement>('[data-project-lightbox-next]');
+    let activeIndex = 0;
+
+    const renderProject = (index: number) => {
+      const trigger = triggers[index];
+      if (!trigger || !image || !title || !category) return;
+
+      activeIndex = index;
+      image.src = trigger.dataset.projectImage || '';
+      image.alt = trigger.dataset.projectAlt || trigger.dataset.projectTitle || 'Project image';
+      title.textContent = trigger.dataset.projectTitle || '';
+      category.textContent = trigger.dataset.projectCategory || '';
+    };
+
+    const openLightbox = (index: number) => {
+      renderProject(index);
+      lightbox.classList.remove('pointer-events-none', 'opacity-0');
+      lightbox.classList.add('opacity-100');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.add('pointer-events-none', 'opacity-0');
+      lightbox.classList.remove('opacity-100');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    const showAdjacent = (direction: number) => {
+      const nextIndex = (activeIndex + direction + triggers.length) % triggers.length;
+      renderProject(nextIndex);
+    };
+
+    triggers.forEach((trigger, index) => {
+      trigger.addEventListener('click', () => openLightbox(index));
+    });
+
+    closeButtons.forEach(button => {
+      button.addEventListener('click', closeLightbox);
+    });
+
+    prevButtons.forEach(button => {
+      button.addEventListener('click', () => showAdjacent(-1));
+    });
+
+    nextButtons.forEach(button => {
+      button.addEventListener('click', () => showAdjacent(1));
+    });
+
+    document.addEventListener('keydown', event => {
+      if (lightbox.getAttribute('aria-hidden') === 'true') return;
+
+      if (event.key === 'Escape') closeLightbox();
+      if (event.key === 'ArrowLeft') showAdjacent(-1);
+      if (event.key === 'ArrowRight') showAdjacent(1);
+    });
+  }
+
+  initRecentProjectsMobileScroll();
+  initRecentProjectsLightbox();
+  document.addEventListener('astro:after-swap', initRecentProjectsMobileScroll);
+  document.addEventListener('astro:after-swap', initRecentProjectsLightbox);
+</script>
