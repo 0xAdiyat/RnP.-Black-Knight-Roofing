@@ -9,15 +9,20 @@ import QuoteForm from '@/components/cta/QuoteForm.astro';
 
 import { Icon } from 'astro-icon/components';
 import Button from '@/components/ui/Button.astro';
-import RatingStars from '@/components/ui/RatingStars.astro';
 import Faqs2 from '@/components/faqs/Faqs2.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
+
+import FaqHeroImage from '@/assets/bg/faq.avif';
 ---
 
 <Layout title="Denver Roofing FAQs | Black Knight Roofing">
   <Navbar />
 
-  <Hero title="Got Question? <br/> We’ve Got Answer." subtitle="Colorado's #1 Veteran-Owned Roofing Company">
+  <Hero
+    title="Got Question? <br/> We've Got Answer."
+    subtitle="Colorado's #1 Veteran-Owned Roofing Company"
+    backgroundImage={FaqHeroImage}
+  >
     <p>
       Lorem ipsum dolor sit amet consectetur. Dictum morbi ac nibh nibh leo vitae at id faucibus. Ultrices duis tempor
       eget proin euismod sed dolor eu suspendisse. Amet ridiculus erat sit vulputate. Dui est feugiat risus ultrices.

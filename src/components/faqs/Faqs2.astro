@@ -64,8 +64,10 @@ const tabs = [
       </div>
       <h2 class="max-w-[530px] text-3xl md:text-5xl">Frequently Asked Questions</h2>
       <div class="pt-4">
-        <Button variant="primary" size="lg" class="w-full sm:w-auto">
-          <span class="text-left text-xs"> $99/month roofs <br /> No repayment penalty</span>
+        <Button variant="primary" size="lg" class="w-fit text-sm leading-5">
+          <span class="text-center text-[10px] leading-3 font-bold text-[#855901]">
+            $99/month roofs <br /> No repayment penalty</span
+          >
           <span class="h-6 w-0.5 bg-[rgba(133,89,1,0.4)]"></span>
           <span> <strong> FREE </strong> Estimate</span>
         </Button>
@@ -85,16 +87,48 @@ const tabs = [
       </div>
 
       <!-- Categories -->
-      <div class="border-radial rounded-full">
-        <div class="no-scrollbar flex items-center gap-4 overflow-x-auto rounded-full p-2 lg:justify-center lg:gap-x-2.5">
+      <div class="relative lg:hidden">
+        <div class="border-radial rounded-full">
+          <button
+            id="faq-dropdown-trigger"
+            class="flex h-12 w-full items-center justify-between px-6 text-sm font-semibold"
+          >
+            <span id="faq-active-label">{tabs[0]}</span>
+            <Icon name="chevron-down" size={20} class="transition-transform duration-300" id="faq-chevron" />
+          </button>
+        </div>
+        <div
+          id="faq-dropdown-menu"
+          class="absolute top-full right-0 left-0 z-50 mt-2 hidden rounded-2xl border border-white/10 bg-[#0F0F0F]/95 p-1 shadow-2xl backdrop-blur-xl"
+        >
           {
             tabs.map(t => (
-              <button class="border-radial shrink-0 rounded-full whitespace-nowrap">
-                <div class="flex h-12 items-center justify-center rounded-full px-6 py-4 text-xs font-semibold">{t}</div>
+              <button class="faq-mobile-tab flex h-11 w-full items-center rounded-xl px-5 text-sm font-semibold transition-colors hover:bg-white/5">
+                {t}
               </button>
             ))
           }
-          <div class="w-4 shrink-0 lg:hidden"></div>
+        </div>
+      </div>
+
+      <div class="border-radial hidden rounded-full lg:block">
+        <div
+          class="no-scrollbar flex items-center gap-2 overflow-x-auto rounded-full p-2 lg:justify-center lg:gap-x-2.5"
+        >
+          {
+            tabs.map((t, index) => (
+              <button
+                class:list={[
+                  'faq-desktop-tab border-radial flex-1 shrink-0 rounded-full whitespace-nowrap',
+                  { 'bg-white/10': index === 0 },
+                ]}
+              >
+                <div class="flex h-12 items-center justify-center rounded-full px-4 py-4 text-xs font-semibold lg:px-6">
+                  {t}
+                </div>
+              </button>
+            ))
+          }
         </div>
       </div>
 
@@ -114,3 +148,65 @@ const tabs = [
     scrollbar-width: none;
   }
 </style>
+
+<script>
+  function initFaqTabs() {
+    const dropdownTrigger = document.getElementById('faq-dropdown-trigger');
+    const dropdownMenu = document.getElementById('faq-dropdown-menu');
+    const chevron = document.getElementById('faq-chevron');
+    const activeLabel = document.getElementById('faq-active-label');
+    const mobileTabs = document.querySelectorAll('.faq-mobile-tab');
+    const desktopTabs = document.querySelectorAll('.faq-desktop-tab');
+
+    // Toggle dropdown
+    dropdownTrigger?.addEventListener('click', () => {
+      dropdownMenu?.classList.toggle('hidden');
+      chevron?.classList.toggle('rotate-180');
+    });
+
+    // Handle Mobile Tab Selection
+    mobileTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const text = (tab as HTMLElement).innerText;
+        if (activeLabel) activeLabel.innerText = text;
+
+        // Update Desktop active state visually
+        desktopTabs.forEach(dt => {
+          if ((dt as HTMLElement).innerText === text) {
+            dt.classList.add('bg-white/10');
+          } else {
+            dt.classList.remove('bg-white/10');
+          }
+        });
+
+        dropdownMenu?.classList.add('hidden');
+        chevron?.classList.remove('rotate-180');
+      });
+    });
+
+    // Handle Desktop Tab Selection
+    desktopTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const text = (tab as HTMLElement).innerText;
+
+        desktopTabs.forEach(dt => dt.classList.remove('bg-white/10'));
+        tab.classList.add('bg-white/10');
+
+        if (activeLabel) activeLabel.innerText = text;
+      });
+    });
+
+    // Close dropdown on outside click
+    document.addEventListener('click', e => {
+      if (!dropdownTrigger?.contains(e.target as Node) && !dropdownMenu?.contains(e.target as Node)) {
+        dropdownMenu?.classList.add('hidden');
+        chevron?.classList.remove('rotate-180');
+      }
+    });
+  }
+
+  // Run on page load
+  initFaqTabs();
+  // Handle Astro transitions
+  document.addEventListener('astro:after-swap', initFaqTabs);
+</script>
