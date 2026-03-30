@@ -121,10 +121,45 @@
 
 <style>
   #human-manifesto-overlay {
+    font-family: var(--font-mono);
+    font-size: 14px;
     opacity: 0;
     pointer-events: none;
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0.3s;
+  }
+  #human-manifesto-overlay .prose {
+    font-size: 0.875rem;
+    line-height: 1.75;
+  }
+  #human-manifesto-overlay :is(h1, h2, h3, p, a, li, button, strong, span) {
+    font-family: inherit;
+  }
+  #human-manifesto-overlay h1 {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  #human-manifesto-overlay h2 {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  #human-manifesto-overlay h3 {
+    font-size: 0.84rem;
+    line-height: 1.6;
+    margin-top: 1.5rem;
+    margin-bottom: 0.45rem;
+  }
+  #human-manifesto-overlay p,
+  #human-manifesto-overlay li,
+  #human-manifesto-overlay a {
+    font-size: 0.875rem;
+    line-height: 1.75;
+  }
+  #human-manifesto-overlay strong {
+    font-size: inherit;
   }
   :global(html.view-mode-human) #human-manifesto-overlay {
     opacity: 1;
