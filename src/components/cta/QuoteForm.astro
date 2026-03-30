@@ -115,7 +115,7 @@ const {
       </div>
 
       <!-- Step 2: Service Selection -->
-      <div class="quote-step space-y-4" data-step="2" aria-hidden="true">
+      <div class="quote-step space-y-4" data-step="2" aria-hidden="true" inert>
         <label class="block font-medium">What Service Do You Need?</label>
         <div class="quote-field-wrapper from-primary relative rounded-lg bg-radial-[at_25%_25%] to-[#594216] p-px">
           <NoiseBg class="rounded-lg px-0 py-0">
@@ -154,7 +154,7 @@ const {
       </div>
 
       <!-- Step 3: Contact Details -->
-      <div class="quote-step space-y-4" data-step="3" aria-hidden="true">
+      <div class="quote-step space-y-4" data-step="3" aria-hidden="true" inert>
         <label class="block font-medium">Tell Us More About You</label>
 
         <div class="space-y-4">
@@ -440,6 +440,11 @@ const {
           const isActive = s === step;
           el.classList.toggle('is-active', isActive);
           el.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+          if (isActive) {
+            el.removeAttribute('inert');
+          } else {
+            el.setAttribute('inert', '');
+          }
         });
 
         dots.forEach(dot => {

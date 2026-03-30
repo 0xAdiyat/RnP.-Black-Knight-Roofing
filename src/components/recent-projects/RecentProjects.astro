@@ -87,6 +87,7 @@ const projects = [
     class="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-black/90 px-4 py-6 opacity-0 transition-opacity duration-300"
     data-project-lightbox
     aria-hidden="true"
+    inert
   >
     <button
       type="button"
@@ -225,6 +226,7 @@ const projects = [
       lightbox.classList.remove('pointer-events-none', 'opacity-0');
       lightbox.classList.add('opacity-100');
       lightbox.setAttribute('aria-hidden', 'false');
+      lightbox.removeAttribute('inert');
       document.body.style.overflow = 'hidden';
     };
 
@@ -232,6 +234,7 @@ const projects = [
       lightbox.classList.add('pointer-events-none', 'opacity-0');
       lightbox.classList.remove('opacity-100');
       lightbox.setAttribute('aria-hidden', 'true');
+      lightbox.setAttribute('inert', '');
       document.body.style.overflow = '';
     };
 

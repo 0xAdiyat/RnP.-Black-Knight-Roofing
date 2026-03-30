@@ -117,11 +117,15 @@ const bgShape = await getImage({ src: bgShapeImage, width: 1536, height: 850, fo
 
             <div slot="navigation" class="mt-8 flex justify-center gap-x-2.5 lg:mt-12">
               <button
+                type="button"
+                aria-label="Previous testimonial"
                 class="swiper-button-prev hover:bg-primary group static! mt-0! flex h-10! w-10! items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200 after:content-none!"
               >
                 <Icon name="chevron-left" class="size-4! text-white group-hover:text-black" />
               </button>
               <button
+                type="button"
+                aria-label="Next testimonial"
                 class="swiper-button-next hover:bg-primary group static! mt-0! flex h-10! w-10! items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200 after:content-none!"
               >
                 <Icon name="chevron-right" class="size-4! text-white group-hover:text-black" />
