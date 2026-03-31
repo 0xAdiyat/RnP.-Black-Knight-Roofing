@@ -189,6 +189,7 @@
     line-height: 0.9;
     letter-spacing: -0.07em;
     font-style: italic;
+    font-weight: 400;
     color: rgba(255, 255, 255, 0.95);
     text-wrap: balance;
   }
