@@ -14,55 +14,125 @@ interface Props {
   buttons?: ButtonDef[];
   class?: string;
   borderClass?: string;
+  compactMobile?: boolean;
 }
 
-const { title, description, image, imageAlt = '', buttons = [], class: className } = Astro.props;
+const { title, description, image, imageAlt = '', buttons = [], class: className, compactMobile = false } = Astro.props;
 ---
 
 <div
   data-slot="service-card"
   class={cn(
-    'w-full group/service-card rounded-xl border-radial transition-all duration-200 ease-out will-change-transform',
+    'w-full group/service-card rounded-xl border-radial transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform hover:-translate-y-1.5 hover:shadow-[0_26px_80px_rgba(0,0,0,0.28)]',
     className
   )}
 >
-  <div class="bg-gradient-radial h-full w-full rounded-xl p-6">
-    <div data-slot="thumbnail-wrapper" class="relative overflow-hidden pb-10">
+  <div
+    class={cn(
+      'bg-gradient-radial h-full w-full rounded-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:bg-[#232323]',
+      compactMobile ? 'p-4 md:p-6' : 'p-6'
+    )}
+  >
+    <div
+      data-slot="thumbnail-wrapper"
+      class={cn(
+        'relative overflow-hidden transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:-translate-y-1',
+        compactMobile ? 'pb-5 md:pb-10' : 'pb-10'
+      )}
+    >
       <Image
         data-slot="thumbnail"
         src={image}
         alt={imageAlt || title}
-        class="h-full w-full scale-100 rounded-lg object-cover"
+        class={cn(
+          'h-full w-full scale-100 rounded-lg object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:scale-[1.035]',
+          compactMobile && 'max-h-[150px] md:max-h-none'
+        )}
       />
     </div>
 
-    <div class="space-y-4 text-center">
-      <h4 data-slot="service-title">{title}</h4>
-      <div data-slot="service-description" class="text-sm text-white/70">
+    <div
+      class={cn(
+        'text-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:-translate-y-0.5',
+        compactMobile ? 'space-y-3 md:space-y-4' : 'space-y-4'
+      )}
+    >
+      <h4
+        data-slot="service-title"
+        class={cn(
+          'transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:text-primary',
+          compactMobile && 'text-[1.75rem] leading-[1] md:text-[2rem]'
+        )}
+      >
+        {title}
+      </h4>
+      <div
+        data-slot="service-description"
+        class={cn(
+          'text-white/70 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:text-white/80',
+          compactMobile ? 'text-[13px] leading-5 md:text-sm' : 'text-sm'
+        )}
+      >
         {description}
       </div>
     </div>
 
-    <div class="relative flex flex-col items-center space-y-6 pt-13">
-      <button class="absolute top-4 hidden items-center gap-1.5 group-hover/service-card:flex">
+    <div
+      class={cn(
+        'relative flex flex-col items-center',
+        compactMobile ? 'space-y-4 pt-6 md:space-y-6 md:pt-10' : 'space-y-6 pt-10'
+      )}
+    >
+      <div
+        class={cn(
+          'pointer-events-none items-center gap-1.5 text-white/70 opacity-0 translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:pointer-events-auto group-hover/service-card:translate-y-0 group-hover/service-card:opacity-100',
+          compactMobile
+            ? 'pointer-events-auto flex min-h-5 translate-y-0 opacity-100 md:pointer-events-none md:min-h-6 md:translate-y-2 md:opacity-0'
+            : 'flex min-h-6'
+        )}
+      >
         <svg width="13" height="14" viewBox="0 0 13 14" fill="none">
           <path
             d="M12.3571 7.20839L0.5 13.7977C0.363095 13.8751 0.245536 13.884 0.147321 13.8245C0.0491071 13.7649 0 13.6578 0 13.503V0.360175C0 0.205414 0.0491071 0.0982704 0.147321 0.0387468C0.245536 -0.0207767 0.363095 -0.0118484 0.5 0.0655327L12.3571 6.65482C12.494 6.7322 12.5625 6.82446 12.5625 6.9316C12.5625 7.03875 12.494 7.13101 12.3571 7.20839Z"
             fill="white"></path>
         </svg>
-        <span class="text-sm text-white underline underline-offset-4">Learn More</span>
-      </button>
+        <span class="text-sm text-white underline underline-offset-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:translate-x-0.5">
+          Learn More
+        </span>
+      </div>
 
       {
         buttons.length > 0 && (
-          <div class="flex flex-wrap items-center justify-center gap-2">
+          <div
+            class={cn(
+              'flex flex-wrap items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:translate-y-0.5',
+              compactMobile ? 'gap-1.5 md:gap-2' : 'gap-2'
+            )}
+          >
             {buttons.map(btn => {
               if (typeof btn === 'string') {
-                return <Button class="w-fit rounded-full whitespace-nowrap">{btn}</Button>;
+                return (
+                  <Button
+                    size={compactMobile ? 'sm' : 'md'}
+                    class={cn(
+                      'w-fit rounded-full text-center transition-transform duration-300 hover:-translate-y-0.5',
+                      compactMobile ? 'max-w-full whitespace-normal px-3 py-1.5 leading-tight' : 'whitespace-nowrap'
+                    )}
+                  >
+                    {btn}
+                  </Button>
+                );
               }
               const { label, ...restBtnProps } = btn;
               return (
-                <Button class="w-fit rounded-full whitespace-nowrap" {...restBtnProps}>
+                <Button
+                  size={compactMobile ? 'sm' : restBtnProps.size}
+                  class={cn(
+                    'w-fit rounded-full text-center transition-transform duration-300 hover:-translate-y-0.5',
+                    compactMobile ? 'max-w-full whitespace-normal px-3 py-1.5 leading-tight' : 'whitespace-nowrap'
+                  )}
+                  {...restBtnProps}
+                >
                   {label}
                 </Button>
               );
