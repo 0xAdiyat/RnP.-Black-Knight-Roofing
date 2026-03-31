@@ -18,18 +18,20 @@ interface Props {
 }
 
 const { title, description, image, imageAlt = '', buttons = [], class: className, compactMobile = false } = Astro.props;
+const singleLineMobileChips = compactMobile && buttons.length > 2;
 ---
 
 <div
   data-slot="service-card"
   class={cn(
     'w-full group/service-card rounded-xl border-radial transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform hover:-translate-y-1.5 hover:shadow-[0_26px_80px_rgba(0,0,0,0.28)]',
+    compactMobile && 'h-[430px] md:h-auto',
     className
   )}
 >
   <div
     class={cn(
-      'bg-gradient-radial h-full w-full rounded-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:bg-[#232323]',
+      'bg-gradient-radial flex h-full w-full flex-col rounded-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:bg-[#232323]',
       compactMobile ? 'p-4 md:p-6' : 'p-6'
     )}
   >
@@ -40,15 +42,15 @@ const { title, description, image, imageAlt = '', buttons = [], class: className
         compactMobile ? 'pb-5 md:pb-10' : 'pb-10'
       )}
     >
-      <Image
-        data-slot="thumbnail"
-        src={image}
-        alt={imageAlt || title}
-        class={cn(
-          'h-full w-full scale-100 rounded-lg object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:scale-[1.035]',
-          compactMobile && 'max-h-[150px] md:max-h-none'
-        )}
-      />
+        <Image
+          data-slot="thumbnail"
+          src={image}
+          alt={imageAlt || title}
+          class={cn(
+            'h-full w-full scale-100 rounded-lg object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:scale-[1.035]',
+            compactMobile && 'max-h-[132px] md:max-h-none'
+          )}
+        />
     </div>
 
     <div
@@ -70,7 +72,7 @@ const { title, description, image, imageAlt = '', buttons = [], class: className
         data-slot="service-description"
         class={cn(
           'text-white/70 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:text-white/80',
-          compactMobile ? 'text-[13px] leading-5 md:text-sm' : 'text-sm'
+          compactMobile ? 'text-[13px] leading-[1.45] md:text-sm' : 'text-sm'
         )}
       >
         {description}
@@ -79,8 +81,8 @@ const { title, description, image, imageAlt = '', buttons = [], class: className
 
     <div
       class={cn(
-        'relative flex flex-col items-center',
-        compactMobile ? 'space-y-4 pt-6 md:space-y-6 md:pt-10' : 'space-y-6 pt-10'
+        'relative mt-auto flex flex-col items-center',
+        compactMobile ? 'space-y-4 pt-5 md:space-y-6 md:pt-10' : 'space-y-6 pt-10'
       )}
     >
       <div
@@ -105,8 +107,10 @@ const { title, description, image, imageAlt = '', buttons = [], class: className
         buttons.length > 0 && (
           <div
             class={cn(
-              'flex flex-wrap items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:translate-y-0.5',
-              compactMobile ? 'gap-1.5 md:gap-2' : 'gap-2'
+              'flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:translate-y-0.5',
+              singleLineMobileChips
+                ? 'services-chip-scroll no-scrollbar w-full gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none]'
+                : 'flex-wrap gap-2'
             )}
           >
             {buttons.map(btn => {
@@ -116,7 +120,12 @@ const { title, description, image, imageAlt = '', buttons = [], class: className
                     size={compactMobile ? 'sm' : 'md'}
                     class={cn(
                       'w-fit rounded-full text-center transition-transform duration-300 hover:-translate-y-0.5',
-                      compactMobile ? 'max-w-full whitespace-normal px-3 py-1.5 leading-tight' : 'whitespace-nowrap'
+                      compactMobile
+                        ? cn(
+                            'px-3 py-1.5 text-[12px] leading-tight',
+                            singleLineMobileChips ? 'shrink-0 whitespace-nowrap' : 'max-w-full whitespace-normal'
+                          )
+                        : 'whitespace-nowrap'
                     )}
                   >
                     {btn}
@@ -129,7 +138,12 @@ const { title, description, image, imageAlt = '', buttons = [], class: className
                   size={compactMobile ? 'sm' : restBtnProps.size}
                   class={cn(
                     'w-fit rounded-full text-center transition-transform duration-300 hover:-translate-y-0.5',
-                    compactMobile ? 'max-w-full whitespace-normal px-3 py-1.5 leading-tight' : 'whitespace-nowrap'
+                    compactMobile
+                      ? cn(
+                          'px-3 py-1.5 text-[12px] leading-tight',
+                          singleLineMobileChips ? 'shrink-0 whitespace-nowrap' : 'max-w-full whitespace-normal'
+                        )
+                      : 'whitespace-nowrap'
                   )}
                   {...restBtnProps}
                 >
@@ -143,3 +157,13 @@ const { title, description, image, imageAlt = '', buttons = [], class: className
     </div>
   </div>
 </div>
+
+<style>
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .services-chip-scroll {
+    justify-content: flex-start;
+  }
+</style>

@@ -100,6 +100,12 @@ const visualServices: VisualService[] = [
 
 const primaryServices = visualServices.filter(service => !service.premium);
 const premiumServices = visualServices.filter(service => service.premium);
+const mobileStackServices = [
+  primaryServices.find(service => service.title === 'Roofing'),
+  primaryServices.find(service => service.title === 'Siding'),
+  primaryServices.find(service => service.title === 'Gutters'),
+  ...premiumServices,
+].filter(Boolean) as VisualService[];
 ---
 
 <NoiseBg class="relative px-0 py-20">
@@ -130,65 +136,56 @@ const premiumServices = visualServices.filter(service => service.premium);
       </div>
 
       <!-- Services -->
-      <div class="flex flex-col items-center space-y-12 px-4 lg:space-y-16 lg:px-16">
+      <div class="flex flex-col items-center space-y-8 px-4 md:space-y-12 lg:space-y-16 lg:px-16">
         <div class="w-full md:hidden">
-          <div
-            class="services-mobile-scroll -mx-4 overflow-x-auto [scrollbar-width:none] [touch-action:pan-x] overscroll-x-contain [&::-webkit-scrollbar]:hidden"
-            data-services-scroll
-          >
-            <div class="flex snap-x snap-mandatory gap-4">
-              {
-                visualServices.map((service, index) => (
-                  <div
-                    class:list={[
-                      'services-mobile-card w-[82vw] max-w-[360px] shrink-0 snap-center',
-                      index === 0 && 'services-mobile-card-first',
-                      index === visualServices.length - 1 && 'services-mobile-card-last',
-                    ]}
-                  >
-                    <div class:list={['relative h-full', service.premium && 'group/premium-card']}>
-                      {
-                        service.premium && (
-                          <Image
-                            src={popularBadge}
-                            alt="Popular"
-                            class="absolute top-3 left-3 z-10 w-14 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/premium-card:scale-[1.06]"
-                          />
-                        )
-                      }
-                      <ServiceCard
-                        title={service.title}
-                        description={service.description}
-                        image={service.image}
-                        imageAlt={service.imageAlt}
-                        buttons={service.buttons}
-                        class={service.class}
-                        compactMobile={true}
-                      />
+          <div class="flex w-full flex-col items-center gap-y-4">
+            <services-cards-stack class="services-cards-stack swiper block w-full max-w-[320px]">
+              <div class="swiper-wrapper">
+                {
+                  mobileStackServices.map(service => (
+                    <div class="swiper-slide group/swiper-slide h-full rounded-3xl! bg-[#1A1A1A]">
+                      <div class:list={['relative h-full rounded-3xl bg-[#1A1A1A]', service.premium && 'group/premium-card']}>
+                        {
+                          service.premium && (
+                            <Image
+                              src={popularBadge}
+                              alt="Popular"
+                              class="absolute top-3 left-3 z-10 w-14 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/premium-card:scale-[1.06]"
+                            />
+                          )
+                        }
+                        <ServiceCard
+                          title={service.title}
+                          description={service.description}
+                          image={service.image}
+                          imageAlt={service.imageAlt}
+                          buttons={service.buttons}
+                          class={service.class}
+                          compactMobile={true}
+                        />
+                      </div>
                     </div>
-                  </div>
-                ))
-              }
-            </div>
-          </div>
+                  ))
+                }
+              </div>
+            </services-cards-stack>
 
-          <div class="mt-2 flex items-center justify-center gap-3">
-            <button
-              type="button"
-              class="services-mobile-nav hover:bg-primary hover:text-inverted flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#1A1A1A] text-white transition-colors duration-200"
-              data-services-prev
-              aria-label="Previous service"
-            >
-              <Icon name="chevron-left" size={16} />
-            </button>
-            <button
-              type="button"
-              class="services-mobile-nav hover:bg-primary hover:text-inverted flex h-11 w-11 items-center justify-center rounded-full bg-primary text-[#111] transition-colors duration-200"
-              data-services-next
-              aria-label="Next service"
-            >
-              <Icon name="chevron-right" size={16} />
-            </button>
+            <div class="flex items-center gap-x-2">
+              <button
+                type="button"
+                class="services-stack-prev hover:bg-primary hover:text-inverted flex h-10 w-10 items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200"
+                aria-label="Previous service"
+              >
+                <Icon name="chevron-left" size={16} />
+              </button>
+              <button
+                type="button"
+                class="services-stack-next hover:bg-primary hover:text-inverted flex h-10 w-10 items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200"
+                aria-label="Next service"
+              >
+                <Icon name="chevron-right" size={16} />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -232,25 +229,25 @@ const premiumServices = visualServices.filter(service => service.premium);
         </div>
       </div>
 
-      <div class="grid grid-cols-1 gap-6 pt-12 pb-16 lg:grid-cols-2 lg:gap-3 lg:pt-16">
-        <div class="border-radial group/service-panel flex h-full flex-col rounded-[10px] p-6 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_18px_60px_rgba(0,0,0,0.24)]">
+      <div class="grid grid-cols-1 gap-6 pt-4 pb-16 md:pt-10 lg:grid-cols-2 lg:gap-3 lg:pt-16">
+        <div class="border-radial group/service-panel flex h-full flex-col rounded-[10px] p-6 transition-colors duration-300 ease-out hover:bg-white/[0.02]">
           <div class="space-y-3">
             <div class="flex items-center gap-x-2.5">
               <Icon
                 name="storm"
-                class="text-primary size-10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-panel:-translate-y-0.5 group-hover/service-panel:scale-105"
+                class="text-primary size-10 transition-colors duration-300 ease-out group-hover/service-panel:text-[#f0bf33]"
               />
-              <span class="text-xl transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-panel:text-primary">
+              <span class="text-xl transition-colors duration-300 ease-out group-hover/service-panel:text-primary">
                 Storm Damage Repair
               </span>
             </div>
-            <div class="pb-3 text-white/80 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-panel:text-white">
+            <div class="pb-3 text-white/80 transition-colors duration-300 ease-out group-hover/service-panel:text-white/90">
               After a hail storm, most homeowners don't know what they're owed. We document the damage, coordinate with your adjuster, and handle the paperwork — so you get the roof you deserve.
             </div>
           </div>
           <Button
             variant="link"
-            class="mt-auto self-start px-0 pt-6 underline underline-offset-4 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-panel:-translate-y-0.5"
+            class="mt-auto self-start px-0 pt-6 underline underline-offset-4 transition-colors duration-300 ease-out group-hover/service-panel:text-primary"
             href="/services/storm-damage-repair"
           >
             <svg width="13" height="16" viewBox="0 0 13 16" fill="none">
@@ -263,25 +260,25 @@ const premiumServices = visualServices.filter(service => service.premium);
           </Button>
         </div>
 
-        <div class="border-radial group/service-panel flex h-full flex-col rounded-[10px] p-6 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_18px_60px_rgba(0,0,0,0.24)]">
+        <div class="border-radial group/service-panel flex h-full flex-col rounded-[10px] p-6 transition-colors duration-300 ease-out hover:bg-white/[0.02]">
           <div class="space-y-3">
             <div class="flex items-center gap-x-2.5">
               <Icon
                 name="calculate-doller"
-                class="text-primary size-10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-panel:-translate-y-0.5 group-hover/service-panel:scale-105"
+                class="text-primary size-10 transition-colors duration-300 ease-out group-hover/service-panel:text-[#f0bf33]"
               />
-              <span class="text-xl transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-panel:text-primary">
+              <span class="text-xl transition-colors duration-300 ease-out group-hover/service-panel:text-primary">
                 Flexible Financing
               </span>
             </div>
-            <div class="pb-3 text-white/80 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-panel:text-white">
+            <div class="pb-3 text-white/80 transition-colors duration-300 ease-out group-hover/service-panel:text-white/90">
               Choose 0% promotional financing, fixed APR options, or long-term plans through Service Finance and Wisetack.
               Premium roof upgrades from as low as $99 per month.
             </div>
           </div>
           <Button
             variant="link"
-            class="mt-auto self-start px-0 pt-6 underline underline-offset-4 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-panel:-translate-y-0.5"
+            class="mt-auto self-start px-0 pt-6 underline underline-offset-4 transition-colors duration-300 ease-out group-hover/service-panel:text-primary"
             href="/services/storm-damage-repair"
           >
             <svg width="13" height="16" viewBox="0 0 13 16" fill="none">
@@ -316,46 +313,56 @@ const premiumServices = visualServices.filter(service => service.premium);
 </NoiseBg>
 
 <script>
-  function initServicesMobileScroll() {
-    document.querySelectorAll<HTMLElement>('[data-services-scroll]').forEach(scrollArea => {
-      if (scrollArea.dataset.initialized) return;
-      scrollArea.dataset.initialized = 'true';
+  import Swiper from 'swiper';
+  import { Navigation, EffectCards } from 'swiper/modules';
 
-      const container = scrollArea.parentElement;
-      const prevButton = container?.querySelector<HTMLButtonElement>('[data-services-prev]');
-      const nextButton = container?.querySelector<HTMLButtonElement>('[data-services-next]');
+  import 'swiper/css';
+  import 'swiper/css/effect-cards';
 
-      const getScrollAmount = () => {
-        const firstCard = scrollArea.querySelector<HTMLElement>(':scope > div > div');
-        if (!firstCard) return scrollArea.clientWidth;
+  class ServicesCardsStack extends HTMLElement {
+    private swiperInstance: Swiper | null = null;
 
-        const track = scrollArea.firstElementChild as HTMLElement | null;
-        const styles = track ? window.getComputedStyle(track) : window.getComputedStyle(scrollArea);
-        const gap = Number.parseFloat(styles.columnGap || styles.gap || '0');
-        return firstCard.getBoundingClientRect().width + gap;
-      };
+    connectedCallback() {
+      if (this.swiperInstance) return;
 
-      prevButton?.addEventListener('click', () => {
-        scrollArea.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+      const container = this.parentElement;
+      const nextEl = container?.querySelector('.services-stack-next') as HTMLElement | null;
+      const prevEl = container?.querySelector('.services-stack-prev') as HTMLElement | null;
+
+      this.swiperInstance = new Swiper(this, {
+        modules: [Navigation, EffectCards],
+        effect: 'cards',
+        grabCursor: true,
+        initialSlide: 0,
+        cardsEffect: {
+          perSlideOffset: 10,
+          perSlideRotate: 0,
+          slideShadows: false,
+        },
+        navigation: {
+          nextEl,
+          prevEl,
+        },
       });
+    }
 
-      nextButton?.addEventListener('click', () => {
-        scrollArea.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-      });
-    });
+    disconnectedCallback() {
+      this.swiperInstance?.destroy();
+      this.swiperInstance = null;
+    }
   }
 
-  initServicesMobileScroll();
-  document.addEventListener('astro:after-swap', initServicesMobileScroll);
+  if (!customElements.get('services-cards-stack')) {
+    customElements.define('services-cards-stack', ServicesCardsStack);
+  }
 </script>
 
 <style>
-  .services-mobile-scroll {
-    padding-inline: max(1rem, calc((100vw - min(82vw, 360px)) / 2));
-    padding-block: 0;
+  .services-cards-stack {
+    overflow: visible;
   }
 
-  .services-mobile-card {
-    scroll-snap-align: center;
+  .services-cards-stack .swiper-wrapper {
+    min-height: 430px;
   }
 </style>
