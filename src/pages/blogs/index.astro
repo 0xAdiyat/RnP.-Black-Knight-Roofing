@@ -15,6 +15,7 @@ import RatingStars from '@/components/ui/RatingStars.astro';
 import Pagination from '@/components/ui/pagination/Pagination.astro';
 import ArticalCard from '@/components/articales/ArticalCard.astro';
 import { blogListItems } from '@/data/blogs';
+import BadgeTitle from '@/components/BadgeTitle.astro';
 
 const currentPage = Number(Astro.url.searchParams.get('page') || 1);
 const itemsPerPage = 6;
