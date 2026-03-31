@@ -24,7 +24,7 @@ const areaSlugMap = new Map(serviceAreas.map(area => [area.city, area.slug]));
   />
 
   <div class="relative z-10 container space-y-12">
-    <div class="flex flex-col items-start gap-8 sm:flex-row sm:items-end sm:justify-between sm:gap-4 md:py-8">
+    <div class="flex flex-col items-start gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-4 md:py-8">
       <BadgeTitle
         badge="Service Areas"
         title="Serving Homeowners from Colorado Springs to Fort Collins"
@@ -37,18 +37,18 @@ const areaSlugMap = new Map(serviceAreas.map(area => [area.city, area.slug]));
   </div>
 
   <div class="container">
-    <div class="rounded-3xl border border-white/10 bg-white/5 px-4 py-6 backdrop-blur-sm sm:px-8 sm:py-8 lg:px-12 lg:py-10">
+    <div
+      class="rounded-3xl border border-white/10 bg-white/5 px-4 py-6 backdrop-blur-sm sm:px-8 sm:py-8 lg:px-12 lg:py-10"
+    >
       <div class="mx-auto flex max-w-[1220px] flex-col gap-6">
         {
           chipRows.map(row => (
             <ul class="flex flex-wrap items-center justify-center gap-4 lg:flex-nowrap lg:gap-5">
-              {
-                row.map(area => (
-                  <li>
-                    <AreaButton area={area} href={`/service-areas/${areaSlugMap.get(area)}`} />
-                  </li>
-                ))
-              }
+              {row.map(area => (
+                <li>
+                  <AreaButton area={area} href={`/service-areas/${areaSlugMap.get(area)}`} />
+                </li>
+              ))}
             </ul>
           ))
         }
@@ -62,7 +62,6 @@ const areaSlugMap = new Map(serviceAreas.map(area => [area.city, area.slug]));
       title="Black Knight Roofing service area map"
       class="block h-full w-full rounded-[inherit] border-0"
       loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-    ></iframe>
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
 </NoiseBg>

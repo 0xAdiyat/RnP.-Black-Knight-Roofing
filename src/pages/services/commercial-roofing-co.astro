@@ -9,6 +9,7 @@ import Faqs from '@/components/faqs/Faqs.astro';
 import NoiseBg from '@/components/NoiseBg.astro';
 import WhyChooseUs from '@/components/WhyChooseUs.astro';
 import Button from '@/components/ui/Button.astro';
+import EstimateButton from '@/components/EstimateButton.astro';
 import { Icon } from 'astro-icon/components';
 import { type Service } from '@/data/services';
 import Breadcrumb from '@/components/ui/Breadcrumb.astro';
@@ -96,14 +97,7 @@ const processSteps = [
     </p>
 
     <div class="flex flex-col items-center gap-4 sm:flex-row sm:gap-x-6">
-      <Button variant="primary" size="lg" class="text-base font-bold">
-        <span class="text-center text-[10px] text-[#855901]">
-          $99/month roofs <br />
-          No repayment penalty</span
-        >
-        <span class="h-6 w-0.5 bg-[rgba(133,89,1,0.4)]"></span>
-        <span> <strong> FREE </strong> Estimate</span>
-      </Button>
+      <EstimateButton />
 
       <Button variant="link">
         <Icon name="map" />

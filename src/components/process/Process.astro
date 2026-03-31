@@ -8,7 +8,7 @@ import ProcessCard from './ProcessCard.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
 import bbaLogo from '@/assets/bbb-logo.avif';
 import dogImage from '@/assets/dog-image.avif';
-import bottomShape from '@/assets/bottom-shape.png';
+import bottomShape from '@/assets/bottom-shape.avif';
 import shineImage from '@/assets/sunflow.avif';
 import BadgeTitle from '../BadgeTitle.astro';
 
@@ -228,7 +228,13 @@ const {
       </div>
     </div>
   </div>
-  <Image src={bottomShape} alt="" width={1500} height={100} class="absolute bottom-0 z-10 w-full translate-y-12" />
+  <Image
+    src={bottomShape}
+    alt=""
+    width={1500}
+    height={100}
+    class="absolute bottom-0 z-10 w-full translate-y-12 opacity-50"
+  />
   <Image
     src={shineImage}
     alt=""

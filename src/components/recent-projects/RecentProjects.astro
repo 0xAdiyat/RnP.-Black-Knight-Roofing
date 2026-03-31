@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import topShape from '@/assets/top-shape.png';
+import topShape from '@/assets/top-frame.avif';
 import NoiseBg from '../NoiseBg.astro';
 import RecentProjectCard from './RecentProjectCard.astro';
 import BadgeTitle from '../BadgeTitle.astro';
@@ -31,7 +31,7 @@ const projects = [
 ---
 
 <NoiseBg class="relative overflow-hidden px-0 py-20 pb-32">
-  <Image src={topShape} alt="Top Shape" class="pointer-events-none absolute top-0 left-0 -mt-11 w-full opacity-50" />
+  <Image src={topShape} alt="Top Shape" class="pointer-events-none absolute top-0 left-0 -mt-11 w-full" />
 
   <BadgeTitle
     badge="Our Recent Work"

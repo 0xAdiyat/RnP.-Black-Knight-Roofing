@@ -1,0 +1,42 @@
+---
+import Button from '@/components/ui/Button.astro';
+import type { ButtonVariants } from '@/components/ui/button.variants';
+
+interface Props extends ButtonVariants {
+  offerText?: string;
+  actionText?: string;
+  class?: string;
+  href?: string;
+  showDivider?: boolean;
+  offerColor?: string;
+  dividerColor?: string;
+  offerClass?: string;
+  actionClass?: string;
+}
+
+const {
+  offerText = "$99/month roofs <br /> No repayment penalty",
+  actionText = "<strong> FREE </strong> Estimate",
+  variant = "primary",
+  size = "lg",
+  class: className = "text-base font-bold",
+  showDivider = true,
+  offerColor = "text-[#855901]",
+  dividerColor = "bg-[rgba(133,89,1,0.4)]",
+  offerClass = "text-center text-[10px] leading-[1.2]",
+  actionClass = "",
+  ...rest
+} = Astro.props;
+---
+
+<Button variant={variant} size={size} class={className} {...rest}>
+  {offerText && (
+    <span class:list={[offerClass, offerColor]} set:html={offerText} />
+  )}
+  {showDivider && offerText && actionText && (
+    <span class:list={["h-6 w-0.5", dividerColor]}></span>
+  )}
+  {actionText && (
+    <span class:list={[actionClass]} set:html={actionText} />
+  )}
+</Button>
