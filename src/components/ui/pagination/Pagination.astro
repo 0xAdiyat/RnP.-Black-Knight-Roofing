@@ -9,6 +9,7 @@ interface Props {
   totalPages: number;
   baseUrl: string; // e.g., '/gallery'
   queryParam?: string; // e.g., 'page'
+  searchParams?: Record<string, string | number | undefined>;
   class?: string;
 }
 
@@ -17,11 +18,17 @@ const {
   totalPages,
   baseUrl,
   queryParam = 'page',
+  searchParams = {},
   class: className,
 } = Astro.props;
 
 const getPageUrl = (page: number) => {
   const url = new URL(baseUrl, Astro.url.origin);
+  Object.entries(searchParams).forEach(([key, value]) => {
+    if (value !== undefined && value !== '') {
+      url.searchParams.set(key, String(value));
+    }
+  });
   url.searchParams.set(queryParam, page.toString());
   return url.pathname + url.search;
 };

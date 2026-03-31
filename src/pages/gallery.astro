@@ -15,65 +15,151 @@ import RatingStars from '@/components/ui/RatingStars.astro';
 import sunFlow from '@/assets/sunflow.avif';
 import { Image } from 'astro:assets';
 import WorkCard from '@/components/recent-projects/WorkCard.astro';
-import Pagination from '@/components/ui/pagination/Pagination.astro';
 import Statistics from '@/components/ui/Statistics.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
+import serviceRoofingImg from '@/assets/services/service-roofing.png';
+import serviceSidingImg from '@/assets/services/service-siding.png';
+import serviceGutterImg from '@/assets/services/service-gutter.png';
+import beforeAfterImg from '@/assets/comparison/roof-mini.png';
+
+type GalleryCategory = 'Roofing' | 'Siding' | 'Gutters';
+type GalleryFilter = 'featured' | 'roofing' | 'siding' | 'gutters';
 
 const works = [
   {
+    id: 'roofing-1',
     image: '/placeholders/works/1.jpg',
     title: 'EDCO METAL SIDING',
     subtitle: 'CHARCOAL GRAY',
-    category: 'Roofing',
+    category: 'Roofing' as GalleryCategory,
+    date: '2026-03-24',
   },
   {
+    id: 'roofing-2',
     image: '/placeholders/works/2.jpg',
     title: 'Stone Coated Steel',
     subtitle: 'Weathered Wood',
-    category: 'Roofing',
+    category: 'Roofing' as GalleryCategory,
+    date: '2026-03-18',
   },
   {
+    id: 'roofing-3',
     image: '/placeholders/works/3.jpg',
     title: 'Concrete Tile',
     subtitle: 'Barcelona Sand',
-    category: 'Roofing',
+    category: 'Roofing' as GalleryCategory,
+    date: '2026-03-10',
   },
   {
+    id: 'roofing-4',
     image: '/placeholders/works/4.jpg',
     title: 'Asphalt Shingle',
     subtitle: 'Estate Gray',
-    category: 'Roofing',
+    category: 'Roofing' as GalleryCategory,
+    date: '2026-03-02',
   },
   {
+    id: 'roofing-5',
     image: '/placeholders/works/1.jpg',
     title: 'EDCO METAL SIDING',
     subtitle: 'CHARCOAL GRAY',
-    category: 'Roofing',
+    category: 'Roofing' as GalleryCategory,
+    date: '2026-02-24',
   },
   {
+    id: 'roofing-6',
     image: '/placeholders/works/2.jpg',
     title: 'Stone Coated Steel',
     subtitle: 'Weathered Wood',
-    category: 'Roofing',
+    category: 'Roofing' as GalleryCategory,
+    date: '2026-02-16',
   },
   {
+    id: 'roofing-7',
     image: '/placeholders/works/3.jpg',
     title: 'Concrete Tile',
     subtitle: 'Barcelona Sand',
-    category: 'Roofing',
+    category: 'Roofing' as GalleryCategory,
+    date: '2026-02-08',
   },
   {
+    id: 'roofing-8',
     image: '/placeholders/works/4.jpg',
     title: 'Asphalt Shingle',
     subtitle: 'Estate Gray',
-    category: 'Roofing',
+    category: 'Roofing' as GalleryCategory,
+    date: '2026-02-01',
+  },
+  {
+    id: 'roofing-9',
+    image: '/placeholders/works/1.jpg',
+    title: 'Test Project 09',
+    subtitle: 'Pagination Sample',
+    category: 'Roofing' as GalleryCategory,
+    date: '2026-01-24',
+  },
+  {
+    id: 'roofing-10',
+    image: '/placeholders/works/2.jpg',
+    title: 'Test Project 10',
+    subtitle: 'Pagination Sample',
+    category: 'Roofing' as GalleryCategory,
+    date: '2026-01-16',
+  },
+  {
+    id: 'roofing-11',
+    image: '/placeholders/works/3.jpg',
+    title: 'Test Project 11',
+    subtitle: 'Pagination Sample',
+    category: 'Roofing' as GalleryCategory,
+    date: '2026-01-08',
+  },
+  {
+    id: 'roofing-12',
+    image: '/placeholders/works/4.jpg',
+    title: 'Test Project 12',
+    subtitle: 'Pagination Sample',
+    category: 'Roofing' as GalleryCategory,
+    date: '2026-01-01',
   },
 ];
 
-const currentPage = Number(Astro.url.searchParams.get('page') || 1);
-const itemsPerPage = 4;
-const totalPages = Math.ceil(works.length / itemsPerPage);
-const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+const filterParam = (Astro.url.searchParams.get('filter') || 'featured').toLowerCase();
+const allowedFilters: GalleryFilter[] = ['featured', 'roofing', 'siding', 'gutters'];
+const activeFilter: GalleryFilter = allowedFilters.includes(filterParam as GalleryFilter)
+  ? (filterParam as GalleryFilter)
+  : 'featured';
+const itemsPerPage = 12;
+
+const sortedWorks = [...works].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const filteredWorks =
+  activeFilter === 'featured'
+    ? sortedWorks
+    : sortedWorks.filter((work) => work.category.toLowerCase() === activeFilter);
+
+const requestedPage = Number(Astro.url.searchParams.get('page') || 1);
+const totalPages = Math.max(1, Math.ceil(filteredWorks.length / itemsPerPage));
+const currentPage = Math.min(Math.max(requestedPage, 1), totalPages);
+const displayedWorks = filteredWorks.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+const visibleWorkIds = new Set(displayedWorks.map((work) => work.id));
+const hasResults = filteredWorks.length > 0;
+
+const getFilterHref = (filter: GalleryFilter) => {
+  const url = new URL('/gallery', Astro.url.origin);
+  if (filter !== 'featured') {
+    url.searchParams.set('filter', filter);
+  }
+  return url.pathname + url.search;
+};
+
+const galleryFilters = [
+  { label: 'Featured', image: '/placeholders/works/1.jpg', type: 'filter', filter: 'featured' as GalleryFilter },
+  { label: 'Roofing', image: serviceRoofingImg.src, type: 'filter', filter: 'roofing' as GalleryFilter },
+  { label: 'Siding', image: serviceSidingImg.src, type: 'filter', filter: 'siding' as GalleryFilter },
+  { label: 'Gutters', image: serviceGutterImg.src, type: 'filter', filter: 'gutters' as GalleryFilter },
+  { label: 'Before-After', image: beforeAfterImg.src, type: 'link', href: '/before-and-after' },
+  { label: 'Case Studies', image: '/placeholders/projects/project-1.jpg', type: 'link', href: '/case-studies' },
+];
 ---
 
 <Layout title="Denver Roofing Portfolio | Black Knight Roofing">
@@ -119,7 +205,7 @@ const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage
   </div>
 
   <!-- Filters -->
-  <div class="relative px-0 py-0">
+  <div class="relative px-0 py-0" data-gallery-root>
     <Image
       src={sunFlow}
       alt="sun-flow"
@@ -137,14 +223,33 @@ const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage
           <div>Filter GALLERY By:</div>
         </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-white/24 p-1">
-          <div class="border-gradient h-[135px] w-[116px] shrink-0 rounded-xl bg-white/15"></div>
-          <div class="border-gradient h-[135px] w-[116px] shrink-0 rounded-xl bg-white/15"></div>
-          <div class="border-gradient h-[135px] w-[116px] shrink-0 rounded-xl bg-white/15"></div>
-          <div class="border-gradient h-[135px] w-[116px] shrink-0 rounded-xl bg-white/15"></div>
-          <div class="hidden h-[90px] w-px bg-white/15 md:block"></div>
-          <div class="border-radial h-[135px] w-[116px] shrink-0 rounded-xl bg-white/15"></div>
-          <div class="border-radial h-[135px] w-[116px] shrink-0 rounded-xl bg-white/15"></div>
+        <div class="flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-white/24 p-2">
+          {
+            galleryFilters.map((filter, index) => (
+              <>
+                {index === 4 && <div class="hidden h-[90px] w-px bg-white/15 md:block"></div>}
+                <a
+                  href={filter.type === 'filter' ? getFilterHref(filter.filter) : filter.href}
+                  aria-current={filter.type === 'filter' && activeFilter === filter.filter ? 'page' : undefined}
+                  data-gallery-filter={filter.type === 'filter' ? filter.filter : undefined}
+                  class:list={[
+                    'group relative block h-[135px] w-[116px] shrink-0 overflow-hidden rounded-xl text-left transition-transform duration-300 ease-out hover:-translate-y-1',
+                    filter.type === 'filter' && activeFilter === filter.filter ? 'border-radial' : 'border-gradient',
+                  ]}
+                >
+                  <img
+                    src={filter.image}
+                    alt={filter.label}
+                    class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div class="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent"></div>
+                  <div class="absolute inset-x-0 bottom-0 p-3">
+                    <div class="text-lg leading-tight font-medium text-white">{filter.label}</div>
+                  </div>
+                </a>
+              </>
+            ))
+          }
         </div>
       </div>
     </div>
@@ -153,17 +258,111 @@ const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage
   <!-- Gallery -->
   <NoiseBg class="px-0">
     <div class="container py-20">
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4" data-gallery-grid>
         {
-          displayedWorks.map(work => (
-            <WorkCard image={work.image} title={work.title} subtitle={work.subtitle} category={work.category} />
+          sortedWorks.map((work) => (
+            <div
+              data-gallery-card
+              data-work-id={work.id}
+              data-category={work.category.toLowerCase()}
+              class:list={[
+                'transition duration-300 ease-out will-change-transform',
+                visibleWorkIds.has(work.id) ? '' : 'hidden',
+              ]}
+            >
+              <WorkCard image={work.image} title={work.title} subtitle={work.subtitle} category={work.category} />
+            </div>
           ))
         }
       </div>
 
-      <!-- Pagination -->
-      <div class="mt-12 flex justify-center">
-        <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl="/gallery" />
+      <div
+        data-gallery-empty
+        class:list={[
+          'mx-auto max-w-3xl rounded-3xl border border-white/12 bg-white/4 px-8 py-14 text-center transition duration-300 ease-out',
+          hasResults ? 'hidden' : '',
+        ]}
+      >
+        <div class="text-primary text-sm font-semibold uppercase tracking-[0.24em]">Gallery Coming Soon</div>
+        <h2 class="mt-4 text-3xl font-semibold text-white sm:text-4xl" data-gallery-empty-title>
+          We&apos;re adding more {activeFilter} project examples.
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">
+          In the meantime, explore our before-and-after transformations or review full project stories in our case
+          studies.
+        </p>
+        <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a
+            href="/before-and-after"
+            class="inline-flex items-center justify-center rounded-full border border-primary/40 px-6 py-3 text-sm font-semibold text-white transition hover:border-primary hover:bg-primary hover:text-black"
+          >
+            View Before &amp; After
+          </a>
+          <a
+            href="/case-studies"
+            class="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-white/80 transition hover:border-white/40 hover:text-white"
+          >
+            Read Case Studies
+          </a>
+        </div>
+      </div>
+
+      <div
+        data-gallery-pagination
+        class:list={['mt-12 space-y-5', hasResults ? '' : 'hidden']}
+      >
+        <div class="flex flex-col items-center justify-center gap-2 text-center">
+          <div class="text-xs font-semibold uppercase tracking-[0.24em] text-white/45" data-gallery-count>
+            {filteredWorks.length} Projects
+          </div>
+          <div class="text-sm text-white/65" data-gallery-summary>
+            Page {currentPage} of {totalPages}
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-2">
+          <button
+            type="button"
+            data-gallery-prev
+            aria-label="Previous page"
+            class="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white/70 backdrop-blur-[16.5px] transition-all duration-300 hover:bg-white/20 hover:text-white disabled:pointer-events-none disabled:opacity-30"
+            disabled={currentPage <= 1}
+          >
+            <Icon name="chevron-left" class="size-5" />
+          </button>
+
+          <div class="flex flex-wrap items-center justify-center gap-2" data-gallery-pages>
+            {
+              Array.from({ length: totalPages }, (_, index) => {
+                const pageNumber = index + 1;
+                return (
+                  <button
+                    type="button"
+                    data-gallery-page={pageNumber}
+                    class:list={[
+                      'inline-flex h-11 min-w-11 items-center justify-center rounded-full border px-4 text-sm font-semibold transition',
+                      currentPage === pageNumber
+                        ? 'border-primary bg-primary text-black'
+                        : 'border-white/12 text-white/75 hover:border-white/35 hover:text-white',
+                    ]}
+                  >
+                    {pageNumber}
+                  </button>
+                );
+              })
+            }
+          </div>
+
+          <button
+            type="button"
+            data-gallery-next
+            aria-label="Next page"
+            class="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white/70 backdrop-blur-[16.5px] transition-all duration-300 hover:bg-white/20 hover:text-white disabled:pointer-events-none disabled:opacity-30"
+            disabled={currentPage >= totalPages}
+          >
+            <Icon name="chevron-right" class="size-5" />
+          </button>
+        </div>
       </div>
     </div>
   </NoiseBg>
@@ -179,4 +378,202 @@ const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage
   </div>
   <CTASection />
   <Footer />
+
+  <script
+    define:vars={{
+      sortedWorks,
+      itemsPerPage,
+      initialFilter: activeFilter,
+      initialPage: currentPage,
+    }}
+  >
+    const root = document.querySelector('[data-gallery-root]');
+
+    if (root) {
+      const cards = Array.from(document.querySelectorAll('[data-gallery-card]'));
+      const filterTiles = Array.from(root.querySelectorAll('[data-gallery-filter]'));
+      const emptyState = document.querySelector('[data-gallery-empty]');
+      const emptyTitle = document.querySelector('[data-gallery-empty-title]');
+      const paginationShell = document.querySelector('[data-gallery-pagination]');
+      const pagesContainer = document.querySelector('[data-gallery-pages]');
+      const prevButton = document.querySelector('[data-gallery-prev]');
+      const nextButton = document.querySelector('[data-gallery-next]');
+      const summary = document.querySelector('[data-gallery-summary]');
+      const count = document.querySelector('[data-gallery-count]');
+
+      const state = {
+        filter: initialFilter,
+        page: initialPage,
+      };
+
+      const works = sortedWorks.map((work) => ({
+        ...work,
+        category: work.category.toLowerCase(),
+      }));
+
+      const formatFilterLabel = (filter) =>
+        filter === 'featured' ? 'featured' : filter.charAt(0).toUpperCase() + filter.slice(1);
+
+      const getFilteredWorks = () =>
+        state.filter === 'featured' ? works : works.filter((work) => work.category === state.filter);
+
+      const getUrlForState = () => {
+        const url = new URL(window.location.href);
+        if (state.filter === 'featured') {
+          url.searchParams.delete('filter');
+        } else {
+          url.searchParams.set('filter', state.filter);
+        }
+
+        if (state.page <= 1) {
+          url.searchParams.delete('page');
+        } else {
+          url.searchParams.set('page', String(state.page));
+        }
+
+        return url;
+      };
+
+      const updateUrl = (mode = 'replace') => {
+        const url = getUrlForState();
+        window.history[mode === 'push' ? 'pushState' : 'replaceState']({}, '', `${url.pathname}${url.search}`);
+      };
+
+      const animateCards = (visibleCards) => {
+        visibleCards.forEach((card, index) => {
+          card.animate(
+            [
+              { opacity: 0, transform: 'translateY(18px) scale(0.985)' },
+              { opacity: 1, transform: 'translateY(0) scale(1)' },
+            ],
+            {
+              duration: 360,
+              delay: index * 45,
+              easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+              fill: 'both',
+            }
+          );
+        });
+      };
+
+      const updateFilterTiles = () => {
+        filterTiles.forEach((tile) => {
+          const isActive = tile.dataset.galleryFilter === state.filter;
+          tile.setAttribute('aria-current', isActive ? 'page' : 'false');
+          tile.classList.toggle('border-radial', isActive);
+          tile.classList.toggle('border-gradient', !isActive);
+          tile.classList.toggle('scale-[1.02]', isActive);
+        });
+      };
+
+      const renderPagination = (totalPages) => {
+        if (!pagesContainer || !prevButton || !nextButton || !summary || !count || !paginationShell) return;
+
+        pagesContainer.innerHTML = '';
+
+        prevButton.disabled = state.page <= 1;
+        nextButton.disabled = state.page >= totalPages;
+
+        for (let page = 1; page <= totalPages; page += 1) {
+          const pageButton = document.createElement('button');
+          pageButton.type = 'button';
+          pageButton.dataset.galleryPage = String(page);
+          pageButton.textContent = String(page);
+          pageButton.className =
+            'inline-flex size-10 items-center justify-center rounded-full text-sm font-medium backdrop-blur-[16.5px] transition-all duration-300';
+
+          if (page === state.page) {
+            pageButton.classList.add('border-radial', 'bg-[#0d0d0d]', 'text-white');
+          } else {
+            pageButton.classList.add('bg-white/10', 'text-white/70', 'hover:bg-white/20', 'hover:text-white');
+          }
+
+          pageButton.addEventListener('click', () => {
+            if (state.page === page) return;
+            state.page = page;
+            render({ pushHistory: true });
+          });
+
+          pagesContainer.append(pageButton);
+        }
+
+        const filteredWorks = getFilteredWorks();
+        const start = filteredWorks.length ? (state.page - 1) * itemsPerPage + 1 : 0;
+        const end = Math.min(state.page * itemsPerPage, filteredWorks.length);
+
+        count.textContent = `${filteredWorks.length} ${filteredWorks.length === 1 ? 'Project' : 'Projects'}`;
+        summary.textContent =
+          filteredWorks.length > 0 ? `Showing ${start}-${end} of ${filteredWorks.length}` : 'No projects yet';
+        paginationShell.classList.toggle('hidden', filteredWorks.length === 0);
+      };
+
+      const render = ({ pushHistory = false } = {}) => {
+        const filteredWorks = getFilteredWorks();
+        const totalPages = Math.max(1, Math.ceil(filteredWorks.length / itemsPerPage));
+        state.page = Math.min(Math.max(state.page, 1), totalPages);
+
+        const startIndex = (state.page - 1) * itemsPerPage;
+        const visibleIds = new Set(filteredWorks.slice(startIndex, startIndex + itemsPerPage).map((work) => work.id));
+        const visibleCards = [];
+
+        cards.forEach((card) => {
+          const isVisible = visibleIds.has(card.dataset.workId);
+          card.classList.toggle('hidden', !isVisible);
+          if (isVisible) {
+            visibleCards.push(card);
+          }
+        });
+
+        if (emptyState && emptyTitle) {
+          emptyState.classList.toggle('hidden', filteredWorks.length > 0);
+          emptyTitle.textContent = `We're adding more ${formatFilterLabel(state.filter)} project examples.`;
+        }
+
+        updateFilterTiles();
+        renderPagination(totalPages);
+        updateUrl(pushHistory ? 'push' : 'replace');
+
+        requestAnimationFrame(() => animateCards(visibleCards));
+      };
+
+      filterTiles.forEach((tile) => {
+        tile.addEventListener('click', (event) => {
+          event.preventDefault();
+          const nextFilter = tile.dataset.galleryFilter;
+          if (!nextFilter || nextFilter === state.filter) return;
+          state.filter = nextFilter;
+          state.page = 1;
+          render({ pushHistory: true });
+        });
+      });
+
+      prevButton?.addEventListener('click', () => {
+        if (state.page <= 1) return;
+        state.page -= 1;
+        render({ pushHistory: true });
+      });
+
+      nextButton?.addEventListener('click', () => {
+        const totalPages = Math.max(1, Math.ceil(getFilteredWorks().length / itemsPerPage));
+        if (state.page >= totalPages) return;
+        state.page += 1;
+        render({ pushHistory: true });
+      });
+
+      window.addEventListener('popstate', () => {
+        const url = new URL(window.location.href);
+        const nextFilter = url.searchParams.get('filter');
+        const nextPage = Number(url.searchParams.get('page') || '1');
+
+        state.filter = ['featured', 'roofing', 'siding', 'gutters'].includes(nextFilter || '')
+          ? nextFilter
+          : 'featured';
+        state.page = Number.isFinite(nextPage) && nextPage > 0 ? nextPage : 1;
+
+        render();
+      });
+
+      render();
+    }
+  </script>
 </Layout>
