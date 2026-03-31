@@ -29,34 +29,36 @@ import topFrmae from '@/assets/top-frame.avif';
 const financeSteps = [
   {
     image: step1,
-    step: 'Step 1',
-    title: 'Contact Our Team',
-    description: 'Get in touch with us by phone or fill out a form! Our customer service team is on standby.',
+    step: 'STEP 01',
+    title: '',
+    description: 'Apply in minutes with our trusted financing partner.',
   },
   {
     image: step2,
-    step: 'Step 2',
-    title: 'Schedule Inspection',
-    description: 'We will schedule a convenient time to inspect your roof and assess the project scope.',
+    step: 'STEP 02',
+    title: '',
+    description: 'Get approved instantly with flexible payment options.',
   },
   {
     image: step3,
-    step: 'Step 3',
-    title: 'Review Your Proposal',
-    description: 'Receive a detailed proposal outlining the work, timeline, and transparent pricing.',
+    step: 'STEP 03',
+    title: '',
+    description: 'Your roof gets done. You pay over time.',
   },
 ];
 ---
 
 <Layout title="Roofing Financing | Top Veteran Owned Roofing Company | Black Knight Roofing">
   <Navbar />
-  <Hero title="Flexible Roof Financing <br/> For All Your Needs" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
-    <p>
-      Your roof shouldn't wait because the timing isn't perfect. We work with Service Finance Company and Wisetack to
-      offer payment plans that fit real budgets — starting at $99/month, with no down payment required and no penalty if
-      you pay it off early.
-    </p>
-  </Hero>
+  <div id="hero-section">
+    <Hero title="Flexible Roof Financing <br/> For All Your Needs" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
+      <p>
+        Your roof shouldn't wait because the timing isn't perfect. We work with Service Finance Company and
+        Wisetack to offer payment plans that fit real budgets — starting at $99/month, with no down payment
+        required and no penalty if you pay it off early.
+      </p>
+    </Hero>
+  </div>
 
   <!-- Branding -->
   <div class="relative">
@@ -212,31 +214,34 @@ const financeSteps = [
     <div class="bg-primary pointer-events-auto w-full lg:rounded-lg shadow-[0_-10px_40px_rgba(0,0,0,0.15)] ring-1 ring-black/5 lg:ring-white/10 origin-bottom transition duration-200 ease-out lg:scale-[0.7] lg:hover:scale-100 lg:hover:shadow-[0_40px_60px_rgba(0,0,0,0.4)]">
       
       <!-- Mobile Layout -->
-      <div class="flex flex-col gap-6 px-6 py-8 lg:hidden">
-        <div class="flex items-center gap-5">
-          <div class="shrink-0 relative">
+      <div class="flex flex-col gap-4 px-6 pt-6 pb-6 lg:hidden">
+        <!-- Top row: image + text -->
+        <div class="flex items-center gap-6">
+          <div class="shrink-0">
             <Image
               src={CreditCardImage}
-              width={213}
-              height={115}
+              width={216}
+              height={116}
               alt="Credit Card"
-              class="w-[124px] h-auto drop-shadow-md"
+              class="w-[108px] h-[58px] object-cover drop-shadow-sm"
+              style="aspect-ratio: 54/29;"
             />
           </div>
-          <div class="flex flex-1 flex-col text-[#111]">
-            <h4 class="font-heading text-[22px] tracking-tight leading-[1.2]">Explore 0%* APR Financing for<br/>your project</h4>
-            <p class="text-[14px] opacity-80 mt-2">*0% interest for promotional period only</p>
+          <div class="flex flex-1 flex-col gap-2 text-[#000]">
+            <h4 style="font-family: 'Instrument Serif', serif; font-size: 20px; font-weight: 400; line-height: 28px; color: #000;">Explore 0%* APR Financing for your project</h4>
+            <p style="font-family: Manrope, sans-serif; font-size: 12px; font-weight: 400; line-height: 16px; color: #444;">*0% interest for promotional period only</p>
           </div>
         </div>
 
-        <div class="flex items-center justify-between w-full pt-1">
+        <!-- Bottom row: button + phone -->
+        <div class="flex items-center justify-between w-full">
           <Button
-            class="bg-white text-[#111] px-6 py-3.5 text-[15px] font-bold rounded-lg shadow-sm hover:bg-white ring-1 ring-black/5 active:scale-95 transition-transform"
+            class="bg-white text-[#111] px-5 py-2.5 text-sm font-semibold rounded-[4px] shadow-[0_2px_4px_rgba(0,0,0,0.08)] hover:bg-white active:scale-95 transition-transform"
           >
             See Options
           </Button>
-          <div class="flex items-center gap-2 text-[#111] font-medium text-lg">
-            <Icon name="phone" class="size-6" />
+          <div class="flex items-center gap-2 text-[#111] font-medium text-sm">
+            <Icon name="phone" class="size-5" />
             <span>(720) 805-9666</span>
           </div>
         </div>
@@ -276,7 +281,9 @@ const financeSteps = [
     </div>
   </div>
 
-  <Brands />
+  <div id="brands-section">
+    <Brands />
+  </div>
   <Footer />
 </Layout>
 
@@ -297,9 +304,17 @@ const financeSteps = [
       });
     }
 
+    const triggerSection = document.getElementById('hero-section');
+
+    const getThreshold = () => {
+      if (!triggerSection) return 300;
+      // Show when the top of the "Industry-Best Warranties & Financing" section hits the top of viewport.
+      return triggerSection.getBoundingClientRect().top + window.scrollY;
+    };
+
     const handleScroll = () => {
       if (isDismissed) return;
-      if (window.scrollY > 300) {
+      if (window.scrollY > getThreshold()) {
         banner.classList.remove('translate-y-[20px]', 'opacity-0');
         banner.classList.add('translate-y-0', 'opacity-100');
       } else {
