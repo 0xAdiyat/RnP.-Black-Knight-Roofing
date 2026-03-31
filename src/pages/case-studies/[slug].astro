@@ -4,13 +4,9 @@ import Navbar from '@/components/Navbar.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import Footer from '@/components/Footer.astro';
-import QuoteForm from '@/components/cta/QuoteForm.astro';
-import Testimonials from '@/components/Testimonials.astro';
-import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
 import NoiseBg from '@/components/NoiseBg.astro';
 import { Icon } from 'astro-icon/components';
 import Button from '@/components/ui/Button.astro';
-import RatingStars from '@/components/ui/RatingStars.astro';
 import { Image, getImage } from 'astro:assets';
 import sunFlow from '@/assets/sunflow.avif';
 import roofImage from '@/assets/roof.avif';
@@ -20,8 +16,9 @@ import step2 from '@/assets/steps/step-2.png';
 import step3 from '@/assets/steps/step-3.png';
 import step4 from '@/assets/steps/step-4.png';
 import ProjectSwiper from '@/components/case-study/ProjectSwiper.astro';
-import Hero from '@/components/hero/Hero.astro';
 import Hero2 from '@/components/hero/Hero2.astro';
+import EstimateButton from '@/components/EstimateButton.astro';
+import Breadcrumb from '@/components/ui/Breadcrumb.astro';
 
 const roofImgOp = await getImage({ src: roofImage });
 
@@ -147,14 +144,7 @@ const processSteps = [
     </p>
 
     <div class="flex items-center gap-x-4">
-      <Button variant="primary" size="lg">
-        <span class="text-xs">
-          $99/month roofs <br />
-          No repayment penalty</span
-        >
-        <span class="h-6 w-0.5 bg-[rgba(133,89,1,0.4)]"></span>
-        <span class="font-[var(--Font-Family-Text,Manrope)] text-center text-[14px] leading-[20px] font-bold text-[#111]">FREE Estimate</span>
-      </Button>
+      <EstimateButton />
     </div>
   </Hero2>
 
@@ -166,18 +156,15 @@ const processSteps = [
   <section class="bg-[#111] py-20">
     <div class="container overflow-visible">
       <!-- Breadcrumbs -->
-      <nav class="scrollbar-none mb-4 flex items-center gap-3 overflow-x-auto pb-2 text-sm whitespace-nowrap">
-        <div class="flex items-center gap-2 text-white/50">
-          <div class="bg-primary/20 flex size-5 items-center justify-center rounded-full">
-            <div class="bg-primary size-1.5 animate-pulse rounded-full shadow-[0_0_8px_rgba(242,199,68,0.8)]"></div>
-          </div>
-          <span>Roofing Company in Denver, CO</span>
-        </div>
-        <Icon name="chevron-right" class="size-4 text-white" />
-        <span class="text-white/50">Case Study</span>
-        <Icon name="chevron-right" class="size-4 text-white" />
-        <span class="text-white">{caseStudy.title}</span>
-      </nav>
+
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Case Studies', href: '/case-studies' },
+          { label: caseStudy.title, href: `/case-studies/${caseStudy.slug}` },
+        ]}
+        class="mb-4"
+      />
 
       <div class="flex flex-col items-start justify-between gap-12 lg:flex-row">
         <!-- Main Content -->
@@ -216,14 +203,14 @@ const processSteps = [
                 <div>
                   <div class="relative py-2 pl-6">
                     <div class="bg-primary absolute inset-y-0 left-0 w-0.5 rounded-full"></div>
-                    <p class="text-base leading-relaxed text-[#ccc]">
+                    <p class="text-left text-base leading-relaxed text-[#ccc]">
                       {caseStudy.summary}
                     </p>
                   </div>
 
                   <div class="relative py-2 pl-6">
                     <div class="bg-primary absolute inset-y-0 left-0 w-0.5 rounded-full"></div>
-                    <p class="text-base text-[#ccc]">
+                    <p class="text-left text-base text-[#ccc]">
                       <span class="font-bold text-white">Result:</span>
                       {caseStudy.resultSummary}
                     </p>
@@ -235,7 +222,7 @@ const processSteps = [
 
           <!-- Info Bar -->
           <div
-            class="via-primary relative mx-auto w-fit rounded-3xl bg-linear-to-r from-[#594216]/30 to-[#594216]/30 p-px"
+            class="via-primary relative mx-auto w-full rounded-3xl bg-linear-to-r from-[#594216]/30 to-[#594216]/30 p-px sm:w-fit"
           >
             <div
               class="border-primary/20 relative grid max-w-[787px] grid-cols-1 divide-y divide-white/10 overflow-hidden rounded-3xl border bg-[#1a1a1a] p-8 shadow-2xl sm:grid-cols-3 sm:divide-x sm:divide-y-0"
@@ -372,7 +359,7 @@ const processSteps = [
         <!-- Sidebar -->
         <aside class="w-full shrink-0 space-y-12 lg:sticky lg:top-32 lg:w-80">
           <!-- Table of Contents -->
-          <div class="space-y-6">
+          <div class="hidden space-y-6 lg:block">
             <div class="font-body text-xl font-bold text-white">Table of Contents</div>
             <nav class="flex flex-col gap-2 border-l border-white/20 pl-4">
               <a href="#the-customer" class="hover:text-primary py-1 text-[#ccc] transition-colors">01 — The Customer</a
