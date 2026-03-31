@@ -45,19 +45,19 @@ const textOrderClass = imagePosition === 'right' ? 'order-1' : 'order-2';
   />
 
   <div class="container py-10 lg:py-20">
-    <div class="grid grid-cols-1 items-center gap-y-8 md:grid-cols-2 lg:gap-12">
+    <div class="grid grid-cols-1 gap-y-8 md:grid-cols-2 md:items-stretch lg:gap-12">
       <!-- Image Content -->
-      <div class={imageOrderClass}>
+      <div class={cn('h-full', imageOrderClass)}>
         {
           typeof image === 'string' ? (
-            <img src={image} alt={imageAlt} class="h-[400px] w-full rounded-lg object-cover" />
+            <img src={image} alt={imageAlt} class="h-full w-full rounded-lg object-cover" />
           ) : (
             <Image
               src={image}
               alt={imageAlt}
               width={600}
               height={400}
-              class="h-[400px] w-full rounded-lg object-cover"
+              class="h-full w-full rounded-lg object-cover"
             />
           )
         }
@@ -85,7 +85,10 @@ const textOrderClass = imagePosition === 'right' ? 'order-1' : 'order-2';
 
           {
             description && (
-              <p class="text-neutral-lighter text-sm leading-relaxed font-normal lg:text-base">{description}</p>
+              <div
+                class="text-neutral-lighter prose text-sm leading-relaxed font-normal lg:text-base"
+                set:html={description}
+              />
             )
           }
 
