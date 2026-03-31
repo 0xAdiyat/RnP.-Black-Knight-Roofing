@@ -57,7 +57,7 @@ const headline = await marked.parse(rawHeadline);
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           <ServiceCard
             title="Siding"
-            description="We install durable, beautiful siding—vinyl and steel options available—to protect and refresh your home's exterior."
+            description="We install durable vinyl and steel siding — authorized Westlake Royal products, built to handle Colorado’s hail and UV."
             image={serviceRoofingImg}
             imageAlt="Siding"
             buttons={[
@@ -81,7 +81,7 @@ const headline = await marked.parse(rawHeadline);
 
           <ServiceCard
             title="Gutters"
-            description="Properly installed gutters protect your foundation and landscaping. We handle seamless systems and gutter guards."
+            description="Properly installed gutters protect your foundation and landscaping — keeping water moving away from your home through every Colorado winter."
             image={serviceGuttersImg}
             imageAlt="Gutters"
             buttons={[
@@ -95,30 +95,32 @@ const headline = await marked.parse(rawHeadline);
         <div class="border-radial w-full max-w-[950px] rounded-3xl">
           <div class="grid grid-cols-1 gap-6 rounded-3xl p-2 lg:grid-cols-2 lg:gap-x-3">
             <div class="relative h-full">
-              <Image src={popularBadge} alt="Popular" class="absolute top-2 left-2 z-10 w-16 lg:w-20" />
+              <Image src={popularBadge} alt="Popular" class="absolute top-2 left-2 z-10 w-20 lg:w-24" />
               <ServiceCard
-                title="Concrete Tile Roofs"
-                description="A premium roofing upgrade for homeowners who want standout curb appeal and serious durability. Concrete tile delivers exceptional longevity, wind resistance, and curb appeal — built to last 50+ years."
-                image={serviceRoofImg}
-                imageAlt="Concrete Tile Roofs"
+                title="Stone Coated Roofing"
+                description="We install stone-coated steel panels that replicate the look of shake or tile — with a 50-year warranty, Class 4 hail protection warranted to 2½” diameter, and 120 mph wind resistance built for Colorado’s Front Range."
+                image={serviceRoofShade}
+                imageAlt="Stone Coated Roofing"
                 buttons={[
-                  { label: 'Concrete Tile Roofs', href: '/services/tile-roofing' },
-                  { label: 'Free Estimate', href: '/contact-us' },
+                  '+ 50-Year Limited Warranty',
+                  '+ 120 MPH Wind Rated',
+                  '+ Class 4 Impact Rated',
                 ]}
                 class="border-gradient h-full min-h-[480px] w-full"
               />
             </div>
 
             <div class="relative h-full">
-              <Image src={popularBadge} alt="Popular" class="absolute top-2 left-2 z-10 w-16 lg:w-20" />
+              <Image src={popularBadge} alt="Popular" class="absolute top-2 left-2 z-10 w-20 lg:w-24" />
               <ServiceCard
-                title="Stone Coated Roofing"
-                description="We offer stone-coated steel which gives you the strength of metal with the finished look of a premium roof."
-                image={serviceRoofShade}
-                imageAlt="Stone Coated Steel"
+                title="Concrete Tile Roofs"
+                description="We install Newpoint™ concrete tile roofs that bring architectural permanence to Colorado homes — with a fully transferable lifetime warranty, Class A fire rating, and 50–100 year performance potential."
+                image={serviceRoofImg}
+                imageAlt="Concrete Tile Roofs"
                 buttons={[
-                  { label: 'Stone Coated Steel', href: '/services/metal-roofing' },
-                  { label: 'Free Estimate', href: '/contact-us' },
+                  '+ Limited Lifetime Warranty',
+                  '+ Class A Fire Rated',
+                  '+ Class 3 & 4 Hail Options',
                 ]}
                 class="border-gradient h-full min-h-[480px]"
               />
@@ -128,16 +130,17 @@ const headline = await marked.parse(rawHeadline);
       </div>
 
       <div class="grid grid-cols-1 gap-6 pt-12 pb-16 lg:grid-cols-2 lg:gap-3 lg:pt-16">
-        <div class="border-radial space-y-3 rounded-[10px] p-6">
-          <div class="flex items-center gap-x-2.5">
-            <Icon name="storm" class="text-primary size-10" />
-            <span class="text-xl"> Storm Damage Repair </span>
+        <div class="border-radial flex h-full flex-col rounded-[10px] p-6">
+          <div class="space-y-3">
+            <div class="flex items-center gap-x-2.5">
+              <Icon name="storm" class="text-primary size-10" />
+              <span class="text-xl"> Storm Damage Repair </span>
+            </div>
+            <div class="pb-3">
+              After a hail storm, most homeowners don't know what they're owed. We document the damage, coordinate with your adjuster, and handle the paperwork — so you get the roof you deserve.
+            </div>
           </div>
-          <div class="pb-3">
-            After a hail storm, most homeowners don't know what they're owed. We document the damage, coordinate with your adjuster, and handle the paperwork — so you get the roof you deserve.
-          </div>
-
-          <Button variant="link" class="px-0" href="/services/storm-damage-repair">
+          <Button variant="link" class="mt-auto self-start px-0 pt-6 underline underline-offset-4" href="/services/storm-damage-repair">
             <svg width="13" height="16" viewBox="0 0 13 16" fill="none">
               <path
                 d="M12.361 8.27675L0.503906 14.866C0.367002 14.9434 0.249442 14.9523 0.151228 14.8928C0.0530134 14.8333 0.00390625 14.7262 0.00390625 14.5714V1.42853C0.00390625 1.27377 0.0530134 1.16663 0.151228 1.10711C0.249442 1.04758 0.367002 1.05651 0.503906 1.13389L12.361 7.72318C12.498 7.80056 12.5664 7.89282 12.5664 7.99996C12.5664 8.10711 12.498 8.19937 12.361 8.27675Z"
@@ -148,17 +151,18 @@ const headline = await marked.parse(rawHeadline);
           </Button>
         </div>
 
-        <div class="border-radial space-y-3 rounded-[10px] p-6">
-          <div class="flex items-center gap-x-2.5">
-            <Icon name="calculate-doller" class="text-primary size-10" />
-            <span class="text-xl"> Flexible Financing </span>
+        <div class="border-radial flex h-full flex-col rounded-[10px] p-6">
+          <div class="space-y-3">
+            <div class="flex items-center gap-x-2.5">
+              <Icon name="calculate-doller" class="text-primary size-10" />
+              <span class="text-xl"> Flexible Financing </span>
+            </div>
+            <div class="pb-3">
+              Choose 0% promotional financing, fixed APR options, or long-term plans through Service Finance and Wisetack.
+              Premium roof upgrades from as low as $99 per month.
+            </div>
           </div>
-          <div class="pb-3">
-            Choose 0% promotional financing, fixed APR options, or long-term plans through Service Finance and Wisetack.
-            Premium roof upgrades from as low as $99 per month.
-          </div>
-
-          <Button variant="link" class="px-0" href="/services/storm-damage-repair">
+          <Button variant="link" class="mt-auto self-start px-0 pt-6 underline underline-offset-4" href="/services/storm-damage-repair">
             <svg width="13" height="16" viewBox="0 0 13 16" fill="none">
               <path
                 d="M12.361 8.27675L0.503906 14.866C0.367002 14.9434 0.249442 14.9523 0.151228 14.8928C0.0530134 14.8333 0.00390625 14.7262 0.00390625 14.5714V1.42853C0.00390625 1.27377 0.0530134 1.16663 0.151228 1.10711C0.249442 1.04758 0.367002 1.05651 0.503906 1.13389L12.361 7.72318C12.498 7.80056 12.5664 7.89282 12.5664 7.99996C12.5664 8.10711 12.498 8.19937 12.361 8.27675Z"
