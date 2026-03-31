@@ -11,6 +11,7 @@ import NavbarItemPopoverLink from './navbar/NavbarItemPopoverLink.astro';
 import MobileStickyNav from './MobileStickyNav.astro';
 import MobileMenu from './navbar/MobileMenu.astro';
 import ServiceNavView from './services/ServiceNavView.astro';
+import EstimateButton from './EstimateButton.astro';
 
 const optimizedNoise = await getImage({ src: noises, width: 100, height: 100, format: 'avif' });
 const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100, format: 'avif' });
@@ -297,15 +298,16 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
         </ul>
 
         <div class="ml-3 shrink-0">
-          <Button
+          <EstimateButton
             href="/financing"
             size="sm"
             class="bg-primary rounded-[4px] px-[18px] py-3 font-bold transition-all hover:shadow-[0_0_20px_rgba(242,199,68,0.3)]"
-          >
-            <span class="text-sm font-bold text-[#1a1a1a]">
-              Get <span class="text-base font-extrabold">FREE</span> Roof Estimate</span
-            >
-          </Button>
+            data-estimate-trigger
+            showDivider={false}
+            offerText=""
+            actionText="Get **FREE** Roof Estimate"
+            actionClass="text-sm font-bold text-[#1a1a1a]"
+          />
         </div>
       </div>
     </nav>
