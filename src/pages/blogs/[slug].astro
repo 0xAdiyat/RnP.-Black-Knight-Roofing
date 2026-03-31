@@ -541,7 +541,7 @@ const pageTitle = `${blog.title} | Black Knight Roofing`;
 
 <Layout title={pageTitle}>
   <Navbar />
-  <Hero title={blog.title} subtitle="Colorado's #1 Veteran-Owned Roofing Company">
+  <Hero title={blog.title} subtitle="Colorado's #1 Veteran-Owned Roofing Company" hasEstimateButton={false}>
     <div class="mb-8 space-y-4">
       <div
         class="text-primary flex flex-wrap items-center gap-3 border-b border-white/50 pb-4 text-sm font-medium tracking-[0.18em] uppercase"
@@ -568,32 +568,6 @@ const pageTitle = `${blog.title} | Black Knight Roofing`;
         </div>
       </div>
     </div>
-
-    <Fragment slot="social-proof">
-      <div class="flex items-center gap-x-4 pr-4">
-        <Icon name="google-logo" size={32} />
-        <div>
-          40+ Five-Star <br />
-          Google Reviews
-        </div>
-      </div>
-
-      <div class="flex items-center gap-x-4 px-4">
-        <Icon name="facebook-logo" size={32} />
-        <div>
-          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
-          <span class="text-sm font-bold"> 5.0 Rating </span>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-x-4 pl-4">
-        <Icon name="google-logo" size={32} />
-        <div>
-          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
-          <span class="text-sm font-bold"> 5.0 Rating </span>
-        </div>
-      </div>
-    </Fragment>
   </Hero>
 
   <!-- Branding -->
@@ -615,22 +589,8 @@ const pageTitle = `${blog.title} | Black Knight Roofing`;
               { label: 'Blog', href: '/blogs' },
               { label: blog.title },
             ]}
+            class="mb-10"
           />
-
-          <header class="mb-8 space-y-4">
-            <div
-              class="text-primary flex flex-wrap items-center gap-3 text-[11px] font-medium tracking-[0.18em] uppercase"
-            >
-              <span>{blog.category}</span>
-              <span class="h-1 w-1 rounded-full bg-white/30"></span>
-              <span class="tracking-normal text-white/45 normal-case">{blog.date}</span>
-              <span class="h-1 w-1 rounded-full bg-white/30"></span>
-              <span class="tracking-normal text-white/45 normal-case">{blog.readTime}</span>
-            </div>
-            <h1 class="max-w-4xl text-3xl leading-tight font-semibold tracking-tight text-white md:text-[2.65rem]">
-              {blog.title}
-            </h1>
-          </header>
 
           <section
             class="mb-10 rounded-[18px] border border-white/10 bg-[#111111] shadow-[0_14px_40px_rgba(0,0,0,0.22)]"
@@ -762,8 +722,8 @@ const pageTitle = `${blog.title} | Black Knight Roofing`;
 
         <aside class="min-w-0">
           <div class="sticky top-28 space-y-8">
-            <section>
-              <h2 class="text-lg font-semibold text-white">Table of Contents</h2>
+            <section class="hidden lg:block">
+              <h2 class="font-body text-lg font-semibold text-white">Table of Contents</h2>
               <nav class="mt-4 border-l border-white/12 pl-4">
                 {
                   blog.sections.map(section => (
@@ -790,8 +750,8 @@ const pageTitle = `${blog.title} | Black Knight Roofing`;
                 <div class="absolute inset-0 bg-linear-to-b from-black/70 via-black/70 to-black/85"></div>
               </div>
 
-              <div class="relative space-y-8 p-5">
-                <div>
+              <div class="relative flex h-[400px] flex-col justify-between gap-y-4 p-5">
+                <div class="h-full flex-1">
                   <h3 class="font-heading text-primary text-[2.35rem] leading-[0.92] font-normal">
                     Need Help? Call Us Now
                   </h3>
@@ -800,17 +760,24 @@ const pageTitle = `${blog.title} | Black Knight Roofing`;
                   </p>
                 </div>
 
-                <div class="border-primary/20 rounded-[10px] border bg-black/45 p-4">
-                  <div class="text-[10px] font-semibold tracking-[0.14em] text-white/45 uppercase">Give us a call</div>
-                  <div class="mt-3 flex items-center gap-3">
+                <div class="rounded-[10px]">
+                  <div class="flex items-center gap-3">
                     <div class="bg-primary flex size-11 shrink-0 items-center justify-center rounded-full text-black">
                       <Icon name="call" class="size-5" />
                     </div>
-                    <a href="tel:7208059666" class="font-heading text-primary text-[2rem] leading-none font-normal">
-                      (720) 805-9666
-                    </a>
+                    <div>
+                      <div class="text-[10px] font-semibold tracking-[0.14em] text-white/45 uppercase">
+                        Give us a call
+                      </div>
+
+                      <a href="tel:7208059666" class="font-heading text-primary text-[2rem] leading-none font-normal">
+                        (720) 805-9666
+                      </a>
+                    </div>
                   </div>
                 </div>
+
+                <div class="via-primary h-px w-full bg-linear-to-r from-transparent to-transparent"></div>
 
                 <div class="text-center text-[12px] leading-5 text-white/45">
                   <div>Check Availability</div>

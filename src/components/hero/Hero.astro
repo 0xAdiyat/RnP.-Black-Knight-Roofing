@@ -21,6 +21,7 @@ interface Props {
   class?: string;
   hasQuoteForm?: boolean;
   hasSocialProof?: boolean;
+  hasEstimateButton?: boolean;
 }
 
 const {
@@ -31,6 +32,7 @@ const {
   class: className,
   hasQuoteForm = true,
   hasSocialProof = true,
+  hasEstimateButton = true,
 } = Astro.props;
 
 const heroBgSrc =
@@ -86,7 +88,7 @@ const heroBgSrc =
 
                 <div>
                   <h1
-                    class="font-heading text-4xl leading-tight font-normal lg:text-[4rem] lg:leading-16"
+                    class="font-heading max-w-xl text-4xl leading-tight font-normal lg:text-[4rem] lg:leading-16"
                     set:html={title}
                   />
                 </div>
@@ -94,14 +96,18 @@ const heroBgSrc =
 
               <slot />
 
-              <div class="flex flex-col items-center gap-4 sm:flex-row sm:gap-x-6">
-                <EstimateButton />
+              {
+                hasEstimateButton && (
+                  <div class="flex flex-col items-center gap-4 sm:flex-row sm:gap-x-6">
+                    <EstimateButton />
 
-                <Button variant="link">
-                  <Icon name="map" />
-                  See Our Past Work
-                </Button>
-              </div>
+                    <Button variant="link">
+                      <Icon name="map" />
+                      See Our Past Work
+                    </Button>
+                  </div>
+                )
+              }
             </div>
 
             {

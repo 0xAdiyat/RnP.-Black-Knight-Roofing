@@ -13,7 +13,8 @@ interface Props {
 const { image, date, readTime, title, description } = Astro.props;
 ---
 
-<div
+<a
+  href="#"
   class="group hover:border-primary/50 flex flex-col items-start overflow-hidden rounded-2xl border border-white/5 bg-radial-[50%_50%_at_50%_50%,rgba(48,48,48,0)_0%,rgba(48,48,48,0.54)_100%] transition-all duration-300"
 >
   <div class="relative aspect-video w-full overflow-hidden">
@@ -47,13 +48,12 @@ const { image, date, readTime, title, description } = Astro.props;
       </p>
 
       <div class="pt-2">
-        <a
-          href="#"
+        <span
           class="inline-block border-b border-white text-base font-semibold text-white transition-colors hover:border-white hover:text-white"
         >
           Read More
-        </a>
+        </span>
       </div>
     </div>
   </div>
-</div>
+</a>
