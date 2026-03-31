@@ -137,9 +137,9 @@ const mobileStackServices = [
 
       <!-- Services -->
       <div class="flex flex-col items-center space-y-8 px-4 md:space-y-12 lg:space-y-16 lg:px-16">
-        <div class="w-full overflow-x-hidden md:hidden">
-          <div class="flex w-full flex-col items-center gap-y-4 overflow-x-hidden">
-            <services-cards-stack class="services-cards-stack swiper block w-full max-w-[320px] overflow-hidden">
+        <div class="services-stack-shell w-full md:hidden">
+          <div class="flex w-full flex-col items-center gap-y-4">
+            <services-cards-stack class="services-cards-stack swiper block w-full max-w-[292px]">
               <div class="swiper-wrapper">
                 {
                   mobileStackServices.map(service => (
@@ -334,6 +334,10 @@ const mobileStackServices = [
         effect: 'cards',
         grabCursor: true,
         initialSlide: 0,
+        touchStartPreventDefault: false,
+        touchMoveStopPropagation: false,
+        touchReleaseOnEdges: true,
+        threshold: 8,
         cardsEffect: {
           perSlideOffset: 10,
           perSlideRotate: 0,
@@ -358,6 +362,15 @@ const mobileStackServices = [
 </script>
 
 <style>
+  .services-stack-shell {
+    overflow-x: clip;
+  }
+
+  .services-cards-stack {
+    overflow: visible;
+    touch-action: pan-y;
+  }
+
   .services-cards-stack .swiper-wrapper {
     min-height: 430px;
   }
