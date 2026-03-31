@@ -3,11 +3,12 @@ import { cn } from '@/lib/utils';
 
 interface Props {
   question: string;
-  answer: string;
+  answer: string | string[];
   open?: boolean;
 }
 
 const { question, answer, open = false } = Astro.props;
+const paragraphs = Array.isArray(answer) ? answer : [answer];
 ---
 
 <faq-item
@@ -45,8 +46,8 @@ const { question, answer, open = false } = Astro.props;
       </div>
     </button>
     <div class="faq-answer">
-      <div class="pt-4 text-sm leading-relaxed text-white/60">
-        {answer}
+      <div class="space-y-3 pt-4 text-sm leading-relaxed text-white/60">
+        {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
       </div>
     </div>
   </div>
@@ -60,7 +61,7 @@ const { question, answer, open = false } = Astro.props;
   }
 
   faq-item[data-open='true'] .faq-answer {
-    max-height: 500px;
+    max-height: 1000px;
   }
 
   faq-item[data-open='true'] .faq-icon-vertical {
@@ -101,5 +102,7 @@ const { question, answer, open = false } = Astro.props;
     }
   }
 
-  customElements.define('faq-item', FaqItem);
+  if (!customElements.get('faq-item')) {
+    customElements.define('faq-item', FaqItem);
+  }
 </script>
