@@ -32,6 +32,7 @@ import ComparisonSection from '@/components/services/ComparisonSection.astro';
 import ComparisonTable from '@/components/services/ComparisonTable.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
+import sunflow from '@/assets/sunflow.avif';
 
 const roofingMaterials = [
   {
@@ -88,12 +89,13 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero title="Residential Roofing in Denver, CO" subtitle="Residential Roofing Services">
+  <Hero title="Colorado's Premiere Metal Roofing Company" subtitle="Metal Roofing In Colorado">
     <p class="text-sm">
-      From roof repairs and full replacements to premium upgrades, Black Knight Roofing helps Colorado homeowners choose
-      the right residential roofing system for protection, curb appeal, and long-term value. We install asphalt
-      shingles, metal roofing, flat roofing, tile, stone-coated steel, and concrete tile systems from Colorado Springs
-      to Fort Collins.
+      At Black Knight Roofing, we specialize in durable metal roofing designed to withstand Colorado's harsh
+      conditions—intense UV, hail, high winds, and freeze-thaw cycles. Unlike asphalt shingles, metal roofs last 40-70
+      years, resist damage, shed snow, and cut cooling costs by up to 25%. As a Metal Roofing Alliance member, we
+      install standing seam and exposed fastener systems backed by a lifetime workmanship warranty for homes and
+      businesses across Colorado.
     </p>
   </Hero>
 
@@ -103,29 +105,38 @@ const processSteps = [
   </div>
 
   <!-- Service Details -->
-  <NoiseBg class="px-0 py-0">
-    <div class="container py-8 lg:py-20">
+  <NoiseBg class="relative px-0 py-0">
+    <Image
+      src={sunflow}
+      alt="Sun Flow"
+      width={sunflow.width}
+      height={sunflow.height}
+      class="pointer-events-none absolute inset-x-0 top-0 left-0 opacity-10"
+    />
+
+    <div class="z-10 container py-8 lg:py-20">
       <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:items-stretch">
         <!-- Left contents -->
         <div class="space-y-8 py-8">
           <div class="flex-1 space-y-4">
-            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Residential Roofing' }]} />
+            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Metal Roofing Services' }]} />
 
             <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
-              Repairs vs. Replacement: Which Is Right For You?
+              Top-Quality Metal Roofing with Westlake Royal Products
             </h2>
 
             <p class="text-sm lg:text-base">
-              When you're dealing with a roofing issue, it can feel overwhelming, especially when you do not know what
-              to expect. We help you understand the difference between repairs and replacements, and when each one makes
-              the most sense. In many cases, you might be surprised by what can be repaired, which can save you time and
-              money. And when it is time for a new roofing system, we are here to guide you toward the right product and
-              install it with care.
+              Metal roofing comes in two main types: standing seam and exposed fastener. Standing seam panels lock
+              together with hidden screws, offering a sleek look, weatherproof surface, and last 50–70 years with little
+              upkeep. Exposed fastener panels have visible screws, cost less, install faster, and last 20–35 years with
+              some maintenance. We use materials from Westlake Royal, designed for tough Colorado conditions. Both types
+              beat asphalt shingles in durability and weather resistance. We'll help you pick the best option for your
+              home and budget.
             </p>
           </div>
 
           <Button class="px-8 py-4 text-base">
-            <span> <strong> FREE </strong> Roof Estimate </span>
+            <span> <strong> FREE </strong> Estimate </span>
           </Button>
         </div>
 
@@ -148,19 +159,17 @@ const processSteps = [
   <Testimonials />
 
   <WhyChooseUs
-    badgeText="Expert Quality & Care"
-    title="Residential Roofing in Denver, CO"
-    description="Your roof should do more than keep water out. It should fit the look of your home, hold up to Colorado weather, and add lasting value without hidden fees or corner-cutting. Black Knight Roofing brings builder-level oversight, straightforward pricing, and residential roofing guidance that helps you feel good about the result long after the crew leaves."
+    badgeText="Why Choose Us"
+    title="Proudly Serving Colorado Residents — With Westlake  Royal Products"
+    description="<p>Most roofers can install asphalt shingles, but metal roofing needs special skills and precise work. It requires correct fastener placement, thermal expansion handling, proper underlayment, and careful panel checks. Poor installation can cause leaks and damage, but done right, a metal roof lasts a lifetime. As a Metal Roofing Alliance member and authorized Westlake Royal installer, we meet high standards and offer a lifetime workmanship warranty.</p> <p> We act as licensed general contractors, inspecting your roof’s structure, pitch, decking, ventilation, and drainage before recommending a system. A metal roof over damaged decking or poor ventilation won’t perform well. We handle everything: tear-off, deck repair, installation, and final inspection. Plus, financing options start at $99/month through Service Finance Company and Wisetack. </p>"
     image="/placeholders/thumbnails/residential-2.png"
-    buttonText="FREE Roof Estimate"
+    buttonText="Get FREE Metal Roofing Estimate"
     imagePosition="left"
   />
 
   <div class="via-primary container h-px bg-linear-to-r from-transparent to-transparent lg:hidden"></div>
 
   <Process steps={processSteps} />
-  <OtherServicesCarousel />
-  <PopularRoofingMaterials materials={roofingMaterials} />
   <RecentProjects />
   <ServiceAreas />
   <Faqs />

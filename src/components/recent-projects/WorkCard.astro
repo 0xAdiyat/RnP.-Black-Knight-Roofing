@@ -14,7 +14,7 @@ interface Props {
 const { image, title, subtitle, category } = Astro.props;
 ---
 
-<div class="relative overflow-hidden rounded-2xl">
+<div class="relative h-[387px] overflow-hidden rounded-2xl">
   {
     typeof image === 'string' ? (
       <Image src={image} alt={title} width={358} height={387} class="h-full w-full rounded-2xl object-cover" />

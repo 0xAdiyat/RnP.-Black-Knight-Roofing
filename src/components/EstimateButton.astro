@@ -1,4 +1,6 @@
 ---
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 import Button from '@/components/ui/Button.astro';
 import type { ButtonVariants } from '@/components/ui/button.variants';
 
@@ -15,28 +17,55 @@ interface Props extends ButtonVariants {
 }
 
 const {
-  offerText = "$99/month roofs <br /> No repayment penalty",
-  actionText = "<strong> FREE </strong> Estimate",
-  variant = "primary",
-  size = "lg",
-  class: className = "text-base font-bold",
+  offerText = '$99/month roofs <br /> No repayment penalty',
+  actionText = '<strong> FREE </strong> Estimate',
+  variant = 'primary',
+  size = 'lg',
+  class: className = 'text-base font-bold',
   showDivider = true,
-  offerColor = "text-[#855901]",
-  dividerColor = "bg-[rgba(133,89,1,0.4)]",
-  offerClass = "text-center text-[10px] leading-[1.2]",
-  actionClass = "",
+  offerColor = 'text-[#855901]',
+  dividerColor = 'bg-[rgba(133,89,1,0.4)]',
+  offerClass = 'text-center text-[10px] leading-[1.2]',
+  actionClass = '',
   ...rest
 } = Astro.props;
+
+// Process markdown (marked.parseInline for one-line button text)
+// DOMPurify typically requires a DOM window (jsdom) in SSR environments.
+// If it fails on the server, we gracefully fall back to marked only.
+const processMarkdown = (text: string) => {
+  if (!text) return '';
+  const html = marked.parseInline(text) as string;
+  try {
+    // If we're in a browser or have a DOM, use sanitize.
+    // In plain Astro/Node, this might be a no-op or throw if not initialized.
+    if (typeof window !== 'undefined') {
+        return DOMPurify.sanitize(html);
+    }
+    return html;
+  } catch (e) {
+    return html;
+  }
+};
+
+const processedOffer = processMarkdown(offerText);
+const processedAction = processMarkdown(actionText);
 ---
 
-<Button variant={variant} size={size} class={className} {...rest}>
+<Button
+  variant={variant}
+  size={size}
+  class={className}
+  data-estimate-trigger
+  {...rest}
+>
   {offerText && (
-    <span class:list={[offerClass, offerColor]} set:html={offerText} />
+    <span class:list={[offerClass, offerColor]} set:html={processedOffer} />
   )}
   {showDivider && offerText && actionText && (
     <span class:list={["h-6 w-0.5", dividerColor]}></span>
   )}
   {actionText && (
-    <span class:list={[actionClass]} set:html={actionText} />
+    <span class:list={[actionClass]} set:html={processedAction} />
   )}
 </Button>

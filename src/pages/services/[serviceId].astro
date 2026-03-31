@@ -32,12 +32,10 @@ import PopularRoofingMaterials from '@/components/services/PopularRoofingMateria
 import ComparisonSection from '@/components/services/ComparisonSection.astro';
 import ComparisonTable from '@/components/services/ComparisonTable.astro';
 
-
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
 import Carousel from '@/components/ui/Carousel.astro';
 import CarouselSlide from '@/components/ui/CarouselSlide.astro';
-
 
 const roofingMaterials = [
   {
@@ -120,28 +118,6 @@ const otherServices = services.filter(s => s.slug !== service.slug).slice(0, 3);
       storm restoration, gutters, siding, windows, and premium roofing systems like stone-coated steel and concrete
       tile.
     </p>
-
-    <div class="flex flex-col items-center gap-4 sm:flex-row sm:gap-x-6">
-      <Button variant="primary" size="lg" class="text-base font-bold">
-        <span class="text-center text-[10px] text-[#855901]">
-          $99/month roofs <br />
-          No repayment penalty</span
-        >
-        <span class="h-6 w-0.5 bg-[rgba(133,89,1,0.4)]"></span>
-        <span> <strong> FREE </strong> Estimate</span>
-      </Button>
-
-      <Button variant="link">
-        <Icon name="map" />
-        See Our Past Work
-      </Button>
-    </div>
-
-    <Fragment slot="social-proof">
-      <SocialProof />
-    </Fragment>
-
-    <QuoteForm slot="sidebar" />
   </Hero>
 
   <div class="relative">
@@ -150,8 +126,16 @@ const otherServices = services.filter(s => s.slug !== service.slug).slice(0, 3);
   </div>
 
   <!-- Service Details -->
-  <NoiseBg class="px-0 py-0">
-    <div class="container py-8 lg:py-20">
+  <NoiseBg class="relative px-0 py-0">
+    <Image
+      src={sunflow}
+      alt="Sun Flow"
+      width={sunflow.width}
+      height={sunflow.height}
+      class="pointer-events-none absolute inset-x-0 top-0 left-0 opacity-10"
+    />
+
+    <div class="z-10 container py-8 lg:py-20">
       <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
         <!-- Left contents -->
         <div class="space-y-8 py-8">
@@ -210,24 +194,22 @@ const otherServices = services.filter(s => s.slug !== service.slug).slice(0, 3);
         spaceBetween={20}
         breakpoints={{
           640: { slidesPerView: 2.5 },
-          1024: { slidesPerView: 4 }
+          1024: { slidesPerView: 4 },
         }}
       >
         {
-          services
-            .slice(0, 8)
-            .map(s => (
-              <CarouselSlide>
-                <ServiceCard
-                  image={s.image}
-                  title={s.title}
-                  description={s.description}
-                  icon={s.icon}
-                  tags={s.tags}
-                  href={`/services/${s.slug}`}
-                />
-              </CarouselSlide>
-            ))
+          services.slice(0, 8).map(s => (
+            <CarouselSlide>
+              <ServiceCard
+                image={s.image}
+                title={s.title}
+                description={s.description}
+                icon={s.icon}
+                tags={s.tags}
+                href={`/services/${s.slug}`}
+              />
+            </CarouselSlide>
+          ))
         }
       </Carousel>
     </div>

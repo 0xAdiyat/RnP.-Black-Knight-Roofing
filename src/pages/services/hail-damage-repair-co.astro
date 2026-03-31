@@ -88,12 +88,12 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero title="Residential Roofing in Denver, CO" subtitle="Residential Roofing Services">
+  <Hero title="A Home Exterior That Can Weather Any Storm" subtitle="Storm Damage Repair Services in Colorado">
     <p class="text-sm">
-      From roof repairs and full replacements to premium upgrades, Black Knight Roofing helps Colorado homeowners choose
-      the right residential roofing system for protection, curb appeal, and long-term value. We install asphalt
-      shingles, metal roofing, flat roofing, tile, stone-coated steel, and concrete tile systems from Colorado Springs
-      to Fort Collins.
+      The Front Range lies in "hail alley," a top U.S. hail zone. Colorado ranks second for hail insurance claims, with
+      storms April to September dropping hail from pea to golf ball size. Damage like bruised shingles and bent flashing
+      often goes unseen until leaks form. Black Knight Roofing inspects and repairs storm damage properly, working with
+      your insurance adjuster to ensure you get the coverage you deserve.
     </p>
   </Hero>
 
@@ -109,35 +109,36 @@ const processSteps = [
         <!-- Left contents -->
         <div class="space-y-8 py-8">
           <div class="flex-1 space-y-4">
-            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Residential Roofing' }]} />
+            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Storm Damage Repair' }]} />
 
             <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
-              Repairs vs. Replacement: Which Is Right For You?
+              You Don't Have To Navigate the Insurance Process On Your Own!
             </h2>
 
             <p class="text-sm lg:text-base">
-              When you're dealing with a roofing issue, it can feel overwhelming, especially when you do not know what
-              to expect. We help you understand the difference between repairs and replacements, and when each one makes
-              the most sense. In many cases, you might be surprised by what can be repaired, which can save you time and
-              money. And when it is time for a new roofing system, we are here to guide you toward the right product and
-              install it with care.
+              Know what's more stressful than a storm-damaged roof? Dealing with the insurance company after. Adjusters
+              move fast, paperwork piles up, and insurers sometimes classify clear hail damage as "normal wear and tear"
+              — especially on older roofs — to minimize the payout. Most homeowners don't know they can push back, or
+              how. We do. At Black Knight Roofing, insurance claims are part of the job. We inspect your full exterior —
+              roof, gutters, siding, flashing, and windows — document every impact with photos and written reports, and
+              work directly with your adjuster as your advocate. You have up to one year from the storm date to file a
+              claim in most Colorado policies. Don't wait. The longer damage goes uninspected, the harder it is to link
+              to the original event.
             </p>
           </div>
 
-          <Button class="px-8 py-4 text-base">
-            <span> <strong> FREE </strong> Roof Estimate </span>
-          </Button>
+          <Button class="px-8 py-4 text-base"> FREE Storm Damage Inspection </Button>
         </div>
 
         <!-- Right Contents -->
 
-        <div class="h-[400px] w-full items-center overflow-hidden rounded-lg lg:self-center">
+        <div class="h-[380px] w-full items-center overflow-hidden rounded-lg lg:self-center">
           <Image
-            src="/placeholders/thumbnails/residential-1.png"
-            alt="Residential Roofing"
-            width={600}
-            height={400}
-            class="h-full w-full object-cover"
+            src="/placeholders/thumbnails/roof-replacement-1.avif"
+            alt="Roof Replacement"
+            width={442}
+            height={785}
+            class="h-full w-full rounded-lg object-cover"
           />
         </div>
       </div>
@@ -148,20 +149,17 @@ const processSteps = [
   <Testimonials />
 
   <WhyChooseUs
-    badgeText="Expert Quality & Care"
-    title="Residential Roofing in Denver, CO"
-    description="Your roof should do more than keep water out. It should fit the look of your home, hold up to Colorado weather, and add lasting value without hidden fees or corner-cutting. Black Knight Roofing brings builder-level oversight, straightforward pricing, and residential roofing guidance that helps you feel good about the result long after the crew leaves."
+    badgeText="Why Choose Us"
+    title="Roofs That Helps Colorado Homes Shine"
+    description="<p>After a storm hits, you'll get door-knockers. Storm chasers — out-of-state contractors who follow hail paths, pressure homeowners into quick signatures, file the claim, collect the insurance check, and disappear before the job is done right. We've seen the aftermath. It's expensive to fix. Black Knight Roofing is local. We live and work on the Front Range, and our reputation here depends on every single job we finish. We're licensed, bonded, insured, and A+ accredited with the BBB — which means we're accountable to this community long after your roof is installed.</p> <p>As a licensed general contractor, Adam inspects your home the way a builder would — not just the shingles, but the full system. Gutters bent and clogged from impact. Flashing lifted at the ridge. Siding dented and cracked. Window seals compromised. We document all of it, back it with our lifetime workmanship warranty, and install using Tamko Pro Certified materials and processes so your replacement stands up to the next storm too.</p>"
     image="/placeholders/thumbnails/residential-2.png"
-    buttonText="FREE Roof Estimate"
+    buttonText="FREE Storm Damage Inspection"
     imagePosition="left"
   />
 
   <div class="via-primary container h-px bg-linear-to-r from-transparent to-transparent lg:hidden"></div>
 
   <Process steps={processSteps} />
-  <OtherServicesCarousel />
-  <PopularRoofingMaterials materials={roofingMaterials} />
-  <RecentProjects />
   <ServiceAreas />
   <Faqs />
   <RecentArticales />
