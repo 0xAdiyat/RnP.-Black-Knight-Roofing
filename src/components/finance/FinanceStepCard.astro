@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  image: ImageMetadata;
+  imageAlt?: string;
+  step: string;
+  title: string;
+  description: string;
+  class?: string;
+}
+
+const { image, imageAlt = 'Process Step', step, title, description, class: className } = Astro.props;
+---
+
+<div
+  class="border-gradient w-full rounded-3xl before:bg-linear-to-b before:from-[#8f99b4] before:to-[#111] lg:w-[392px]"
+>
+  <div
+    class={cn(
+      'flex flex-col items-center h-full transition-colors duration-150 ease-out rounded-3xl bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,#000_100%),radial-gradient(175.94%_145.17%_at_0%_0%,#F2C744_0%,#BF8D30_41.16%,#082A40_100%)] pt-4 pb-8',
+      className
+    )}
+  >
+    <Image
+      src={image}
+      alt={imageAlt}
+      width={400}
+      height={300}
+      class="h-[180px] w-[180px] rounded-2xl object-cover sm:h-[218px] sm:w-[218px]"
+    />
+    <div class="flex flex-col items-center text-center">
+      <div>{step}</div>
+      <h4>{title}</h4>
+      <div class="max-w-[400px]">
+        {description}
+      </div>
+    </div>
+  </div>
+</div>
