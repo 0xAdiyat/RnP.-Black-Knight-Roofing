@@ -7,12 +7,11 @@ import Footer from '@/components/Footer.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
 import NoiseBg from '@/components/NoiseBg.astro';
-import BadgeTitle from '@/components/BadgeTitle.astro';
-import ServiceCard from '@/components/services/ServiceCard.astro';
 import WhyChooseUs from '@/components/WhyChooseUs.astro';
 import Button from '@/components/ui/Button.astro';
+import EstimateButton from '@/components/EstimateButton.astro';
 import { Icon } from 'astro-icon/components';
-import { services, type Service } from '@/data/services';
+import { type Service } from '@/data/services';
 import Breadcrumb from '@/components/ui/Breadcrumb.astro';
 import Hero from '@/components/hero/Hero.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
@@ -27,15 +26,13 @@ import RecentProjects from '@/components/recent-projects/RecentProjects.astro';
 import RecentArticales from '@/components/articales/RecentArticales.astro';
 import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
 import StylesProfiles from '@/components/services/StylesProfiles.astro';
-import sunflow from '@/assets/sunflow.avif';
+import OtherServicesCarousel from '@/components/services/OtherServicesCarousel.astro';
 import PopularRoofingMaterials from '@/components/services/PopularRoofingMaterials.astro';
 import ComparisonSection from '@/components/services/ComparisonSection.astro';
 import ComparisonTable from '@/components/services/ComparisonTable.astro';
-
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
-import Carousel from '@/components/ui/Carousel.astro';
-import CarouselSlide from '@/components/ui/CarouselSlide.astro';
+import sunflow from '@/assets/sunflow.avif';
 
 const roofingMaterials = [
   {
@@ -87,47 +84,22 @@ const processSteps = [
     description: 'Our expert team completes the project to the highest standards with a final walkthrough.',
   },
 ];
-
-export async function getStaticPaths() {
-  return services.map(service => ({
-    params: { serviceId: service.slug },
-    props: { service },
-  }));
-}
-
-interface Props {
-  service: Service;
-}
-
-const { service } = Astro.props;
-
-// Get other services for the "Other Services" section (exclude current)
-const otherServices = services.filter(s => s.slug !== service.slug).slice(0, 3);
 ---
 
 <Layout>
   <Navbar />
 
-  <Hero
-    title="Roofing Services Built for Colorado Homes and Colorado Weather"
-    subtitle="Colorado's #1 Veteran-Owned Roofing Company"
-  >
+  <Hero title="Colorado's Premiere Metal Roofing Company" subtitle="Metal Roofing In Colorado">
     <p class="text-sm">
-      Need a repair, a storm-damage game plan, or a premium roof upgrade that changes the look of your home? Black
-      Knight Roofing helps homeowners and property owners from Colorado Springs to Fort Collins with roof replacement,
-      storm restoration, gutters, siding, windows, and premium roofing systems like stone-coated steel and concrete
-      tile.
+      At Black Knight Roofing, we specialize in durable metal roofing designed to withstand Colorado's harsh
+      conditions—intense UV, hail, high winds, and freeze-thaw cycles. Unlike asphalt shingles, metal roofs last 40-70
+      years, resist damage, shed snow, and cut cooling costs by up to 25%. As a Metal Roofing Alliance member, we
+      install standing seam and exposed fastener systems backed by a lifetime workmanship warranty for homes and
+      businesses across Colorado.
     </p>
 
     <div class="flex flex-col items-center gap-4 sm:flex-row sm:gap-x-6">
-      <Button variant="primary" size="lg" class="text-base font-bold">
-        <span class="text-center text-[10px] text-[#855901]">
-          $99/month roofs <br />
-          No repayment penalty</span
-        >
-        <span class="h-6 w-0.5 bg-[rgba(133,89,1,0.4)]"></span>
-        <span> <strong> FREE </strong> Estimate</span>
-      </Button>
+      <EstimateButton />
 
       <Button variant="link">
         <Icon name="map" />
@@ -158,34 +130,41 @@ const otherServices = services.filter(s => s.slug !== service.slug).slice(0, 3);
     />
 
     <div class="z-10 container py-8 lg:py-20">
-      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:items-stretch">
         <!-- Left contents -->
         <div class="space-y-8 py-8">
           <div class="flex-1 space-y-4">
-            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: service.title }]} />
+            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Metal Roofing Services' }]} />
 
             <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
-              Repairs vs. Replacement: Which Is Right For You?
+              Top-Quality Metal Roofing with Westlake Royal Products
             </h2>
 
             <p class="text-sm lg:text-base">
-              When you're dealing with a roofing issue, it can feel overwhelming, especially when you do not know what
-              to expect. We help you understand the difference between repairs and replacements, and when each one makes
-              the most sense. In many cases, you might be surprised by what can be repaired, which can save you time and
-              money. And when it is time for a new roofing system, we are here to guide you toward the right product and
-              install it with care.
+              Metal roofing comes in two main types: standing seam and exposed fastener. Standing seam panels lock
+              together with hidden screws, offering a sleek look, weatherproof surface, and last 50–70 years with little
+              upkeep. Exposed fastener panels have visible screws, cost less, install faster, and last 20–35 years with
+              some maintenance. We use materials from Westlake Royal, designed for tough Colorado conditions. Both types
+              beat asphalt shingles in durability and weather resistance. We'll help you pick the best option for your
+              home and budget.
             </p>
           </div>
 
-          <Button>
-            <span> <strong> FREE </strong> Roof Estimate </span>
+          <Button class="px-8 py-4 text-base">
+            <span> <strong> FREE </strong> Estimate </span>
           </Button>
         </div>
 
         <!-- Right Contents -->
 
-        <div class="">
-          <Image src={service.image} alt={service.title} width={600} height={400} class="rounded-lg object-cover" />
+        <div class="h-[400px] w-full items-center overflow-hidden rounded-lg lg:self-center">
+          <Image
+            src="/placeholders/thumbnails/residential-1.png"
+            alt="Residential Roofing"
+            width={600}
+            height={400}
+            class="h-full w-full object-cover"
+          />
         </div>
       </div>
     </div>
@@ -195,71 +174,22 @@ const otherServices = services.filter(s => s.slug !== service.slug).slice(0, 3);
   <Testimonials />
 
   <WhyChooseUs
-    badgeText="Expert Quality & Care"
-    title={service.title}
-    description={service.description}
-    image={service.image}
-    buttonText="FREE Roof Estimate"
+    badgeText="Why Choose Us"
+    title="Proudly Serving Colorado Residents — With Westlake  Royal Products"
+    description="<p>Most roofers can install asphalt shingles, but metal roofing needs special skills and precise work. It requires correct fastener placement, thermal expansion handling, proper underlayment, and careful panel checks. Poor installation can cause leaks and damage, but done right, a metal roof lasts a lifetime. As a Metal Roofing Alliance member and authorized Westlake Royal installer, we meet high standards and offer a lifetime workmanship warranty.</p> <p> We act as licensed general contractors, inspecting your roof’s structure, pitch, decking, ventilation, and drainage before recommending a system. A metal roof over damaged decking or poor ventilation won’t perform well. We handle everything: tear-off, deck repair, installation, and final inspection. Plus, financing options start at $99/month through Service Finance Company and Wisetack. </p>"
+    image="/placeholders/thumbnails/residential-2.png"
+    buttonText="Get FREE Metal Roofing Estimate"
     imagePosition="left"
   />
 
+  <div class="via-primary container h-px bg-linear-to-r from-transparent to-transparent lg:hidden"></div>
+
   <Process steps={processSteps} />
-
-  <NoiseBg class="relative px-0 py-0">
-    <div class="z-10 container space-y-4 py-10 lg:py-20">
-      <div class="py-4 text-center">
-        <BadgeTitle as="h2" title="Roofing Services In Colorado" />
-      </div>
-
-      <Carousel
-        slidesPerView={1.2}
-        spaceBetween={20}
-        breakpoints={{
-          640: { slidesPerView: 2.5 },
-          1024: { slidesPerView: 4 },
-        }}
-      >
-        {
-          services.slice(0, 8).map(s => (
-            <CarouselSlide>
-              <ServiceCard
-                image={s.image}
-                title={s.title}
-                description={s.description}
-                icon={s.icon}
-                tags={s.tags}
-                href={`/services/${s.slug}`}
-              />
-            </CarouselSlide>
-          ))
-        }
-      </Carousel>
-    </div>
-
-    <Image
-      src={sunflow}
-      alt="Background Noise"
-      width={1520}
-      height={900}
-      loading="eager"
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      class="pointer-events-none absolute bottom-0 rotate-180 opacity-10"
-    />
-  </NoiseBg>
-
-  <PopularRoofingMaterials materials={roofingMaterials} />
-
-  <ComparisonSection />
-
-  <ComparisonTable />
-
-  <!-- style & profit -->
-  <StylesProfiles />
-
   <RecentProjects />
   <ServiceAreas />
   <Faqs />
   <RecentArticales />
+
   <div class="relative">
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
     <Brands />
