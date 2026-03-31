@@ -12,6 +12,7 @@ import NoiseBg from '@/components/NoiseBg.astro';
 import { Icon } from 'astro-icon/components';
 import Button from '@/components/ui/Button.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
+import EmptyGalleryFolder from '@/components/ui/EmptyGalleryFolder.astro';
 import sunFlow from '@/assets/sunflow.avif';
 import { Image } from 'astro:assets';
 import WorkCard from '@/components/recent-projects/WorkCard.astro';
@@ -229,7 +230,7 @@ const galleryFilters = [
               <>
                 {index === 4 && <div class="hidden h-[90px] w-px bg-white/15 md:block"></div>}
                 <a
-                  href={filter.type === 'filter' ? getFilterHref(filter.filter) : filter.href}
+                  href={filter.type === 'filter' && filter.filter ? getFilterHref(filter.filter) : filter.href}
                   aria-current={filter.type === 'filter' && activeFilter === filter.filter ? 'page' : undefined}
                   data-gallery-filter={filter.type === 'filter' ? filter.filter : undefined}
                   class:list={[
@@ -279,10 +280,11 @@ const galleryFilters = [
       <div
         data-gallery-empty
         class:list={[
-          'mx-auto max-w-3xl rounded-3xl border border-white/12 bg-white/4 px-8 py-14 text-center transition duration-300 ease-out',
+          'mx-auto max-w-3xl px-8 py-14 text-center transition duration-300 ease-out',
           hasResults ? 'hidden' : '',
         ]}
       >
+        <EmptyGalleryFolder />
         <div class="text-primary text-sm font-semibold uppercase tracking-[0.24em]">Gallery Coming Soon</div>
         <h2 class="mt-4 text-3xl font-semibold text-white sm:text-4xl" data-gallery-empty-title>
           We&apos;re adding more {activeFilter} project examples.
@@ -292,46 +294,44 @@ const galleryFilters = [
           studies.
         </p>
         <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <a
-            href="/before-and-after"
-            class="inline-flex items-center justify-center rounded-full border border-primary/40 px-6 py-3 text-sm font-semibold text-white transition hover:border-primary hover:bg-primary hover:text-black"
-          >
+          <Button variant="secondary" href="/before-and-after">
             View Before &amp; After
-          </a>
-          <a
-            href="/case-studies"
-            class="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-white/80 transition hover:border-white/40 hover:text-white"
-          >
+          </Button>
+          <Button variant="secondary" href="/case-studies">
             Read Case Studies
-          </a>
+          </Button>
         </div>
       </div>
 
       <div
         data-gallery-pagination
-        class:list={['mt-12 space-y-5', hasResults ? '' : 'hidden']}
+        class:list={['mt-12 flex flex-col items-center justify-between gap-8 md:flex-row', hasResults ? '' : 'hidden']}
       >
-        <div class="flex flex-col items-center justify-center gap-2 text-center">
-          <div class="text-xs font-semibold uppercase tracking-[0.24em] text-white/45" data-gallery-count>
-            {filteredWorks.length} Projects
+        <div class="flex flex-col gap-1.5 text-center md:text-left">
+          <div class="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/45" data-gallery-count>
+            {filteredWorks.length} {filteredWorks.length === 1 ? 'Project' : 'Projects'}
           </div>
           <div class="text-sm text-white/65" data-gallery-summary>
-            Page {currentPage} of {totalPages}
+            {
+              filteredWorks.length > 0
+                ? `Showing ${(currentPage - 1) * itemsPerPage + 1}-${Math.min(currentPage * itemsPerPage, filteredWorks.length)} of ${filteredWorks.length}`
+                : 'No projects yet'
+            }
           </div>
         </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-2">
+        <div class="flex items-center gap-2.5">
           <button
             type="button"
             data-gallery-prev
             aria-label="Previous page"
-            class="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white/70 backdrop-blur-[16.5px] transition-all duration-300 hover:bg-white/20 hover:text-white disabled:pointer-events-none disabled:opacity-30"
+            class="inline-flex size-11 items-center justify-center rounded-full bg-white/10 text-white/70 backdrop-blur-[16.5px] transition-all duration-300 hover:bg-white/20 hover:text-white disabled:pointer-events-none disabled:opacity-30"
             disabled={currentPage <= 1}
           >
             <Icon name="chevron-left" class="size-5" />
           </button>
 
-          <div class="flex flex-wrap items-center justify-center gap-2" data-gallery-pages>
+          <div class="flex items-center gap-2" data-gallery-pages>
             {
               Array.from({ length: totalPages }, (_, index) => {
                 const pageNumber = index + 1;
@@ -340,10 +340,10 @@ const galleryFilters = [
                     type="button"
                     data-gallery-page={pageNumber}
                     class:list={[
-                      'inline-flex h-11 min-w-11 items-center justify-center rounded-full border px-4 text-sm font-semibold transition',
+                      'inline-flex size-11 items-center justify-center rounded-full text-sm font-medium backdrop-blur-[16.5px] transition-all duration-300',
                       currentPage === pageNumber
-                        ? 'border-primary bg-primary text-black'
-                        : 'border-white/12 text-white/75 hover:border-white/35 hover:text-white',
+                        ? 'border-radial bg-[#0d0d0d] text-white'
+                        : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white',
                     ]}
                   >
                     {pageNumber}
@@ -357,7 +357,7 @@ const galleryFilters = [
             type="button"
             data-gallery-next
             aria-label="Next page"
-            class="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white/70 backdrop-blur-[16.5px] transition-all duration-300 hover:bg-white/20 hover:text-white disabled:pointer-events-none disabled:opacity-30"
+            class="inline-flex size-11 items-center justify-center rounded-full bg-white/10 text-white/70 backdrop-blur-[16.5px] transition-all duration-300 hover:bg-white/20 hover:text-white disabled:pointer-events-none disabled:opacity-30"
             disabled={currentPage >= totalPages}
           >
             <Icon name="chevron-right" class="size-5" />
@@ -480,7 +480,7 @@ const galleryFilters = [
           pageButton.dataset.galleryPage = String(page);
           pageButton.textContent = String(page);
           pageButton.className =
-            'inline-flex size-10 items-center justify-center rounded-full text-sm font-medium backdrop-blur-[16.5px] transition-all duration-300';
+            'inline-flex size-11 items-center justify-center rounded-full text-sm font-medium backdrop-blur-[16.5px] transition-all duration-300';
 
           if (page === state.page) {
             pageButton.classList.add('border-radial', 'bg-[#0d0d0d]', 'text-white');
