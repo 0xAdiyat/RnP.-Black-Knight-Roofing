@@ -62,58 +62,19 @@ const processSteps = [
       Lorem ipsum dolor sit amet consectetur. Dictum morbi ac nibh nibh leo vitae at id faucibus. Ultrices duis tempor
       eget proin euismod sed dolor eu suspendisse. Amet ridiculus erat sit vulputate. Dui est feugiat risus ultrices.
     </p>
-
-    <div class="flex items-center gap-x-4">
-      <Button variant="primary" size="lg">
-        <span class="text-xs"> $99/month roofs <br /> No repayment penalty</span>
-        <span class="h-6 w-0.5 bg-[rgba(133,89,1,0.4)]"></span>
-        <span class="font-[var(--Font-Family-Text,Manrope)] text-center text-[14px] leading-[20px] font-bold text-[#111]">FREE Estimate</span>
-      </Button>
-
-      <Button variant="link">
-        <Icon name="map" />
-        See Our Past Work
-      </Button>
-    </div>
-
-    <Fragment slot="social-proof">
-      <div class="flex items-center gap-x-4 pr-4">
-        <Icon name="google-logo" size={32} />
-        <div>
-          40+ Five-Star <br />
-          Google Reviews
-        </div>
-      </div>
-
-      <div class="flex items-center gap-x-4 px-4">
-        <Icon name="facebook-logo" size={32} />
-        <div>
-          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
-          <span class="text-sm font-bold"> 5.0 Rating </span>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-x-4 pl-4">
-        <Icon name="google-logo" size={32} />
-        <div>
-          <RatingStars rating={5} size={10} fillColor="white" strokeColor="none" />
-          <span class="text-sm font-bold"> 5.0 Rating </span>
-        </div>
-      </div>
-    </Fragment>
-
-    <QuoteForm slot="sidebar" />
   </Hero>
+
   <div class="relative">
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
     <Brands />
   </div>
+
   <AboutSection />
 
-  <NoiseBg id="meet-the-team">
-    <div class="container space-y-12 py-20">
+  <NoiseBg id="meet-the-team px-0 py-0">
+    <div class="container space-y-12 py-10 lg:py-20">
       <h2 class="text-center">Meet the Black Knight Roofing Team</h2>
-      <div class="grid grid-cols-4 gap-x-5 gap-y-12">
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-x-5 gap-y-12">
         <TeamCard
           teamMember={{
             image: '/placeholders/teams/1.png',
