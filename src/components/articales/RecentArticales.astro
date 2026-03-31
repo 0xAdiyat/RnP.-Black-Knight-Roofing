@@ -6,33 +6,7 @@ import CarouselSlide from '../ui/CarouselSlide.astro';
 import sunFlow from '@/assets/sunflow.avif';
 import { Image } from 'astro:assets';
 import BadgeTitle from '../BadgeTitle.astro';
-
-const articles = [
-  {
-    image: '/placeholders/works/1.jpg',
-    title: 'Vinyl vs Fiber Cement Siding: 7 Key Differences Explained',
-    description:
-      'When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ...',
-    date: 'July 1, 2026',
-    readTime: '15 Mins',
-  },
-  {
-    image: '/placeholders/works/2.jpg',
-    title: 'Vinyl vs Fiber Cement Siding: 7 Key Differences Explained',
-    description:
-      'When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ...',
-    date: 'July 1, 2026',
-    readTime: '15 Mins',
-  },
-  {
-    image: '/placeholders/works/3.jpg',
-    title: 'Vinyl vs Fiber Cement Siding: 7 Key Differences Explained',
-    description:
-      'When comparing vinyl vs fiber cement siding, homeowners are often torn between affordability and long-term performance. Both materials have their strengths, vinyl ...',
-    date: 'July 1, 2026',
-    readTime: '15 Mins',
-  },
-];
+import { recentBlogListItems } from '@/data/blogs';
 
 const breakpoints = {
   320: { slidesPerView: 1.08, spaceBetween: 12 },
@@ -63,7 +37,7 @@ const breakpoints = {
       class="z-10 w-full overflow-visible md:overflow-hidden"
     >
       {
-        articles.map((article) => (
+        recentBlogListItems.map((article) => (
           <CarouselSlide>
             <ArticalCard {...article} />
           </CarouselSlide>
