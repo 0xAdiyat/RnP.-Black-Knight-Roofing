@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import Button from '@/components/ui/Button.astro';
 import logo from '@/assets/logo.png';
-import Input from './ui/Input.astro';
 import SunFlow from '@/assets/sunflow.avif';
 
 interface Props {
@@ -45,18 +44,18 @@ const {
   <div class="z-10 grid grid-cols-1 lg:grid-cols-12">
     <!-- Sidebar -->
     <div
-      class="relative flex flex-col items-center justify-between gap-y-3 border-r border-white/5 p-6 text-center lg:col-span-4 lg:p-8 lg:text-left"
+      class="relative flex flex-col items-center gap-y-4 border-b border-white/5 p-5 text-center lg:col-span-4 lg:justify-between lg:gap-y-3 lg:border-r lg:border-b-0 lg:p-8 lg:text-left"
     >
-      <Image src={logo} alt="Black Knight Roofing" class="mb-3 w-56 lg:mb-8 lg:w-64" />
+      <Image src={logo} alt="Black Knight Roofing" class="mb-1 w-40 sm:w-48 lg:mb-8 lg:w-64" />
 
-      <div class="space-y-3 text-center">
-        <h5 class="text-2xl">Get Your Free Roof Quote</h5>
-        <p class="text-neutral-lighter max-w-xs text-sm leading-relaxed">
+      <div class="space-y-2 text-center lg:space-y-3">
+        <h5 class="text-[1.9rem] leading-none sm:text-2xl">Get Your Free Roof Quote</h5>
+        <p class="text-neutral-lighter max-w-md text-sm leading-relaxed lg:max-w-xs">
           Use our easy estimate form to tell us what you need and get a fast, accurate quote.
         </p>
       </div>
 
-      <div class="border-primary mt-8 hidden border-l-2 pl-4 lg:block">
+      <div class="border-primary hidden self-stretch border-t pt-4 lg:mt-8 lg:block lg:self-auto lg:border-t-0 lg:border-l-2 lg:pt-0 lg:pl-4">
         <p class="mb-1.5 text-sm font-medium tracking-wider">
           <span class="text-primary"> Got Questions? </span> Call us:
         </p>
@@ -72,12 +71,14 @@ const {
 
     <!-- Form Area -->
     <div class="relative flex flex-col items-center lg:col-span-8 lg:items-start">
-      <div class="hidden border-b border-white/15 px-8 pt-4 pb-4 lg:block">
-        <h3 class="font-heading text-3xl text-white">Fill out this form to get in touch:</h3>
+      <div class="sticky top-0 z-20 w-full border-b border-white/15 bg-[#1a1a1a]/98 px-5 pt-5 pb-4 pr-16 sm:px-6 sm:pr-20 lg:static lg:bg-transparent lg:px-8 lg:pr-8">
+        <h3 class="font-heading pr-12 text-[1.35rem] leading-none text-white sm:text-[2.35rem] lg:text-3xl">
+          Fill out this form to get in touch:
+        </h3>
       </div>
 
-      <form class="w-full space-y-6 pt-6">
-        <div class="space-y-5 px-8 pb-1">
+      <form class="w-full space-y-5 pt-5 sm:space-y-6 sm:pt-6">
+        <div class="space-y-4 px-5 pb-1 sm:space-y-5 sm:px-6 lg:px-8">
           <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
             <!-- Full Name -->
             <div class="space-y-2">
@@ -89,7 +90,7 @@ const {
                 <input
                   type="text"
                   placeholder="John Doe"
-                  class="h-11 w-full rounded-lg border-none bg-white/5 px-4 py-3.5 text-sm leading-5 font-normal text-white transition-colors focus:outline-none"
+                  class="h-11 w-full rounded-lg border-none bg-white/5 px-4 py-3 text-sm leading-5 font-normal text-white transition-colors focus:outline-none"
                 />
               </div>
             </div>
@@ -104,7 +105,7 @@ const {
                 <input
                   type="tel"
                   placeholder="(555) 000-0000"
-                  class="h-11 w-full rounded-lg border-none bg-white/5 px-4 py-3.5 text-sm leading-5 font-normal text-white transition-colors focus:outline-none"
+                  class="h-11 w-full rounded-lg border-none bg-white/5 px-4 py-3 text-sm leading-5 font-normal text-white transition-colors focus:outline-none"
                 />
               </div>
             </div>
@@ -120,7 +121,7 @@ const {
               <input
                 type="email"
                 placeholder="john@example.com"
-                class="h-11 w-full rounded-lg border-none bg-white/5 px-4 py-3.5 text-sm leading-5 font-normal text-white transition-colors focus:outline-none"
+                class="h-11 w-full rounded-lg border-none bg-white/5 px-4 py-3 text-sm leading-5 font-normal text-white transition-colors focus:outline-none"
               />
             </div>
           </div>
@@ -136,7 +137,7 @@ const {
                 <input
                   type="text"
                   placeholder="123 Street Ave"
-                  class="h-11 w-full rounded-lg border-none bg-white/5 px-4 py-3.5 text-sm leading-5 font-normal text-white transition-colors focus:outline-none"
+                  class="h-11 w-full rounded-lg border-none bg-white/5 px-4 py-3 text-sm leading-5 font-normal text-white transition-colors focus:outline-none"
                 />
               </div>
             </div>
@@ -151,7 +152,7 @@ const {
                 <input
                   type="text"
                   placeholder="91740"
-                  class="h-11 w-full rounded-lg border-none bg-white/5 px-4 py-3.5 text-sm leading-5 font-normal text-white transition-colors focus:outline-none"
+                  class="h-11 w-full rounded-lg border-none bg-white/5 px-4 py-3 text-sm leading-5 font-normal text-white transition-colors focus:outline-none"
                 />
               </div>
             </div>
@@ -164,7 +165,7 @@ const {
               </label>
               <div class="border-radial relative rounded-lg">
                 <select
-                  class="h-11 w-full appearance-none rounded-lg border-none bg-white/5 px-4 py-2.5 text-sm leading-5 font-normal text-white transition-colors focus:outline-none"
+                  class="h-11 w-full appearance-none rounded-lg border-none bg-white/5 px-4 py-2.5 pr-11 text-sm leading-5 font-normal text-white transition-colors focus:outline-none"
                 >
                   <option value="" disabled selected>Roof Replacement</option>
                   {services.map(s => <option value={s}>{s}</option>)}
@@ -191,7 +192,7 @@ const {
         </div>
 
         <!-- Opt-in -->
-        <label class="flex items-start gap-3 px-8">
+        <label class="flex items-start gap-3 px-5 pb-4 sm:px-6 lg:px-8 lg:pb-0">
           <div class="relative mt-1 flex cursor-pointer items-center">
             <input type="checkbox" class="peer sr-only" checked />
             <div
@@ -210,7 +211,7 @@ const {
               </svg>
             </div>
           </div>
-          <p class="text-[13px] leading-snug text-white/50">
+          <p class="text-[12px] leading-snug text-white/50 sm:text-[13px]">
             I agree to receive booking confirmations and arrival timeless via SMS, Messages and data rate may apply.
             Text STOP to cancel, HELP for more info. <a href="/privacy-policy" class="text-primary hover:underline"
               >Privacy Policy</a
@@ -219,7 +220,7 @@ const {
         </label>
 
         <!-- Submit -->
-        <div class="relative flex justify-center px-8 py-3 lg:justify-end">
+        <div class="sticky bottom-0 z-20 flex justify-center border-t border-white/10 bg-[#1a1a1a]/98 px-5 py-3 sm:px-6 lg:relative lg:border-t-0 lg:bg-transparent lg:px-8 lg:justify-end">
           <div
             class="via-primary absolute inset-0 top-0 hidden h-px w-full bg-linear-to-r from-transparent to-transparent lg:block"
           >
@@ -227,26 +228,13 @@ const {
           <Button
             variant="primary"
             size="lg"
-            class="bg-primary text-inverted rounded-lg px-6 py-3 text-base leading-6 font-medium"
+            class="bg-primary text-inverted w-full rounded-lg px-6 py-3 text-base leading-6 font-medium sm:w-auto"
           >
             Request FREE Quote
           </Button>
         </div>
       </form>
 
-      <!-- Mobile -->
-      <div class="border-primary mx-auto mt-8 mb-8 block border-l-2 pb-4 pl-4 lg:hidden">
-        <p class="mb-1.5 text-sm font-medium tracking-wider">
-          <span class="text-primary"> Got Questions? </span> Call us:
-        </p>
-        <a
-          href="tel:9708887230"
-          class="hover:text-primary flex items-center gap-x-2 text-lg font-bold transition-colors"
-        >
-          <Icon name="phone" class="size-6" />
-          (970) 888-7230
-        </a>
-      </div>
     </div>
   </div>
 </div>
