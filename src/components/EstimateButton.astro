@@ -29,7 +29,13 @@ const {
 } = Astro.props;
 ---
 
-<Button variant={variant} size={size} class={className} {...rest}>
+<Button
+  variant={variant}
+  size={size}
+  class={className}
+  data-estimate-trigger
+  {...rest}
+>
   {offerText && (
     <span class:list={[offerClass, offerColor]} set:html={offerText} />
   )}
