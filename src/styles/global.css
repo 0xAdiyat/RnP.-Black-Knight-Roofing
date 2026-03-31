@@ -177,3 +177,67 @@
     @apply font-heading text-xl;
   }
 }
+
+@layer components {
+  .legal-shell {
+    background: linear-gradient(180deg, #171717 0%, #111111 100%);
+  }
+
+  .legal-display-word {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2.85rem, 10vw, 7rem);
+    line-height: 0.9;
+    letter-spacing: -0.07em;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.95);
+    text-wrap: balance;
+  }
+
+  .legal-intro {
+    @apply max-w-3xl text-lg leading-8 text-white/74 sm:text-2xl sm:leading-9;
+    letter-spacing: -0.03em;
+  }
+
+  .legal-prose {
+    @apply text-[0.98rem] leading-7 text-white/72 sm:text-[1.02rem] sm:leading-8;
+  }
+
+  .legal-prose h2 {
+    @apply mt-10 border-t border-white/10 pt-8 text-[2rem] leading-none text-white sm:mt-14 sm:pt-10 sm:text-[2.45rem];
+    letter-spacing: -0.06em;
+  }
+
+  .legal-prose p + p {
+    @apply mt-4;
+  }
+
+  .legal-prose h2 + p,
+  .legal-prose h2 + ul {
+    @apply mt-5;
+  }
+
+  .legal-prose ul {
+    @apply mt-5 space-y-3 pl-6 sm:mt-6 sm:pl-8;
+    list-style: disc;
+  }
+
+  .legal-prose li {
+    @apply pl-1 text-white/72;
+  }
+
+  .legal-prose a {
+    @apply text-primary underline decoration-white/15 underline-offset-4 transition-colors hover:text-white;
+  }
+
+  .legal-prose strong {
+    @apply font-semibold text-white;
+  }
+
+  .legal-tabs-scroll {
+    scrollbar-width: none;
+  }
+
+  .legal-tabs-scroll::-webkit-scrollbar {
+    display: none;
+  }
+}
