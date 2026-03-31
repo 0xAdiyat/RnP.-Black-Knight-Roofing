@@ -8,11 +8,12 @@ import { faqCategories } from '@/data/faqs';
 const allTabLabel = 'All';
 const tabs = [allTabLabel, ...faqCategories.map((category) => category.label)];
 const defaultTab = tabs[0];
+const activeTabClass = 'bg-primary text-[#111]';
 ---
 
 <NoiseBg class="px-0 py-0">
   <div class="container py-12 lg:py-20">
-    <div class="flex flex-1 flex-col items-center space-y-4 text-center">
+    <div class="flex flex-1 flex-col items-center space-y-3 text-center sm:space-y-4">
       <div class="flex items-center gap-x-3 text-sm md:text-base">
         <div
           class="relative size-4 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-1.5 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-[''] md:size-5 md:before:size-2"
@@ -20,74 +21,76 @@ const defaultTab = tabs[0];
         </div>
         <div>FAQs</div>
       </div>
-      <h2 class="max-w-[530px] text-3xl md:text-5xl">Frequently Asked Questions</h2>
-      
+      <h2 class="max-w-[530px] text-2xl leading-tight sm:text-3xl md:text-5xl">Frequently Asked Questions</h2>
     </div>
 
-    <div class="mx-auto flex max-w-[920px] flex-col space-y-8">
-      <!-- Search -->
-      <div class="border-radial mt-12 rounded-full">
-        <div class="testimonial-bg-noise relative flex items-center rounded-full px-0 py-0 backdrop-blur-md">
-          <Icon name="search" size={24} class="absolute top-1/2 left-8 -translate-y-1/2 text-white" />
-          <input
-            id="faq-search-input"
-            placeholder="Search for answers..."
-            class="h-[56px] w-full rounded-full bg-transparent px-20 py-4 focus:outline-none"
-          />
-        </div>
-      </div>
+    <div class="mx-auto flex max-w-[920px] flex-col space-y-6 sm:space-y-8">
+      <div class="sticky top-16 z-30 pt-4 pb-3 sm:top-20 sm:pt-6 md:top-24">
+        <div class="pointer-events-none absolute inset-x-0 -inset-y-3 -z-10 bg-linear-to-b from-[#0F0F0F]/0 via-[#0F0F0F]/92 to-[#0F0F0F]/0"></div>
+          <!-- Search -->
+          <div class="border-radial rounded-full">
+            <div class="testimonial-bg-noise relative flex items-center rounded-full bg-[#1A1A1A]/95 px-0 py-0 backdrop-blur-md">
+              <Icon name="search" size={22} class="absolute top-1/2 left-5 -translate-y-1/2 text-white sm:left-8 sm:size-6" />
+              <input
+                id="faq-search-input"
+                placeholder="Search for answers..."
+                class="h-13 w-full rounded-full bg-transparent px-14 py-3 text-sm focus:outline-none sm:h-[56px] sm:px-20 sm:py-4 sm:text-base"
+              />
+            </div>
+          </div>
 
-      <!-- Categories -->
-      <div class="relative lg:hidden">
-        <div class="border-radial rounded-full">
-          <button
-            id="faq-dropdown-trigger"
-            class="flex h-12 w-full items-center justify-between px-6 text-sm font-semibold"
-          >
-            <span id="faq-active-label">{tabs[0]}</span>
-            <Icon name="chevron-down" size={20} class="transition-transform duration-300" id="faq-chevron" />
-          </button>
-        </div>
-        <div
-          id="faq-dropdown-menu"
-          class="absolute top-full right-0 left-0 z-50 mt-2 hidden rounded-2xl border border-white/10 bg-[#0F0F0F]/95 p-1 shadow-2xl backdrop-blur-xl"
-        >
-          {
-            tabs.map(t => (
+          <!-- Categories -->
+          <div class="relative mt-4 md:hidden">
+            <div class="border-radial rounded-full">
               <button
-                class="faq-mobile-tab flex h-11 w-full items-center rounded-xl px-5 text-sm font-semibold transition-colors hover:bg-white/5"
-                data-category={t}
+                id="faq-dropdown-trigger"
+                class="flex h-11 w-full items-center justify-between px-4 text-xs font-semibold sm:h-12 sm:px-6 sm:text-sm"
               >
-                {t}
+                <span id="faq-active-label">{tabs[0]}</span>
+                <Icon name="chevron-down" size={20} class="transition-transform duration-300" id="faq-chevron" />
               </button>
-            ))
-          }
-        </div>
-      </div>
+            </div>
+            <div
+              id="faq-dropdown-menu"
+              class="absolute top-full right-0 left-0 z-50 mt-2 hidden rounded-2xl border border-white/10 bg-[#0F0F0F]/95 p-1 shadow-2xl backdrop-blur-xl"
+            >
+              {
+                tabs.map(t => (
+                  <button
+                    class="faq-mobile-tab flex min-h-11 w-full items-center rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-300 ease-out hover:bg-white/5 active:scale-[0.98] sm:px-5"
+                    data-category={t}
+                  >
+                    {t}
+                  </button>
+                ))
+              }
+            </div>
+          </div>
 
-      <div class="border-radial hidden rounded-full lg:block">
-        <div
-          class="no-scrollbar flex items-center gap-2 overflow-x-auto rounded-full p-2 lg:justify-center lg:gap-x-2.5"
-        >
-          {
-            tabs.map((t, index) => (
-              <button
+          <div class="border-radial mt-4 hidden rounded-full md:block">
+            <div
+              class="no-scrollbar flex items-center gap-2 overflow-x-auto rounded-full bg-[#1A1A1A]/95 p-2 md:justify-start xl:justify-center xl:gap-x-2.5"
+            >
+              {
+                tabs.map((t, index) => (
+                  <button
                 class:list={[
-                  'faq-desktop-tab border-radial flex-1 shrink-0 rounded-full whitespace-nowrap',
-                  { 'bg-white/10': index === 0 },
+                  'faq-desktop-tab border-radial shrink-0 rounded-full whitespace-nowrap text-white/75 transition-all duration-300 ease-out active:scale-[0.98]',
+                  { [activeTabClass]: index === 0 },
                 ]}
                 data-category={t}
               >
-                <div class="flex h-12 items-center justify-center rounded-full px-4 py-4 text-xs font-semibold lg:px-6">
+                <div class="flex h-11 items-center justify-center rounded-full px-4 py-3 text-xs font-semibold lg:h-12 lg:px-6">
                   {t}
                 </div>
               </button>
-            ))
-          }
-        </div>
+                ))
+              }
+            </div>
+          </div>
       </div>
 
-      <div id="faq-items" class="space-y-4">
+      <div id="faq-items" class="space-y-4 transition-[opacity,transform,filter] duration-300 ease-out">
         {
           faqCategories.map((category) =>
             category.items.map((faq, index) => (
@@ -122,6 +125,12 @@ const defaultTab = tabs[0];
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  #faq-items.faqs-transitioning {
+    opacity: 0.45;
+    transform: translateY(10px);
+    filter: blur(2px);
+  }
 </style>
 
 <script>
@@ -135,7 +144,9 @@ const defaultTab = tabs[0];
     const searchInput = document.getElementById('faq-search-input') as HTMLInputElement | null;
     const faqEntries = document.querySelectorAll('[data-faq-entry]');
     const emptyState = document.getElementById('faq-empty-state');
+    const faqItems = document.getElementById('faq-items');
     let activeCategory = activeLabel?.textContent?.trim() || 'All';
+    let transitionFrame = 0;
 
     function closeDropdown() {
       dropdownMenu?.classList.add('hidden');
@@ -144,7 +155,10 @@ const defaultTab = tabs[0];
 
     function setActiveDesktopTab(category: string) {
       desktopTabs.forEach(tab => {
-        tab.classList.toggle('bg-white/10', (tab as HTMLElement).dataset.category === category);
+        const isActive = (tab as HTMLElement).dataset.category === category;
+        tab.classList.toggle('bg-primary', isActive);
+        tab.classList.toggle('text-[#111]', isActive);
+        tab.classList.toggle('text-white/75', !isActive);
       });
     }
 
@@ -191,11 +205,29 @@ const defaultTab = tabs[0];
       resetVisibleAccordions();
     }
 
+    function animateFilterUpdate() {
+      if (!faqItems) {
+        applyFilters();
+        return;
+      }
+
+      window.cancelAnimationFrame(transitionFrame);
+      faqItems.classList.add('faqs-transitioning');
+
+      transitionFrame = window.requestAnimationFrame(() => {
+        applyFilters();
+
+        window.requestAnimationFrame(() => {
+          faqItems.classList.remove('faqs-transitioning');
+        });
+      });
+    }
+
     function setActiveCategory(category: string) {
       activeCategory = category;
       if (activeLabel) activeLabel.innerText = category;
       setActiveDesktopTab(category);
-      applyFilters();
+      animateFilterUpdate();
       closeDropdown();
     }
 
@@ -218,7 +250,7 @@ const defaultTab = tabs[0];
       });
     });
 
-    searchInput?.addEventListener('input', applyFilters);
+    searchInput?.addEventListener('input', animateFilterUpdate);
 
     document.addEventListener('click', e => {
       if (!dropdownTrigger?.contains(e.target as Node) && !dropdownMenu?.contains(e.target as Node)) {
