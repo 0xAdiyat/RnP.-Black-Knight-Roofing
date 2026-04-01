@@ -2,8 +2,16 @@ import { defineAction } from 'astro:actions';
 import { z } from 'astro:schema';
 import { Resend } from 'resend';
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
-
+let resendInstance: Resend | null = null;
+function getResend() {
+  if (!resendInstance) {
+    if (!import.meta.env.RESEND_API_KEY) {
+      console.error('RESEND_API_KEY is missing from environment variables');
+    }
+    resendInstance = new Resend(import.meta.env.RESEND_API_KEY);
+  }
+  return resendInstance;
+}
 const TO_EMAIL = '0xadiyat@gmail.com';
 const FROM_EMAIL = 'Black Knight Roofing <noreply@blackknightroofing.com>';
 
@@ -78,7 +86,7 @@ export const server = {
       message: z.string().optional(),
     }),
     handler: async input => {
-      await resend.emails.send({
+      await getResend().emails.send({
         from: FROM_EMAIL,
         to: TO_EMAIL,
         subject: `New Contact Form Submission — ${input.firstName}`,
@@ -114,7 +122,7 @@ export const server = {
       message: z.string().optional(),
     }),
     handler: async input => {
-      await resend.emails.send({
+      await getResend().emails.send({
         from: FROM_EMAIL,
         to: TO_EMAIL,
         subject: `New Estimate Request — ${input.fullName}`,
@@ -149,7 +157,7 @@ export const server = {
       email: z.string().email('A valid email is required'),
     }),
     handler: async input => {
-      await resend.emails.send({
+      await getResend().emails.send({
         from: FROM_EMAIL,
         to: TO_EMAIL,
         subject: `New Quote Request — ${input.firstName} ${input.lastName}`,
@@ -180,7 +188,7 @@ export const server = {
       assist: z.string().optional(),
     }),
     handler: async input => {
-      await resend.emails.send({
+      await getResend().emails.send({
         from: FROM_EMAIL,
         to: TO_EMAIL,
         subject: `New Free Quote Request — ${input.name}`,
