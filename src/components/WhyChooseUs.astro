@@ -91,7 +91,7 @@ const textOrderClass = imagePosition === 'right' ? 'order-1' : 'order-2';
 
         {
           buttonText && (
-            <Button href={buttonHref}>
+            <Button href={buttonHref} data-estimate-trigger={buttonText === 'FREE Roof Estimate' ? true : undefined}>
               <span>
                 <strong>{buttonText.split(' ')[0]}</strong> {buttonText.split(' ').slice(1).join(' ')}
               </span>
