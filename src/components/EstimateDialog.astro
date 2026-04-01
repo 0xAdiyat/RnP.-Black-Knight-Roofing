@@ -5,7 +5,7 @@ import { Icon } from 'astro-icon/components';
 
 <div
   id="estimate-dialog"
-  class="pointer-events-none fixed inset-0 z-[120] hidden opacity-0 transition-opacity duration-300"
+  class="pointer-events-none fixed inset-0 z-[120] hidden opacity-0 transition-opacity duration-300 ease-out"
   aria-hidden="true"
 >
   <button
@@ -17,7 +17,8 @@ import { Icon } from 'astro-icon/components';
 
   <div class="relative z-10 flex min-h-full items-center justify-center px-3 py-4 sm:px-6 sm:py-8">
     <div
-      class="border-radial relative flex max-h-[96vh] w-full max-w-6xl overflow-hidden rounded-[24px] bg-[#161616]/95 text-white shadow-2xl sm:rounded-3xl"
+      id="estimate-dialog-panel"
+      class="border-radial relative flex max-h-[96vh] w-full max-w-6xl translate-y-5 scale-[0.9] overflow-hidden rounded-[24px] bg-[#161616]/95 text-white opacity-0 shadow-2xl transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform sm:rounded-3xl"
     >
       <!-- Close Button -->
       <button
@@ -41,13 +42,17 @@ import { Icon } from 'astro-icon/components';
   // Global script for estimate dialog
   const setupEstimateDialog = () => {
     const dialog = document.getElementById('estimate-dialog') as HTMLDivElement;
+    const panel = document.getElementById('estimate-dialog-panel') as HTMLDivElement;
     const backdrop = document.getElementById('estimate-dialog-backdrop');
     const closeBtn = document.getElementById('close-estimate-dialog');
     const triggers = document.querySelectorAll('[data-estimate-trigger]');
 
-    if (!dialog || !backdrop || !closeBtn || dialog.dataset.estimateDialogReady === 'true') return;
+    if (!dialog || !panel || !backdrop || !closeBtn || dialog.dataset.estimateDialogReady === 'true') return;
 
     dialog.dataset.estimateDialogReady = 'true';
+
+    const OPEN_DURATION_MS = 280;
+    const CLOSE_DURATION_MS = 220;
 
     const lockBodyScroll = () => {
       document.body.style.overflow = 'hidden';
@@ -61,16 +66,27 @@ import { Icon } from 'astro-icon/components';
       e.preventDefault();
       e.stopPropagation();
 
+      dialog.style.transitionDuration = `${OPEN_DURATION_MS}ms`;
+      panel.style.transitionDuration = `${OPEN_DURATION_MS}ms`;
       dialog.classList.remove('hidden');
-      requestAnimationFrame(() => {
-        dialog.classList.remove('pointer-events-none', 'opacity-0');
-      });
       dialog.setAttribute('aria-hidden', 'false');
       lockBodyScroll();
+
+      requestAnimationFrame(() => {
+        void panel.offsetHeight;
+
+        requestAnimationFrame(() => {
+          dialog.classList.remove('pointer-events-none', 'opacity-0');
+          panel.classList.remove('translate-y-5', 'scale-[0.9]', 'opacity-0');
+        });
+      });
     };
 
     const handleClose = () => {
+      dialog.style.transitionDuration = `${CLOSE_DURATION_MS}ms`;
+      panel.style.transitionDuration = `${CLOSE_DURATION_MS}ms`;
       dialog.classList.add('pointer-events-none', 'opacity-0');
+      panel.classList.add('translate-y-5', 'scale-[0.9]', 'opacity-0');
       dialog.setAttribute('aria-hidden', 'true');
       unlockBodyScroll();
 
@@ -78,7 +94,7 @@ import { Icon } from 'astro-icon/components';
         if (dialog.getAttribute('aria-hidden') === 'true') {
           dialog.classList.add('hidden');
         }
-      }, 300);
+      }, CLOSE_DURATION_MS);
     };
 
     triggers.forEach(trigger => {
