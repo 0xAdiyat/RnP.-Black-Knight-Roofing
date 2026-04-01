@@ -1,11 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
+import { actions } from 'astro:actions';
 import NoiseBg from '@/components/NoiseBg.astro';
 import Button from '@/components/ui/Button.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
 import sunflow from '@/assets/sunflow.avif';
-
 import quoteBg from '@/assets/business-rate-badge.png';
 
 interface Props {
@@ -33,7 +33,6 @@ const testimonials = [
     role: 'Frontline Adjusters',
     text: 'Sensory Creative redesigned my companies website, they are consummate pros and it came out fantastic. Being in the roofing industry it can be difficult to explain nuances to website designers. With Hook, they knew the language and the industry like the back of their hand. Maggie and Claudia have been essential to my companies success! Also running PPC with them.',
     rating: 5,
-    avatar: '/placeholders/team/1.jpg',
   },
 ];
 ---
@@ -54,24 +53,19 @@ const testimonials = [
         <NoiseBg
           class="relative flex h-full flex-col items-center justify-center space-y-8 rounded-2xl bg-[#181818] p-8 text-center shadow-lg"
         >
-          <!-- Background Overlay for Testimonial Card -->
           <div class="absolute inset-0 z-[-1] opacity-5">
             <Image src={quoteBg} alt="" class="h-full w-full rounded-2xl object-cover" />
           </div>
 
-          <!-- Award Badge -->
           <div class="flex flex-col items-center space-y-2">
             <div class="relative h-24 w-32 shrink-0">
               <Image src={quoteBg} width={160} height={160} alt="Award Badge" class="h-full w-full object-contain" />
             </div>
           </div>
 
-          <!-- Person Info -->
           <div class="flex items-center gap-x-4">
             <div class="from-primary rounded-full bg-radial-[at_30%_30%] via-[#594216]/30 to-[#594216]/30 p-px">
-              <div
-                class="border-primary flex size-16 items-center justify-center overflow-hidden rounded-full bg-[#111]"
-              >
+              <div class="border-primary flex size-16 items-center justify-center overflow-hidden rounded-full bg-[#111]">
                 <span class="text-xl font-medium text-white"> CO </span>
               </div>
             </div>
@@ -81,12 +75,10 @@ const testimonials = [
             </div>
           </div>
 
-          <!-- Testimonial Text -->
           <p class="text-sm leading-relaxed text-[#ccc]">
             &ldquo;{testimonials[0].text}&rdquo;
           </p>
 
-          <!-- Rating -->
           <div class="flex items-center gap-x-4">
             <div class="h-fit w-fit">
               <Image
@@ -97,11 +89,9 @@ const testimonials = [
                 src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s48-fcrop64=1,00000000ffffffff-rw"
               />
             </div>
-
             <RatingStars rating={testimonials[0].rating} size={20} fillColor="#F7B715" strokeColor="transparent" />
           </div>
 
-          <!-- Carousel Nav -->
           <div class="flex gap-x-2">
             <button
               aria-label="Previous button"
@@ -130,209 +120,200 @@ const testimonials = [
     <!-- Right Side: Form -->
     <div class="lg:col-span-7">
       <div class="space-y-6 px-4 py-4 lg:px-8 lg:py-8">
-        <div class="text-xl font-medium text-white">Fill out this form to get in touch:</div>
-
-        <form class="space-y-4">
-          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <!-- First Name -->
-            <div class="group space-y-2">
-              <label
-                class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white"
-              >
-                <sup>
-                  <Icon
-                    name="star-icon"
-                    size={12}
-                    class="text-primary transition-transform duration-300 group-focus-within:rotate-45"
-                  />
-                </sup>
-                First Name
-              </label>
-              <div
-                class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]"
-              >
-                <input
-                  type="text"
-                  placeholder="John Doe"
-                  class="w-full rounded-lg bg-[#131313] px-4 py-3 text-sm text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none"
-                />
-              </div>
-            </div>
-
-            <!-- Phone -->
-            <div class="group space-y-2">
-              <label
-                class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white"
-              >
-                <sup>
-                  <Icon
-                    name="star-icon"
-                    size={12}
-                    class="text-primary transition-transform duration-300 group-focus-within:rotate-45"
-                  />
-                </sup>
-                Phone
-              </label>
-              <div
-                class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]"
-              >
-                <input
-                  type="tel"
-                  placeholder="(555) 000-0000"
-                  class="w-full rounded-lg bg-[#131313] px-4 py-3 text-sm text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none"
-                />
-              </div>
-            </div>
+        <!-- Success Message -->
+        <div id="contact-us-success" class="hidden flex-col items-center justify-center gap-y-4 py-12 text-center">
+          <div class="bg-primary/20 border-primary/40 flex size-16 items-center justify-center rounded-full border">
+            <Icon name="circle-tick" class="text-primary size-8" />
           </div>
-
-          <!-- Email -->
-          <div class="group space-y-2">
-            <label
-              class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white"
-            >
-              <sup>
-                <Icon
-                  name="star-icon"
-                  size={12}
-                  class="text-primary transition-transform duration-300 group-focus-within:rotate-45"
-                />
-              </sup>
-              Email
-            </label>
-            <div
-              class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]"
-            >
-              <input
-                type="email"
-                placeholder="john@example.com"
-                class="w-full rounded-lg bg-[#131313] px-4 py-3 text-sm text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none"
-              />
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <!-- Address -->
-            <div class="group space-y-2">
-              <label
-                class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white"
-              >
-                <sup>
-                  <Icon
-                    name="star-icon"
-                    size={12}
-                    class="text-primary transition-transform duration-300 group-focus-within:rotate-45"
-                  />
-                </sup>
-                Address
-              </label>
-              <div
-                class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]"
-              >
-                <input
-                  type="text"
-                  placeholder="123 Street Ave"
-                  class="w-full rounded-lg bg-[#131313] px-4 py-3 text-sm text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none"
-                />
-              </div>
-            </div>
-
-            <!-- Zip -->
-            <div class="group space-y-2">
-              <label
-                class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white"
-              >
-                <sup>
-                  <Icon
-                    name="star-icon"
-                    size={12}
-                    class="text-primary transition-transform duration-300 group-focus-within:rotate-45"
-                  />
-                </sup>
-                Zip
-              </label>
-              <div
-                class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]"
-              >
-                <input
-                  type="text"
-                  placeholder="91740"
-                  class="w-full rounded-lg bg-[#131313] px-4 py-3 text-sm text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none"
-                />
-              </div>
-            </div>
-          </div>
-
-          <!-- Service Needed -->
-          <div class="group space-y-2">
-            <label
-              class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white"
-            >
-              <sup>
-                <Icon
-                  name="star-icon"
-                  size={12}
-                  class="text-primary transition-transform duration-300 group-focus-within:rotate-45"
-                />
-              </sup>
-              Service Needed
-            </label>
-            <div
-              class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]"
-            >
-              <div class="relative w-full rounded-lg bg-[#131313]">
-                <select
-                  class="w-full appearance-none bg-transparent px-4 py-3 text-sm text-[#aaa] transition-all duration-300 focus:text-white focus:outline-none"
-                >
-                  <option value="" disabled selected>Roof Replacement</option>
-                  {services.map(service => <option value={service}>{service}</option>)}
-                </select>
-                <Icon
-                  name="chevron-down"
-                  class="text-primary pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2"
-                />
-              </div>
-            </div>
-          </div>
-
-          <!-- Message -->
-          <div class="group space-y-2">
-            <label
-              class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white"
-            >
-              <sup>
-                <Icon
-                  name="star-icon"
-                  size={12}
-                  class="text-primary transition-transform duration-300 group-focus-within:rotate-45"
-                />
-              </sup>
-              Message
-            </label>
-            <div
-              class="from-primary h-fit rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]"
-            >
-              <textarea
-                rows="3"
-                placeholder="Your message here..."
-                class="block w-full rounded-lg bg-[#131313] px-4 py-3 text-sm text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none"
-              ></textarea>
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="pt-4">
-            <Button variant="primary" size="lg" class="w-full md:w-[222px]"> Request My Quote </Button>
-          </div>
-
-          <p class="text-xs leading-5 text-white/60">
-            By submitting this form, you agree that Black Knight Roofing may contact you about your request. See our
-            <a href="/privacy-policy" class="text-primary font-semibold transition-colors hover:text-white">
-              Privacy Policy
-            </a>
-            for details.
+          <h3 class="text-xl font-semibold text-white">Message Sent!</h3>
+          <p class="text-sm text-[#828282]">
+            Thanks! We received your message and will get back to you shortly.
           </p>
-        </form>
+        </div>
+
+        <div id="contact-us-form-container">
+          <div class="text-xl font-medium text-white">Fill out this form to get in touch:</div>
+
+          <form class="space-y-4" id="contact-us-form" novalidate>
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <!-- First Name -->
+                  <div class="group space-y-2">
+                    <label class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white">
+                      <sup>
+                        <Icon name="star-icon" size={12} class="text-primary transition-transform duration-300 group-focus-within:rotate-45" />
+                      </sup>
+                      First Name
+                    </label>
+                    <div class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]">
+                      <input type="text" name="firstName" placeholder="John Doe" required
+                        class="w-full rounded-lg bg-[#131313] px-4 py-3 text-sm text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Phone -->
+                  <div class="group space-y-2">
+                    <label class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white">
+                      <sup>
+                        <Icon name="star-icon" size={12} class="text-primary transition-transform duration-300 group-focus-within:rotate-45" />
+                      </sup>
+                      Phone
+                    </label>
+                    <div class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]">
+                      <input type="tel" name="phone" placeholder="(555) 000-0000" required
+                        class="w-full rounded-lg bg-[#131313] px-4 py-3 text-sm text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="group space-y-2">
+                  <label class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white">
+                    <sup>
+                      <Icon name="star-icon" size={12} class="text-primary transition-transform duration-300 group-focus-within:rotate-45" />
+                    </sup>
+                    Email
+                  </label>
+                  <div class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]">
+                    <input type="email" name="email" placeholder="john@example.com" required
+                      class="w-full rounded-lg bg-[#131313] px-4 py-3 text-sm text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <!-- Address -->
+                  <div class="group space-y-2">
+                    <label class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white">
+                      <sup>
+                        <Icon name="star-icon" size={12} class="text-primary transition-transform duration-300 group-focus-within:rotate-45" />
+                      </sup>
+                      Address
+                    </label>
+                    <div class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]">
+                      <input type="text" name="address" placeholder="123 Street Ave" required
+                        class="w-full rounded-lg bg-[#131313] px-4 py-3 text-sm text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Zip -->
+                  <div class="group space-y-2">
+                    <label class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white">
+                      <sup>
+                        <Icon name="star-icon" size={12} class="text-primary transition-transform duration-300 group-focus-within:rotate-45" />
+                      </sup>
+                      Zip
+                    </label>
+                    <div class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]">
+                      <input type="text" name="zip" placeholder="91740" required
+                        class="w-full rounded-lg bg-[#131313] px-4 py-3 text-sm text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Service Needed -->
+                <div class="group space-y-2">
+                  <label class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white">
+                    <sup>
+                      <Icon name="star-icon" size={12} class="text-primary transition-transform duration-300 group-focus-within:rotate-45" />
+                    </sup>
+                    Service Needed
+                  </label>
+                  <div class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]">
+                    <div class="relative w-full rounded-lg bg-[#131313]">
+                      <select name="service"
+                        class="w-full appearance-none bg-transparent px-4 py-3 text-sm text-[#aaa] transition-all duration-300 focus:text-white focus:outline-none"
+                      >
+                        <option value="" disabled selected>Select a Service</option>
+                        {services.map(service => <option value={service}>{service}</option>)}
+                      </select>
+                      <Icon name="chevron-down" class="text-primary pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Message -->
+                <div class="group space-y-2">
+                  <label class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white">
+                    <sup>
+                      <Icon name="star-icon" size={12} class="text-primary transition-transform duration-300 group-focus-within:rotate-45" />
+                    </sup>
+                    Message
+                  </label>
+                  <div class="from-primary h-fit rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]">
+                    <textarea name="message" rows="3" placeholder="Your message here..."
+                      class="block w-full rounded-lg bg-[#131313] px-4 py-3 text-sm text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <!-- Submit -->
+                <div class="pt-4">
+                <Button type="submit" variant="primary" size="lg" class="w-full md:w-[222px]" data-submit-btn>
+                    <span data-submit-label>Request My Quote</span>
+                    <svg data-submit-spinner class="hidden size-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                    </svg>
+                  </Button>
+                </div>
+
+                <p class="text-xs leading-5 text-white/60">
+                  By submitting this form, you agree that Black Knight Roofing may contact you about your request. See our
+                  <a href="/privacy-policy" class="text-primary font-semibold transition-colors hover:text-white">Privacy Policy</a>
+                  for details.
+                </p>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </NoiseBg>
+
+<script>
+  import { actions } from 'astro:actions';
+
+  const form = document.getElementById('contact-us-form') as HTMLFormElement | null;
+  const container = document.getElementById('contact-us-form-container');
+  const successMsg = document.getElementById('contact-us-success');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Basic HTML5 validation trigger
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const btn = form.querySelector<HTMLButtonElement>('[data-submit-btn]');
+      const label = form.querySelector<HTMLElement>('[data-submit-label]');
+      const spinner = form.querySelector<SVGElement>('[data-submit-spinner]');
+
+      if (btn) btn.disabled = true;
+      if (label) label.textContent = 'Sending…';
+      if (spinner) spinner.classList.remove('hidden');
+
+      try {
+        const formData = new FormData(form);
+        const { error } = await actions.sendContactForm(formData);
+
+        if (error) throw new Error('Submission failed');
+
+        container?.classList.add('hidden');
+        successMsg?.classList.remove('hidden');
+        successMsg?.classList.add('flex');
+      } catch (err) {
+        console.error(err);
+        if (btn) btn.disabled = false;
+        if (label) label.textContent = 'Retry';
+        if (spinner) spinner.classList.add('hidden');
+        alert('There was a problem sending your message. Please try again.');
+      }
+    });
+  }
+</script>
