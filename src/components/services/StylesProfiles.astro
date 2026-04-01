@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import BadgeTitle from '@/components/BadgeTitle.astro';
-import { Icon } from 'astro-icon/components';
 import previewImg from '@/assets/styles-profiles/pine-crest-shake-preview.png';
 import swatchImg from '@/assets/styles-profiles/shake-texture-swatch.png';
 import NoiseBg from '../NoiseBg.astro';
@@ -107,12 +106,14 @@ const profiles = [
           <!-- Left: Preview -->
           <div class="flex-1 w-full relative aspect-4/5 lg:aspect-758/767 rounded-[40px] overflow-hidden group/preview shadow-2xl">
 
-            <Image src={profile.previewImage}
+          <Image 
+            src={profile.previewImage}
+            alt={profile.title} 
             width={profile.previewImage.width}
             height={profile.previewImage.height}
-             alt={profile.title} 
-             loading="eager"
-             class="w-full h-full object-cover transition-transform duration-1000 group-hover/preview:scale-105" />
+            loading="eager"
+            class="w-full h-full object-cover transition-transform duration-1000 group-hover/preview:scale-105" 
+          />
             
             <!-- Overlay Gradients -->
             <div class="absolute inset-0 bg-linear-to-t from-black/95 via-black/20 to-transparent opacity-90"></div>

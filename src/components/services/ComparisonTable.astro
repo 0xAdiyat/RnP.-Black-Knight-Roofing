@@ -6,7 +6,7 @@ import NoiseBg from '@/components/NoiseBg.astro';
 // Assets
 import illustrationTop from '@/assets/comparison/illustration-top.svg';
 import comparisonBg from '@/assets/comparison/background.png';
-import roofMini from '@/assets/comparison/roof-mini.png';
+import roofMini from '@/assets/services/service-roof.png';
 import bgEllipse from '@/assets/comparison/bg-ellipse.svg';
 import sunflow from '@/assets/sunflow.avif';
 
@@ -24,39 +24,41 @@ const comparisonData = [
   <Image
     src={illustrationTop}
     alt=""
-    class="pointer-events-none absolute -top-[100px] lg:-top-[150px] left-1/2 z-0 w-full max-w-[800px] -translate-x-1/2 opacity-40"
+    class="pointer-events-none absolute -top-[100px] left-1/2 z-0 w-full max-w-[800px] -translate-x-1/2 opacity-40 lg:-top-[150px]"
   />
 
-  <div class="from-primary to-primary/0 relative rounded-[32px] lg:rounded-[48px] bg-linear-to-b p-[2px]">
-    <NoiseBg class="relative overflow-hidden rounded-[32px] lg:rounded-[48px] bg-[#171717] px-6 py-10 lg:px-12 lg:py-16">
+  <div class="from-primary to-primary/0 relative rounded-[32px] bg-linear-to-b p-[2px] lg:rounded-[48px]">
+    <NoiseBg
+      class="relative overflow-hidden rounded-[32px] bg-[#171717] px-6 py-10 lg:rounded-[48px] lg:px-12 lg:py-16"
+    >
       <div>
         <Image src={sunflow} alt="" class="pointer-events-none absolute inset-x-0 top-0 z-0 w-full opacity-20" />
         <Image src={comparisonBg} alt="" class="pointer-events-none absolute inset-x-0 top-0 z-0 w-full opacity-10" />
-        <div class="absolute inset-0 top-0 left-0 h-full w-full bg-linear-to-b from-transparent from-70% to-black"></div>
+        <div class="absolute inset-0 top-0 left-0 h-full w-full bg-linear-to-b from-transparent from-70% to-black">
+        </div>
 
         <!-- Heading & Icons -->
-        <div class="relative z-10 mb-10 lg:mb-16 flex flex-col items-center gap-6 lg:gap-8 text-center">
+        <div class="relative z-10 mb-10 flex flex-col items-center gap-6 text-center lg:mb-16 lg:gap-8">
           <div class="flex flex-col items-center gap-3 lg:gap-4">
             <div class="flex items-center gap-x-3">
               <div
-                class="relative size-4 lg:size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-1.5 lg:before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
+                class="relative size-4 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-1.5 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-[''] lg:size-5 lg:before:size-2"
               >
               </div>
-              <div class="text-xs lg:text-sm font-medium tracking-wider text-white uppercase">Comparison</div>
+              <div class="text-xs font-medium tracking-wider text-white uppercase lg:text-sm">Comparison</div>
             </div>
 
             <div class="relative mt-2 flex items-center justify-center gap-4 lg:gap-16">
-              <Image
-                src={roofMini}
-                alt=""
-                class="hidden w-20 lg:w-24 brightness-75 transition-all group-hover:brightness-100 lg:block"
-              />
-              <h2 class="font-heading text-3xl leading-tight text-white lg:text-6xl max-w-[90%] lg:max-w-none mx-auto">
-                Stone-Coated Steel vs <br class="hidden lg:block"/> Asphalt Shingles
+              <h2 class="font-heading mx-auto max-w-[90%] text-3xl leading-tight text-white lg:max-w-none lg:text-6xl">
+                Stone-Coated Steel vs <br class="hidden lg:block" /> Asphalt Shingles
               </h2>
-              <Image src={roofMini} alt="" class="hidden w-20 lg:w-24 brightness-75 lg:block" />
+              <Image src={roofMini} alt="" class="hidden h-[84] w-[200px] brightness-75 lg:block" />
               <!-- Floating Ellipse decoration -->
-              <Image src={bgEllipse} alt="" class="pointer-events-none absolute -top-5 lg:-top-10 -right-10 lg:-right-20 w-32 lg:w-48 opacity-40" />
+              <Image
+                src={bgEllipse}
+                alt=""
+                class="pointer-events-none absolute -top-5 -right-10 w-32 opacity-40 lg:-top-10 lg:-right-20 lg:w-48"
+              />
             </div>
           </div>
         </div>
@@ -67,12 +69,18 @@ const comparisonData = [
             <thead>
               <tr>
                 <th class="border-b border-[#594216] px-6 py-6 text-left text-xl font-medium text-white">Feature</th>
-                <th class="border-b border-[#594216] px-6 py-6 text-left text-xl font-medium text-white">Asphalt Shingles</th>
+                <th class="border-b border-[#594216] px-6 py-6 text-left text-xl font-medium text-white"
+                  >Asphalt Shingles</th
+                >
                 <th class="relative p-0 text-left">
-                  <div class="from-primary absolute inset-0 -top-4 z-0 rounded-t-3xl bg-radial-[at_40%_20%] via-[#594216] to-[#594216] px-px pt-px">
+                  <div
+                    class="from-primary absolute inset-0 -top-4 z-0 rounded-t-3xl bg-radial-[at_40%_20%] via-[#594216] to-[#594216] px-px pt-px"
+                  >
                     <div class="h-full w-full rounded-t-3xl bg-[#111]"></div>
                   </div>
-                  <div class="text-primary relative z-10 border-b border-[#59421650] px-6 py-6 text-left text-xl font-medium">
+                  <div
+                    class="text-primary relative z-10 border-b border-[#59421650] px-6 py-6 text-left text-xl font-medium"
+                  >
                     Stone-Coated Steel
                   </div>
                 </th>
@@ -93,8 +101,18 @@ const comparisonData = [
                       {row.asphalt}
                     </td>
                     <td class="relative p-0 text-left">
-                      <div class:list={['absolute inset-0 z-0 border-x border-[#594216] bg-[#111]', idx === arr.length - 1 && 'rounded-b-3xl border-b']} />
-                      <div class:list={['text-primary relative z-10 flex items-center gap-2 border-b border-[#59421650] px-6 py-7 text-left text-lg font-semibold', idx === arr.length - 1 && 'border-none']}>
+                      <div
+                        class:list={[
+                          'absolute inset-0 z-0 border-x border-[#594216] bg-[#111]',
+                          idx === arr.length - 1 && 'rounded-b-3xl border-b',
+                        ]}
+                      />
+                      <div
+                        class:list={[
+                          'text-primary relative z-10 flex items-center gap-2 border-b border-[#59421650] px-6 py-7 text-left text-lg font-semibold',
+                          idx === arr.length - 1 && 'border-none',
+                        ]}
+                      >
                         <Icon name="double-tick" size={16} />
                         <span>{row.tile}</span>
                       </div>
@@ -109,23 +127,23 @@ const comparisonData = [
         <!-- Card View (Mobile/Tablet) -->
         <div class="relative z-10 grid grid-cols-1 gap-6 lg:hidden">
           {
-            comparisonData.map((row) => (
-              <div class="rounded-2xl border border-[#594216]/30 bg-neutral-900/50 p-6 space-y-4">
+            comparisonData.map(row => (
+              <div class="space-y-4 rounded-2xl border border-[#594216]/30 bg-neutral-900/50 p-6">
                 <div class="flex items-center gap-3 border-b border-[#594216]/30 pb-3">
                   <Icon name={row.icon} size={20} class="text-primary" />
-                  <span class="text-lg font-bold text-white tracking-wide">{row.label}</span>
+                  <span class="text-lg font-bold tracking-wide text-white">{row.label}</span>
                 </div>
-                
+
                 <div class="grid grid-cols-2 gap-4">
                   <div class="space-y-1">
-                    <p class="text-[10px] uppercase tracking-widest text-neutral-light font-bold">Asphalt</p>
+                    <p class="text-neutral-light text-[10px] font-bold tracking-widest uppercase">Asphalt</p>
                     <p class="text-sm text-white/80">{row.asphalt}</p>
                   </div>
                   <div class="space-y-1 border-l border-[#594216]/30 pl-4">
-                    <p class="text-[10px] uppercase tracking-widest text-primary font-bold">Stone-Steel</p>
+                    <p class="text-primary text-[10px] font-bold tracking-widest uppercase">Stone-Steel</p>
                     <div class="flex items-center gap-2">
-                       <Icon name="double-tick" size={14} class="text-primary" />
-                       <p class="text-sm font-bold text-primary">{row.tile}</p>
+                      <Icon name="double-tick" size={14} class="text-primary" />
+                      <p class="text-primary text-sm font-bold">{row.tile}</p>
                     </div>
                   </div>
                 </div>
