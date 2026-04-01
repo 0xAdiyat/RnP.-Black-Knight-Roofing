@@ -10,7 +10,7 @@ export const buttonVariants = cva(
         danger: 'bg-error text-tx-body',
         ghost: 'bg-transparent text-tx-primary hover:bg-white/6',
         outline: 'border border-white/80 bg-transparent text-white hover:border-white hover:bg-white hover:text-[#111]',
-        link: 'bg-transparent text-tx-primary hover:underline',
+        link: 'bg-transparent text-tx-primary',
       },
 
       size: {
