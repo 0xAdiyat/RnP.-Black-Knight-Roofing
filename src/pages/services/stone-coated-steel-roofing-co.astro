@@ -35,7 +35,7 @@ import Statistics from '@/components/ui/Statistics.astro';
 import sunflow from '@/assets/sunflow.avif';
 import WhyStoneCoated from '@/components/services/WhyStoneCoated.astro';
 
-const roofingMaterials = [
+const materials = [
   {
     id: 'shingles',
     label: 'Architectural Shingles',
@@ -48,14 +48,14 @@ const roofingMaterials = [
     label: 'Stone Coated Steel',
     description:
       'The ultimate protection against Colorado hail. Lightweight, non-combustible, and designed to last a lifetime with the look of traditional tile or wood shake.',
-    image: '/placeholders/popular-materials/2.png',
+    image: '/placeholders/popular-materials/1.png',
   },
   {
     id: 'tile',
     label: 'Concrete Tile',
     description:
       'Superior thermal performance and exceptional durability. Concrete tile offers high fire resistance and a distinct aesthetic for premium Colorado residences.',
-    image: '/placeholders/popular-materials/3.png',
+    image: '/placeholders/popular-materials/1.png',
   },
 ];
 
@@ -198,7 +198,13 @@ const processSteps = [
   />
 
   <Statistics />
-  <PopularRoofingMaterials materials={roofingMaterials} />
+  <PopularRoofingMaterials
+    badge="Why Stone-Coated Steel"
+    title="Extreme Weather Protection for Colorado Homes"
+    description="Colorado doesn't have one type of severe weather — it has all of them. Hail season runs April through September. Wind events regularly push past 60 mph on the Front Range. Wildfires are a growing concern across the state, and UV exposure at altitude degrades ordinary roofing materials faster than anywhere at sea level. Unified Steel™ stone-coated panels are engineered to handle all of it — tested and warranted, not just rated."
+    materials={materials}
+    source={{ label: 'Source: Westlake Royal Building Products — Unified Steel™', href: '#' }}
+  />
   <ComparisonSection />
   <ComparisonTable />
   <StylesProfiles />
