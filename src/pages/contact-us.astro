@@ -95,37 +95,37 @@ const processSteps = [
     subtitle="Contact Us"
   >
     <Fragment slot="social-proof">
-      <div class="flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
-        <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5">
+      <a href="tel:9708887230" class="group flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
+        <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5 transition-transform group-hover:scale-110">
           <Icon name="phone" size={24} class="text-primary" />
         </div>
         <div class="flex min-w-0 flex-col items-start text-start">
-          <div class="text-[18px] leading-7 font-bold text-white sm:whitespace-nowrap">Give us a Call</div>
-          <div class="text-sm">(970) 888-7230</div>
+          <div class="text-[18px] leading-7 font-bold text-white transition-colors group-hover:text-primary sm:whitespace-nowrap">Give us a Call</div>
+          <div class="text-sm transition-colors group-hover:text-white/80">(970) 888-7230</div>
         </div>
-      </div>
+      </a>
 
-      <div class="flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
-        <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5">
+      <a href="mailto:support@blackknightroofing.com" class="group flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
+        <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5 transition-transform group-hover:scale-110">
           <Icon name="send-message" size={24} class="text-primary" />
         </div>
         <div class="flex min-w-0 flex-col items-start text-start">
-          <div class="text-[18px] leading-7 font-bold text-white sm:whitespace-nowrap">Send us a Message</div>
-          <div class="text-sm">support@blackknightroofing.com</div>
+          <div class="text-[18px] leading-7 font-bold text-white transition-colors group-hover:text-primary sm:whitespace-nowrap">Send us a Message</div>
+          <div class="text-sm transition-colors group-hover:text-white/80">support@blackknightroofing.com</div>
         </div>
-      </div>
+      </a>
 
-      <div class="flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
-        <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5">
+      <a href="https://www.google.com/maps/search/?api=1&query=865+Draw+St+Lochbuie+CO+80603" target="_blank" rel="noopener noreferrer" class="group flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
+        <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5 transition-transform group-hover:scale-110">
           <Icon name="location-02" size={24} class="text-primary" />
         </div>
         <div class="flex min-w-0 flex-col items-start text-start">
-          <div class="text-[18px] leading-7 font-bold text-white sm:whitespace-nowrap">Visit Our Office</div>
-          <div class="text-xs leading-4 font-medium text-white">
+          <div class="text-[18px] leading-7 font-bold text-white transition-colors group-hover:text-primary sm:whitespace-nowrap">Visit Our Office</div>
+          <div class="text-sm transition-colors group-hover:text-white/80">
             865 Draw St <br /> Lochbuie, CO 80603
           </div>
         </div>
-      </div>
+      </a>
     </Fragment>
   </ContactUsHero>
 
