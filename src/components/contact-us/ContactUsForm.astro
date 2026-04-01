@@ -29,9 +29,9 @@ const {
 
 const testimonials = [
   {
-    name: 'Chris Owens',
-    role: 'Frontline Adjusters',
-    text: 'Sensory Creative redesigned my companies website, they are consummate pros and it came out fantastic. Being in the roofing industry it can be difficult to explain nuances to website designers. With Hook, they knew the language and the industry like the back of their hand. Maggie and Claudia have been essential to my companies success! Also running PPC with them.',
+    name: 'Anneliese Ehrenstrasser',
+    role: 'A satisfied Colorado Homeowner',
+    text: "Allow me to wax poetic on how freaking awesome Adam and his team at Black Knight Roofing are. Punctual, polite, very communicative, understanding, and with us every step of the way when it came to battling our insurance company into covering our roof coverage. They did an absolutely stellar job at finishing our roof in two days and cleaned up every single thing they dropped in the process. If you're looking for a great, trustworthy roofing, look no further. I would use them again and again for any future roof/gutter projects, and you better believe I will be recommending them to all of my friends, family, and neighbors. ... and strangers who don't necessarily need a roofer at the moment, but will in the future.",
     rating: 5,
   },
 ];
@@ -66,7 +66,7 @@ const testimonials = [
           <div class="flex items-center gap-x-4">
             <div class="from-primary rounded-full bg-radial-[at_30%_30%] via-[#594216]/30 to-[#594216]/30 p-px">
               <div class="border-primary flex size-16 items-center justify-center overflow-hidden rounded-full bg-[#111]">
-                <span class="text-xl font-medium text-white"> CO </span>
+                <span class="text-xl font-medium text-white"> AE </span>
               </div>
             </div>
             <div class="text-left">
@@ -92,27 +92,7 @@ const testimonials = [
             <RatingStars rating={testimonials[0].rating} size={20} fillColor="#F7B715" strokeColor="transparent" />
           </div>
 
-          <div class="flex gap-x-2">
-            <button
-              aria-label="Previous button"
-              class="from-primary rounded-full bg-radial-[at_30%_30%] via-[#594216]/30 to-[#594216]/30 p-px"
-            >
-              <div class="border-primary/40 flex size-9 items-center justify-center rounded-full border bg-[#0d0d0d]">
-                <Icon name="chevron-left" class="size-5 text-white" />
-              </div>
-              <span class="sr-only">Previous</span>
-            </button>
 
-            <button
-              aria-label="Next button"
-              class="from-primary rounded-full bg-radial-[at_30%_30%] via-[#594216]/30 to-[#594216]/30 p-px"
-            >
-              <div class="border-primary/40 flex size-9 items-center justify-center rounded-full border bg-[#0d0d0d]">
-                <Icon name="chevron-right" class="size-5 text-white" />
-              </div>
-              <span class="sr-only">Next</span>
-            </button>
-          </div>
         </NoiseBg>
       </div>
     </div>
