@@ -18,7 +18,7 @@ const { src, alt = 'profile', class: className } = Astro.props;
   )}
 >
   <div
-    class="from-primary border-raidal to-tertiary relative h-[60px] w-[60px] overflow-hidden rounded-full bg-conic-150 lg:h-[73px] lg:w-[73px]"
+    class="from-primary border-raidal to-tertiary relative aspect-square h-[60px] w-[60px] overflow-hidden rounded-full bg-conic-150 lg:h-[73px] lg:w-[73px]"
   >
     <Image src={src} alt={alt} width={256} height={256} class="absolute h-full w-full object-cover" />
   </div>

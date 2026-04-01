@@ -130,9 +130,9 @@ const groupedLinks = allLinks.reduce((acc, link) => {
             <div class="flex items-center gap-2 font-medium uppercase tracking-widest sm:ml-auto">
                <span>Press</span>
                <div class="flex items-center gap-1">
-                 <kbd class="rounded border border-white/10 bg-white/5 px-2 py-0.5 text-white/60 font-mono">⌘M</kbd> 
+                 <kbd class="rounded border border-white/10 bg-white/5 px-2 py-0.5 text-white/60 font-mono">⌘K</kbd> 
                  <span class="text-[8px]">or</span>
-                 <kbd class="rounded border border-white/10 bg-white/5 px-2 py-0.5 text-white/60 font-mono">Ctrl+M</kbd>
+                 <kbd class="rounded border border-white/10 bg-white/5 px-2 py-0.5 text-white/60 font-mono">Ctrl+K</kbd>
                </div>
                <span>anytime</span>
             </div>
@@ -232,7 +232,8 @@ const groupedLinks = allLinks.reduce((acc, link) => {
 
     // Hotkey listener
     window.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'm') {
+      // Use Cmd+K or Ctrl+K to avoid Minimize conflict (Cmd+M) in macOS/Safari
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         if (isOpen) closeModal();
         else openModal();
