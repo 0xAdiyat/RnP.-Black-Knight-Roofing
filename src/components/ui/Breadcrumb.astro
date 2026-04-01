@@ -15,23 +15,28 @@ interface Props {
 const { items, class: className } = Astro.props;
 ---
 
-<nav class={cn('flex flex-wrap items-center gap-y-2 gap-x-2 md:gap-x-3 text-[10px] sm:text-xs md:text-sm text-white', className)}>
+<nav
+  class={cn(
+    'flex flex-wrap items-center gap-y-2 gap-x-2 md:gap-x-3 text-[10px] sm:text-xs md:text-sm text-white',
+    className
+  )}
+>
   {/* Decorative Dot Indicator */}
   <div
-    class="relative size-4 md:size-5 shrink-0 rounded-[5px] bg-primary/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-1.5 md:before:size-2 before:-translate-1/2 before:rounded-full before:bg-primary before:content-['']"
+    class="bg-primary/50 before:bg-primary relative size-4 shrink-0 rounded-[5px] drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-1.5 before:-translate-1/2 before:rounded-full before:content-[''] md:size-5 md:before:size-2"
   >
   </div>
 
   {
     items.map((item, index) => (
       <div class="flex items-center gap-x-2 md:gap-x-3">
-        {index > 0 && <Icon name="chevron-right" class="size-3 md:size-4 opacity-50 shrink-0" />}
+        {index > 0 && <Icon name="chevron-right" class="size-3 shrink-0 opacity-50 md:size-4" />}
 
         {item.href ? (
           <a
             href={item.href}
             class={cn(
-              'max-w-[80px] min-[400px]:max-w-[120px] sm:max-w-[200px] md:max-w-none truncate transition-colors hover:text-white',
+              'max-w-[80px] truncate border-b border-white/80 transition-colors hover:text-white min-[400px]:max-w-[120px] sm:max-w-[200px] md:max-w-none',
               index === items.length - 1 ? 'text-white' : 'opacity-50'
             )}
             title={item.label}
@@ -39,9 +44,9 @@ const { items, class: className } = Astro.props;
             {item.label}
           </a>
         ) : (
-          <span 
+          <span
             class={cn(
-              'max-w-[80px] min-[400px]:max-w-[120px] sm:max-w-[200px] md:max-w-none truncate', 
+              'max-w-[80px] truncate border-b border-white/80 min-[400px]:max-w-[120px] sm:max-w-[200px] md:max-w-none',
               index === items.length - 1 ? 'text-white' : 'opacity-50'
             )}
             title={item.label}
