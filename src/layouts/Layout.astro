@@ -31,7 +31,7 @@ const socialImageURL = new URL(image, siteUrl);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
 
@@ -55,7 +55,6 @@ const socialImageURL = new URL(image, siteUrl);
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
     <ClientRouter />
-
   </head>
   <body>
     <slot />
