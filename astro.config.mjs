@@ -21,5 +21,7 @@ export default defineConfig({
     domains: ["www.gstatic.com"],
   },
 
-  adapter: vercel(),
+  adapter: vercel({
+    imageService: true,
+  }),
 });
