@@ -25,6 +25,7 @@ import heroBg from '@/assets/tiles/hero-bg.png';
 import heroGradient from '@/assets/tiles/hero-gradient.png';
 import comparisonHero from '@/assets/tiles/comparison-hero.png';
 import BadgeTitle from '@/components/BadgeTitle.astro';
+import EstimateButton from '@/components/EstimateButton.astro';
 
 const materials = [
   {
@@ -135,9 +136,8 @@ const components = [
           </div>
 
           <div class="flex gap-4">
-            <Button class="px-8 py-4 text-base">
-              <span> <strong> FREE </strong> Estimate </span>
-            </Button>
+            <EstimateButton offerText="" actionText="**FREE** Estimate" class="px-8 py-4 text-base" />
+
             <Button variant="link" class="flex items-center gap-2">
               <svg width="13" height="16" viewBox="0 0 13 16" fill="none">
                 <path
