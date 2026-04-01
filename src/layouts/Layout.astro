@@ -7,6 +7,7 @@ import '@fontsource-variable/jetbrains-mono';
 import '@fontsource-variable/caveat';
 import HumanManifesto from '@/components/HumanManifesto.astro';
 import EstimateDialog from '@/components/EstimateDialog.astro';
+import SiteLinksModal from '@/components/SiteLinksModal.astro';
 
 interface Props {
   title?: string;
@@ -60,6 +61,7 @@ const socialImageURL = new URL(image, siteUrl);
     <slot />
     <HumanManifesto />
     <EstimateDialog />
+    <SiteLinksModal />
   </body>
 </html>
 
