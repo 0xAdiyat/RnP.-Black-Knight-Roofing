@@ -13,14 +13,25 @@ const profiles = [
     description: 'Engineered to replicate hand-split wood shake with the durability of steel.',
     previewImage: previewImg,
     colors: [
-      { name: 'HARBORWOOD', code: '4DAP93569SF', color: '#6D5A4A' },
-      { name: 'STIRLING GRAY', code: '4DAP95427SF', color: '#6B6B6B' },
-      { name: 'COUNTRY BLEND', code: '4DAP93145SF', color: '#7B624A' },
-      { name: 'IRONWOOD', code: '4DAP95325SF', color: '#4A4139' },
-      { name: 'GOLD RIVER', code: '4DAP93245SF', color: '#8C7355' },
-      { name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241' },
-      { name: 'BARCELONA', code: '4DAP93185SF', color: '#7B4A4A' },
-      { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', isDefault: true },
+      { name: 'HARBORWOOD', code: '4DAP93569SF', color: '#6D5A4A',
+        thumbnail: "/placeholders/tiles/harborwood.png"
+
+       },
+      { name: 'STIRLING GRAY', code: '4DAP95427SF', color: '#6B6B6B',
+        thumbnail: "/placeholders/tiles/stirline-gray.png"
+       },
+      { name: 'COUNTRY BLEND', code: '4DAP93145SF', color: '#7B624A',
+        thumbnail: "/placeholders/tiles/country-blend.png"
+       },
+      { name: 'IRONWOOD', code: '4DAP95325SF', color: '#4A4139',
+        thumbnail: "/placeholders/tiles/ironwood.png"
+       },
+      { name: 'Country Blend', code: '4DAP93245SF', color: '#8C7355',
+        thumbnail: "/placeholders/tiles/country-blend.png"
+       },
+      { name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241',
+        thumbnail: "/placeholders/tiles/timberwood.png"
+       },
     ]
   },
   {
@@ -30,8 +41,12 @@ const profiles = [
     description: 'A clean, modern look that complements a variety of architectural styles.',
     previewImage: previewImg,
     colors: [
-        { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', isDefault: true },
-        { name: 'WEATHERED WOOD', code: '4DAP9104001', color: '#5D5D4A' },
+        { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', isDefault: true,
+            thumbnail: "/placeholders/tiles/9.png"
+        },
+        { name: 'WEATHERED WOOD', code: '4DAP9104001', color: '#5D5D4A',
+            thumbnail: "/placeholders/tiles/10.png"
+        },
     ]
   },
   {
@@ -41,7 +56,9 @@ const profiles = [
     description: 'The strength of steel with the refined look of architectural shingles.',
     previewImage: previewImg,
     colors: [
-        { name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241' },
+        { name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241',
+            thumbnail: "/placeholders/tiles/11.png"
+        },
     ]
   },
   {
@@ -51,7 +68,9 @@ const profiles = [
     description: 'Captures the timeless look of Spanish clay tile in a durable steel format.',
     previewImage: previewImg,
     colors: [
-        { name: 'BARCELONA', code: '4DAP93185SF', color: '#7B4A4A' },
+        { name: 'BARCELONA', code: '4DAP93185SF', color: '#7B4A4A',
+            thumbnail: "/placeholders/tiles/12.png"
+        },
     ]
   },
   {
@@ -61,7 +80,9 @@ const profiles = [
     description: 'A low-profile Mediterranean-inspired design for a clean, sophisticated roof.',
     previewImage: previewImg,
     colors: [
-        { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', isDefault: true },
+        { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', isDefault: true,
+            thumbnail: "/placeholders/tiles/13.png"
+        },
     ]
   }
 ];
@@ -156,7 +177,7 @@ const profiles = [
                   <div class="space-y-5 group/swatch cursor-pointer swatch-trigger" data-color-name={color.name}>
                     <div class="relative aspect-square rounded-[32px] overflow-hidden bg-[#1A1A1A] p-0.5 shadow-xl transition-all duration-500 group-hover/swatch:shadow-primary/20 group-hover/swatch:-translate-y-2 ring-primary ring-offset-[6px] ring-offset-black transtion-all group-hover/swatch:ring-2 ring-0">
                         <div class="w-full h-full rounded-[30px] overflow-hidden relative">
-                          <Image src={swatchImg} alt={color.name} class="w-full h-full object-cover scale-[1.3] transition-transform duration-700 group-hover/swatch:scale-[1.4]" />
+                          <Image src={color.thumbnail} width={100} height={100} alt={color.name} class="w-full aspect-square h-full object-cover scale-[1.3] transition-transform duration-700 group-hover/swatch:scale-[1.4]" />
                           <!-- Color Tint Overlays for high-fidelity look -->
                           <div class="absolute inset-0 transition-opacity duration-500 opacity-40 group-hover/swatch:opacity-60" style={`background-color: ${color.color}; mix-blend-mode: overlay;`}></div>
                           <div class="absolute inset-0 transition-opacity duration-500 opacity-20 group-hover/swatch:opacity-40" style={`background-color: ${color.color}; mix-blend-mode: multiply;`}></div>
