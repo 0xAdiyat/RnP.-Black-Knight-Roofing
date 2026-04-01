@@ -1,0 +1,136 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/hero/Hero.astro';
+import Brands from '@/components/Brands.astro';
+import CTASection from '@/components/cta/CTASection.astro';
+import Footer from '@/components/Footer.astro';
+import QuoteForm from '@/components/cta/QuoteForm.astro';
+import EstimateButton from '@/components/EstimateButton.astro';
+
+import { Icon } from 'astro-icon/components';
+import Button from '@/components/ui/Button.astro';
+import RatingStars from '@/components/ui/RatingStars.astro';
+import Testimonials from '@/components/Testimonials.astro';
+import Process from '@/components/process/Process.astro';
+
+import step1 from '@/assets/steps/step-1.png';
+import step2 from '@/assets/steps/step-2.png';
+import step3 from '@/assets/steps/step-3.png';
+import step4 from '@/assets/steps/step-4.png';
+import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
+import Faqs from '@/components/faqs/Faqs.astro';
+import RecentArticales from '@/components/articales/RecentArticales.astro';
+import NoiseBg from '@/components/NoiseBg.astro';
+import BadgeTitle from '@/components/BadgeTitle.astro';
+import ServiceCard from '@/components/services/ServiceCard.astro';
+
+import { services } from '@/data/services';
+import { cn } from '@/lib/utils';
+import SocialProof from '@/components/ui/SocialProof.astro';
+import heroImage from '@/assets/bg/services-and-gallery-section__hero.avif';
+
+// Row pattern: defines how many cards per row (repeats if more services exist)
+const rowPattern = [3, 2, 3, 4];
+
+// Map of cards-per-row to Tailwind col-span class (must be literal for Tailwind to detect)
+const colSpanMap: Record<number, string> = {
+  2: 'md:col-span-6',
+  3: 'md:col-span-4',
+  4: 'md:col-span-3',
+};
+
+// Compute col-span class for each service based on its position in the pattern
+function getColSpanClass(index: number): string {
+  let remaining = index;
+  let patternIndex = 0;
+  while (remaining >= rowPattern[patternIndex % rowPattern.length]) {
+    remaining -= rowPattern[patternIndex % rowPattern.length];
+    patternIndex++;
+  }
+  const cardsInRow = rowPattern[patternIndex % rowPattern.length];
+  return colSpanMap[cardsInRow] || 'col-span-4';
+}
+
+const processSteps = [
+  {
+    image: step1,
+    step: 'Step 1',
+    title: 'Contact Our Team',
+    description: 'Get in touch with us by phone or fill out a form! Our customer service team is on standby.',
+  },
+  {
+    image: step2,
+    step: 'Step 2',
+    title: 'Schedule Inspection',
+    description: 'We will schedule a convenient time to inspect your roof and assess the project scope.',
+  },
+  {
+    image: step3,
+    step: 'Step 3',
+    title: 'Review Your Proposal',
+    description: 'Receive a detailed proposal outlining the work, timeline, and transparent pricing.',
+  },
+  {
+    image: step4,
+    step: 'Step 4',
+    title: 'Project Completion',
+    description: 'Our expert team completes the project to the highest standards with a final walkthrough.',
+  },
+];
+---
+
+<Layout>
+  <Navbar />
+  <Hero
+    backgroundImage={heroImage}
+    title="Roofing Services Built for Colorado Homes and Colorado Weather"
+    subtitle="Colorado's #1 Veteran-Owned Roofing Company"
+  >
+    <p class="text-sm">
+      Need a repair, a storm-damage game plan, or a premium roof upgrade that changes the look of your home? Black
+      Knight Roofing helps homeowners and property owners from Colorado Springs to Fort Collins with roof replacement,
+      storm restoration, gutters, siding, windows, and premium roofing systems like stone-coated steel and concrete
+      tile.
+    </p>
+  </Hero>
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+
+  <NoiseBg class="px-0 py-0">
+    <div class="container py-20">
+      <BadgeTitle badge="Our Services" title="Services We Offer" class="flex flex-col items-center text-center" />
+      <div class="grid grid-cols-12 gap-x-4 gap-y-8 pt-16">
+        {
+          services.map((service, index) => (
+            <ServiceCard
+              image={service.image}
+              title={service.title}
+              description={service.description}
+              icon={service.icon}
+              tags={service.tags}
+              href={`/services/${service.slug}`}
+              class={cn('col-span-12', getColSpanClass(index))}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </NoiseBg>
+
+  <Testimonials />
+  <Process steps={processSteps} />
+  <ServiceAreas />
+  <Faqs />
+  <RecentArticales />
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+  <CTASection />
+  <Footer />
+</Layout>

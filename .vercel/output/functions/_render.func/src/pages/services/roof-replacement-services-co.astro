@@ -1,0 +1,228 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Brands from '@/components/Brands.astro';
+import CTASection from '@/components/cta/CTASection.astro';
+import Footer from '@/components/Footer.astro';
+import Testimonials from '@/components/Testimonials.astro';
+import Faqs from '@/components/faqs/Faqs.astro';
+import NoiseBg from '@/components/NoiseBg.astro';
+import WhyChooseUs from '@/components/WhyChooseUs.astro';
+import Button from '@/components/ui/Button.astro';
+import EstimateButton from '@/components/EstimateButton.astro';
+import { Icon } from 'astro-icon/components';
+import { type Service } from '@/data/services';
+import Breadcrumb from '@/components/ui/Breadcrumb.astro';
+import Hero from '@/components/hero/Hero.astro';
+import RatingStars from '@/components/ui/RatingStars.astro';
+import QuoteForm from '@/components/cta/QuoteForm.astro';
+import { Image } from 'astro:assets';
+import Process from '@/components/process/Process.astro';
+import step1 from '@/assets/steps/step-1.png';
+import step2 from '@/assets/steps/step-2.png';
+import step3 from '@/assets/steps/step-3.png';
+import step4 from '@/assets/steps/step-4.png';
+import RecentProjects from '@/components/recent-projects/RecentProjects.astro';
+import RecentArticales from '@/components/articales/RecentArticales.astro';
+import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
+import StylesProfiles from '@/components/services/StylesProfiles.astro';
+import OtherServicesCarousel from '@/components/services/OtherServicesCarousel.astro';
+import PopularRoofingMaterials from '@/components/services/PopularRoofingMaterials.astro';
+import ComparisonSection from '@/components/services/ComparisonSection.astro';
+import ComparisonTable from '@/components/services/ComparisonTable.astro';
+import SocialProof from '@/components/ui/SocialProof.astro';
+import Statistics from '@/components/ui/Statistics.astro';
+import heroImage from '@/assets/bg/roof-replacement-section__hero.avif';
+
+const roofingMaterials = [
+  {
+    id: 'shingles',
+    label: 'Architectural Shingles',
+    description:
+      'A reliable, budget-friendly choice with layered dimension, broad color options, and dependable everyday performance for Colorado homes.',
+    image: '/placeholders/popular-materials/1.png',
+  },
+  {
+    id: 'steel',
+    label: 'Stone Coated Steel',
+    description:
+      'The ultimate protection against Colorado hail. Lightweight, non-combustible, and designed to last a lifetime with the look of traditional tile or wood shake.',
+    image: '/placeholders/popular-materials/2.png',
+  },
+  {
+    id: 'tile',
+    label: 'Concrete Tile',
+    description:
+      'Superior thermal performance and exceptional durability. Concrete tile offers high fire resistance and a distinct aesthetic for premium Colorado residences.',
+    image: '/placeholders/popular-materials/3.png',
+  },
+];
+
+const processSteps = [
+  {
+    image: step1,
+    step: 'Step 1',
+    title: 'Contact Our Team',
+    description: 'Get in touch with us by phone or fill out a form! Our customer service team is on standby.',
+  },
+  {
+    image: step2,
+    step: 'Step 2',
+    title: 'Schedule Inspection',
+    description: 'We will schedule a convenient time to inspect your roof and assess the project scope.',
+  },
+  {
+    image: step3,
+    step: 'Step 3',
+    title: 'Review Your Proposal',
+    description: 'Receive a detailed proposal outlining the work, timeline, and transparent pricing.',
+  },
+  {
+    image: step4,
+    step: 'Step 4',
+    title: 'Project Completion',
+    description: 'Our expert team completes the project to the highest standards with a final walkthrough.',
+  },
+];
+---
+
+<Layout>
+  <Navbar />
+
+  <Hero backgroundImage={heroImage} title="A Roof Replacement You Can Trust in Colorado" subtitle="Roof Replacement Services In Colorado">
+    <p class="text-sm">
+      At Black Knight Roofing Roofing, we understand that your roof is more than just a covering—it's the first line of
+      defense for your home or business. Over time, roofs can suffer from weather damage, aging materials, or unexpected
+      events, putting your property at risk. That's why our roof replacement services are designed to provide durable,
+      high-quality solutions with expert craftsmanship and a stress-free experience. Whether it's residential or
+      commercial, our team delivers customized solutions using premium materials, ensuring your property stays protected
+      while enhancing its curb appeal and long-term value.
+    </p>
+  </Hero>
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+
+  <!-- Service Details -->
+  <NoiseBg class="px-0 py-0">
+    <div class="container py-8 lg:py-20">
+      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:items-stretch">
+        <!-- Left contents -->
+        <div class="space-y-8 py-8">
+          <div class="flex-1 space-y-4">
+            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Roof Replacement Services' }]} />
+
+            <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
+              Supporting Colorado Homes and Businesses
+            </h2>
+
+            <p class="text-sm lg:text-base">
+              Florida's weather can be unpredictable, from intense heat to hurricane-force winds. Our roof replacement
+              solutions are designed specifically for this environment, using materials and installation techniques that
+              withstand the toughest conditions. We're committed to protecting your property and providing exceptional
+              customer service throughout the project. Whether it's a storm-damaged commercial roof or an aging
+              residential system, our team ensures a durable, long-lasting result that keeps your property safe and
+              secure.
+            </p>
+          </div>
+
+          <Button class="px-8 py-4 text-base">
+            <span> Get <strong> FREE </strong> Roof Estimate </span>
+          </Button>
+        </div>
+
+        <!-- Right Contents -->
+
+        <div class="h-[380px] w-full items-center overflow-hidden rounded-lg lg:self-center">
+          <Image
+            src="/placeholders/thumbnails/roof-replacement-1.avif"
+            alt="Roof Replacement"
+            width={442}
+            height={785}
+            class="h-full w-full rounded-lg object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </NoiseBg>
+
+  <Statistics />
+  <Testimonials />
+
+  <!-- Service Details -->
+  <NoiseBg class="px-0 py-0">
+    <div class="container py-8 lg:py-20">
+      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:items-stretch">
+        <!-- Left contents -->
+        <div class="h-[380px] w-full items-center overflow-hidden rounded-lg lg:self-center">
+          <Image
+            src="/placeholders/thumbnails/roof-replacement-1.avif"
+            alt="Roof Replacement"
+            width={442}
+            height={785}
+            class="h-full w-full rounded-lg object-cover"
+          />
+        </div>
+
+        <!-- Right Contents -->
+        <div class="space-y-8 py-8">
+          <div class="flex-1 space-y-4">
+            <div class="flex items-center gap-x-3 text-base">
+              <div
+                class="relative size-5 rounded-[5px] bg-[#F7B715]/50 drop-shadow-2xl before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-1/2 before:rounded-full before:bg-[#F7D515] before:content-['']"
+              >
+              </div>
+              <div class="font-medium">Why Choose Us</div>
+            </div>
+
+            <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
+              The Black Knight Roof Replacement Advantage
+            </h2>
+
+            <div class="text-neutral-lighter text-sm lg:text-base">
+              <ul class="space-y-4">
+                <li class="flex items-center gap-x-2">
+                  <Icon name="double-tick" />
+                  Experienced professionals for every project
+                </li>
+                <li class="flex items-center gap-x-2">
+                  <Icon name="double-tick" />
+                  Premium roofing materials for long-lasting results
+                </li>
+                <li class="flex items-center gap-x-2">
+                  <Icon name="double-tick" />
+                  Energy-efficient options to reduce cooling costs
+                </li>
+                <li class="flex items-center gap-x-2">
+                  <Icon name="double-tick" />
+                  Peace of mind with inspections, warranties, and expert installation
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <Button class="px-8 py-4 text-base">
+            <span> Get <strong> FREE </strong> Roof Estimate </span>
+          </Button>
+        </div>
+      </div>
+    </div>
+  </NoiseBg>
+
+  <div class="via-primary container h-px bg-linear-to-r from-transparent to-transparent lg:hidden"></div>
+
+  <Process steps={processSteps} />
+  <RecentProjects />
+  <ServiceAreas />
+  <Faqs />
+  <RecentArticales />
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+  <CTASection />
+  <Footer />
+</Layout>

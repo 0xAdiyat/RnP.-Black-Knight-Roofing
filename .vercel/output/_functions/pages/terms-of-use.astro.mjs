@@ -1,0 +1,54 @@
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_DZ-DbHVo.mjs';
+import { $ as $$LegalPage } from '../chunks/LegalPage_VOHueW7m.mjs';
+export { renderers } from '../renderers.mjs';
+
+const $$TermsOfUse = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`${renderComponent($$result, "LegalPage", $$LegalPage, { "title": "Terms of Use | Black Knight Roofing", "description": "Terms governing use of the Black Knight Roofing website.", "heading": "Terms of Use", "intro": "These Terms of Use govern your access to and use of the Black Knight Roofing website and its content." }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<p>
+By accessing or using this website, you agree to these Terms of Use. If you do not agree, do not use the site.
+</p> <h2>Website Purpose</h2> <p>
+This website is provided for general informational and lead-generation purposes related to Black Knight Roofing and
+    the services described on the site.
+</p> <h2>No Professional or Binding Estimate Through the Site Alone</h2> <p>
+Website content is general in nature and is not a binding quote, guarantee of project availability, insurance
+    determination, warranty decision, or final scope of work. Pricing, schedules, availability, and recommendations may
+    depend on inspection results, property conditions, material availability, and other project-specific factors.
+</p> <h2>Permitted Use</h2> <p>You agree to use this website only for lawful purposes and not to:</p> <ul> <li>Submit false, misleading, abusive, or fraudulent information</li> <li>Interfere with site security or functionality</li> <li>Attempt to access systems or data you are not authorized to access</li> <li>Reuse site content in a way that misrepresents Black Knight Roofing or its services</li> </ul> <h2>Intellectual Property</h2> <p>
+Website content, including text, branding, graphics, layout, and other materials, is owned by Black Knight Roofing
+    or used with permission unless otherwise stated. You may view the site for personal, non-commercial use, but you
+    may not reproduce or distribute site materials without permission where applicable.
+</p> <h2>Third-Party Links and Services</h2> <p>
+This website may reference or link to third-party services, platforms, or policies, including Google services. We
+    are not responsible for the content, terms, privacy practices, or availability of third-party websites or tools.
+</p> <h2>Disclaimer of Warranties</h2> <p>
+This website is provided on an &ldquo;as is&rdquo; and &ldquo;as available&rdquo; basis. To the maximum extent permitted by
+    applicable law, Black Knight Roofing disclaims warranties regarding website availability, uninterrupted access,
+    error-free operation, or fitness of website content for a particular purpose.
+</p> <h2>Limitation of Liability</h2> <p>
+To the extent permitted by applicable law, Black Knight Roofing will not be liable for indirect, incidental,
+    special, consequential, or punitive damages arising from use of this website or reliance on website content.
+</p> <h2>Changes to These Terms</h2> <p>
+We may update these Terms of Use from time to time by posting a revised version on this page. Continued use of the
+    website after changes are posted means you accept the updated terms.
+</p> <h2>Contact Information</h2> <p>
+Questions about these Terms of Use may be sent to
+<a href="mailto:support@blackknightroofing.com">support@blackknightroofing.com</a>
+or directed to <a href="tel:9708887230">(970) 888-7230</a>.
+</p> <h2>Related Pages</h2> <p>
+You can also review our <a href="/privacy-policy">Privacy Policy</a>,
+<a href="/accessibility">Accessibility</a>, and <a href="/company-info">Company Info</a> pages.
+</p> ` })}`;
+}, "/Users/fhixa.com/Projects/Niche Projects/RnP.-Black-Knight-Roofing/src/pages/terms-of-use.astro", void 0);
+
+const $$file = "/Users/fhixa.com/Projects/Niche Projects/RnP.-Black-Knight-Roofing/src/pages/terms-of-use.astro";
+const $$url = "/terms-of-use";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$TermsOfUse,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

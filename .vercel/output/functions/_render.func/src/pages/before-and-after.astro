@@ -1,0 +1,176 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Brands from '@/components/Brands.astro';
+import CTASection from '@/components/cta/CTASection.astro';
+import Footer from '@/components/Footer.astro';
+import Testimonials from '@/components/Testimonials.astro';
+import Faqs from '@/components/faqs/Faqs.astro';
+import NoiseBg from '@/components/NoiseBg.astro';
+import Button from '@/components/ui/Button.astro';
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import Hero from '@/components/hero/Hero.astro';
+import RatingStars from '@/components/ui/RatingStars.astro';
+import QuoteForm from '@/components/cta/QuoteForm.astro';
+import RecentArticales from '@/components/articales/RecentArticales.astro';
+import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
+import sunFlow from '@/assets/sunflow.avif';
+import BeforeAfter from '@/components/comparison/BeforeAfter.astro';
+import Pagination from '@/components/ui/pagination/Pagination.astro';
+import Statistics from '@/components/ui/Statistics.astro';
+import heroImage from '@/assets/bg/before-after-section__hero.avif';
+
+const beforeAfterProjects = [
+  {
+    before: '/placeholders/projects/project-1.jpg',
+    after: '/placeholders/projects/project-2.jpg',
+    aspect: 'aspect-square',
+  },
+  {
+    before: '/placeholders/projects/project-3.jpg',
+    after: '/placeholders/projects/project-4.jpg',
+    aspect: 'aspect-video',
+  },
+  {
+    before: '/placeholders/projects/project-1.jpg',
+    after: '/placeholders/projects/project-2.jpg',
+    aspect: 'aspect-[3/4]',
+  },
+  {
+    before: '/placeholders/projects/project-1.jpg',
+    after: '/placeholders/projects/project-2.jpg',
+    aspect: 'aspect-video',
+  },
+  {
+    before: '/placeholders/projects/project-3.jpg',
+    after: '/placeholders/projects/project-4.jpg',
+    aspect: 'aspect-[9/16]',
+  },
+  {
+    before: '/placeholders/projects/project-1.jpg',
+    after: '/placeholders/projects/project-2.jpg',
+    aspect: 'aspect-video',
+  },
+  {
+    before: '/placeholders/projects/project-3.jpg',
+    after: '/placeholders/projects/project-4.jpg',
+    aspect: 'aspect-square',
+  },
+  {
+    before: '/placeholders/projects/project-1.jpg',
+    after: '/placeholders/projects/project-2.jpg',
+    aspect: 'aspect-video',
+  },
+  {
+    before: '/placeholders/projects/project-3.jpg',
+    after: '/placeholders/projects/project-4.jpg',
+    aspect: 'aspect-[4/3]',
+  },
+];
+
+const url = new URL(Astro.request.url);
+const currentPage = Number(url.searchParams.get('page')) || 1;
+const totalPages = 96; // Matching the image's '96' at the end
+---
+
+<Layout>
+  <Navbar />
+
+  <Hero backgroundImage={heroImage} title="Before &amp; After Gallery" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
+    <p>
+      Use your cursor to move the image sliders left and right to see the difference we made for these Wisconsin and
+      Illinois homes. We work with quality in mind so your roof, windows, doors, & siding stay durable and under
+      warranty for years to come.
+    </p>
+  </Hero>
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+
+  <!-- Filters -->
+  <div class="relative px-0 py-0">
+    <Image
+      src={sunFlow}
+      alt="sun-flow"
+      width={1920}
+      height={1080}
+      class="absolute inset-0 h-full w-full object-cover opacity-20"
+    />
+    <div class="container py-12 lg:py-20">
+      <div class="z-10 flex flex-col items-center space-y-8 lg:space-y-10">
+        <div class="flex flex-col items-center gap-4 text-center">
+          <div class="text-xs font-bold tracking-[0.2em] text-white/50 uppercase">Visual Transitions</div>
+          <h2 class="font-heading text-4xl text-white md:text-5xl">Filter Gallery By:</h2>
+        </div>
+
+        <div class="flex flex-wrap items-end justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-2">
+          {
+            [
+              { name: 'All Work', icon: 'gallery-image' },
+              { name: 'Stone Coated', icon: 'stone-roof' },
+              { name: 'Asphalt', icon: 'roof-icon' },
+              { name: 'Concrete Tile', icon: 'materials' },
+              { isSeparator: true },
+              { name: 'Siding', icon: 'materials' },
+              { name: 'Gutters', icon: 'roof-air-flow' },
+            ].map(cat =>
+              cat.isSeparator ? (
+                <div class="mx-4 hidden h-[90px] w-px bg-white/15 lg:block" />
+              ) : (
+                <button class="group flex flex-col items-center gap-3 transition-all hover:-translate-y-1">
+                  <div class="group-hover:border-primary/50 flex h-[110px] w-[95px] items-center justify-center rounded-xl border border-white/5 bg-white/5 shadow-2xl transition-all duration-300 group-hover:bg-white/10 sm:h-[135px] sm:w-[116px]">
+                    <Icon
+                      name={cat.icon}
+                      class="text-primary size-8 transition-transform duration-300 group-hover:scale-110 sm:size-10"
+                    />
+                  </div>
+                  <span class="text-[10px] font-bold tracking-wider text-white/40 uppercase transition-colors duration-300 group-hover:text-white sm:text-xs">
+                    {cat.name}
+                  </span>
+                </button>
+              )
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Before and After Gallery -->
+  <NoiseBg class="px-0 py-0">
+    <div class="container py-10 lg:py-20">
+      <div class="columns-1 gap-6 space-y-6 md:columns-2 lg:columns-3">
+        {
+          beforeAfterProjects.map(project => (
+            <div class="mb-6 break-inside-avoid">
+              <BeforeAfter beforeImage={project.before} afterImage={project.after} class={project.aspect} />
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Pagination -->
+      <div class="mt-16 flex justify-center">
+        <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl="/before-and-after" />
+      </div>
+    </div>
+  </NoiseBg>
+
+  <!-- Statistics -->
+  <div class="container py-16">
+    <Statistics />
+  </div>
+  <Testimonials />
+  <ServiceAreas />
+  <Faqs />
+  <RecentArticales />
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+  <CTASection />
+  <Footer />
+</Layout>

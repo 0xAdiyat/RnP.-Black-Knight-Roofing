@@ -1,0 +1,251 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/hero/Hero.astro';
+import Brands from '@/components/Brands.astro';
+import CTASection from '@/components/cta/CTASection.astro';
+import Footer from '@/components/Footer.astro';
+import QuoteForm from '@/components/cta/QuoteForm.astro';
+
+import { Icon } from 'astro-icon/components';
+import Button from '@/components/ui/Button.astro';
+import RatingStars from '@/components/ui/RatingStars.astro';
+import Testimonials from '@/components/Testimonials.astro';
+import Process from '@/components/process/Process.astro';
+import Faqs from '@/components/faqs/Faqs.astro';
+
+import step1 from '@/assets/steps/step-1.png';
+import step2 from '@/assets/steps/step-2.png';
+import step3 from '@/assets/steps/step-3.png';
+import step4 from '@/assets/steps/step-4.png';
+import NoiseBg from '@/components/NoiseBg.astro';
+import BadgeTitle from '@/components/BadgeTitle.astro';
+import ServiceCard from '@/components/services/ServiceCard.astro';
+import ContactUsForm from '@/components/contact-us/ContactUsForm.astro';
+
+import { services } from '@/data/services';
+import { serviceAreas } from '@/data/service-areas';
+import heroBg from '@/assets/bg/contact-us-section__hero.avif';
+import sunFlow from '@/assets/sunflow.avif';
+import { Image } from 'astro:assets';
+import Hero2 from '@/components/hero/Hero2.astro';
+import ContactUsHero from '@/components/hero/ContactUsHero.astro';
+
+const title = 'Contact Us | Top Veteran Owned Roofing Company | Black Knight Roofing';
+const subtitle = "Colorado's #1 Veteran-Owned Roofing Company";
+const description =
+  'Need a repair, a storm-damage game plan, or a premium roof upgrade? Black Knight Roofing is here to help homeowners across Colorado.';
+
+// Row pattern: defines how many cards per row (repeats if more services exist)
+const rowPattern = [3, 2, 3, 4];
+
+// Map of cards-per-row to Tailwind col-span class (must be literal for Tailwind to detect)
+const colSpanMap: Record<number, string> = {
+  2: 'col-span-6',
+  3: 'col-span-4',
+  4: 'col-span-3',
+};
+
+// Compute col-span class for each service based on its position in the pattern
+function getColSpanClass(index: number): string {
+  let remaining = index;
+  let patternIndex = 0;
+  while (remaining >= rowPattern[patternIndex % rowPattern.length]) {
+    remaining -= rowPattern[patternIndex % rowPattern.length];
+    patternIndex++;
+  }
+  const cardsInRow = rowPattern[patternIndex % rowPattern.length];
+  return colSpanMap[cardsInRow] || 'col-span-4';
+}
+
+const processSteps = [
+  {
+    image: step1,
+    step: 'Step 1',
+    title: 'Contact Our Team',
+    description: 'Get in touch with us by phone or fill out a form! Our customer service team is on standby.',
+  },
+  {
+    image: step2,
+    step: 'Step 2',
+    title: 'Schedule Inspection',
+    description: 'We will schedule a convenient time to inspect your roof and assess the project scope.',
+  },
+  {
+    image: step3,
+    step: 'Step 3',
+    title: 'Review Your Proposal',
+    description: 'Receive a detailed proposal outlining the work, timeline, and transparent pricing.',
+  },
+  {
+    image: step4,
+    step: 'Step 4',
+    title: 'Project Completion',
+    description: 'Our expert team completes the project to the highest standards with a final walkthrough.',
+  },
+];
+---
+
+<Layout title={title}>
+  <Navbar />
+
+  <ContactUsHero
+    backgroundImage={heroBg}
+    title="Contact Us to Set Up <br/> A Brief Introductory Call"
+    subtitle="Contact Us"
+  >
+    <Fragment slot="social-proof">
+      <div class="flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
+        <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5">
+          <Icon name="phone" size={24} class="text-primary" />
+        </div>
+        <div class="flex min-w-0 flex-col items-start text-start">
+          <div class="text-[18px] leading-7 font-bold text-white sm:whitespace-nowrap">Give us a Call</div>
+          <div class="text-sm">(970) 888-7230</div>
+        </div>
+      </div>
+
+      <div class="flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
+        <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5">
+          <Icon name="send-message" size={24} class="text-primary" />
+        </div>
+        <div class="flex min-w-0 flex-col items-start text-start">
+          <div class="text-[18px] leading-7 font-bold text-white sm:whitespace-nowrap">Send us a Message</div>
+          <div class="text-sm">support@blackknightroofing.com</div>
+        </div>
+      </div>
+
+      <div class="flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
+        <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5">
+          <Icon name="location-02" size={24} class="text-primary" />
+        </div>
+        <div class="flex min-w-0 flex-col items-start text-start">
+          <div class="text-[18px] leading-7 font-bold text-white sm:whitespace-nowrap">Visit Our Office</div>
+          <div class="text-xs leading-4 font-medium text-white">
+            865 Draw St <br /> Lochbuie, CO 80603
+          </div>
+        </div>
+      </div>
+    </Fragment>
+  </ContactUsHero>
+
+  <!-- Contact Form -->
+  <NoiseBg class="bg-[#111] px-0 py-20 pb-40">
+    <div class="container -mt-[200px]">
+      <ContactUsForm />
+    </div>
+  </NoiseBg>
+
+  <!-- contact us contents -->
+  <NoiseBg class="relative bg-[#111] px-0 py-20">
+    <Image
+      src={sunFlow}
+      width={1440}
+      height={810}
+      alt="Sunflow"
+      class="pointer-events-none absolute top-0 right-0 h-full w-full object-cover opacity-20"
+    />
+    <div class="container grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+      <div class="space-y-8">
+        <div class="flex items-center gap-x-3 text-sm font-medium">
+          <div class="relative flex size-3 items-center justify-center">
+            <div class="absolute aspect-square w-full rounded-full bg-[#f7b715] opacity-50"></div>
+            <div class="z-10 size-2 rounded-full bg-[#f7d515] shadow-[0px_0px_4px_0px_rgba(247,213,21,0.5)]"></div>
+          </div>
+          <div class="flex items-center gap-x-4">
+            <span class="border-b border-white/50 pb-0.5 opacity-50">Roofing Company in Denver, CO</span>
+            <Icon name="chevron-right" class="size-3 opacity-50" />
+            <span class="border-b border-white pb-0.5">Contact Us</span>
+          </div>
+        </div>
+
+        <h2 class="font-heading text-[28px] leading-10 font-normal text-white lg:text-5xl lg:leading-tight">
+          The #1 Choice For Colorado Residents
+        </h2>
+
+        <p class="text-lg text-[#ccc]">
+          At Black Knight Roofing, we're proud to serve homeowners and businesses across the Denver metro and Colorado's
+          Front Range. Our team knows this region's roofing challenges — hail, wind, rapid temperature swings, and
+          everything that comes with living at elevation. Whether you need a free inspection after a storm, want to talk
+          through a full replacement, or just have questions about your insurance claim, we're easy to reach and fast to
+          respond. A real conversation with our team costs you nothing.
+        </p>
+
+        <Button variant="primary" data-estimate-trigger>FREE Roof Estimate</Button>
+      </div>
+
+      <div class="relative aspect-4/3 overflow-hidden rounded-[12px]">
+        <img src="/placeholders/works/1.jpg" alt="Black Knight Roofing Team" class="h-full w-full object-cover" />
+      </div>
+    </div>
+  </NoiseBg>
+
+  <!-- Statistics -->
+  <div class="container grid grid-cols-1 gap-x-2 py-16 md:grid-cols-2 lg:grid-cols-4">
+    <!-- Total Projects Completed -->
+    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
+      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
+        <div class="font-heading text-primary text-[2rem]">100+</div>
+        <div>
+          <div class="text-lg font-bold">Roofing Projects</div>
+          <div class="text-[#AAAAAA]">in Colorado</div>
+        </div>
+      </NoiseBg>
+    </div>
+
+    <!-- Google Retings -->
+    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
+      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
+        <div class="text-primary text-[2rem] font-bold">5.0</div>
+        <div class="space-y-1">
+          <div class="text-lg font-bold">
+            <RatingStars rating={5} size={16} fillColor="#F7B715" strokeColor="none" />
+          </div>
+          <div class="text-[#AAAAAA]">40+ Google Reviews</div>
+        </div>
+      </NoiseBg>
+    </div>
+
+    <!-- Workmanship Warranty -->
+    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
+      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
+        <div class="text-primary size-12 font-bold">
+          <Icon name="shield-check" size={48} />
+        </div>
+        <div>
+          <div class="font-heading text-[2rem] leading-11 font-normal">Licensed</div>
+          <div class="text-[#AAAAAA]">Bonded & Insured</div>
+        </div>
+      </NoiseBg>
+    </div>
+
+    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
+      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
+        <div class="text-primary size-12 font-bold">
+          <Icon name="badge" size={48} />
+        </div>
+        <div>
+          <div class="font-heading text-[2rem] leading-11 font-normal">Lifetime</div>
+          <div class="text-[#AAAAAA]">Workmanship Warranty</div>
+        </div>
+      </NoiseBg>
+    </div>
+  </div>
+
+  <Process
+    steps={processSteps}
+    headingClass="font-heading text-[28px] leading-10 font-normal text-white md:text-5xl md:leading-tight lg:text-5xl lg:leading-tight"
+    subheadingClass="font-normal"
+  />
+  <Faqs
+    headingClass="font-heading text-[28px] leading-10 font-normal text-white lg:text-5xl lg:leading-tight"
+    phoneLinkClass="text-white text-[20px] leading-8 font-medium underline"
+  />
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+  <CTASection />
+  <Footer />
+</Layout>

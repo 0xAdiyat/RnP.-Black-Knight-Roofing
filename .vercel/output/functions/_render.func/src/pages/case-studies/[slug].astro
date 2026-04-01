@@ -1,0 +1,446 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Brands from '@/components/Brands.astro';
+import CTASection from '@/components/cta/CTASection.astro';
+import Footer from '@/components/Footer.astro';
+import NoiseBg from '@/components/NoiseBg.astro';
+import { Icon } from 'astro-icon/components';
+import Button from '@/components/ui/Button.astro';
+import { Image, getImage } from 'astro:assets';
+import sunFlow from '@/assets/sunflow.avif';
+import roofImage from '@/assets/roof.avif';
+import Process from '@/components/process/Process.astro';
+import step1 from '@/assets/steps/step-1.png';
+import step2 from '@/assets/steps/step-2.png';
+import step3 from '@/assets/steps/step-3.png';
+import step4 from '@/assets/steps/step-4.png';
+import ProjectSwiper from '@/components/case-study/ProjectSwiper.astro';
+import Hero2 from '@/components/hero/Hero2.astro';
+import EstimateButton from '@/components/EstimateButton.astro';
+import Breadcrumb from '@/components/ui/Breadcrumb.astro';
+import heroBg from '@/assets/bg/case-studies-detail-section__hero.avif';
+
+const roofImgOp = await getImage({ src: roofImage });
+
+export async function getStaticPaths() {
+  const caseStudies = [
+    {
+      slug: '1',
+      title: 'Star House” Siding Upgrade — Done Right',
+      subtitle: 'Scott wanted a fresh exterior that still matched the character of his home.',
+      location: 'Forest City, IA',
+      services: 'Siding Replacement',
+      materials: 'D-5 Dutchlap (Acadia Green)',
+      videoThumbnail: '/placeholders/projects/project-1.jpg',
+      summary:
+        'Scott wanted a fresh exterior that still matched the character of his home. We helped him compare colors, pick the right profile, and install with a clean, durable finish.',
+      resultSummary: 'curb appeal up, maintenance worry down.',
+      customer: {
+        title: 'A Front Range Homeowner',
+        content:
+          'wanted a roof that looks high-end but holds up to Colorado’s toughest weather. After repeated storm seasons and constant patchwork, they needed a long-term system—not another temporary fix. They reached out to Black Knight Roofing for an expert-led evaluation and a solution designed for durability, aesthetics, and peace of mind.',
+      },
+      problem: {
+        content: `With demand for high-quality creative output growing across users and internal teams, Vimeo’s Brand and Production team saw the need for a unified strategy to accelerate AI adoption and support creatives across the organization.`,
+      },
+      solution: {
+        content: `With demand for high-quality creative output growing across users and internal teams, Vimeo’s Brand and Production team saw the need for a unified strategy to accelerate AI adoption and support creatives across the organization.`,
+      },
+      result: {
+        content: `With demand for high-quality creative output growing across users and internal teams, Vimeo’s Brand and Production team saw the need for a unified strategy to accelerate AI adoption and support creatives across the organization.`,
+      },
+      images: [
+        '/placeholders/works/1.jpg',
+        '/placeholders/works/2.jpg',
+        '/placeholders/works/3.jpg',
+        '/placeholders/works/4.jpg',
+        '/placeholders/works/1.jpg',
+        '/placeholders/works/2.jpg',
+        '/placeholders/works/3.jpg',
+      ],
+    },
+    {
+      slug: 'star-house-siding-upgrade',
+      title: 'Star House” Siding Upgrade — Done Right',
+      subtitle: 'Scott wanted a fresh exterior that still matched the character of his home.',
+      location: 'Forest City, IA',
+      services: 'Siding Replacement',
+      materials: 'D-5 Dutchlap (Acadia Green)',
+      videoThumbnail: '/placeholders/projects/project-1.jpg',
+      summary:
+        'Scott wanted a fresh exterior that still matched the character of his home. We helped him compare colors, pick the right profile, and install with a clean, durable finish.',
+      resultSummary: 'curb appeal up, maintenance worry down.',
+      customer: {
+        title: 'A Front Range Homeowner',
+        content:
+          'wanted a roof that looks high-end but holds up to Colorado’s toughest weather. After repeated storm seasons and constant patchwork, they needed a long-term system—not another temporary fix. They reached out to Black Knight Roofing for an expert-led evaluation and a solution designed for durability, aesthetics, and peace of mind.',
+      },
+      problem: {
+        content: `With demand for high-quality creative output growing across users and internal teams, Vimeo’s Brand and Production team saw the need for a unified strategy to accelerate AI adoption and support creatives across the organization.`,
+      },
+      solution: {
+        content: `With demand for high-quality creative output growing across users and internal teams, Vimeo’s Brand and Production team saw the need for a unified strategy to accelerate AI adoption and support creatives across the organization.`,
+      },
+      result: {
+        content: `With demand for high-quality creative output growing across users and internal teams, Vimeo’s Brand and Production team saw the need for a unified strategy to accelerate AI adoption and support creatives across the organization.`,
+      },
+      images: [
+        '/placeholders/works/1.jpg',
+        '/placeholders/works/2.jpg',
+        '/placeholders/works/3.jpg',
+        '/placeholders/works/4.jpg',
+        '/placeholders/works/1.jpg',
+        '/placeholders/works/2.jpg',
+        '/placeholders/works/3.jpg',
+      ],
+    },
+  ];
+
+  return caseStudies.map(caseStudy => ({
+    params: { slug: caseStudy.slug },
+    props: { caseStudy },
+  }));
+}
+
+const { caseStudy } = Astro.props;
+
+const processSteps = [
+  {
+    image: step1,
+    step: 'Step 1',
+    title: 'Contact Our Team',
+    description: 'Get in touch with us by phone or fill out a form! Our customer service team is on standby.',
+  },
+  {
+    image: step2,
+    step: 'Step 2',
+    title: 'Schedule Inspection',
+    description: 'We will schedule a convenient time to inspect your roof and assess the project scope.',
+  },
+  {
+    image: step3,
+    step: 'Step 3',
+    title: 'Review Your Proposal',
+    description: 'Receive a detailed proposal outlining the work, timeline, and transparent pricing.',
+  },
+  {
+    image: step4,
+    step: 'Step 4',
+    title: 'Project Completion',
+    description: 'Our expert team completes the project to the highest standards with a final walkthrough.',
+  },
+];
+---
+
+<Layout title={`${caseStudy.title} | Case Study`}>
+  <Navbar />
+
+  <Hero2 backgroundImage={heroBg} title="Case Studies Denver" subtitle="Case Studies">
+    <p>
+      Insurance Claim Specialists: We navigate storm and hail damage claims for you, making insurance stress-free.
+      Insurance Claim Specialists: We navigate storm and hail damage claims for you, making insurance stress-free.
+      Insurance Claim Specialists: We navigate storm and hail damage claims for you, making insurance stress-free.
+      Insurance Claim Specialists: We navigate storm and hail damage claims for you, making insurance stress-free.
+    </p>
+
+    <div class="flex items-center gap-x-4">
+      <EstimateButton />
+    </div>
+  </Hero2>
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+
+  <section class="bg-[#111] py-20">
+    <div class="container overflow-visible">
+      <!-- Breadcrumbs -->
+
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Case Studies', href: '/case-studies' },
+          { label: caseStudy.title, href: `/case-studies/${caseStudy.slug}` },
+        ]}
+        class="mb-4"
+      />
+
+      <div class="flex flex-col items-start justify-between gap-12 lg:flex-row">
+        <!-- Main Content -->
+        <div class="max-w-4xl flex-1 space-y-12">
+          <!-- Video Section -->
+          <div class="space-y-12 rounded-3xl">
+            <div class="space-y-8">
+              <!-- Thumbnail -->
+              <div
+                class="group border-primary/30 relative aspect-video cursor-pointer overflow-hidden rounded-2xl border"
+              >
+                <Image
+                  src={caseStudy.videoThumbnail}
+                  alt={caseStudy.title}
+                  width={1200}
+                  height={675}
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div
+                  class="absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity group-hover:bg-black/20"
+                >
+                  <div
+                    class="bg-primary shadow-primary/40 flex size-16 transform items-center justify-center rounded-full shadow-2xl transition-transform group-hover:scale-110"
+                  >
+                    <Icon name="play" class="size-6 text-black" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Heading Area -->
+              <div class="space-y-4 px-2 pb-4 text-center sm:text-left">
+                <h4 class="font-heading pb-2 leading-tight text-white">
+                  {caseStudy.title}
+                </h4>
+
+                <div>
+                  <div class="relative py-2 pl-6">
+                    <div class="bg-primary absolute inset-y-0 left-0 w-0.5 rounded-full"></div>
+                    <p class="text-left text-base leading-relaxed text-[#ccc]">
+                      {caseStudy.summary}
+                    </p>
+                  </div>
+
+                  <div class="relative py-2 pl-6">
+                    <div class="bg-primary absolute inset-y-0 left-0 w-0.5 rounded-full"></div>
+                    <p class="text-left text-base text-[#ccc]">
+                      <span class="font-bold text-white">Result:</span>
+                      {caseStudy.resultSummary}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Bar -->
+          <div
+            class="via-primary relative mx-auto w-full rounded-3xl bg-linear-to-r from-[#594216]/30 to-[#594216]/30 p-px sm:w-fit"
+          >
+            <div
+              class="border-primary/20 relative grid max-w-[787px] grid-cols-1 divide-y divide-white/10 overflow-hidden rounded-3xl border bg-[#1a1a1a] p-8 shadow-2xl sm:grid-cols-3 sm:divide-x sm:divide-y-0"
+            >
+              <Image
+                src={sunFlow}
+                alt="sun-flow"
+                width={1920}
+                height={1080}
+                class="absolute inset-0 h-full w-full object-cover opacity-20"
+              />
+              <!-- Location -->
+              <div class="flex items-center gap-4 py-4 sm:py-0 sm:pr-8">
+                <div class="py-4">
+                  <div class="text-primary flex items-center gap-x-2 text-xl font-bold">
+                    <Icon name="location-02" class="text-primary size-6" />
+                    <span> Location </span>
+                  </div>
+                  <div class="text-[#ccc]">{caseStudy.location}</div>
+                </div>
+              </div>
+
+              <!-- Services -->
+              <div class="flex items-center gap-4 py-4 sm:px-8 sm:py-0">
+                <div class="py-4">
+                  <div class="text-primary flex items-center gap-x-2 text-xl font-bold">
+                    <Icon name="cap" class="text-primary size-6" />
+                    <span> Services </span>
+                  </div>
+                  <div class="text-[#ccc]">{caseStudy.services}</div>
+                </div>
+              </div>
+
+              <!-- Materials -->
+              <div class="flex items-center gap-4 py-4 sm:py-0 sm:pl-8">
+                <div class="py-4">
+                  <div class="text-primary flex items-center gap-x-2 text-xl font-bold">
+                    <Icon name="materials" class="text-primary size-6" />
+                    <span> Materials </span>
+                  </div>
+                  <div class="text-[#ccc]">{caseStudy.materials}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detailed Sections -->
+          <div class="space-y-20 pt-10">
+            <!-- The Customer -->
+            <section id="the-customer" class="scroll-mt-32 space-y-6">
+              <h2 class="font-heading text-primary text-4xl font-normal">The Customer</h2>
+              <p
+                class="text-base leading-relaxed font-medium text-white/90 decoration-white/30 decoration-1 underline-offset-4"
+              >
+                <span class="underline decoration-white/50">{caseStudy.customer.title}</span>
+                {caseStudy.customer.content}
+              </p>
+            </section>
+
+            <!-- The Problem -->
+            <section id="the-problem" class="scroll-mt-32 space-y-6">
+              <h2 class="font-heading text-primary text-4xl font-normal">The Problem</h2>
+              <div class="space-y-6 text-base leading-relaxed text-white/80">
+                <p>{caseStudy.problem.content}</p>
+                <p>To learn more about Vimeo’s journey with Superside, we spoke with:</p>
+                <ul class="space-y-3 pl-6">
+                  <li class="flex items-start gap-3">
+                    <div class="bg-primary mt-2.5 size-1.5 shrink-0 rounded-full"></div>
+                    <span class="font-medium text-white underline decoration-white/30 underline-offset-4"
+                      >Meagan Wood</span
+                    >, Director of Integrated Production
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <div class="bg-primary mt-2.5 size-1.5 shrink-0 rounded-full"></div>
+                    <span class="font-medium text-white underline decoration-white/30 underline-offset-4"
+                      >Bia Castro</span
+                    >, Director of Brand and Creative
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <div class="bg-primary mt-2.5 size-1.5 shrink-0 rounded-full"></div>
+                    <span class="font-medium text-white underline decoration-white/30 underline-offset-4"
+                      >Leif Huron</span
+                    >, Lead Production Manager, Creative Operations
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <!-- The Solution -->
+            <section id="the-solution" class="scroll-mt-32 space-y-6">
+              <h2 class="font-heading text-primary text-4xl font-normal">The Solution</h2>
+              <div class="space-y-4 text-base leading-relaxed text-white/80">
+                <p>{caseStudy.solution.content}</p>
+              </div>
+            </section>
+
+            <!-- The Result -->
+            <section id="the-result" class="scroll-mt-32 space-y-6">
+              <h2 class="font-heading text-primary text-4xl font-normal">The Result</h2>
+              <div class="space-y-4 text-base leading-relaxed text-white/80">
+                <p>{caseStudy.result.content}</p>
+              </div>
+            </section>
+          </div>
+
+          <!-- Bottom CTA -->
+          <div class="from-primary rounded-2xl bg-radial-[at_30%_30%] via-[#594216]/50 to-[#594216]/50 p-px">
+            <NoiseBg class="group relative rounded-2xl p-8 transition-all duration-300">
+              <div
+                class="from-primary/5 absolute inset-0 bg-radial-[at_center] via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+              >
+              </div>
+              <div
+                class="relative flex flex-col items-center justify-between gap-8 text-center md:flex-row md:text-left"
+              >
+                <div class="space-y-1">
+                  <h3
+                    class="font-heading to-primary bg-linear-to-r from-white via-white bg-clip-text text-4xl text-transparent"
+                  >
+                    Get Your FREE Roof Inspection Done!
+                  </h3>
+                  <p class="text-sm font-bold tracking-wider text-white/50 uppercase">
+                    Need any roof repair help? Get in touch today!
+                  </p>
+                </div>
+                <Button variant="primary" size="lg" class="shadow-primary/10 rounded-lg shadow-xl" data-estimate-trigger>
+                  Get Started
+                </Button>
+              </div>
+            </NoiseBg>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="w-full shrink-0 space-y-12 lg:sticky lg:top-32 lg:w-80">
+          <!-- Table of Contents -->
+          <div class="hidden space-y-6 lg:block">
+            <div class="font-body text-xl font-bold text-white">Table of Contents</div>
+            <nav class="flex flex-col gap-2 border-l border-white/20 pl-4">
+              <a href="#the-customer" class="hover:text-primary py-1 text-[#ccc] transition-colors">01 — The Customer</a
+              >
+              <a href="#the-problem" class="hover:text-primary py-1 text-[#ccc] transition-colors">02 — The Problem</a>
+              <a href="#the-solution" class="hover:text-primary py-1 text-[#ccc] transition-colors">03 — The Solution</a
+              >
+              <a href="#the-result" class="hover:text-primary py-1 text-[#ccc] transition-colors">04 — The Result</a>
+            </nav>
+          </div>
+
+          <!-- Support Card -->
+          <div class="via-primary rounded-2xl bg-linear-to-r from-white/0 to-white/0 p-px">
+            <div
+              class="group relative flex aspect-3/4 flex-col justify-end overflow-hidden rounded-2xl p-8"
+              style={`
+              background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${roofImgOp.src});
+              background-size: cover;
+              background-position: bottom;
+              background-repeat: no-repeat;
+             `}
+            >
+              <div class="absolute inset-0 z-10 bg-linear-to-t from-black via-black/40 to-transparent"></div>
+              <Image
+                src={sunFlow}
+                alt="Support"
+                class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-30 transition-transform duration-700 group-hover:scale-105"
+              />
+              <div class="relative z-20 space-y-8">
+                <div class="space-y-4">
+                  <h3 class="font-heading text-primary text-4xl leading-tight">Need Help? Call Us Now</h3>
+                  <p class="leading-relaxed text-[#ccc]">
+                    Have questions or need a custom quote? Our team is here to help
+                  </p>
+                </div>
+
+                <div class="flex items-center gap-4">
+                  <div class="bg-primary flex size-12 shrink-0 items-center justify-center rounded-full">
+                    <Icon name="phone" class="size-6 text-black" />
+                  </div>
+                  <div>
+                    <div class="text-xs font-bold tracking-widest text-white/60 uppercase">Give us a call:</div>
+                    <div class="text-primary font-heading mt-1 text-3xl leading-none">(815) 200-1255</div>
+                  </div>
+                </div>
+
+                <div class="border-t border-white/20 pt-4">
+                  <p class="text-sm text-white/60">Check Availability</p>
+                  <p class="font-medium text-white">Secure your spot asap!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Image sliders -->
+  <section class="mb-20">
+    <ProjectSwiper images={caseStudy.images} />
+  </section>
+
+  <Process steps={processSteps} />
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+  <CTASection />
+  <Footer />
+</Layout>
+
+<style>
+  /* Custom scrollbar hiding */
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
