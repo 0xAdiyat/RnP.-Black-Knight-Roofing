@@ -15,9 +15,10 @@ interface Props {
   class?: string;
   borderClass?: string;
   compactMobile?: boolean;
+  href?: string;
 }
 
-const { title, description, image, imageAlt = '', buttons = [], class: className, compactMobile = false } = Astro.props;
+const { title, description, image, imageAlt = '', buttons = [], class: className, compactMobile = false, href } = Astro.props;
 const singleLineMobileChips = compactMobile && buttons.length > 2;
 ---
 
@@ -29,9 +30,14 @@ const singleLineMobileChips = compactMobile && buttons.length > 2;
     className
   )}
 >
+  {href && (
+    <a href={href} class="absolute inset-0 z-10" aria-label={`Learn more about ${title}`}>
+        <span class="sr-only">Learn more about {title}</span>
+    </a>
+  )}
   <div
     class={cn(
-      'bg-gradient-radial flex h-full w-full flex-col rounded-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:bg-[#232323]',
+      'bg-gradient-radial relative z-0 flex h-full w-full flex-col rounded-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:bg-[#232323]',
       compactMobile ? 'p-4 md:p-6' : 'p-6'
     )}
   >
@@ -87,9 +93,9 @@ const singleLineMobileChips = compactMobile && buttons.length > 2;
     >
       <div
         class={cn(
-          'pointer-events-none items-center gap-1.5 text-white/70 opacity-0 translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:pointer-events-auto group-hover/service-card:translate-y-0 group-hover/service-card:opacity-100',
+          'pointer-events-none items-center gap-1.5 text-white/70 opacity-0 translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:translate-y-0 group-hover/service-card:opacity-100',
           compactMobile
-            ? 'pointer-events-auto flex min-h-5 translate-y-0 opacity-100 md:pointer-events-none md:min-h-6 md:translate-y-2 md:opacity-0'
+            ? 'flex min-h-5 translate-y-0 opacity-100 md:min-h-6 md:translate-y-2 md:opacity-0'
             : 'flex min-h-6'
         )}
       >
@@ -107,7 +113,7 @@ const singleLineMobileChips = compactMobile && buttons.length > 2;
         buttons.length > 0 && (
           <div
             class={cn(
-              'flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:translate-y-0.5',
+              'relative z-20 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:translate-y-0.5',
               singleLineMobileChips
                 ? 'services-chip-scroll no-scrollbar w-full gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none]'
                 : 'flex-wrap gap-2'

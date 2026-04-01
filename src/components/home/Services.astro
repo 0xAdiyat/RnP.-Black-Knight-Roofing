@@ -35,9 +35,9 @@ interface VisualService {
   description: string;
   image: ImageMetadata;
   imageAlt: string;
-  buttons: (string | ServiceButton)[];
   class?: string;
   premium?: boolean;
+  href?: string;
 }
 
 const visualServices: VisualService[] = [
@@ -52,6 +52,7 @@ const visualServices: VisualService[] = [
       { label: 'Steel Siding', href: '/services/siding-co' },
     ],
     class: 'md:[&_img[data-slot=thumbnail]]:scale-150',
+    href: '/services/siding-co',
   },
   {
     title: 'Roofing',
@@ -63,6 +64,7 @@ const visualServices: VisualService[] = [
       { label: 'Metal Roofing', href: '/services/metal-roofing-co' },
     ],
     class: 'lg:scale-110 md:[&_img[data-slot=thumbnail]]:scale-150',
+    href: '/services/residential-roofing-co',
   },
   {
     title: 'Gutters',
@@ -75,6 +77,7 @@ const visualServices: VisualService[] = [
       { label: 'Gutter Guards', href: '/services/gutters-co' },
     ],
     class: 'md:[&_img[data-slot=thumbnail]]:scale-150',
+    href: '/services/gutters-co',
   },
   {
     title: 'Stone Coated Roofing',
@@ -85,6 +88,7 @@ const visualServices: VisualService[] = [
     buttons: ['+ 50-Year Limited Warranty', '+ 120 MPH Wind Rated', '+ Class 4 Impact Rated'],
     class: 'border-gradient h-full w-full md:min-h-[480px]',
     premium: true,
+    href: '/services/stone-coated-steel-roofing-co',
   },
   {
     title: 'Concrete Tile Roofs',
@@ -95,6 +99,7 @@ const visualServices: VisualService[] = [
     buttons: ['+ Limited Lifetime Warranty', '+ Class A Fire Rated', '+ Class 3 & 4 Hail Options'],
     class: 'border-gradient h-full md:min-h-[480px]',
     premium: true,
+    href: '/services/roof-replacement-services-co',
   },
 ];
 
@@ -161,6 +166,7 @@ const mobileStackServices = [
                           imageAlt={service.imageAlt}
                           buttons={service.buttons}
                           class={service.class}
+                          href={service.href}
                           compactMobile={true}
                         />
                       </div>
@@ -199,6 +205,7 @@ const mobileStackServices = [
                 imageAlt={service.imageAlt}
                 buttons={service.buttons}
                 class={service.class}
+                href={service.href}
               />
             ))
           }
@@ -221,6 +228,7 @@ const mobileStackServices = [
                     imageAlt={service.imageAlt}
                     buttons={service.buttons}
                     class={service.class}
+                    href={service.href}
                   />
                 </div>
               ))
@@ -230,8 +238,11 @@ const mobileStackServices = [
       </div>
 
       <div class="grid grid-cols-1 gap-6 pt-4 pb-16 md:pt-10 lg:grid-cols-2 lg:gap-3 lg:pt-16">
-        <div class="border-radial group/service-panel flex h-full flex-col rounded-[10px] p-6 transition-colors duration-300 ease-out hover:bg-white/[0.02]">
-          <div class="space-y-3">
+        <div class="border-radial relative group/service-panel flex h-full flex-col rounded-[10px] p-6 transition-colors duration-300 ease-out hover:bg-white/[0.02]">
+          <a href="/services/storm-damage-repair-co" class="absolute inset-0 z-10" aria-label="Storm Damage Repair">
+              <span class="sr-only">Storm Damage Repair</span>
+          </a>
+          <div class="space-y-3 relative z-0">
             <div class="flex items-center gap-x-2.5">
               <Icon
                 name="storm"
@@ -247,7 +258,7 @@ const mobileStackServices = [
           </div>
           <Button
             variant="link"
-            class="mt-auto self-start px-0 pt-6 underline underline-offset-4 transition-colors duration-300 ease-out group-hover/service-panel:text-primary"
+            class="mt-auto self-start px-0 pt-6 underline underline-offset-4 transition-colors duration-300 ease-out group-hover/service-panel:text-primary relative z-20"
             href="/services/storm-damage-repair-co"
           >
             <svg width="13" height="16" viewBox="0 0 13 16" fill="none">
@@ -260,8 +271,11 @@ const mobileStackServices = [
           </Button>
         </div>
 
-        <div class="border-radial group/service-panel flex h-full flex-col rounded-[10px] p-6 transition-colors duration-300 ease-out hover:bg-white/[0.02]">
-          <div class="space-y-3">
+        <div class="border-radial relative group/service-panel flex h-full flex-col rounded-[10px] p-6 transition-colors duration-300 ease-out hover:bg-white/[0.02]">
+          <a href="/financing" class="absolute inset-0 z-10" aria-label="Flexible Financing">
+              <span class="sr-only">Flexible Financing</span>
+          </a>
+          <div class="space-y-3 relative z-0">
             <div class="flex items-center gap-x-2.5">
               <Icon
                 name="calculate-doller"
@@ -278,7 +292,7 @@ const mobileStackServices = [
           </div>
           <Button
             variant="link"
-            class="mt-auto self-start px-0 pt-6 underline underline-offset-4 transition-colors duration-300 ease-out group-hover/service-panel:text-primary"
+            class="mt-auto self-start px-0 pt-6 underline underline-offset-4 transition-colors duration-300 ease-out group-hover/service-panel:text-primary relative z-20"
             href="/financing"
           >
             <svg width="13" height="16" viewBox="0 0 13 16" fill="none">
