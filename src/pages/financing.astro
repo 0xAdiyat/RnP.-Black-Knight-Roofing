@@ -288,8 +288,7 @@ const financeSteps = [
 </Layout>
 
 <script>
-  /** @type {(() => void) | null} */
-  let cleanupFinancingBanner = null;
+  let cleanupFinancingBanner: (() => void) | null = null;
 
   function setupFinancingBanner() {
     const banner = document.getElementById('sticky-financing-banner');

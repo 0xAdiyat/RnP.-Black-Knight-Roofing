@@ -35,6 +35,7 @@ interface VisualService {
   description: string;
   image: ImageMetadata;
   imageAlt: string;
+  buttons: (string | ServiceButton)[];
   class?: string;
   premium?: boolean;
   href?: string;
