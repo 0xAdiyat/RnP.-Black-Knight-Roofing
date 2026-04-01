@@ -1,10 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
-import roofingImg from '@/assets/services/service-roofing.png';
-import commercialImg from '@/assets/services/service-roof.png';
-import metalImg from '@/assets/services/service-roof-shade.png';
-import sidingImg from '@/assets/services/service-siding.png';
 import stormBg from '@/assets/storm-bg.png';
 import ServiceNavCard from './ServiceNavCard.astro';
 import PopularBadgeImg from '@/assets/popular-badge.avif';
@@ -17,7 +13,7 @@ const services = [
     image: '/placeholders/services/1.png',
     tags: ['Shingle Roofing', 'Metal Roofing'],
     icon: 'roof-icon',
-    href: '/services/residential',
+    href: '/services/residential-roofing-co',
   },
   {
     title: 'Commercial Roofing',
@@ -25,7 +21,7 @@ const services = [
       "We're the commercial roofing specialists your business can rely on! We focus on precision, installing every panel with expert care.",
     image: '/placeholders/services/2.png',
     icon: 'briefcase',
-    href: '/services/commercial',
+    href: '/services/commercial-roofing-co',
   },
   {
     title: 'Metal Roofing',
@@ -33,14 +29,14 @@ const services = [
       "We're the metal roofing specialists your home needs! We focus on precision, fitting each panel flawlessly.",
     image: '/placeholders/services/3.png',
     icon: 'materials',
-    href: '/services/metal',
+    href: '/services/metal-roofing-co',
   },
   {
     title: 'Stone Coated Roofing',
     description: "We're the stone-coated roofing experts your home needs, installing each panel with care.",
     image: '/placeholders/services/4.png',
     icon: 'shield-check',
-    href: '/services/stone-coated',
+    href: '/services/stone-coated-steel-roofing-co',
     isPopular: true,
   },
   {
@@ -49,7 +45,7 @@ const services = [
       "We're the concrete tile roofing specialists your home needs! We focus on precision, fitting each tile flawlessly.",
     image: '/placeholders/services/5.png',
     icon: 'setting',
-    href: '/services/concrete-tile',
+    href: '/services/concrete-tile-roofing',
     isPopular: true,
   },
 ];
@@ -60,7 +56,7 @@ const financeOptions = [
     description:
       'We specialize in storm damage restoration and insurance claims—documenting damage, working with adjuster.',
     icon: 'storm',
-    link: '/services/storm-damage',
+    link: '/services/storm-damage-repair-co',
     bg: stormBg,
   },
   {
@@ -68,7 +64,7 @@ const financeOptions = [
     description: 'We offer low-interest, long-term financing through Service Finance and Wisetack, plus veteran.',
     icon: 'financing',
     link: '/financing',
-    bg: stormBg, // using same bg for now
+    bg: stormBg,
   },
 ];
 ---
