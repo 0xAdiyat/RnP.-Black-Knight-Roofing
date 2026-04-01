@@ -16,10 +16,10 @@ import TopFrameImage from '@/assets/top-frame.avif';
 import BadgeTitle from '../BadgeTitle.astro';
 import KennethKnowlesHeadshot from '@/assets/review-headshot-kenneth-knowles.avif';
 import MaryCayHeadshot from '@/assets/review-headshot-mary-cay.avif';
+import EstimateButton from '../EstimateButton.astro';
 ---
 
 <NoiseBg class="relative px-0 py-0">
-  <!-- Top Frame Image -->
   <Image
     src={TopFrameImage}
     alt="Top Frame"
@@ -262,7 +262,9 @@ import MaryCayHeadshot from '@/assets/review-headshot-mary-cay.avif';
     <div
       class="border-gradient rounded-2xl [--mask-border-bg:linear-gradient(to_right,transparent_30%,var(--color-primary)_100%)]"
     >
-      <div class="absolute inset-0 z-10 hidden rounded-2xl bg-linear-to-r from-[#111]/90 to-[#111]/10 to-50% lg:block lg:w-8/10">
+      <div
+        class="absolute inset-0 z-10 hidden rounded-2xl bg-linear-to-r from-[#111]/90 to-[#111]/10 to-50% lg:block lg:w-8/10"
+      >
       </div>
 
       <NoiseBg
@@ -302,9 +304,7 @@ import MaryCayHeadshot from '@/assets/review-headshot-mary-cay.avif';
               </p>
             </div>
 
-            <Button class="mt-4 w-fit px-[26px] text-sm font-bold" href="/contact-us"
-              >Schedule a FREE Roof Inspection</Button
-            >
+            <EstimateButton offerText="" actionText="Schedule a FREE Roof Inspection" class="w-fit text-sm font-bold" />
           </div>
         </div>
       </NoiseBg>
