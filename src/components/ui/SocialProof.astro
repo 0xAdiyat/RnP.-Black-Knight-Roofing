@@ -21,14 +21,9 @@ const { className } = Astro.props;
   <!-- Google Rating -->
   <div class="flex items-center gap-x-4 pr-4">
     <Icon name="google-logo" class="size-5 md:size-8" />
-    <div class="flex flex-col gap-y-1">
-      <RatingStars
-        rating={5}
-        fillColor="white"
-        strokeColor="transparent"
-        class="[&_svg]:size-2 md:[&_svg]:size-3"
-      />
-      <span class="text-xs md:text-sm font-semibold"> 5.0 Rating </span>
+    <div class="flex flex-col gap-y-1 text-xs font-semibold md:text-sm">
+      <span> 40+ Five-Star </span>
+      <span> Google Reviews </span>
     </div>
   </div>
 
@@ -36,13 +31,8 @@ const { className } = Astro.props;
   <div class="flex items-center gap-x-4 px-0 sm:px-4">
     <Icon name="facebook-logo" class="size-5 md:size-8" />
     <div class="flex flex-col gap-y-1">
-      <RatingStars
-        rating={5}
-        fillColor="white"
-        strokeColor="transparent"
-        class="[&_svg]:size-2 md:[&_svg]:size-3"
-      />
-      <span class="text-xs md:text-sm font-semibold"> 5.0 Rating </span>
+      <RatingStars rating={5} fillColor="white" strokeColor="transparent" class="[&_svg]:size-2 md:[&_svg]:size-3" />
+      <span class="text-xs md:text-sm"> 5.0 Rating </span>
     </div>
   </div>
 
@@ -50,13 +40,8 @@ const { className } = Astro.props;
   <div class="flex items-center gap-x-4 pl-0 sm:pl-4">
     <Image src={bbbLogo} alt="BBB Logo" width={64} height={64} class="size-5 md:size-8" />
     <div class="flex flex-col gap-y-1">
-      <RatingStars
-        rating={5}
-        class="[&_svg]:size-2 md:[&_svg]:size-3"
-        fillColor="white"
-        strokeColor="transparent"
-      />
-      <span class="text-xs md:text-sm font-semibold"> A+ Rating </span>
+      <RatingStars rating={5} class="[&_svg]:size-2 md:[&_svg]:size-3" fillColor="white" strokeColor="transparent" />
+      <span class="text-xs md:text-sm"> A+ Rating </span>
     </div>
   </div>
 </div>
