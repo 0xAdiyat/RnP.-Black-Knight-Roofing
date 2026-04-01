@@ -4,30 +4,7 @@ import NoiseBg from './NoiseBg.astro';
 import RatingStars from './ui/RatingStars.astro';
 import { Icon } from 'astro-icon/components';
 import Button from './ui/Button.astro';
-
-const quickLinks = [
-  { label: 'Home', url: '/' },
-  { label: 'About', url: '/about-us' },
-  { label: 'Past Work', url: '/gallery' },
-  { label: 'Financing', url: '/financing' },
-  { label: 'Blogs', url: '/blogs' },
-  { label: 'FAQs', url: '/faqs' },
-  { label: 'Services', url: '/services' },
-  { label: 'Service Areas', url: '/service-areas' },
-  { label: 'Contact', url: '/contact-us' },
-];
-
-const services = [
-  { label: 'Residential Roofing', url: '/services/residential-roofing-co' },
-  { label: 'Commercial Roofing', url: '/services/commercial-roofing-co' },
-  { label: 'Storm Damage Repair', url: '/services/storm-damage-repair-co' },
-  { label: 'Roof Replacement', url: '/services/roof-replacement-services-co' },
-  { label: 'Gutters & Drainage', url: '/services/gutters-co' },
-  { label: 'Siding Installation', url: '/services/siding-co' },
-  { label: 'Window Replacement', url: '/services/window-replacement-services-co' },
-  { label: 'Roof Inspection', url: '/services/hail-damage-repair-co' },
-  { label: 'Metal Roofing', url: '/services/metal-roofing-co' },
-];
+import { quickLinks, servicesLinks as services } from '@/data/navigation';
 ---
 
 <NoiseBg class="px-0 py-0">
