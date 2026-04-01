@@ -288,11 +288,17 @@ const financeSteps = [
 </Layout>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  function setupFinancingBanner() {
     const banner = document.getElementById('sticky-financing-banner');
     const closeBtn = document.getElementById('close-financing-banner');
-    if (!banner) return;
-    
+    if (!banner || banner.dataset.bannerReady === 'true') return;
+
+    banner.dataset.bannerReady = 'true';
+
+    if (typeof window.__financingBannerCleanup === 'function') {
+      window.__financingBannerCleanup();
+    }
+
     let isDismissed = false;
 
     if (closeBtn) {
@@ -325,5 +331,12 @@ const financeSteps = [
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-  });
+
+    window.__financingBannerCleanup = () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }
+
+  setupFinancingBanner();
+  document.addEventListener('astro:after-swap', setupFinancingBanner);
 </script>
