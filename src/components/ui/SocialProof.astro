@@ -28,7 +28,7 @@ const { className } = Astro.props;
   </div>
 
   <!-- Facebook Rating -->
-  <div class="flex items-center gap-x-4 px-0 sm:px-4">
+  <div class="flex items-center gap-x-4 px-0 font-semibold sm:px-4">
     <Icon name="facebook-logo" class="size-5 md:size-8" />
     <div class="flex flex-col gap-y-1">
       <RatingStars rating={5} fillColor="white" strokeColor="transparent" class="[&_svg]:size-2 md:[&_svg]:size-3" />
@@ -37,7 +37,7 @@ const { className } = Astro.props;
   </div>
 
   <!-- BBB Rating -->
-  <div class="flex items-center gap-x-4 pl-0 sm:pl-4">
+  <div class="flex items-center gap-x-4 pl-0 font-semibold sm:pl-4">
     <Image src={bbbLogo} alt="BBB Logo" width={64} height={64} class="size-5 md:size-8" />
     <div class="flex flex-col gap-y-1">
       <RatingStars rating={5} class="[&_svg]:size-2 md:[&_svg]:size-3" fillColor="white" strokeColor="transparent" />
