@@ -23,6 +23,21 @@ import serviceRoofingImg from '@/assets/services/service-roofing.png';
 import serviceSidingImg from '@/assets/services/service-siding.png';
 import serviceGutterImg from '@/assets/services/service-gutter.png';
 import beforeAfterImg from '@/assets/comparison/roof-mini.png';
+import residentialHero from '@/assets/bg/residential-roofing-section__hero.avif';
+import caseStudiesHero from '@/assets/bg/case-studies-section__hero.avif';
+import metalRoofingHero from '@/assets/bg/metal-roofing-section__hero.avif';
+import stoneCoatedHero from '@/assets/bg/stone-coated-steel-roofing-section__hero.avif';
+import concreteTileHero from '@/assets/bg/concrete-tile-roof-section__hero.avif';
+import asphaltShingleHero from '@/assets/bg/roof-replacement-section__hero.avif'; // ridge line photo
+import commercialRoofingHero from '@/assets/bg/commercial-roofing-section__hero.avif';
+import sidingHero from '@/assets/bg/siding-section__hero.avif';
+import guttersHero from '@/assets/bg/gutters-section__hero.avif';
+import beforeAfterHero from '@/assets/bg/before-after-section__hero.avif';
+import tile1 from '@/assets/tiles/component-1.png';
+import tile2 from '@/assets/tiles/component-2.png';
+import tile3 from '@/assets/tiles/component-3.png';
+import tile4 from '@/assets/tiles/component-4.png';
+import tile5 from '@/assets/tiles/component-5.png';
 
 type GalleryCategory = 'Roofing' | 'Siding' | 'Gutters';
 type GalleryFilter = 'featured' | 'roofing' | 'siding' | 'gutters';
@@ -30,7 +45,7 @@ type GalleryFilter = 'featured' | 'roofing' | 'siding' | 'gutters';
 const works = [
   {
     id: 'roofing-1',
-    image: '/placeholders/works/1.jpg',
+    image: tile1,
     title: 'EDCO METAL SIDING',
     subtitle: 'CHARCOAL GRAY',
     category: 'Roofing' as GalleryCategory,
@@ -38,7 +53,7 @@ const works = [
   },
   {
     id: 'roofing-2',
-    image: '/placeholders/works/2.jpg',
+    image: tile2,
     title: 'Stone Coated Steel',
     subtitle: 'Weathered Wood',
     category: 'Roofing' as GalleryCategory,
@@ -46,7 +61,7 @@ const works = [
   },
   {
     id: 'roofing-3',
-    image: '/placeholders/works/3.jpg',
+    image: tile3,
     title: 'Concrete Tile',
     subtitle: 'Barcelona Sand',
     category: 'Roofing' as GalleryCategory,
@@ -54,7 +69,7 @@ const works = [
   },
   {
     id: 'roofing-4',
-    image: '/placeholders/works/4.jpg',
+    image: tile4,
     title: 'Asphalt Shingle',
     subtitle: 'Estate Gray',
     category: 'Roofing' as GalleryCategory,
@@ -62,7 +77,7 @@ const works = [
   },
   {
     id: 'roofing-5',
-    image: '/placeholders/works/1.jpg',
+    image: tile5,
     title: 'EDCO METAL SIDING',
     subtitle: 'CHARCOAL GRAY',
     category: 'Roofing' as GalleryCategory,
@@ -70,7 +85,7 @@ const works = [
   },
   {
     id: 'roofing-6',
-    image: '/placeholders/works/2.jpg',
+    image: metalRoofingHero,
     title: 'Stone Coated Steel',
     subtitle: 'Weathered Wood',
     category: 'Roofing' as GalleryCategory,
@@ -78,7 +93,7 @@ const works = [
   },
   {
     id: 'roofing-7',
-    image: '/placeholders/works/3.jpg',
+    image: stoneCoatedHero,
     title: 'Concrete Tile',
     subtitle: 'Barcelona Sand',
     category: 'Roofing' as GalleryCategory,
@@ -86,7 +101,7 @@ const works = [
   },
   {
     id: 'roofing-8',
-    image: '/placeholders/works/4.jpg',
+    image: concreteTileHero,
     title: 'Asphalt Shingle',
     subtitle: 'Estate Gray',
     category: 'Roofing' as GalleryCategory,
@@ -94,7 +109,7 @@ const works = [
   },
   {
     id: 'roofing-9',
-    image: '/placeholders/works/1.jpg',
+    image: asphaltShingleHero,
     title: 'Test Project 09',
     subtitle: 'Pagination Sample',
     category: 'Roofing' as GalleryCategory,
@@ -102,7 +117,7 @@ const works = [
   },
   {
     id: 'roofing-10',
-    image: '/placeholders/works/2.jpg',
+    image: commercialRoofingHero,
     title: 'Test Project 10',
     subtitle: 'Pagination Sample',
     category: 'Roofing' as GalleryCategory,
@@ -110,7 +125,7 @@ const works = [
   },
   {
     id: 'roofing-11',
-    image: '/placeholders/works/3.jpg',
+    image: tile1,
     title: 'Test Project 11',
     subtitle: 'Pagination Sample',
     category: 'Roofing' as GalleryCategory,
@@ -118,7 +133,7 @@ const works = [
   },
   {
     id: 'roofing-12',
-    image: '/placeholders/works/4.jpg',
+    image: tile2,
     title: 'Test Project 12',
     subtitle: 'Pagination Sample',
     category: 'Roofing' as GalleryCategory,
@@ -155,12 +170,12 @@ const getFilterHref = (filter: GalleryFilter) => {
 };
 
 const galleryFilters = [
-  { label: 'Featured', image: '/placeholders/works/1.jpg', type: 'filter', filter: 'featured' as GalleryFilter },
-  { label: 'Roofing', image: serviceRoofingImg.src, type: 'filter', filter: 'roofing' as GalleryFilter },
-  { label: 'Siding', image: serviceSidingImg.src, type: 'filter', filter: 'siding' as GalleryFilter },
-  { label: 'Gutters', image: serviceGutterImg.src, type: 'filter', filter: 'gutters' as GalleryFilter },
-  { label: 'Before-After', image: beforeAfterImg.src, type: 'link', href: '/before-and-after' },
-  { label: 'Case Studies', image: '/placeholders/projects/project-1.jpg', type: 'link', href: '/case-studies' },
+  { label: 'Featured', image: residentialHero.src, type: 'filter', filter: 'featured' as GalleryFilter },
+  { label: 'Roofing', image: asphaltShingleHero.src, type: 'filter', filter: 'roofing' as GalleryFilter },
+  { label: 'Siding', image: sidingHero.src, type: 'filter', filter: 'siding' as GalleryFilter },
+  { label: 'Gutters', image: guttersHero.src, type: 'filter', filter: 'gutters' as GalleryFilter },
+  { label: 'Before-After', image: beforeAfterHero.src, type: 'link', href: '/before-and-after' },
+  { label: 'Case Studies', image: caseStudiesHero.src, type: 'link', href: '/case-studies' },
 ];
 ---
 
@@ -196,8 +211,15 @@ const galleryFilters = [
     />
     <div class="container py-20">
       <div class="z-10 flex flex-col items-center space-y-6">
-        <div class="flex flex-col items-center gap-4">
-          <div>Filter GALLERY By:</div>
+        <div class="flex items-center justify-center gap-3">
+          <div class="flex size-8 items-center justify-center rounded-full bg-[#B68A3D] text-black">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="6" x2="20" y2="6"></line>
+              <line x1="4" y1="12" x2="14" y2="12"></line>
+              <line x1="4" y1="18" x2="8" y2="18"></line>
+            </svg>
+          </div>
+          <div class="text-[20px] font-medium tracking-tight text-white/90">Filter GALLERY By:</div>
         </div>
 
         <div class="flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-white/24 p-2">
@@ -210,7 +232,7 @@ const galleryFilters = [
                   aria-current={filter.type === 'filter' && activeFilter === filter.filter ? 'page' : undefined}
                   data-gallery-filter={filter.type === 'filter' ? filter.filter : undefined}
                   class:list={[
-                    'group relative block h-[135px] w-[116px] shrink-0 overflow-hidden rounded-xl text-left transition-transform duration-300 ease-out hover:-translate-y-1',
+                    'group relative block h-[135px] w-[116px] shrink-0 overflow-hidden rounded-xl text-center transition-transform duration-300 ease-out hover:-translate-y-1',
                     filter.type === 'filter' && activeFilter === filter.filter ? 'border-radial' : 'border-gradient',
                   ]}
                 >
@@ -219,9 +241,9 @@ const galleryFilters = [
                     alt={filter.label}
                     class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div class="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent"></div>
-                  <div class="absolute inset-x-0 bottom-0 p-3">
-                    <div class="text-lg leading-tight font-medium text-white">{filter.label}</div>
+                  <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent"></div>
+                  <div class="absolute inset-x-0 bottom-0 p-[16px]">
+                    <div class="text-[14px] leading-[20px] font-medium text-white">{filter.label}</div>
                   </div>
                 </a>
               </>
