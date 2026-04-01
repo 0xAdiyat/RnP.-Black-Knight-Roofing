@@ -140,6 +140,16 @@
   }
 }
 
+@utility hero-bg-gradient {
+ background:  linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 3.95%, rgba(0, 0, 0, 0) 32.65%, rgba(0, 0, 0, 0) 91.49%), linear-gradient(200.41deg, rgba(8, 42, 64, 0) 40%, #082A40 65%, #0D0D0D 90%);
+
+ @media (max-width: 768px) {
+   background: 
+linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0) 91.49%),linear-gradient(183.91deg, rgba(8, 42, 64, 0) 10.5%, #082A40 40.02%, #0D0D0D 79.28%);
+
+ }
+}
+
 @layer base {
   html {
     scrollbar-color: var(--primary) rgba(255, 255, 255, 0.08);

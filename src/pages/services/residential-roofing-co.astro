@@ -8,14 +8,9 @@ import Testimonials from '@/components/Testimonials.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
 import NoiseBg from '@/components/NoiseBg.astro';
 import WhyChooseUs from '@/components/WhyChooseUs.astro';
-import Button from '@/components/ui/Button.astro';
 import EstimateButton from '@/components/EstimateButton.astro';
-import { Icon } from 'astro-icon/components';
-import { type Service } from '@/data/services';
 import Breadcrumb from '@/components/ui/Breadcrumb.astro';
 import Hero from '@/components/hero/Hero.astro';
-import RatingStars from '@/components/ui/RatingStars.astro';
-import QuoteForm from '@/components/cta/QuoteForm.astro';
 import { Image } from 'astro:assets';
 import heroImage from '@/assets/bg/residential-roofing-section__hero.avif';
 import Process from '@/components/process/Process.astro';
@@ -26,13 +21,10 @@ import step4 from '@/assets/steps/step-4.png';
 import RecentProjects from '@/components/recent-projects/RecentProjects.astro';
 import RecentArticales from '@/components/articales/RecentArticales.astro';
 import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
-import StylesProfiles from '@/components/services/StylesProfiles.astro';
 import OtherServicesCarousel from '@/components/services/OtherServicesCarousel.astro';
 import PopularRoofingMaterials from '@/components/services/PopularRoofingMaterials.astro';
-import ComparisonSection from '@/components/services/ComparisonSection.astro';
-import ComparisonTable from '@/components/services/ComparisonTable.astro';
-import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
+import HeroImage from '@/assets/bg/residential-bg.png';
 
 const roofingMaterials = [
   {
@@ -116,7 +108,7 @@ const processSteps = [
               Repairs vs. Replacement: Which Is Right For You?
             </h2>
 
-            <p class="text-sm lg:text-base">
+            <p class="text-neutral-lighter text-sm font-normal lg:text-base">
               When you're dealing with a roofing issue, it can feel overwhelming, especially when you do not know what
               to expect. We help you understand the difference between repairs and replacements, and when each one makes
               the most sense. In many cases, you might be surprised by what can be repaired, which can save you time and
@@ -125,9 +117,7 @@ const processSteps = [
             </p>
           </div>
 
-          <Button class="px-8 py-4 text-base">
-            <span> <strong> FREE </strong> Roof Estimate </span>
-          </Button>
+          <EstimateButton class="px-8 py-4 text-base" offerText="" actionText="**FREE** Roof Estimate" />
         </div>
 
         <!-- Right Contents -->

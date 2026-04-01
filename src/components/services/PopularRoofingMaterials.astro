@@ -6,35 +6,91 @@ import Tabs from '@/components/ui/Tabs.astro';
 import Carousel from '@/components/ui/Carousel.astro';
 import CarouselSlide from '@/components/ui/CarouselSlide.astro';
 import PopularRoofingCard from './PopularRoofingCard.astro';
+import { Icon } from 'astro-icon/components';
 
-interface Material {
-  id: string;
-  label: string;
+interface MaterialItem {
+  title: string;
   description: string;
   image: string;
 }
 
-interface Props {
-  materials: Material[];
+interface Category {
+  id: string;
+  label: string;
+  items: MaterialItem[];
 }
 
-const { materials } = Astro.props;
+interface Props {
+  badge?: string;
+  title?: string;
+  description?: string;
+  quote?: string;
+  quoteAuthor?: string;
+  quoteRole?: string;
+  quoteImage?: string;
+  categories?: Category[];
+  materials?: any[];
+  source?: {
+    label: string;
+    href: string;
+  };
+}
+
+const {
+  badge = 'Popular Roofing Materials',
+  title = 'Popular Roofing Materials Used in Colorado',
+  description = 'The best residential roof is not just about price. It is about how the material looks on your home, how it handles Colorado weather, how much maintenance you want, and how long you want the system to last. We help you compare the tradeoffs clearly before you commit.',
+  quote = '“We help homeowners choose the roofing system that fits their home, their budget, and how long they want it to last.”',
+  quoteAuthor = 'Adam Knight',
+  quoteRole = 'President',
+  quoteImage = '/placeholders/profile.png',
+  categories: categoriesProp,
+  materials,
+  source,
+} = Astro.props;
+
+// For backward compatibility: if materials is provided instead of categories
+const categories =
+  categoriesProp ||
+  (materials
+    ? [
+        {
+          id: 'materials',
+          label: 'Materials',
+          items: materials.map((m: any) => ({
+            title: m.label,
+            description: m.description,
+            image: m.image,
+          })),
+        },
+      ]
+    : []);
 ---
 
 <NoiseBg class="relative px-0 py-0">
   <div class="py-10 lg:py-20">
     <div class="container grid grid-cols-1 gap-12 pb-8 lg:grid-cols-2">
       <div class="space-y-4">
-        <BadgeTitle
-          badge="Popular Roofing Materials"
-          title="Popular Roofing Materials Used in Colorado"
-          class="flex flex-col items-start text-left"
-        />
-        <p class="text-neutral-lighter text-sm leading-relaxed font-normal lg:text-base">
-          The best residential roof is not just about price. It is about how the material looks on your home, how it
-          handles Colorado weather, how much maintenance you want, and how long you want the system to last. We help you
-          compare the tradeoffs clearly before you commit.
-        </p>
+        <BadgeTitle badge={badge} title={title} class="flex flex-col items-start text-left" />
+        <div class="space-y-6">
+          <p class="text-neutral-lighter text-sm leading-relaxed font-normal lg:text-base">
+            {description}
+          </p>
+
+          {
+            source && (
+              <p class="flex items-center gap-2">
+                <Icon name="circle-info" class="text-primary" />
+                <span class="text-neutral-lighter">
+                  Source:{' '}
+                  <a href={source.href} class="hover:text-primary text-white underline">
+                    {source.label}
+                  </a>
+                </span>
+              </p>
+            )
+          }
+        </div>
       </div>
 
       <div class="flex items-center justify-center lg:justify-end">
@@ -49,23 +105,26 @@ const { materials } = Astro.props;
               <div
                 class="from-primary to-tertiary relative h-[60px] w-[60px] overflow-hidden rounded-full bg-conic-150 lg:h-[73px] lg:w-[73px]"
               >
-                <Image
-                  src="/placeholders/profile.png"
-                  alt="profile"
-                  width={256}
-                  height={256}
-                  class="absolute h-full w-full object-cover"
-                />
+                {
+                  quoteImage && (
+                    <Image
+                      src={quoteImage}
+                      alt={quoteAuthor}
+                      width={256}
+                      height={256}
+                      class="absolute h-full w-full object-cover"
+                    />
+                  )
+                }
               </div>
             </div>
 
             <div class="pl-0">
               <div class="text-sm leading-relaxed italic md:text-base">
-                “We help homeowners choose the roofing system that fits their home, their budget, and how long they want
-                it to last.”
+                {quote}
               </div>
               <div class="text-tx-brand mt-1 text-xs font-bold md:text-sm">
-                Adam Knight, <small class="font-normal opacity-70"> President </small>
+                {quoteAuthor}, <small class="font-normal opacity-70"> {quoteRole} </small>
               </div>
             </div>
           </NoiseBg>
@@ -74,10 +133,10 @@ const { materials } = Astro.props;
     </div>
 
     <!-- Roofing Materials -->
-    <Tabs tabs={materials.map(m => ({ label: m.label, id: m.id }))} listClass="no-scrollbar container">
+    <Tabs tabs={categories.map((c: Category) => ({ label: c.label, id: c.id }))} listClass="no-scrollbar container">
       {
-        materials.map(material => (
-          <div data-tab-panel={material.id} class="hidden">
+        categories.map((category: Category) => (
+          <div data-tab-panel={category.id} class="hidden">
             <Carousel
               slidesPerView={1.2}
               spaceBetween={0}
@@ -94,21 +153,11 @@ const { materials } = Astro.props;
                 },
               }}
             >
-              <CarouselSlide>
-                <PopularRoofingCard title={material.label} description={material.description} image={material.image} />
-              </CarouselSlide>
-
-              <CarouselSlide>
-                <PopularRoofingCard title={material.label} description={material.description} image={material.image} />
-              </CarouselSlide>
-
-              <CarouselSlide>
-                <PopularRoofingCard title={material.label} description={material.description} image={material.image} />
-              </CarouselSlide>
-
-              <CarouselSlide>
-                <PopularRoofingCard title={material.label} description={material.description} image={material.image} />
-              </CarouselSlide>
+              {category.items.map((item: MaterialItem) => (
+                <CarouselSlide>
+                  <PopularRoofingCard title={item.title} description={item.description} image={item.image} />
+                </CarouselSlide>
+              ))}
             </Carousel>
           </div>
         ))
