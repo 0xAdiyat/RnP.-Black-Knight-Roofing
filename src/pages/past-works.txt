@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '@/components/hero/Hero.astro';
+import Brands from '@/components/Brands.astro';
+import CTASection from '@/components/cta/CTASection.astro';
+import Footer from '@/components/Footer.astro';
+import FaqHeroImage from '@/assets/bg/faq.avif';
+import NoiseBg from '@/components/NoiseBg.astro';
+import SunFlowImg from '@/assets/sunflow.avif';
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+---
+
+<Layout title="Denver Roofing FAQs | Black Knight Roofing">
+  <Navbar />
+
+  <Hero
+    title="See Past Work In Your Neighborhood"
+    subtitle="Colorado's #1 Veteran-Owned Roofing Company"
+    backgroundImage={FaqHeroImage}
+  >
+    <p>
+      100+ projects completed across the Denver metro and Colorado's Front Range. Browse by city or zip code to see what
+      we've built near you — full replacements, storm restorations, premium upgrades, and everything in between.
+    </p>
+  </Hero>
+
+  <!-- Past Works -->
+
+  <section class="py-10 lg:py-20">
+    <div class="container flex flex-row">
+      <!-- Sidebar -->
+      <NoiseBg class="relative w-full max-w-[400px] px-0 py-0">
+        <Image
+          src={SunFlowImg}
+          width={SunFlowImg.width}
+          height={SunFlowImg.height}
+          alt="Background Image"
+          class="absolute inset-0 h-full w-full object-cover opacity-50"
+        />
+        <div class="flex flex-col items-stretch">
+          <div class="space-y-6 p-6">
+            <!-- Search -->
+            <div>
+              <div class="relative">
+                <Icon name="search" class="absolute top-1/2 left-3 size-5 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Search"
+                  class="w-full rounded-lg border border-white/20 bg-white/10 px-4 py-2 pl-10 text-white placeholder-white/50 focus:border-[#F2C744] focus:outline-none"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </NoiseBg>
+
+      <!-- Main Content -->
+      <div></div>
+    </div>
+  </section>
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+  <CTASection />
+  <Footer />
+</Layout>
