@@ -8,9 +8,6 @@ import InputGroupInput from '@/components/ui/input-group/InputGroupInput.astro';
 import InputGroupAddon from '@/components/ui/input-group/InputGroupAddon.astro';
 import NoiseBg from '@/components/NoiseBg.astro';
 import heroShield from '@/assets/hero-shield.png';
-
-const result = Astro.getActionResult(actions.sendFreeQuoteForm);
-const success = result && !result.error;
 ---
 
 <div class="container pt-8">
@@ -27,20 +24,19 @@ const success = result && !result.error;
       <div class="[&_span]:text-primary flex w-full flex-col items-center gap-y-4">
         <h3>Get Your <span> FREE</span> Quote</h3>
 
-        {success ? (
-          <div class="flex flex-col items-center justify-center gap-y-4 py-8 text-center">
-            <div class="bg-primary/20 border-primary/40 flex size-16 items-center justify-center rounded-full border">
-              <Icon name="circle-tick" class="text-primary size-8" />
-            </div>
-            <h3 class="text-xl font-semibold text-white">Request Sent!</h3>
-            <p class="text-sm text-neutral-400">We'll be in touch with your free quote soon.</p>
+        <!-- Client-side Success Message -->
+        <div id="free-quote-success" class="hidden flex-col items-center justify-center gap-y-4 py-8 text-center">
+          <div class="bg-primary/20 border-primary/40 flex size-16 items-center justify-center rounded-full border">
+            <Icon name="circle-tick" class="text-primary size-8" />
           </div>
-        ) : (
+          <h3 class="text-xl font-semibold text-white">Request Sent!</h3>
+          <p class="text-sm text-neutral-400">We'll be in touch with your free quote soon.</p>
+        </div>
+
         <form
+          id="hero-free-quote-form"
           class="hero-free-quote-form flex w-full flex-col items-start gap-4 lg:flex-row lg:items-start lg:gap-x-3"
           novalidate
-          method="POST"
-          action={actions.sendFreeQuoteForm}
         >
           <div class="hero-free-quote-field w-full">
             <InputGroup class="hero-free-quote-group h-[52px] w-full border-white/15 px-4 py-4">
@@ -112,7 +108,6 @@ const success = result && !result.error;
             </Button>
           </div>
         </form>
-        )}
 
         <p class="max-w-5xl text-center text-xs leading-5 text-white/60">
           By submitting this form, you agree that Black Knight Roofing may contact you about your request. See our
@@ -209,7 +204,8 @@ const success = result && !result.error;
       });
     });
 
-    form.addEventListener('submit', event => {
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
       let firstInvalid = null;
       let formIsValid = true;
 
@@ -222,18 +218,39 @@ const success = result && !result.error;
       });
 
       if (!formIsValid) {
-        event.preventDefault();
         firstInvalid?.focus();
         return;
       }
 
       // Valid — show loading state
-      const btn = form.querySelector('[data-submit-btn]');
-      const label = form.querySelector('[data-submit-label]');
-      const spinner = form.querySelector('[data-submit-spinner]');
+      const btn = form.querySelector<HTMLButtonElement>('[data-submit-btn]');
+      const label = form.querySelector<HTMLElement>('[data-submit-label]');
+      const spinner = form.querySelector<SVGElement>('[data-submit-spinner]');
+      const successMsg = document.getElementById('free-quote-success');
+
       if (btn) btn.disabled = true;
       if (label) label.textContent = 'Sending…';
       if (spinner) spinner.classList.remove('hidden');
+
+      try {
+        const formData = new FormData(form);
+        const { error } = await actions.sendFreeQuoteForm(formData);
+
+        if (error) {
+          throw new Error('Action failed');
+        }
+
+        // Show success state
+        form.classList.add('hidden');
+        successMsg?.classList.remove('hidden');
+        successMsg?.classList.add('flex');
+      } catch (err) {
+        console.error('Submission error:', err);
+        if (btn) btn.disabled = false;
+        if (label) label.textContent = 'Retry';
+        if (spinner) spinner.classList.add('hidden');
+        alert('There was a problem sending your request. Please try again.');
+      }
     });
   });
 </script>
