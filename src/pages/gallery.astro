@@ -222,17 +222,17 @@ const galleryFilters = [
           <div class="text-[20px] font-medium tracking-tight text-white/90">Filter GALLERY By:</div>
         </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-white/24 p-2">
+        <div class="grid w-full max-w-4xl grid-cols-2 gap-2 rounded-2xl border border-white/24 p-2 sm:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center">
           {
             galleryFilters.map((filter, index) => (
               <>
-                {index === 4 && <div class="hidden h-[90px] w-px bg-white/15 md:block"></div>}
+                {index === 4 && <div class="hidden h-[90px] w-px bg-white/15 lg:block"></div>}
                 <a
                   href={filter.type === 'filter' && filter.filter ? getFilterHref(filter.filter) : filter.href}
                   aria-current={filter.type === 'filter' && activeFilter === filter.filter ? 'page' : undefined}
                   data-gallery-filter={filter.type === 'filter' ? filter.filter : undefined}
                   class:list={[
-                    'group relative block h-[135px] w-[116px] shrink-0 overflow-hidden rounded-xl text-center transition-transform duration-300 ease-out hover:-translate-y-1',
+                    'group relative block h-[120px] w-full shrink-0 overflow-hidden rounded-xl text-center transition-transform duration-300 ease-out hover:-translate-y-1 xs:h-[135px] lg:w-[130px]',
                     filter.type === 'filter' && activeFilter === filter.filter ? 'border-radial' : 'border-gradient',
                   ]}
                 >
