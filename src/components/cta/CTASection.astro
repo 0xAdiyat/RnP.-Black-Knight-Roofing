@@ -47,13 +47,17 @@ import Avatar from '../ui/Avatar.astro';
           </div>
 
           <!-- CTA + Handwritten text -->
-          <div class="flex flex-col items-center gap-4 pt-0 pb-12 sm:flex-row sm:items-end sm:gap-12 lg:gap-x-7">
+          <div
+            class="relative flex flex-col items-center gap-4 pt-0 pb-12 sm:flex-row sm:items-end sm:gap-12 lg:gap-x-7"
+          >
             <Button class="h-11 w-fit px-8 py-4 text-sm font-bold" href="/contact-us">Contact Our Team</Button>
 
-            <div class="relative flex items-center justify-center sm:pb-2">
+            <div
+              class="absolute top-11 right-0 flex items-center justify-center sm:top-0 sm:right-auto sm:left-full sm:pb-2 sm:pl-4"
+            >
               <!-- Arrow -->
               <svg
-                class="absolute -top-12 -left-12 hidden rotate-[-15deg] opacity-50 sm:static sm:block sm:rotate-0"
+                class="absolute -top-10 right-0 rotate-45 opacity-50 sm:top-0 sm:left-0 sm:rotate-0"
                 xmlns="http://www.w3.org/2000/svg"
                 width="49"
                 height="33"
@@ -84,7 +88,7 @@ import Avatar from '../ui/Avatar.astro';
               </svg>
 
               <span
-                class="font-caveat -mb-4 bg-linear-to-r from-white to-[#8C8C8C] bg-clip-text text-center text-2xl text-nowrap italic sm:mt-0 sm:translate-y-8 sm:rotate-25"
+                class="font-caveat -mb-4 rotate-12 bg-linear-to-r from-white to-[#8C8C8C] bg-clip-text text-center text-2xl text-nowrap italic sm:mt-0 sm:translate-y-8 sm:rotate-12"
               >
                 No Obligation<br />Free Roof Inspection
               </span>
