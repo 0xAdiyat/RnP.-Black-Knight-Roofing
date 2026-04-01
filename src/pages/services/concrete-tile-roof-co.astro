@@ -1,0 +1,196 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navbar from '@/components/Navbar.astro';
+import Brands from '@/components/Brands.astro';
+import CTASection from '@/components/cta/CTASection.astro';
+import Footer from '@/components/Footer.astro';
+import Faqs from '@/components/faqs/Faqs.astro';
+import NoiseBg from '@/components/NoiseBg.astro';
+import Button from '@/components/ui/Button.astro';
+import { Icon } from 'astro-icon/components';
+import Breadcrumb from '@/components/ui/Breadcrumb.astro';
+import Hero from '@/components/hero/Hero.astro';
+import { Image } from 'astro:assets';
+import RecentProjects from '@/components/recent-projects/RecentProjects.astro';
+import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
+import StylesProfiles from '@/components/services/StylesProfiles.astro';
+import PopularRoofingMaterials from '@/components/services/PopularRoofingMaterials.astro';
+import ComparisonTable from '@/components/services/ComparisonTable.astro';
+import Statistics from '@/components/ui/Statistics.astro';
+import sunflow from '@/assets/sunflow.avif';
+import WhyStoneCoated from '@/components/services/WhyStoneCoated.astro';
+import heroImage from '@/assets/bg/stone-coated-steel-roofing-section__hero.avif';
+
+import heroBg from '@/assets/tiles/hero-bg.png';
+import heroGradient from '@/assets/tiles/hero-gradient.png';
+import comparisonHero from '@/assets/tiles/comparison-hero.png';
+import BadgeTitle from '@/components/BadgeTitle.astro';
+import CompanyInfo from '../company-info.astro';
+import ComparisonSection from '@/components/services/ComparisonSection.astro';
+
+const materials = [
+  {
+    id: 'shingles',
+    label: 'Architectural Shingles',
+    description:
+      'A reliable, budget-friendly choice with layered dimension, broad color options, and dependable everyday performance for Colorado homes.',
+    image: '/placeholders/popular-materials/1.png',
+  },
+  {
+    id: 'steel',
+    label: 'Stone Coated Steel',
+    description:
+      'The ultimate protection against Colorado hail. Lightweight, non-combustible, and designed to last a lifetime with the look of traditional tile or wood shake.',
+    image: '/placeholders/popular-materials/1.png',
+  },
+  {
+    id: 'tile',
+    label: 'Concrete Tile',
+    description:
+      'Superior thermal performance and exceptional durability. Concrete tile offers high fire resistance and a distinct aesthetic for premium Colorado residences.',
+    image: '/placeholders/popular-materials/1.png',
+  },
+];
+
+const components = [
+  {
+    img: '/placeholders/thumbnails/stone-coated-2.png',
+    label: 'Elevated Batten System® (EBS) creates airflow beneath panels ',
+  },
+  { img: '/placeholders/thumbnails/stone-coated-3.png', label: 'Continuous ridge vent exhausts hot air' },
+  { img: '/placeholders/thumbnails/stone-coated-4.png', label: 'Sol-R-Skin™ underlayment enhances performance ' },
+];
+---
+
+<Layout>
+  <Navbar />
+
+  <Hero
+    backgroundImage={heroImage}
+    title="Concrete Tile Roofing in Colorado"
+    subtitle="Concrete Tile Roof Services in Colorado"
+  >
+    <!-- Hero section list -->
+    <ul class="space-y-4 text-[14px] sm:text-[15px] lg:space-y-3">
+      <li class="flex items-start gap-x-4 lg:items-center">
+        <Icon name="shield" size={24} class="shrink-0" />
+        <span class="text-normal flex-1">
+          <strong class="font-semibold text-white"> 50-100 Year Performance Potential: </strong> Concrete tile is one of the
+          longest-lasting roofing systems available. Properly installed, it can outlast two or three asphalt shingle replacements
+          on the same house.
+        </span>
+      </li>
+
+      <li class="flex items-start gap-x-4 lg:items-center">
+        <Icon name="helmet" size={24} class="shrink-0" />
+        <span class="text-normal flex-1">
+          <strong class="font-semibold text-white"> Class 3 & Class 4 Hail-Rated Profiles: </strong> Newpoint™ concrete tile
+          profiles carry Class 3 or Class 4 hail ratings depending on the profile — engineered to handle Colorado's hail corridor
+          on the Front Range.
+        </span>
+      </li>
+
+      <li class="flex items-start gap-x-4 lg:items-center">
+        <Icon name="star-leaf" size={24} class="shrink-0" />
+        <span class="text-normal flex-1">
+          <strong class="font-semibold text-white">Fully Transferable Limited Lifetime Warranty: </strong> Westlake Royal
+          Roofing Solutions™ backs every Newpoint™ tile with a fully transferable, non-prorated limited lifetime warranty
+          — plus our own lifetime workmanship guarantee.
+        </span>
+      </li>
+    </ul>
+  </Hero>
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+
+  <!-- Service Details -->
+  <NoiseBg class="relative px-0 py-0">
+    <Image
+      src={sunflow}
+      alt="Sun Flow"
+      width={sunflow.width}
+      height={sunflow.height}
+      class="pointer-events-none absolute inset-x-0 top-0 left-0 opacity-10"
+    />
+
+    <div class="z-10 container py-8 lg:py-20">
+      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:items-stretch">
+        <!-- Left contents -->
+        <div class="space-y-8 py-8">
+          <div class="flex-1 space-y-4">
+            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Stone-Coated Steel' }]} />
+
+            <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
+              What is Concrete Tile Roofing?
+            </h2>
+
+            <p class="text-sm lg:text-base">
+              Concrete tile roofing combines architectural elegance with long-term structural performance — making it
+              one of the most durable and energy-efficient roofing systems for Colorado homes. Unlike traditional
+              shingles, concrete tile is solid through its entire thickness, giving it natural resistance to impact,
+              heat, and fire that lightweight roofing materials simply can't match. Newpoint™ concrete tile by Westlake
+              Royal is engineered for both new construction and reroofing, with multidimensional textures and natural
+              colorways that harmonize with any architectural style.
+            </p>
+          </div>
+
+          <div class="flex gap-4">
+            <Button class="px-8 py-4 text-base">
+              <span> <strong> FREE </strong> Estimate </span>
+            </Button>
+            <Button variant="link" class="flex items-center gap-2">
+              <svg width="13" height="16" viewBox="0 0 13 16" fill="none">
+                <path
+                  d="M12.361 8.2787L0.503906 14.868C0.367002 14.9454 0.249442 14.9543 0.151228 14.8948C0.0530134 14.8353 0.00390625 14.7281 0.00390625 14.5733V1.43049C0.00390625 1.27573 0.0530134 1.16858 0.151228 1.10906C0.249442 1.04954 0.367002 1.05846 0.503906 1.13585L12.361 7.72513C12.498 7.80251 12.5664 7.89477 12.5664 8.00192C12.5664 8.10906 12.498 8.20132 12.361 8.2787Z"
+                  fill="white"></path>
+              </svg>
+
+              <span> Explore Styles & Colors </span>
+            </Button>
+          </div>
+        </div>
+
+        <!-- Right Contents -->
+
+        <div class="h-[400px] w-full items-center overflow-hidden rounded-lg lg:self-center">
+          <Image
+            src="/placeholders/thumbnails/residential-1.png"
+            alt="Residential Roofing"
+            width={600}
+            height={400}
+            class="h-full w-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </NoiseBg>
+
+  <Statistics />
+  <PopularRoofingMaterials
+    badge="Why Concrete Tile"
+    title="Extreme Weather Protection for Colorado Homes"
+    description="Colorado doesn't have one type of severe weather — it has all of them. Hail season runs April through September. Wind events regularly push past 60 mph on the Front Range. Wildfires are a growing concern across the state, and UV exposure at altitude degrades ordinary roofing materials faster than anywhere at sea level. Unified Steel™ stone-coated panels are engineered to handle all of it — tested and warranted, not just rated."
+    materials={materials}
+    source={{ label: 'Source: Westlake Royal Building Products — Unified Steel™', href: '#' }}
+  />
+
+  <!-- Comparison Section -->
+
+  <ComparisonSection />
+  <ComparisonTable />
+  <StylesProfiles />
+
+  <RecentProjects />
+  <Faqs />
+  <ServiceAreas />
+
+  <div class="relative">
+    <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
+    <Brands />
+  </div>
+  <CTASection />
+  <Footer />
+</Layout>
