@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
+import { actions } from 'astro:actions';
 import Button from '@/components/ui/Button.astro';
 import InputGroup from '@/components/ui/input-group/InputGroup.astro';
 import InputGroupInput from '@/components/ui/input-group/InputGroupInput.astro';
@@ -23,7 +24,17 @@ import heroShield from '@/assets/hero-shield.png';
       <div class="[&_span]:text-primary flex w-full flex-col items-center gap-y-4">
         <h3>Get Your <span> FREE</span> Quote</h3>
 
+        <!-- Client-side Success Message -->
+        <div id="free-quote-success" class="hidden flex-col items-center justify-center gap-y-4 py-8 text-center">
+          <div class="bg-primary/20 border-primary/40 flex size-16 items-center justify-center rounded-full border">
+            <Icon name="circle-tick" class="text-primary size-8" />
+          </div>
+          <h3 class="text-xl font-semibold text-white">Request Sent!</h3>
+          <p class="text-sm text-neutral-400">We'll be in touch with your free quote soon.</p>
+        </div>
+
         <form
+          id="hero-free-quote-form"
           class="hero-free-quote-form flex w-full flex-col items-start gap-4 lg:flex-row lg:items-start lg:gap-x-3"
           novalidate
         >
@@ -88,7 +99,13 @@ import heroShield from '@/assets/hero-shield.png';
           </div>
 
           <div class="w-full lg:w-auto lg:self-start">
-            <Button type="submit" class="h-[52px] w-full px-8 py-4 lg:w-auto">Submit</Button>
+            <Button type="submit" class="h-[52px] w-full px-8 py-4 lg:w-auto" data-submit-btn>
+              <span data-submit-label>Submit</span>
+              <svg data-submit-spinner class="hidden size-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              </svg>
+            </Button>
           </div>
         </form>
 
@@ -187,7 +204,8 @@ import heroShield from '@/assets/hero-shield.png';
       });
     });
 
-    form.addEventListener('submit', event => {
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
       let firstInvalid = null;
       let formIsValid = true;
 
@@ -200,8 +218,38 @@ import heroShield from '@/assets/hero-shield.png';
       });
 
       if (!formIsValid) {
-        event.preventDefault();
         firstInvalid?.focus();
+        return;
+      }
+
+      // Valid — show loading state
+      const btn = form.querySelector<HTMLButtonElement>('[data-submit-btn]');
+      const label = form.querySelector<HTMLElement>('[data-submit-label]');
+      const spinner = form.querySelector<SVGElement>('[data-submit-spinner]');
+      const successMsg = document.getElementById('free-quote-success');
+
+      if (btn) btn.disabled = true;
+      if (label) label.textContent = 'Sending…';
+      if (spinner) spinner.classList.remove('hidden');
+
+      try {
+        const formData = new FormData(form);
+        const { error } = await actions.sendFreeQuoteForm(formData);
+
+        if (error) {
+          throw new Error('Action failed');
+        }
+
+        // Show success state
+        form.classList.add('hidden');
+        successMsg?.classList.remove('hidden');
+        successMsg?.classList.add('flex');
+      } catch (err) {
+        console.error('Submission error:', err);
+        if (btn) btn.disabled = false;
+        if (label) label.textContent = 'Retry';
+        if (spinner) spinner.classList.add('hidden');
+        alert('There was a problem sending your request. Please try again.');
       }
     });
   });

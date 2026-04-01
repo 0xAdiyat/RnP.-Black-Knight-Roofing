@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
+import { actions } from 'astro:actions';
 import NoiseBg from '@/components/NoiseBg.astro';
 import Button from '@/components/ui/Button.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
@@ -30,10 +31,21 @@ const {
   rating = 5,
   class: className,
 } = Astro.props;
+
 ---
 
 <div class:list={['w-full max-w-[34.375rem] rounded-2xl bg-linear-to-t from-[#F2C744]/90 to-[#F2C744]/10 p-2', className]}>
   <NoiseBg class="space-y-6 rounded-2xl bg-[#222222] p-8">
+    <!-- Success Message -->
+    <div id="quote-success" class="hidden flex-col items-center justify-center gap-y-6 py-8 text-center">
+      <div class="bg-primary/20 border-primary/40 flex size-16 items-center justify-center rounded-full border">
+        <Icon name="circle-tick" class="text-primary size-8" />
+      </div>
+      <h3 class="text-xl font-semibold text-white">Quote Request Sent!</h3>
+      <p class="text-sm text-neutral-400">We'll reach out to you shortly with your free quote.</p>
+    </div>
+
+    <div id="quote-form-content" class="space-y-6">
     <!-- Stars -->
     <div class="flex justify-center">
       <RatingStars rating={rating} size={20} fillColor="#F7B715" strokeColor="transparent" />
@@ -90,7 +102,7 @@ const {
     </div>
 
     <!-- Form -->
-    <form class="quote-form" novalidate>
+    <form class="quote-form" novalidate method="POST" action={actions.sendQuoteForm}>
       <div class="quote-steps-shell relative overflow-hidden">
       <!-- Step 1: Zip Code -->
       <div class="quote-step is-active space-y-4" data-step="1" aria-hidden="false">
@@ -242,7 +254,13 @@ const {
         <Button type="button" variant="outline" class="quote-btn-back hidden min-w-[120px] justify-center">
           Back
         </Button>
-        <Button type="button" class="quote-btn-next min-w-[120px] justify-center"> Next </Button>
+        <Button type="button" class="quote-btn-next min-w-[120px] justify-center">
+          <span class="quote-btn-next-label">Next</span>
+          <svg class="quote-btn-next-spinner hidden size-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+          </svg>
+        </Button>
       </div>
 
       <p class="mt-4 text-center text-xs leading-5 text-white/60">
@@ -253,6 +271,7 @@ const {
         for details.
       </p>
     </form>
+    </div>
 
     <!-- Ratings row -->
     <div class="flex items-center justify-center gap-x-3 border-t border-white/10 pt-5 sm:gap-x-6">
@@ -307,6 +326,8 @@ const {
 </style>
 
 <script>
+  import { actions } from 'astro:actions';
+
   function initQuoteForms() {
     document.querySelectorAll<HTMLElement>('.quote-form').forEach(form => {
       // Prevent duplicate initialization
@@ -497,7 +518,8 @@ const {
 
         // Next button text
         if (btnNext) {
-          btnNext.textContent = step === TOTAL_STEPS ? 'Submit' : 'Next';
+          const lbl = btnNext.querySelector('.quote-btn-next-label');
+          if (lbl) lbl.textContent = step === TOTAL_STEPS ? 'Submit' : 'Next';
         }
 
         currentStep = step;
@@ -565,22 +587,41 @@ const {
         }
       });
 
-      function handleSubmit() {
+      async function handleSubmit() {
         if (!validateStep(currentStep)) return;
+        
+        const nextButton = btnNext;
+        if (nextButton) {
+          nextButton.disabled = true;
+          const lbl = nextButton.querySelector('.quote-btn-next-label');
+          const spinner = nextButton.querySelector('.quote-btn-next-spinner');
+          if (lbl) lbl.textContent = 'Sending…';
+          if (spinner) spinner.classList.remove('hidden');
+        }
 
-        const formData = new FormData(form as HTMLFormElement);
-        const data = Object.fromEntries(formData.entries());
+        try {
+          const formData = new FormData(form as HTMLFormElement);
+          const { error } = await actions.sendQuoteForm(formData);
 
-        // Dispatch a custom event so parent can handle submission
-        form.dispatchEvent(
-          new CustomEvent('quote-submit', {
-            bubbles: true,
-            detail: data,
-          })
-        );
+          if (error) throw new Error('Submission failed');
 
-        // You can also log or send to an API here
-        console.log('Quote form submitted:', data);
+          const formContent = wrapper?.querySelector('#quote-form-content');
+          const successMsg = wrapper?.querySelector('#quote-success');
+
+          formContent?.classList.add('hidden');
+          successMsg?.classList.remove('hidden');
+          successMsg?.classList.add('flex');
+        } catch (err) {
+          console.error(err);
+          if (nextButton) {
+            nextButton.disabled = false;
+            const lbl = nextButton.querySelector('.quote-btn-next-label');
+            const spinner = nextButton.querySelector('.quote-btn-next-spinner');
+            if (lbl) lbl.textContent = 'Submit';
+            if (spinner) spinner.classList.add('hidden');
+          }
+          alert('There was a problem sending your request. Please try again.');
+        }
       }
 
       form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input[required], select[required]').forEach(
