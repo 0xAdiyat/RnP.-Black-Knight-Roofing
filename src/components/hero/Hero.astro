@@ -67,7 +67,7 @@ const heroBgSrc =
   />
 
   <div
-    class="z-10 bg-[linear-gradient(234deg,rgba(0,0,0,0.0)_28.39%,rgba(0,0,0,0.20)_72.48%,rgba(0,0,0,0.20)_89.9%),linear-gradient(200deg,rgba(8,42,64,0)_34.45%,#082A40_64.34%,#0D0D0D_97.01%)]"
+    class="z-10 bg-[linear-gradient(234deg,rgba(0,0,0,0.0)_28.39%,rgba(0,0,0,0.20)_32.48%,rgba(0,0,0,0.40)_59.9%),linear-gradient(200deg,rgba(8,42,64,0)_14.45%,#082A40_50.34%,#0D0D0D_80.01%)] sm:bg-[linear-gradient(234deg,rgba(0,0,0,0.0)_28.39%,rgba(0,0,0,0.20)_72.48%,rgba(0,0,0,0.20)_89.9%),linear-gradient(200deg,rgba(8,42,64,0)_34.45%,#082A40_64.34%,#0D0D0D_97.01%)]"
   >
     <div class="container space-y-6 py-12 lg:py-20">
       <div class="flex flex-col items-stretch gap-y-10 lg:flex-row lg:items-center lg:gap-x-8">
@@ -112,7 +112,7 @@ const heroBgSrc =
 
             {
               hasSocialProof && (
-                <div class="flex flex-col items-center gap-4 divide-white/20 py-2 text-sm sm:flex-row sm:divide-x lg:justify-start">
+                <div class="flex flex-col items-center gap-4 divide-white/20 text-sm sm:flex-row sm:divide-x lg:justify-start">
                   {Astro.slots.has('social-proof') ? <slot name="social-proof" /> : <SocialProof />}
                 </div>
               )
