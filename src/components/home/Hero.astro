@@ -4,7 +4,7 @@ import { Icon } from 'astro-icon/components';
 import Button from '@/components/ui/Button.astro';
 import EstimateButton from '@/components/EstimateButton.astro';
 import WeatherWidget from './WeatherWidget.astro';
-import heroBgImage from '@/assets/hero-bg.webp';
+import heroBgImage from '@/assets/home-hero-fallback.avif';
 import trustBadgeSSL from '@/assets/trust-badge-ssl.png';
 import heroPerson from '@/assets/hero-person.avif';
 import noiseBg from '@/assets/noises.avif';
@@ -12,7 +12,7 @@ import heroLeftShape from '@/assets/hero-left-shape.avif';
 import FreeQuoteForm from './FreeQuoteForm.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
 
-const optimizedHeroBg = await getImage({ src: heroBgImage, width: 1536, height: 1152, format: 'webp' });
+const optimizedHeroBg = await getImage({ src: heroBgImage, width: 1536, height: 1152, format: 'avif' });
 const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
 ---
 
