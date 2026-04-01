@@ -11,6 +11,7 @@ import dogImage from '@/assets/dog-image.avif';
 import bottomShape from '@/assets/bottom-shape.avif';
 import shineImage from '@/assets/sunflow.avif';
 import BadgeTitle from '../BadgeTitle.astro';
+import Avatar from '../ui/Avatar.astro';
 
 interface ProcessStep {
   image: ImageMetadata;
@@ -67,18 +68,11 @@ const {
         <div class="ml-8 w-full max-w-[320px] flex-1 sm:ml-auto md:max-w-[400px]">
           <div class="before:via-primary border-gradient rounded-2xl p-px before:bg-linear-to-r before:from-[rgba(255,255,255,0.15)] before:to-[rgba(255,255,255,0.15)] lg:ml-10">
             <NoiseBg class="relative flex items-center rounded-2xl py-6 pr-6 pl-0 lg:py-7">
-              {/* Profile image */}
-              <div class="via-primary z-10 -ml-8 flex w-fit items-center justify-center rounded-full bg-linear-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-0.5">
-                <div class="from-primary border-raidal to-tertiary relative h-[60px] w-[60px] overflow-hidden rounded-full bg-conic-150 lg:h-[73px] lg:w-[73px]">
-                  <Image
-                    src={quote.profileImage || '/placeholders/profile.png'}
-                    alt={quote.profileAlt || 'profile'}
-                    width={256}
-                    height={256}
-                    class="absolute h-full w-full object-cover"
-                  />
-                </div>
-              </div>
+              <Avatar
+                src={quote.profileImage || '/placeholders/profile.png'}
+                alt={quote.profileAlt || 'profile'}
+                class="z-10 -ml-8"
+              />
 
               <div class="lg:pl-0">
                 <div class="text-sm leading-relaxed italic md:text-base">&ldquo;{quote.quote}&rdquo;</div>

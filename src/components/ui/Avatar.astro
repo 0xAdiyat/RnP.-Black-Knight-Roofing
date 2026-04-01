@@ -1,0 +1,25 @@
+---
+import { Image } from 'astro:assets';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  src: any;
+  alt?: string;
+  class?: string;
+}
+
+const { src, alt = 'profile', class: className } = Astro.props;
+---
+
+<div
+  class={cn(
+    'via-primary flex w-fit items-center justify-center rounded-full bg-linear-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-0.5',
+    className
+  )}
+>
+  <div
+    class="from-primary border-raidal to-tertiary relative h-[60px] w-[60px] overflow-hidden rounded-full bg-conic-150 lg:h-[73px] lg:w-[73px]"
+  >
+    <Image src={src} alt={alt} width={256} height={256} class="absolute h-full w-full object-cover" />
+  </div>
+</div>
