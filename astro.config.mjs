@@ -8,7 +8,7 @@ import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://rnp-black-knight-roofing.vercel.app",
+  site: "https://www.blackknightroofing.com/",
 
   vite: {
     plugins: [tailwindcss()],
