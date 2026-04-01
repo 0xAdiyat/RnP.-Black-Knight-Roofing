@@ -32,7 +32,7 @@ const { image, imageAlt = 'Process Step', step, title, description, class: class
       class="h-[180px] w-[180px] rounded-2xl object-cover sm:h-[218px] sm:w-[218px]"
     />
     <div class="flex flex-col items-center text-center gap-3 px-6">
-      {step && <div class="text-[32px] font-medium text-white leading-[44px]">{step}</div>}
+      {step && <div class="text-[20px] lg:text-[32px] font-medium text-white leading-[28px] lg:leading-[44px]" style="font-size: var(--Text-Sizes-Text-Large, 20px);">{step}</div>}
       {title && <h4 class="text-xl font-bold">{title}</h4>}
       <div class="max-w-[400px] text-base font-normal text-[#CCC] leading-6">
         {description}
