@@ -4,13 +4,18 @@ import { Image } from 'astro:assets';
 import stormBg from '@/assets/storm-bg.png';
 import ServiceNavCard from './ServiceNavCard.astro';
 import PopularBadgeImg from '@/assets/popular-badge.avif';
+import residentialHero from '@/assets/bg/residential-roofing-section__hero.avif';
+import commercialHero from '@/assets/bg/commercial-roofing-section__hero.avif';
+import metalHero from '@/assets/bg/metal-roofing-section__hero.avif';
+import stoneHero from '@/assets/bg/stone-coated-steel-roofing-section__hero.avif';
+import concreteHero from '@/assets/bg/concrete-tile-roof-section__hero.avif';
 
 const services = [
   {
     title: 'Residential Roofing',
     description:
       "We're the roofing experts that your home deserves! We're detail-oriented, installing each shingle to perfection.",
-    image: '/placeholders/services/1.png',
+    image: residentialHero,
     tags: ['Shingle Roofing', 'Metal Roofing'],
     icon: 'roof-icon',
     href: '/services/residential-roofing-co',
@@ -19,7 +24,7 @@ const services = [
     title: 'Commercial Roofing',
     description:
       "We're the commercial roofing specialists your business can rely on! We focus on precision, installing every panel with expert care.",
-    image: '/placeholders/services/2.png',
+    image: commercialHero,
     icon: 'briefcase',
     href: '/services/commercial-roofing-co',
   },
@@ -27,7 +32,7 @@ const services = [
     title: 'Metal Roofing',
     description:
       "We're the metal roofing specialists your home needs! We focus on precision, fitting each panel flawlessly.",
-    image: '/placeholders/services/3.png',
+    image: metalHero,
     icon: 'materials',
     href: '/services/metal-roofing-co',
   },
@@ -43,7 +48,7 @@ const services = [
     title: 'Concrete Tile Roofs',
     description:
       "We're the concrete tile roofing specialists your home needs! We focus on precision, fitting each tile flawlessly.",
-    image: '/placeholders/services/5.png',
+    image: concreteHero,
     icon: 'setting',
     href: '/services/concrete-tile-roof-co',
     isPopular: true,
