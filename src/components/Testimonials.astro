@@ -13,6 +13,8 @@ import Button from './ui/Button.astro';
 import BadgeTitle from './BadgeTitle.astro';
 import bgShapeImage from '@/assets/testimonial-section-shape.avif';
 
+import { testimonials } from '@/data/testimonials';
+
 const bgShape = await getImage({ src: bgShapeImage, width: 1536, height: 850, format: 'avif' });
 ---
 
@@ -68,7 +70,7 @@ const bgShape = await getImage({ src: bgShapeImage, width: 1536, height: 850, fo
               <RatingStars rating={5} size={18} fillColor="#F7B715" strokeColor="none" />
               <span class="font-bold"> 5.0 </span>
               <span class="hidden h-4 w-px bg-white/30 sm:block"></span>
-              <span class="text-white/70"> 41 reviews </span>
+              <span class="text-white/70"> {testimonials.length} reviews </span>
             </div>
           </div>
 
@@ -102,18 +104,13 @@ const bgShape = await getImage({ src: bgShapeImage, width: 1536, height: 850, fo
             }}
             class="w-full pb-16"
           >
-            <CarouselSlide>
-              <TestimonialCard />
-            </CarouselSlide>
-            <CarouselSlide>
-              <TestimonialCard />
-            </CarouselSlide>
-            <CarouselSlide>
-              <TestimonialCard />
-            </CarouselSlide>
-            <CarouselSlide>
-              <TestimonialCard />
-            </CarouselSlide>
+            {
+              testimonials.map((testimonial) => (
+                <CarouselSlide>
+                  <TestimonialCard {...testimonial} />
+                </CarouselSlide>
+              ))
+            }
 
             <div slot="navigation" class="mt-8 flex justify-center gap-x-2.5 lg:mt-12">
               <button

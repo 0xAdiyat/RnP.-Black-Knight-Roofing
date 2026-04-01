@@ -3,6 +3,14 @@ import RatingStars from '@/components/ui/RatingStars.astro';
 import { Image } from 'astro:assets';
 
 import GoogleIcon from '@/assets/google-icon-logo.avif';
+
+interface Props {
+  name: string;
+  rating: number;
+  text: string;
+}
+
+const { name, rating, text } = Astro.props;
 ---
 
 <div class="border-radial rounded-2xl group">
@@ -10,15 +18,11 @@ import GoogleIcon from '@/assets/google-icon-logo.avif';
     <div class="size-8 rounded-full bg-white/10"></div>
 
     <div class="flex items-center gap-x-3 pt-2.5 font-medium">
-      <div>Jennifer Lawrance</div>
-      <RatingStars rating={5} />
+      <div>{name}</div>
+      <RatingStars rating={rating} />
     </div>
 
-    <div class="pt-4 text-sm">Couldn&apos;t be happier with the results.</div>
-    <div class="text-sm">
-      The crew was professional, communication was clear, and the roof looks incredible. They made the whole process
-      easy.
-    </div>
+    <div class="pt-4 text-sm">{text}</div>
 
     <div class="flex w-fit items-center gap-x-1 pt-3">
       <div class="py-2.5 pr-2.5">

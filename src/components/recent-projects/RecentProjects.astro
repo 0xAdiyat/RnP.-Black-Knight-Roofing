@@ -5,6 +5,8 @@ import topShape from '@/assets/top-frame.avif';
 import NoiseBg from '../NoiseBg.astro';
 import RecentProjectCard from './RecentProjectCard.astro';
 import BadgeTitle from '../BadgeTitle.astro';
+import Carousel from '../ui/Carousel.astro';
+import CarouselSlide from '../ui/CarouselSlide.astro';
 
 const projects = [
   {
@@ -39,47 +41,46 @@ const projects = [
     class="relative z-10 container flex flex-col items-center space-y-4 border-b border-white/10 pb-12 text-center text-balance"
   />
 
-  <div class="container mt-16 px-4">
-    <div class="sm:hidden">
-      <div
-        class="recent-projects-mobile-scroll -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        data-recent-projects-scroll
+  <div class="container relative mt-16 overflow-visible! px-4">
+    <div class="relative">
+      <Carousel
+        slidesPerView={1.2}
+        spaceBetween={20}
+        loop={true}
+        autoplay={true}
+        centeredSlides={true}
+        breakpoints={{
+          640: { slidesPerView: 2, spaceBetween: 24, centeredSlides: false },
+          1024: { slidesPerView: 3, spaceBetween: 32, centeredSlides: false },
+          1440: { slidesPerView: 4, spaceBetween: 40, centeredSlides: false },
+        }}
+        class="recent-projects-carousel w-full pb-16"
       >
         {
           projects.map(project => (
-            <div class="w-[min(84vw,360px)] shrink-0 snap-center">
+            <CarouselSlide>
               <RecentProjectCard image={project.image} title={project.title} category={project.category} />
-            </div>
+            </CarouselSlide>
           ))
         }
-      </div>
 
-      <div class="mt-8 flex items-center justify-center gap-3">
-        <button
-          type="button"
-          class="recent-projects-nav hover:bg-primary hover:text-inverted flex h-10 w-10 items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200"
-          data-recent-projects-prev
-          aria-label="Previous recent project"
-        >
-          <Icon name="chevron-left" size={16} />
-        </button>
-        <button
-          type="button"
-          class="recent-projects-nav hover:bg-primary hover:text-inverted flex h-10 w-10 items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200"
-          data-recent-projects-next
-          aria-label="Next recent project"
-        >
-          <Icon name="chevron-right" size={16} />
-        </button>
-      </div>
-    </div>
-
-    <div class="hidden grid-cols-1 gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {
-        projects.map(project => (
-          <RecentProjectCard image={project.image} title={project.title} category={project.category} />
-        ))
-      }
+        <div slot="navigation" class="mt-8 flex items-center justify-center gap-3 lg:mt-12">
+          <button
+            type="button"
+            class="swiper-button-prev hover:bg-primary group static! mt-0! flex h-10! w-10! items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200 after:content-none!"
+            aria-label="Previous recent project"
+          >
+            <Icon name="chevron-left" class="size-4! text-white group-hover:text-black" />
+          </button>
+          <button
+            type="button"
+            class="swiper-button-next hover:bg-primary group static! mt-0! flex h-10! w-10! items-center justify-center rounded-full bg-[#1A1A1A] text-white transition-colors duration-200 after:content-none!"
+            aria-label="Next recent project"
+          >
+            <Icon name="chevron-right" class="size-4! text-white group-hover:text-black" />
+          </button>
+        </div>
+      </Carousel>
     </div>
   </div>
 
@@ -165,50 +166,26 @@ const projects = [
 </NoiseBg>
 
 <script>
-  function initRecentProjectsMobileScroll() {
-    document.querySelectorAll<HTMLElement>('[data-recent-projects-scroll]').forEach(scrollArea => {
-      if (scrollArea.dataset.initialized) return;
-      scrollArea.dataset.initialized = 'true';
-
-      const parent = scrollArea.parentElement;
-      const prevButton = parent?.querySelector<HTMLButtonElement>('[data-recent-projects-prev]');
-      const nextButton = parent?.querySelector<HTMLButtonElement>('[data-recent-projects-next]');
-
-      const getScrollAmount = () => {
-        const firstCard = scrollArea.querySelector<HTMLElement>(':scope > div');
-        if (!firstCard) return scrollArea.clientWidth;
-
-        const styles = window.getComputedStyle(scrollArea);
-        const gap = Number.parseFloat(styles.columnGap || styles.gap || '0');
-        return firstCard.getBoundingClientRect().width + gap;
-      };
-
-      prevButton?.addEventListener('click', () => {
-        scrollArea.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-      });
-
-      nextButton?.addEventListener('click', () => {
-        scrollArea.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-      });
-    });
-  }
-
   function initRecentProjectsLightbox() {
     const lightbox = document.querySelector<HTMLElement>('[data-project-lightbox]');
     if (!lightbox || lightbox.dataset.initialized) return;
     lightbox.dataset.initialized = 'true';
 
-    const triggers = Array.from(document.querySelectorAll<HTMLElement>('[data-project-trigger]'));
+    // Use event delegation on the carousel or container to handle both original and cloned slides
+    const container = document.querySelector<HTMLElement>('.recent-projects-carousel');
     const image = lightbox.querySelector<HTMLImageElement>('[data-project-lightbox-image]');
     const title = lightbox.querySelector<HTMLElement>('[data-project-lightbox-title]');
     const category = lightbox.querySelector<HTMLElement>('[data-project-lightbox-category]');
     const closeButtons = lightbox.querySelectorAll<HTMLElement>('[data-project-lightbox-close]');
     const prevButtons = lightbox.querySelectorAll<HTMLElement>('[data-project-lightbox-prev]');
     const nextButtons = lightbox.querySelectorAll<HTMLElement>('[data-project-lightbox-next]');
+    
+    // We get the unique triggers (ignoring clones for reference)
+    const originalTriggers = Array.from(document.querySelectorAll<HTMLElement>('.swiper-slide:not(.swiper-slide-duplicate) [data-project-trigger]'));
     let activeIndex = 0;
 
     const renderProject = (index: number) => {
-      const trigger = triggers[index];
+      const trigger = originalTriggers[index];
       if (!trigger || !image || !title || !category) return;
 
       activeIndex = index;
@@ -236,12 +213,19 @@ const projects = [
     };
 
     const showAdjacent = (direction: number) => {
-      const nextIndex = (activeIndex + direction + triggers.length) % triggers.length;
+      const nextIndex = (activeIndex + direction + originalTriggers.length) % originalTriggers.length;
       renderProject(nextIndex);
     };
 
-    triggers.forEach((trigger, index) => {
-      trigger.addEventListener('click', () => openLightbox(index));
+    // Event delegation for clicks
+    container?.addEventListener('click', (event) => {
+      const trigger = (event.target as HTMLElement).closest<HTMLElement>('[data-project-trigger]');
+      if (trigger) {
+        // Find index of the project title in our original list
+        const projectTitle = trigger.dataset.projectTitle;
+        const index = originalTriggers.findIndex(t => t.dataset.projectTitle === projectTitle);
+        if (index !== -1) openLightbox(index);
+      }
     });
 
     closeButtons.forEach(button => {
@@ -265,8 +249,6 @@ const projects = [
     });
   }
 
-  initRecentProjectsMobileScroll();
   initRecentProjectsLightbox();
-  document.addEventListener('astro:after-swap', initRecentProjectsMobileScroll);
   document.addEventListener('astro:after-swap', initRecentProjectsLightbox);
 </script>
