@@ -39,6 +39,7 @@ interface VisualService {
   class?: string;
   premium?: boolean;
   href?: string;
+  buttons?: ServiceButton[] | string[];
 }
 
 const visualServices: VisualService[] = [
@@ -57,7 +58,8 @@ const visualServices: VisualService[] = [
   },
   {
     title: 'Roofing',
-    description: 'We offer a complete line up of professional roofing services including inspections, replacements, and repairs.',
+    description:
+      'We offer a complete line up of professional roofing services including inspections, replacements, and repairs.',
     image: serviceSidingImg,
     imageAlt: 'Roofing',
     buttons: [
@@ -149,17 +151,20 @@ const mobileStackServices = [
               <div class="swiper-wrapper">
                 {
                   mobileStackServices.map(service => (
-                    <div class="swiper-slide group/swiper-slide h-full rounded-3xl! bg-[#1A1A1A]">
-                      <div class:list={['relative h-full rounded-3xl bg-[#1A1A1A]', service.premium && 'group/premium-card']}>
-                        {
-                          service.premium && (
-                            <Image
-                              src={popularBadge}
-                              alt="Popular"
-                              class="absolute top-3 left-3 z-10 w-14 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/premium-card:scale-[1.06]"
-                            />
-                          )
-                        }
+                    <div class="swiper-slide group/swiper-slide h-full rounded-xl! bg-[#1A1A1A]">
+                      <div
+                        class:list={[
+                          'relative h-full rounded-xl bg-[#1A1A1A]',
+                          service.premium && 'group/premium-card',
+                        ]}
+                      >
+                        {service.premium && (
+                          <Image
+                            src={popularBadge}
+                            alt="Popular"
+                            class="absolute top-3 left-3 z-10 w-14 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/premium-card:scale-[1.06]"
+                          />
+                        )}
                         <ServiceCard
                           title={service.title}
                           description={service.description}
@@ -169,6 +174,7 @@ const mobileStackServices = [
                           class={service.class}
                           href={service.href}
                           compactMobile={true}
+                          href={service.href}
                         />
                       </div>
                     </div>
@@ -212,7 +218,7 @@ const mobileStackServices = [
           }
         </div>
 
-        <div class="hidden w-full max-w-[950px] rounded-3xl border-radial md:block">
+        <div class="border-radial hidden w-full max-w-[950px] rounded-3xl md:block">
           <div class="grid grid-cols-1 gap-6 rounded-3xl p-2 lg:grid-cols-2 lg:gap-x-3">
             {
               premiumServices.map(service => (
@@ -239,27 +245,32 @@ const mobileStackServices = [
       </div>
 
       <div class="grid grid-cols-1 gap-6 pt-4 pb-16 md:pt-10 lg:grid-cols-2 lg:gap-3 lg:pt-16">
-        <div class="border-radial relative group/service-panel flex h-full flex-col rounded-[10px] p-6 transition-colors duration-300 ease-out hover:bg-white/[0.02]">
+        <div
+          class="border-radial group/service-panel relative flex h-full flex-col rounded-[10px] p-6 transition-colors duration-300 ease-out hover:bg-white/[0.02]"
+        >
           <a href="/services/storm-damage-repair-co" class="absolute inset-0 z-10" aria-label="Storm Damage Repair">
-              <span class="sr-only">Storm Damage Repair</span>
+            <span class="sr-only">Storm Damage Repair</span>
           </a>
-          <div class="space-y-3 relative z-0">
+          <div class="relative z-0 space-y-3">
             <div class="flex items-center gap-x-2.5">
               <Icon
                 name="storm"
                 class="text-primary size-10 transition-colors duration-300 ease-out group-hover/service-panel:text-[#f0bf33]"
               />
-              <span class="text-xl transition-colors duration-300 ease-out group-hover/service-panel:text-primary">
+              <span class="group-hover/service-panel:text-primary text-xl transition-colors duration-300 ease-out">
                 Storm Damage Repair
               </span>
             </div>
-            <div class="pb-3 text-white/80 transition-colors duration-300 ease-out group-hover/service-panel:text-white/90">
-              After a hail storm, most homeowners don't know what they're owed. We document the damage, coordinate with your adjuster, and handle the paperwork — so you get the roof you deserve.
+            <div
+              class="pb-3 text-white/80 transition-colors duration-300 ease-out group-hover/service-panel:text-white/90"
+            >
+              After a hail storm, most homeowners don't know what they're owed. We document the damage, coordinate with
+              your adjuster, and handle the paperwork — so you get the roof you deserve.
             </div>
           </div>
           <Button
             variant="link"
-            class="mt-auto self-start px-0 pt-6 underline underline-offset-4 transition-colors duration-300 ease-out group-hover/service-panel:text-primary relative z-20"
+            class="group-hover/service-panel:text-primary relative z-20 mt-auto self-start px-0 pt-6 underline underline-offset-4 transition-colors duration-300 ease-out"
             href="/services/storm-damage-repair-co"
           >
             <svg width="13" height="16" viewBox="0 0 13 16" fill="none">
@@ -272,28 +283,32 @@ const mobileStackServices = [
           </Button>
         </div>
 
-        <div class="border-radial relative group/service-panel flex h-full flex-col rounded-[10px] p-6 transition-colors duration-300 ease-out hover:bg-white/[0.02]">
+        <div
+          class="border-radial group/service-panel relative flex h-full flex-col rounded-[10px] p-6 transition-colors duration-300 ease-out hover:bg-white/[0.02]"
+        >
           <a href="/financing" class="absolute inset-0 z-10" aria-label="Flexible Financing">
-              <span class="sr-only">Flexible Financing</span>
+            <span class="sr-only">Flexible Financing</span>
           </a>
-          <div class="space-y-3 relative z-0">
+          <div class="relative z-0 space-y-3">
             <div class="flex items-center gap-x-2.5">
               <Icon
                 name="calculate-doller"
                 class="text-primary size-10 transition-colors duration-300 ease-out group-hover/service-panel:text-[#f0bf33]"
               />
-              <span class="text-xl transition-colors duration-300 ease-out group-hover/service-panel:text-primary">
+              <span class="group-hover/service-panel:text-primary text-xl transition-colors duration-300 ease-out">
                 Flexible Financing
               </span>
             </div>
-            <div class="pb-3 text-white/80 transition-colors duration-300 ease-out group-hover/service-panel:text-white/90">
-              Choose 0% promotional financing, fixed APR options, or long-term plans through Service Finance and Wisetack.
-              Premium roof upgrades from as low as $99 per month.
+            <div
+              class="pb-3 text-white/80 transition-colors duration-300 ease-out group-hover/service-panel:text-white/90"
+            >
+              Choose 0% promotional financing, fixed APR options, or long-term plans through Service Finance and
+              Wisetack. Premium roof upgrades from as low as $99 per month.
             </div>
           </div>
           <Button
             variant="link"
-            class="mt-auto self-start px-0 pt-6 underline underline-offset-4 transition-colors duration-300 ease-out group-hover/service-panel:text-primary relative z-20"
+            class="group-hover/service-panel:text-primary relative z-20 mt-auto self-start px-0 pt-6 underline underline-offset-4 transition-colors duration-300 ease-out"
             href="/financing"
           >
             <svg width="13" height="16" viewBox="0 0 13 16" fill="none">

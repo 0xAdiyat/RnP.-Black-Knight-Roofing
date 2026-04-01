@@ -4,7 +4,7 @@ import type { ImageMetadata } from 'astro';
 import Button from './ui/Button.astro';
 import { cn } from '@/lib/utils';
 
-type ButtonDef = string | ({ label: string } & Record<string, any>);
+type ButtonDef = string | ({ label: string; href?: string } & Record<string, any>);
 
 interface Props {
   title: string;
@@ -18,7 +18,16 @@ interface Props {
   href?: string;
 }
 
-const { title, description, image, imageAlt = '', buttons = [], class: className, compactMobile = false, href } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  imageAlt = '',
+  buttons = [],
+  class: className,
+  compactMobile = false,
+  href,
+} = Astro.props;
 const singleLineMobileChips = compactMobile && buttons.length > 2;
 ---
 
@@ -30,11 +39,13 @@ const singleLineMobileChips = compactMobile && buttons.length > 2;
     className
   )}
 >
-  {href && (
-    <a href={href} class="absolute inset-0 z-10" aria-label={`Learn more about ${title}`}>
+  {
+    href && (
+      <a href={href} class="absolute inset-0 z-10" aria-label={`Learn more about ${title}`}>
         <span class="sr-only">Learn more about {title}</span>
-    </a>
-  )}
+      </a>
+    )
+  }
   <div
     class={cn(
       'bg-gradient-radial relative z-0 flex h-full w-full flex-col rounded-xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:bg-[#232323]',
@@ -48,15 +59,15 @@ const singleLineMobileChips = compactMobile && buttons.length > 2;
         compactMobile ? 'pb-5 md:pb-10' : 'pb-10'
       )}
     >
-        <Image
-          data-slot="thumbnail"
-          src={image}
-          alt={imageAlt || title}
-          class={cn(
-            'h-full w-full scale-100 rounded-lg object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:scale-[1.035]',
-            compactMobile && 'max-h-[132px] md:max-h-none'
-          )}
-        />
+      <Image
+        data-slot="thumbnail"
+        src={image}
+        alt={imageAlt || title}
+        class={cn(
+          'h-full w-full scale-100 rounded-lg object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:scale-[1.035]',
+          compactMobile && 'max-h-[132px] md:max-h-none'
+        )}
+      />
     </div>
 
     <div
@@ -104,7 +115,9 @@ const singleLineMobileChips = compactMobile && buttons.length > 2;
             d="M12.3571 7.20839L0.5 13.7977C0.363095 13.8751 0.245536 13.884 0.147321 13.8245C0.0491071 13.7649 0 13.6578 0 13.503V0.360175C0 0.205414 0.0491071 0.0982704 0.147321 0.0387468C0.245536 -0.0207767 0.363095 -0.0118484 0.5 0.0655327L12.3571 6.65482C12.494 6.7322 12.5625 6.82446 12.5625 6.9316C12.5625 7.03875 12.494 7.13101 12.3571 7.20839Z"
             fill="white"></path>
         </svg>
-        <span class="text-sm text-white underline underline-offset-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:translate-x-0.5">
+        <span
+          class="text-sm text-white underline underline-offset-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/service-card:translate-x-0.5"
+        >
           Learn More
         </span>
       </div>
