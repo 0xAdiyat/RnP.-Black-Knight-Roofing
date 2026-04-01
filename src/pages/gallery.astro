@@ -18,6 +18,7 @@ import { Image } from 'astro:assets';
 import WorkCard from '@/components/recent-projects/WorkCard.astro';
 import Statistics from '@/components/ui/Statistics.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
+import heroImage from '@/assets/bg/services-and-gallery-section__hero.avif';
 import serviceRoofingImg from '@/assets/services/service-roofing.png';
 import serviceSidingImg from '@/assets/services/service-siding.png';
 import serviceGutterImg from '@/assets/services/service-gutter.png';
@@ -168,7 +169,7 @@ const galleryFilters = [
 
   <!-- Hero section -->
 
-  <Hero title="Black Knight Roofing Photo Gallery" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
+  <Hero backgroundImage={heroImage} title="Black Knight Roofing Photo Gallery" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
     <p>
       Black Knight Roofing contractors improve home value by providing modern and quality exterior solutions. See for
       yourself.

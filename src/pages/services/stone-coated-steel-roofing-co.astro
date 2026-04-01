@@ -34,6 +34,7 @@ import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
 import sunflow from '@/assets/sunflow.avif';
 import WhyStoneCoated from '@/components/services/WhyStoneCoated.astro';
+import heroImage from '@/assets/bg/stone-coated-steel-roofing-section__hero.avif';
 
 const roofingMaterials = [
   {
@@ -90,7 +91,7 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero title="Stone-Coated Steel Roofing Built for Colorado Storms" subtitle="Stone-Coated Steel Services in Colorado">
+  <Hero backgroundImage={heroImage} title="Stone-Coated Steel Roofing Built for Colorado Storms" subtitle="Stone-Coated Steel Services in Colorado">
     <!-- Hero section list -->
     <ul class="space-y-4 text-[14px] sm:text-[15px] lg:space-y-3">
       <li class="flex items-start gap-x-4 lg:items-center">

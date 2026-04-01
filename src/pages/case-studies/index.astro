@@ -17,6 +17,7 @@ import { Image } from 'astro:assets';
 import WorkCard from '@/components/recent-projects/WorkCard.astro';
 import Pagination from '@/components/ui/pagination/Pagination.astro';
 import Carousel from '@/components/ui/Carousel.astro';
+import heroBg from '@/assets/bg/case-studies-section__hero.avif';
 
 const works = [
   {
@@ -77,7 +78,11 @@ const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage
 
 <Layout title="Denver Roofing Case Studies | Black Knight Roofing">
   <Navbar />
-  <Hero title="See Past Work In Your <br/> Neighborhood" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
+  <Hero
+    backgroundImage={heroBg}
+    title="See Past Work In Your <br/> Neighborhood"
+    subtitle="Colorado's #1 Veteran-Owned Roofing Company"
+  >
     <p>
       Lorem ipsum dolor sit amet consectetur. Dictum morbi ac nibh nibh leo vitae at id faucibus. Ultrices duis tempor
       eget proin euismod sed dolor eu suspendisse. Amet ridiculus erat sit vulputate. Dui est feugiat risus ultrices.

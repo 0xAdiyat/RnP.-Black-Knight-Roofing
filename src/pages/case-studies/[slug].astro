@@ -19,6 +19,7 @@ import ProjectSwiper from '@/components/case-study/ProjectSwiper.astro';
 import Hero2 from '@/components/hero/Hero2.astro';
 import EstimateButton from '@/components/EstimateButton.astro';
 import Breadcrumb from '@/components/ui/Breadcrumb.astro';
+import heroBg from '@/assets/bg/case-studies-detail-section__hero.avif';
 
 const roofImgOp = await getImage({ src: roofImage });
 
@@ -135,7 +136,7 @@ const processSteps = [
 <Layout title={`${caseStudy.title} | Case Study`}>
   <Navbar />
 
-  <Hero2 title="Case Studies Denver" subtitle="Case Studies">
+  <Hero2 backgroundImage={heroBg} title="Case Studies Denver" subtitle="Case Studies">
     <p>
       Insurance Claim Specialists: We navigate storm and hail damage claims for you, making insurance stress-free.
       Insurance Claim Specialists: We navigate storm and hail damage claims for you, making insurance stress-free.

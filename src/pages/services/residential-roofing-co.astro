@@ -17,6 +17,7 @@ import Hero from '@/components/hero/Hero.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
 import { Image } from 'astro:assets';
+import heroImage from '@/assets/bg/residential-roofing-section__hero.avif';
 import Process from '@/components/process/Process.astro';
 import step1 from '@/assets/steps/step-1.png';
 import step2 from '@/assets/steps/step-2.png';
@@ -88,7 +89,7 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero title="Residential Roofing in Denver, CO" subtitle="Residential Roofing Services">
+  <Hero backgroundImage={heroImage} title="Residential Roofing in Denver, CO" subtitle="Residential Roofing Services">
     <p class="text-sm">
       From roof repairs and full replacements to premium upgrades, Black Knight Roofing helps Colorado homeowners choose
       the right residential roofing system for protection, curb appeal, and long-term value. We install asphalt

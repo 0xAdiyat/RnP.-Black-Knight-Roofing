@@ -17,6 +17,7 @@ import Hero from '@/components/hero/Hero.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
 import { Image } from 'astro:assets';
+import heroImage from '@/assets/bg/hail-damage-repair-section__hero.avif';
 import Process from '@/components/process/Process.astro';
 import step1 from '@/assets/steps/step-1.png';
 import step2 from '@/assets/steps/step-2.png';
@@ -88,7 +89,11 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero title="A Home Exterior That Can Weather Any Storm" subtitle="Storm Damage Repair Services in Colorado">
+  <Hero
+    backgroundImage={heroImage}
+    title="Hail Damage Repair in Denver, CO"
+    subtitle="Hail Damage Repair Services"
+  >
     <p class="text-sm">
       The Front Range lies in "hail alley," a top U.S. hail zone. Colorado ranks second for hail insurance claims, with
       storms April to September dropping hail from pea to golf ball size. Damage like bruised shingles and bent flashing

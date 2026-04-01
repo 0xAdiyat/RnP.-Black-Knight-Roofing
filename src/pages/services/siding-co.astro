@@ -32,6 +32,7 @@ import ComparisonSection from '@/components/services/ComparisonSection.astro';
 import ComparisonTable from '@/components/services/ComparisonTable.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
+import heroImage from '@/assets/bg/siding-section__hero.avif';
 
 const roofingMaterials = [
   {
@@ -88,7 +89,7 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero title="Residential Roofing in Denver, CO" subtitle="Residential Roofing Services">
+  <Hero backgroundImage={heroImage} title="Siding Installation &amp; Replacement in Colorado" subtitle="Siding Services in Colorado">
     <p class="text-sm">
       From roof repairs and full replacements to premium upgrades, Black Knight Roofing helps Colorado homeowners choose
       the right residential roofing system for protection, curb appeal, and long-term value. We install asphalt

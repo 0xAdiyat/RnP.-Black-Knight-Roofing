@@ -28,6 +28,7 @@ import ServiceCard from '@/components/services/ServiceCard.astro';
 import { services } from '@/data/services';
 import { cn } from '@/lib/utils';
 import SocialProof from '@/components/ui/SocialProof.astro';
+import heroImage from '@/assets/bg/services-and-gallery-section__hero.avif';
 
 // Row pattern: defines how many cards per row (repeats if more services exist)
 const rowPattern = [3, 2, 3, 4];
@@ -82,6 +83,7 @@ const processSteps = [
 <Layout>
   <Navbar />
   <Hero
+    backgroundImage={heroImage}
     title="Roofing Services Built for Colorado Homes and Colorado Weather"
     subtitle="Colorado's #1 Veteran-Owned Roofing Company"
   >

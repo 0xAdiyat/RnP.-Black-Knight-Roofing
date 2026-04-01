@@ -23,6 +23,7 @@ import Faqs from '@/components/faqs/Faqs.astro';
 import RecentArticales from '@/components/articales/RecentArticales.astro';
 import NoiseBg from '@/components/NoiseBg.astro';
 import TeamCard from '@/components/TeamCard.astro';
+import heroImage from '@/assets/bg/about-us-section__hero.avif';
 
 const processSteps = [
   {
@@ -55,6 +56,7 @@ const processSteps = [
 <Layout title="About Us | Top Veteran Owned Roofing Company | Black Knight Roofing">
   <Navbar />
   <Hero
+    backgroundImage={heroImage}
     title="Meet the Team of Experts <br/> That Gets Your Roofing Job Done"
     subtitle="Colorado's #1 Veteran-Owned Roofing Company"
   >

@@ -16,6 +16,7 @@ import Pagination from '@/components/ui/pagination/Pagination.astro';
 import ArticalCard from '@/components/articales/ArticalCard.astro';
 import { blogListItems } from '@/data/blogs';
 import BadgeTitle from '@/components/BadgeTitle.astro';
+import heroImage from '@/assets/bg/blogs-and-blog-details-section__hero.avif';
 
 const currentPage = Number(Astro.url.searchParams.get('page') || 1);
 const itemsPerPage = 6;
@@ -25,7 +26,7 @@ const displayedBlogs = blogListItems.slice((currentPage - 1) * itemsPerPage, cur
 
 <Layout>
   <Navbar />
-  <Hero title="See Past Work In Your <br/> Neighborhood" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
+  <Hero backgroundImage={heroImage} title="See Past Work In Your <br/> Neighborhood" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
     <p>
       Lorem ipsum dolor sit amet consectetur. Dictum morbi ac nibh nibh leo vitae at id faucibus. Ultrices duis tempor
       eget proin euismod sed dolor eu suspendisse. Amet ridiculus erat sit vulputate. Dui est feugiat risus ultrices.

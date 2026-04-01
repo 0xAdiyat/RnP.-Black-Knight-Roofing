@@ -46,12 +46,14 @@ const financeSteps = [
     description: 'Your roof gets done. You pay over time.',
   },
 ];
+
+import heroImage from '@/assets/bg/faq-and-financing-section__hero.avif';
 ---
 
 <Layout title="Roofing Financing | Top Veteran Owned Roofing Company | Black Knight Roofing">
   <Navbar />
   <div id="hero-section">
-    <Hero title="Flexible Roof Financing <br/> For All Your Needs" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
+    <Hero backgroundImage={heroImage} title="Flexible Roof Financing <br/> For All Your Needs" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
       <p>
         Your roof shouldn't wait because the timing isn't perfect. We work with Service Finance Company and
         Wisetack to offer payment plans that fit real budgets — starting at $99/month, with no down payment

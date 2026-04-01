@@ -32,6 +32,7 @@ import ComparisonSection from '@/components/services/ComparisonSection.astro';
 import ComparisonTable from '@/components/services/ComparisonTable.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
+import heroImage from '@/assets/bg/window-replacement-section__hero.avif';
 
 const roofingMaterials = [
   {
@@ -88,7 +89,7 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero title="A Window Replacement You Can Trust in Colorado" subtitle="Window Replacement Services In Colorado">
+  <Hero backgroundImage={heroImage} title="A Window Replacement You Can Trust in Colorado" subtitle="Window Replacement Services In Colorado">
     <p class="text-sm">
       Colorado's climate is harder on windows than most homeowners realize. UV radiation is 25% more intense at
       altitude, temperatures can swing 30+ degrees in a single day, and hail season runs April through September with

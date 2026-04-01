@@ -32,6 +32,7 @@ import ComparisonSection from '@/components/services/ComparisonSection.astro';
 import ComparisonTable from '@/components/services/ComparisonTable.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
+import heroImage from '@/assets/bg/roof-replacement-section__hero.avif';
 
 const roofingMaterials = [
   {
@@ -88,7 +89,7 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero title="A Roof Replacement You Can Trust in Colorado" subtitle="Roof Replacement Services In Colorado">
+  <Hero backgroundImage={heroImage} title="A Roof Replacement You Can Trust in Colorado" subtitle="Roof Replacement Services In Colorado">
     <p class="text-sm">
       At Black Knight Roofing Roofing, we understand that your roof is more than just a covering—it's the first line of
       defense for your home or business. Over time, roofs can suffer from weather damage, aging materials, or unexpected

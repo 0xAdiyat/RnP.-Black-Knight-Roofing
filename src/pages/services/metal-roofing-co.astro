@@ -32,6 +32,7 @@ import ComparisonSection from '@/components/services/ComparisonSection.astro';
 import ComparisonTable from '@/components/services/ComparisonTable.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
+import heroImage from '@/assets/bg/metal-roofing-section__hero.avif';
 import sunflow from '@/assets/sunflow.avif';
 
 const roofingMaterials = [
@@ -89,7 +90,7 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero title="Colorado's Premiere Metal Roofing Company" subtitle="Metal Roofing In Colorado">
+  <Hero backgroundImage={heroImage} title="Colorado's Premiere Metal Roofing Company" subtitle="Metal Roofing In Colorado">
     <p class="text-sm">
       At Black Knight Roofing, we specialize in durable metal roofing designed to withstand Colorado's harsh
       conditions—intense UV, hail, high winds, and freeze-thaw cycles. Unlike asphalt shingles, metal roofs last 40-70

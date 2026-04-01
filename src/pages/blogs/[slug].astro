@@ -11,6 +11,7 @@ import Brands from '@/components/Brands.astro';
 import RecentArticales from '@/components/articales/RecentArticales.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import Breadcrumb from '@/components/ui/Breadcrumb.astro';
+import heroImage from '@/assets/bg/blogs-and-blog-details-section__hero.avif';
 
 const defaultAuthor = {
   name: 'Adam Knight',
@@ -541,7 +542,12 @@ const pageTitle = `${blog.title} | Black Knight Roofing`;
 
 <Layout title={pageTitle}>
   <Navbar />
-  <Hero title={blog.title} subtitle="Colorado's #1 Veteran-Owned Roofing Company" hasEstimateButton={false}>
+  <Hero
+    backgroundImage={heroImage}
+    title={blog.title}
+    subtitle="Colorado's #1 Veteran-Owned Roofing Company"
+    hasEstimateButton={false}
+  >
     <div class="mb-8 space-y-4">
       <div
         class="text-primary flex flex-wrap items-center gap-3 border-b border-white/50 pb-4 text-sm font-medium tracking-[0.18em] uppercase"

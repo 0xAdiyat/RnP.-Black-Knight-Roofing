@@ -19,6 +19,7 @@ import sunFlow from '@/assets/sunflow.avif';
 import BeforeAfter from '@/components/comparison/BeforeAfter.astro';
 import Pagination from '@/components/ui/pagination/Pagination.astro';
 import Statistics from '@/components/ui/Statistics.astro';
+import heroImage from '@/assets/bg/before-after-section__hero.avif';
 
 const beforeAfterProjects = [
   {
@@ -76,7 +77,7 @@ const totalPages = 96; // Matching the image's '96' at the end
 <Layout>
   <Navbar />
 
-  <Hero title="Before & After Gallery" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
+  <Hero backgroundImage={heroImage} title="Before &amp; After Gallery" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
     <p>
       Use your cursor to move the image sliders left and right to see the difference we made for these Wisconsin and
       Illinois homes. We work with quality in mind so your roof, windows, doors, & siding stay durable and under
