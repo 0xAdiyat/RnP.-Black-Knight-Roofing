@@ -8,6 +8,7 @@ import '@fontsource-variable/caveat';
 import HumanManifesto from '@/components/HumanManifesto.astro';
 import EstimateDialog from '@/components/EstimateDialog.astro';
 import SiteLinksModal from '@/components/SiteLinksModal.astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 
 interface Props {
   title?: string;
@@ -56,6 +57,7 @@ const socialImageURL = new URL(image, siteUrl);
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
     <ClientRouter />
+    <SpeedInsights />
   </head>
   <body>
     <slot />
