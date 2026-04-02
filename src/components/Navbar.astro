@@ -81,12 +81,7 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
   </section>
 
   <!-- Main Navbar -->
-  <!-- Smooth gradient overlay that only shows when top navbar hides -->
-  <div 
-    id="mobile-top-gradient" 
-    class="pointer-events-none fixed top-0 left-0 right-0 z-40 h-[100px] bg-gradient-to-b from-[#111111]/80 to-transparent opacity-0 md:hidden"
-    style="transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1); will-change: opacity;"
-  ></div>
+
   <header id="mobile-topbar" class="navbar-root bg-bg-default relative flex h-20 items-center text-white">
     <nav class="container mx-auto flex h-full w-full items-center justify-between text-white">
       <div class="hidden items-center gap-x-12 md:flex">
@@ -460,7 +455,6 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
     const topbarEl    = document.getElementById('mobile-topbar') as HTMLElement | null;
     const bottomNavEl = document.getElementById('mobile-bottom-nav') as HTMLElement | null;
     const gradientEl  = document.getElementById('mobile-bottom-gradient') as HTMLElement | null;
-    const topGradientEl = document.getElementById('mobile-top-gradient') as HTMLElement | null;
     if (!topbarEl || !bottomNavEl) return;
 
     const topbar    = topbarEl!;    // HTMLElement — null already ruled out above
@@ -488,9 +482,6 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
       if (gradientEl) {
         gradientEl.style.opacity = '';
       }
-      if (topGradientEl) {
-        topGradientEl.style.opacity = '';
-      }
     }
 
     function showBars() {
@@ -500,9 +491,6 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
       bottomNav.style.transform = 'translateY(0)';
       if (gradientEl) {
         gradientEl.style.opacity = '0';
-      }
-      if (topGradientEl) {
-        topGradientEl.style.opacity = '0';
       }
       // Clean up will-change after transition settles (~350 ms)
       setTimeout(() => {
@@ -520,9 +508,6 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
       bottomNav.style.transform = 'translateY(100%)';
       if (gradientEl) {
         gradientEl.style.opacity = '1';
-      }
-      if (topGradientEl) {
-        topGradientEl.style.opacity = '1';
       }
     }
 
