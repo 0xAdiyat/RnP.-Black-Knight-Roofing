@@ -32,30 +32,9 @@ import ComparisonTable from '@/components/services/ComparisonTable.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
 import heroImage from '@/assets/bg/storm-damage-repair-section__hero.avif';
-
-const roofingMaterials = [
-  {
-    id: 'shingles',
-    label: 'Architectural Shingles',
-    description:
-      'A reliable, budget-friendly choice with layered dimension, broad color options, and dependable everyday performance for Colorado homes.',
-    image: '/placeholders/popular-materials/1.png',
-  },
-  {
-    id: 'steel',
-    label: 'Stone Coated Steel',
-    description:
-      'The ultimate protection against Colorado hail. Lightweight, non-combustible, and designed to last a lifetime with the look of traditional tile or wood shake.',
-    image: '/placeholders/popular-materials/2.png',
-  },
-  {
-    id: 'tile',
-    label: 'Concrete Tile',
-    description:
-      'Superior thermal performance and exceptional durability. Concrete tile offers high fire resistance and a distinct aesthetic for premium Colorado residences.',
-    image: '/placeholders/popular-materials/3.png',
-  },
-];
+import sunflow from '@/assets/sunflow.avif';
+import stormDamageMainImg from '@/assets/generated/storm-damage-main.png';
+import stormDamageLocalImg from '@/assets/generated/storm-damage-local.png';
 
 const processSteps = [
   {
@@ -88,7 +67,11 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero backgroundImage={heroImage} title="A Home Exterior That Can Weather Any Storm" subtitle="Storm Damage Repair Services in Colorado">
+  <Hero
+    backgroundImage={heroImage}
+    title="A Home Exterior That Can Weather Any Storm"
+    subtitle="Storm Damage Repair Services in Colorado"
+  >
     <p class="text-sm">
       The Front Range lies in "hail alley," a top U.S. hail zone. Colorado ranks second for hail insurance claims, with
       storms April to September dropping hail from pea to golf ball size. Damage like bruised shingles and bent flashing
@@ -104,6 +87,12 @@ const processSteps = [
 
   <!-- Service Details -->
   <NoiseBg class="px-0 py-0">
+    <Image
+      {...sunflow}
+      alt="Sunflow Image"
+      class="pointer-events-none absolute inset-0 top-0 left-0 w-full opacity-10"
+    />
+
     <div class="container py-8 lg:py-20">
       <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:items-stretch">
         <!-- Left contents -->
@@ -111,11 +100,11 @@ const processSteps = [
           <div class="flex-1 space-y-4">
             <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Storm Damage Repair' }]} />
 
-            <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
+            <h2 class="text-medium text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
               You Don't Have To Navigate the Insurance Process On Your Own!
             </h2>
 
-            <p class="text-sm lg:text-base">
+            <p class="text-neutral-lighter text-sm font-normal lg:text-base">
               Know what's more stressful than a storm-damaged roof? Dealing with the insurance company after. Adjusters
               move fast, paperwork piles up, and insurers sometimes classify clear hail damage as "normal wear and tear"
               — especially on older roofs — to minimize the payout. Most homeowners don't know they can push back, or
@@ -132,10 +121,10 @@ const processSteps = [
 
         <!-- Right Contents -->
 
-        <div class="h-[380px] w-full items-center overflow-hidden rounded-lg lg:self-center">
+        <div class="h-[550px] w-full items-center overflow-hidden rounded-2xl lg:self-center">
           <Image
-            src="/placeholders/thumbnails/roof-replacement-1.avif"
-            alt="Roof Replacement"
+            src={stormDamageMainImg}
+            alt="Storm Damage Inspection"
             width={442}
             height={785}
             class="h-full w-full rounded-lg object-cover"
@@ -152,7 +141,7 @@ const processSteps = [
     badgeText="Why Choose Us"
     title="Roofs That Helps Colorado Homes Shine"
     description="<p>After a storm hits, you'll get door-knockers. Storm chasers — out-of-state contractors who follow hail paths, pressure homeowners into quick signatures, file the claim, collect the insurance check, and disappear before the job is done right. We've seen the aftermath. It's expensive to fix. Black Knight Roofing is local. We live and work on the Front Range, and our reputation here depends on every single job we finish. We're licensed, bonded, insured, and A+ accredited with the BBB — which means we're accountable to this community long after your roof is installed.</p> <p>As a licensed general contractor, Adam inspects your home the way a builder would — not just the shingles, but the full system. Gutters bent and clogged from impact. Flashing lifted at the ridge. Siding dented and cracked. Window seals compromised. We document all of it, back it with our lifetime workmanship warranty, and install using Tamko Pro Certified materials and processes so your replacement stands up to the next storm too.</p>"
-    image="/placeholders/thumbnails/residential-2.png"
+    image={stormDamageLocalImg}
     buttonText="FREE Storm Damage Inspection"
     imagePosition="left"
   />

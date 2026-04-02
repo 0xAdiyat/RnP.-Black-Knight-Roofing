@@ -32,6 +32,7 @@ import ComparisonTable from '@/components/services/ComparisonTable.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
 import heroImage from '@/assets/bg/window-replacement-section__hero.avif';
+import sunflow from '@/assets/sunflow.avif';
 
 const roofingMaterials = [
   {
@@ -88,7 +89,11 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero backgroundImage={heroImage} title="A Window Replacement You Can Trust in Colorado" subtitle="Window Replacement Services In Colorado">
+  <Hero
+    backgroundImage={heroImage}
+    title="A Window Replacement You Can Trust in Colorado"
+    subtitle="Window Replacement Services In Colorado"
+  >
     <p class="text-sm">
       Colorado's climate is harder on windows than most homeowners realize. UV radiation is 25% more intense at
       altitude, temperatures can swing 30+ degrees in a single day, and hail season runs April through September with
@@ -105,7 +110,12 @@ const processSteps = [
   </div>
 
   <!-- Service Details -->
-  <NoiseBg class="px-0 py-0">
+  <NoiseBg class="relative px-0 py-0">
+    <Image
+      {...sunflow}
+      alt="Sunflow Image"
+      class="pointer-events-none absolute inset-0 top-0 left-0 w-full opacity-10"
+    />
     <div class="container py-8 lg:py-20">
       <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:items-stretch">
         <!-- Left contents -->
@@ -113,11 +123,11 @@ const processSteps = [
           <div class="flex-1 space-y-4">
             <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Window Replacement Services' }]} />
 
-            <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
+            <h2 class="text-medium text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
               Upgrading Colorado Homes and Businesses with Durable, Climate-Ready Window Replacement
             </h2>
 
-            <p class="text-sm lg:text-base">
+            <p class="text-neutral-lighter text-sm font-normal lg:text-base">
               Colorado's weather doesn't ease up — scorching sun one day, freezing temperatures the next, and hail that
               can go from pea-sized to golf ball in minutes. Builder-grade windows aren't designed for this. They lose
               their seal, let drafts in, and quietly drive up your energy bills year after year. Our window replacement
@@ -136,7 +146,7 @@ const processSteps = [
 
         <!-- Right Contents -->
 
-        <div class="h-[380px] w-full items-center overflow-hidden rounded-lg lg:self-center">
+        <div class="h-[550px] w-full items-center overflow-hidden rounded-lg lg:self-center">
           <Image
             src="/placeholders/thumbnails/roof-replacement-1.avif"
             alt="Roof Replacement"
@@ -153,7 +163,7 @@ const processSteps = [
   <Testimonials />
 
   <WhyChooseUs
-    badgeText="Expert Quality & Care"
+    badgeText="Why Choose Us"
     title="Installed by a Licensed General Contractor — Not Just a Window Company"
     description="<p> Most window installers focus on the frame and call it done. We approach every window replacement the way a licensed general contractor does — checking the surrounding structure, the seal integrity, and how the unit integrates with your home's overall weatherproofing. A window that looks right but isn't properly installed is still a problem waiting to happen, especially in Colorado's freeze-thaw environment.  </p> <p>As an authorized Westlake Royal installer, we have access to windows engineered for Colorado's climate — double and triple-pane glass with Low-E coatings that block UV, argon gas fills that resist heat transfer, and impact-rated options built for the Front Range hail corridor. Every installation comes with our lifetime workmanship warranty. If something goes wrong with how we put it in, we fix it. </p>"
     image="/placeholders/thumbnails/residential-2.png"

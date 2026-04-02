@@ -51,9 +51,9 @@ const textOrderClass = imagePosition === 'right' ? 'order-1' : 'order-2';
       <div class={cn('h-full', imageOrderClass)}>
         {
           typeof image === 'string' ? (
-            <img src={image} alt={imageAlt} class="h-full w-full rounded-lg object-cover" />
+            <img src={image} alt={imageAlt} class="h-full w-full rounded-2xl object-cover" />
           ) : (
-            <Image src={image} alt={imageAlt} width={600} height={400} class="h-full w-full rounded-lg object-cover" />
+            <Image src={image} alt={imageAlt} width={600} height={400} class="h-full w-full rounded-2xl object-cover" />
           )
         }
       </div>
