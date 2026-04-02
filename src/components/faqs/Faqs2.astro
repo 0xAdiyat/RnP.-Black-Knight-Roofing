@@ -101,12 +101,15 @@ const activeTabClass = 'bg-primary text-[#111]';
         </div>
       </div>
 
-      <div id="faq-items" class="space-y-4 transition-[opacity,transform,filter] duration-300 ease-out">
+      <div
+        id="faq-items"
+        class="flex w-full flex-col gap-y-4 pt-4 lg:pt-2 transition-[opacity,transform,filter] duration-300 ease-out"
+      >
         {
           faqCategories.map(category =>
             category.items.map((faq, index) => (
               <div
-                class:list={['p-1', { hidden: defaultTab !== allTabLabel }]}
+                class:list={['flex w-full', { hidden: defaultTab !== allTabLabel }]}
                 data-faq-entry
                 data-category={category.label}
                 data-search={`${faq.question} ${faq.answer.join(' ')}`.toLowerCase()}
