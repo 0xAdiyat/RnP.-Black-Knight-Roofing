@@ -25,76 +25,168 @@ import heroBg from '@/assets/bg/case-studies-detail-section__hero.avif';
 const roofImgOp = await getImage({ src: roofImage });
 
 export async function getStaticPaths() {
+  const sharedImages = [
+    '/bg/case-studies-section__hero.avif',
+    '/bg/metal-roofing-section__hero.avif',
+    '/bg/roof-replacement-section__hero.avif',
+    '/bg/stone-coated-steel-roofing-section__hero.avif',
+    '/bg/concrete-tile-roof-section__hero.avif',
+    '/bg/siding-section__hero.avif',
+    '/bg/hail-damage-repair-section__hero.avif',
+  ];
+
   const caseStudies = [
     {
-      slug: '1',
-      title: 'Star House” Siding Upgrade — Done Right',
-      subtitle: 'Scott wanted a fresh exterior that still matched the character of his home.',
-      location: 'Forest City, IA',
+      slug: 'edco-metal-siding-charcoal-gray',
+      title: 'EDCO Metal Siding — Charcoal Gray',
+      subtitle: 'A homeowner wanted a modern, low-maintenance exterior with lasting curb appeal.',
+      location: 'Denver, CO',
       services: 'Siding Replacement',
-      materials: 'D-5 Dutchlap (Acadia Green)',
+      materials: 'EDCO Metal Siding (Charcoal Gray)',
       videoThumbnail: '/placeholders/projects/project-1.jpg',
-      summary:
-        'Scott wanted a fresh exterior that still matched the character of his home. We helped him compare colors, pick the right profile, and install with a clean, durable finish.',
-      resultSummary: 'curb appeal up, maintenance worry down.',
+      summary: 'A homeowner wanted a modern, low-maintenance exterior with lasting curb appeal. We installed EDCO metal siding in Charcoal Gray for a clean, contemporary finish.',
+      resultSummary: 'durable metal siding installed, curb appeal transformed.',
       customer: {
-        title: 'A Front Range Homeowner',
-        content:
-          'wanted a roof that looks high-end but holds up to Colorado’s toughest weather. After repeated storm seasons and constant patchwork, they needed a long-term system—not another temporary fix. They reached out to Black Knight Roofing for an expert-led evaluation and a solution designed for durability, aesthetics, and peace of mind.',
+        title: 'A Denver Homeowner',
+        content: 'wanted a premium siding solution that could withstand Colorado\'s harsh weather while delivering a modern aesthetic. They reached out to Black Knight Roofing for expert guidance and a reliable installation.',
       },
-      problem: {
-        content: `With demand for high-quality creative output growing across users and internal teams, Vimeo’s Brand and Production team saw the need for a unified strategy to accelerate AI adoption and support creatives across the organization.`,
-      },
-      solution: {
-        content: `With demand for high-quality creative output growing across users and internal teams, Vimeo’s Brand and Production team saw the need for a unified strategy to accelerate AI adoption and support creatives across the organization.`,
-      },
-      result: {
-        content: `With demand for high-quality creative output growing across users and internal teams, Vimeo’s Brand and Production team saw the need for a unified strategy to accelerate AI adoption and support creatives across the organization.`,
-      },
-      images: [
-        '/bg/case-studies-section__hero.avif',
-        '/placeholders/works/metal-roof-installation-colorado.jpg',
-        '/placeholders/works/shingle-roof-replacement-denver.jpg',
-        '/placeholders/works/storm-damage-roof-repair-co.jpg',
-        '/bg/case-studies-section__hero.avif',
-        '/placeholders/works/metal-roof-installation-colorado.jpg',
-        '/placeholders/works/shingle-roof-replacement-denver.jpg',
-      ],
+      problem: { content: 'The existing siding was aging and failing to protect the home from moisture and temperature extremes. The homeowner needed a durable, attractive replacement.' },
+      solution: { content: 'We recommended EDCO metal siding in Charcoal Gray for its superior durability, low maintenance, and modern look. Our team completed the installation efficiently with clean, precise workmanship.' },
+      result: { content: 'The home now features a stunning, weather-resistant exterior that will last decades. The homeowner is thrilled with the transformation and the reduced maintenance burden.' },
+      images: sharedImages,
     },
     {
-      slug: 'star-house-siding-upgrade',
-      title: 'Star House” Siding Upgrade — Done Right',
-      subtitle: 'Scott wanted a fresh exterior that still matched the character of his home.',
-      location: 'Forest City, IA',
-      services: 'Siding Replacement',
-      materials: 'D-5 Dutchlap (Acadia Green)',
+      slug: 'stone-coated-steel-weathered-wood',
+      title: 'Stone Coated Steel — Weathered Wood',
+      subtitle: 'A Colorado homeowner needed a roof that combines beauty with storm resistance.',
+      location: 'Denver, CO',
+      services: 'Roofing',
+      materials: 'Stone Coated Steel (Weathered Wood)',
       videoThumbnail: '/placeholders/projects/project-1.jpg',
-      summary:
-        'Scott wanted a fresh exterior that still matched the character of his home. We helped him compare colors, pick the right profile, and install with a clean, durable finish.',
-      resultSummary: 'curb appeal up, maintenance worry down.',
+      summary: 'A Colorado homeowner needed a roof that combines beauty with storm resistance. We installed stone coated steel in Weathered Wood for the perfect balance of style and durability.',
+      resultSummary: 'storm-resistant roof installed with a premium wood aesthetic.',
       customer: {
         title: 'A Front Range Homeowner',
-        content:
-          'wanted a roof that looks high-end but holds up to Colorado’s toughest weather. After repeated storm seasons and constant patchwork, they needed a long-term system—not another temporary fix. They reached out to Black Knight Roofing for an expert-led evaluation and a solution designed for durability, aesthetics, and peace of mind.',
+        content: 'wanted a roof that looks high-end but holds up to Colorado\'s toughest weather. After repeated storm seasons and constant patchwork, they needed a long-term system—not another temporary fix.',
       },
-      problem: {
-        content: `With demand for high-quality creative output growing across users and internal teams, Vimeo’s Brand and Production team saw the need for a unified strategy to accelerate AI adoption and support creatives across the organization.`,
+      problem: { content: 'The existing asphalt shingles were repeatedly damaged by hail and high winds, requiring frequent repairs. The homeowner needed a long-term roofing solution.' },
+      solution: { content: 'We installed stone coated steel roofing in the Weathered Wood finish, offering the aesthetic of natural wood with the strength of steel. This system is rated for 160 mph winds and Class 4 impact resistance.' },
+      result: { content: 'The homeowner now has a roof that\'s both beautiful and virtually indestructible. No more storm anxiety—just lasting protection and stunning curb appeal.' },
+      images: sharedImages,
+    },
+    {
+      slug: 'concrete-tile-barcelona-sand',
+      title: 'Concrete Tile — Barcelona Sand',
+      subtitle: 'A homeowner sought a classic Mediterranean look with Colorado-tough performance.',
+      location: 'Denver, CO',
+      services: 'Roofing',
+      materials: 'Concrete Tile (Barcelona Sand)',
+      videoThumbnail: '/placeholders/projects/project-1.jpg',
+      summary: 'A homeowner sought a classic Mediterranean look with Colorado-tough performance. We installed concrete tile in Barcelona Sand for timeless elegance and lasting protection.',
+      resultSummary: 'elegant concrete tile roof installed with decades-long lifespan.',
+      customer: {
+        title: 'A Colorado Homeowner',
+        content: 'dreamed of a Mediterranean-inspired home with a roof to match. They needed a solution that delivered the classic look they loved while standing up to Colorado\'s climate.',
       },
-      solution: {
-        content: `With demand for high-quality creative output growing across users and internal teams, Vimeo’s Brand and Production team saw the need for a unified strategy to accelerate AI adoption and support creatives across the organization.`,
+      problem: { content: 'The existing roof was outdated and no longer matched the homeowner\'s vision for their home. They needed a complete replacement with premium materials.' },
+      solution: { content: 'We installed Barcelona Sand concrete tile roofing, providing the timeless Mediterranean aesthetic with superior durability. Concrete tile is fire-resistant, wind-resistant, and built to last 50+ years.' },
+      result: { content: 'The home now boasts a stunning Mediterranean exterior that stands out in the neighborhood. The homeowner has a beautiful, low-maintenance roof built for the long haul.' },
+      images: sharedImages,
+    },
+    {
+      slug: 'asphalt-shingle-estate-gray',
+      title: 'Asphalt Shingle — Estate Gray',
+      subtitle: 'A homeowner needed a reliable, cost-effective roof replacement after storm damage.',
+      location: 'Denver, CO',
+      services: 'Roofing',
+      materials: 'Asphalt Shingle (Estate Gray)',
+      videoThumbnail: '/placeholders/projects/project-1.jpg',
+      summary: 'A homeowner needed a reliable, cost-effective roof replacement after storm damage. We installed premium asphalt shingles in Estate Gray for a clean, classic finish.',
+      resultSummary: 'new roof installed, insurance claim handled seamlessly.',
+      customer: {
+        title: 'A Denver Area Homeowner',
+        content: 'experienced significant hail damage and needed a full roof replacement. They wanted quality materials at a fair price, with help navigating the insurance claim process.',
       },
-      result: {
-        content: `With demand for high-quality creative output growing across users and internal teams, Vimeo’s Brand and Production team saw the need for a unified strategy to accelerate AI adoption and support creatives across the organization.`,
+      problem: { content: 'A severe hail storm caused widespread damage to the existing roof, leading to leaks and interior water damage. The homeowner needed a fast, reliable replacement.' },
+      solution: { content: 'We handled the insurance claim from start to finish and installed premium Estate Gray asphalt shingles. The project was completed on schedule with zero disruption to the homeowner\'s routine.' },
+      result: { content: 'The homeowner received a brand-new roof with full insurance coverage and zero out-of-pocket stress. The Estate Gray finish gives the home a clean, timeless look.' },
+      images: sharedImages,
+    },
+    {
+      slug: 'vinyl-siding-replacement-desert-tan',
+      title: 'Vinyl Siding Replacement — Desert Tan',
+      subtitle: 'A homeowner wanted to refresh their home\'s exterior with durable, low-maintenance vinyl.',
+      location: 'Denver, CO',
+      services: 'Siding Replacement',
+      materials: 'Vinyl Siding (Desert Tan)',
+      videoThumbnail: '/placeholders/projects/project-1.jpg',
+      summary: 'A homeowner wanted to refresh their home\'s exterior with durable, low-maintenance vinyl siding in Desert Tan for a warm, inviting look.',
+      resultSummary: 'fresh vinyl siding installed, home value boosted.',
+      customer: {
+        title: 'A Colorado Homeowner',
+        content: 'wanted to modernize their home\'s exterior without breaking the bank. They needed a durable, attractive siding solution that would last for years with minimal upkeep.',
       },
-      images: [
-        '/bg/case-studies-section__hero.avif',
-        '/placeholders/works/metal-roof-installation-colorado.jpg',
-        '/placeholders/works/shingle-roof-replacement-denver.jpg',
-        '/placeholders/works/storm-damage-roof-repair-co.jpg',
-        '/bg/case-studies-section__hero.avif',
-        '/placeholders/works/metal-roof-installation-colorado.jpg',
-        '/placeholders/works/shingle-roof-replacement-denver.jpg',
-      ],
+      problem: { content: 'The existing siding was faded, cracked, and allowing moisture infiltration. The homeowner needed a complete replacement to protect their investment.' },
+      solution: { content: 'We installed Desert Tan vinyl siding, offering excellent weather resistance, insulation, and a warm aesthetic. The installation was clean and completed ahead of schedule.' },
+      result: { content: 'The home looks completely transformed with its new Desert Tan exterior. The homeowner is enjoying the fresh look and the energy savings from improved insulation.' },
+      images: sharedImages,
+    },
+    {
+      slug: 'tpo-commercial-roof',
+      title: 'TPO Commercial Roof — Flat Roof Specialist',
+      subtitle: 'A commercial property owner needed a durable, energy-efficient flat roof system.',
+      location: 'Denver, CO',
+      services: 'Commercial Roofing',
+      materials: 'TPO Membrane',
+      videoThumbnail: '/placeholders/projects/project-1.jpg',
+      summary: 'A commercial property owner needed a durable, energy-efficient flat roof system. We installed a TPO membrane roof that delivers superior performance and energy savings.',
+      resultSummary: 'commercial flat roof installed, energy costs reduced.',
+      customer: {
+        title: 'A Denver Commercial Property Owner',
+        content: 'needed a reliable flat roofing system for their commercial building. They required minimal downtime during installation and a system with proven longevity.',
+      },
+      problem: { content: 'The existing flat roof was aging and developing leaks, risking damage to the building\'s interior and inventory. The owner needed a fast, professional replacement.' },
+      solution: { content: 'We installed a high-quality TPO membrane roofing system, known for its durability, UV resistance, and energy efficiency. The project was completed with minimal disruption to daily business operations.' },
+      result: { content: 'The commercial property now has a watertight, energy-efficient roof that will last 20+ years. The owner has seen reduced cooling costs and complete peace of mind.' },
+      images: sharedImages,
+    },
+    {
+      slug: 'seamless-gutters-6-inch-k-style',
+      title: 'Seamless Gutters — 6-Inch K-Style',
+      subtitle: 'A homeowner needed a reliable gutter system to protect their foundation and landscaping.',
+      location: 'Denver, CO',
+      services: 'Gutters',
+      materials: '6-Inch K-Style Seamless Gutters',
+      videoThumbnail: '/placeholders/projects/project-1.jpg',
+      summary: 'A homeowner needed a reliable gutter system to protect their foundation and landscaping. We installed seamless 6-inch K-style gutters for maximum water management.',
+      resultSummary: 'seamless gutters installed, water damage risk eliminated.',
+      customer: {
+        title: 'A Denver Homeowner',
+        content: 'was dealing with water pooling around their foundation and erosion in their landscaping due to inadequate gutters. They needed a professional gutter system built to handle Colorado\'s heavy rain and snow melt.',
+      },
+      problem: { content: 'The existing gutters were sectional, prone to leaking at the seams, and undersized for the roof\'s drainage needs. Water was damaging the foundation and landscaping.' },
+      solution: { content: 'We installed custom 6-inch K-style seamless gutters, fabricated on-site for a perfect fit with no seams to leak. The system efficiently channels water away from the home.' },
+      result: { content: 'The homeowner now has a high-performance gutter system that protects their foundation and landscaping. No more water pooling or erosion concerns.' },
+      images: sharedImages,
+    },
+    {
+      slug: 'hail-damage-repair',
+      title: 'Hail Damage Repair — Insurance Claim Expert',
+      subtitle: 'A homeowner\'s roof suffered severe hail damage and needed expert repair and claims support.',
+      location: 'Denver, CO',
+      services: 'Roofing',
+      materials: 'Impact-Resistant Shingles',
+      videoThumbnail: '/placeholders/projects/project-1.jpg',
+      summary: 'A homeowner\'s roof suffered severe hail damage and needed expert repair and insurance claims support. Black Knight Roofing handled everything from inspection to completion.',
+      resultSummary: 'roof repaired, insurance claim maximized, homeowner relieved.',
+      customer: {
+        title: 'A Front Range Homeowner',
+        content: 'experienced a devastating hail storm that left their roof with hundreds of impact marks and compromised their home\'s waterproofing. They were overwhelmed by the insurance process and needed an expert partner.',
+      },
+      problem: { content: 'A severe hail storm caused extensive damage across the entire roof surface. The homeowner was unsure how to document the damage and navigate the insurance claim process.' },
+      solution: { content: 'Our team conducted a thorough inspection, documented all damage with photos and detailed reports, and worked directly with the insurance adjuster to maximize the claim. We then replaced the roof with Class 4 impact-resistant shingles.' },
+      result: { content: 'The homeowner received full insurance coverage for the replacement and now has a superior, impact-resistant roof. The entire process—from claim to completion—was handled by Black Knight Roofing.' },
+      images: sharedImages,
     },
   ];
 
@@ -289,7 +381,7 @@ const processSteps = [
               <h2 class="font-heading text-primary text-4xl font-normal">The Problem</h2>
               <div class="space-y-6 text-base leading-relaxed text-white/80">
                 <p>{caseStudy.problem.content}</p>
-                <p>To learn more about Vimeo’s journey with Superside, we spoke with:</p>
+                <p>To learn more about Vimeo's journey with Superside, we spoke with:</p>
                 <ul class="space-y-3 pl-6">
                   <li class="flex items-start gap-3">
                     <div class="bg-primary mt-2.5 size-1.5 shrink-0 rounded-full"></div>
@@ -398,17 +490,17 @@ const processSteps = [
                   </p>
                 </div>
 
-                <div class="flex items-center gap-4">
+                <a href="tel:9708887230" class="flex items-center gap-4">
                   <div class="bg-primary flex size-12 shrink-0 items-center justify-center rounded-full">
                     <Icon name="phone" class="size-6 text-black" />
                   </div>
                   <div>
                     <div class="text-xs font-bold tracking-widest text-white/60 uppercase">Give us a call:</div>
-                    <div class="text-primary font-heading mt-1 text-3xl leading-none">(815) 200-1255</div>
+                    <div class="text-primary font-heading mt-1 text-3xl leading-none">(970) 888-7230</div>
                   </div>
-                </div>
+                </a>
 
-                <div class="border-t border-white/20 pt-4">
+                <div class="border-t border-white/20 pt-4 text-center">
                   <p class="text-sm text-white/60">Check Availability</p>
                   <p class="font-medium text-white">Secure your spot asap!</p>
                 </div>

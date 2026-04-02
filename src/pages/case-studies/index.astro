@@ -33,48 +33,56 @@ const works = [
     title: 'EDCO METAL SIDING',
     subtitle: 'CHARCOAL GRAY',
     category: 'Siding',
+    slug: 'edco-metal-siding-charcoal-gray',
   },
   {
     image: metalRoofingHero,
     title: 'Stone Coated Steel',
     subtitle: 'Weathered Wood',
     category: 'Roofing',
+    slug: 'stone-coated-steel-weathered-wood',
   },
   {
     image: concreteTileHero,
     title: 'Concrete Tile',
     subtitle: 'Barcelona Sand',
     category: 'Roofing',
+    slug: 'concrete-tile-barcelona-sand',
   },
   {
     image: asphaltShingleHero,
     title: 'Asphalt Shingle',
     subtitle: 'Estate Gray',
     category: 'Roofing',
+    slug: 'asphalt-shingle-estate-gray',
   },
   {
     image: sidingHero,
     title: 'Vinyl Siding Replacement',
     subtitle: 'DESERT TAN',
     category: 'Siding',
+    slug: 'vinyl-siding-replacement-desert-tan',
   },
   {
     image: commercialRoofingHero,
     title: 'TPO Commercial Roof',
     subtitle: 'Flat Roof Specialist',
     category: 'Roofing',
+    slug: 'tpo-commercial-roof',
   },
   {
     image: guttersHero,
     title: 'Seamless Gutters',
     subtitle: '6-Inch K-Style',
     category: 'Gutters',
+    slug: 'seamless-gutters-6-inch-k-style',
   },
   {
     image: hailHero,
     title: 'Hail Damage Repair',
     subtitle: 'Insurance Claim Expert',
     category: 'Roofing',
+    slug: 'hail-damage-repair',
   },
 ];
 
@@ -156,7 +164,7 @@ const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage
       <div class="grid auto-cols-max auto-rows-max grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 lg:gap-x-2">
         {
           displayedWorks.map(work => (
-            <WorkCard image={work.image} title={work.title} subtitle={work.subtitle} category={work.category} />
+            <WorkCard image={work.image} title={work.title} subtitle={work.subtitle} category={work.category} href={`/case-studies/${work.slug}`} />
           ))
         }
       </div>

@@ -9,12 +9,14 @@ interface Props {
   title: string;
   subtitle?: string;
   category: string;
+  href?: string;
 }
 
-const { image, title, subtitle, category } = Astro.props;
+const { image, title, subtitle, category, href } = Astro.props;
+const Tag = href ? 'a' : 'div';
 ---
 
-<div class="relative h-[387px] overflow-hidden rounded-2xl">
+<Tag class="relative h-[387px] overflow-hidden rounded-2xl" {...href ? { href } : {}}>
   {
     typeof image === 'string' ? (
       <Image src={image} alt={title} width={358} height={387} class="h-full w-full rounded-2xl object-cover" />
@@ -40,4 +42,4 @@ const { image, title, subtitle, category } = Astro.props;
       </Button>
     </div>
   </div>
-</div>
+</Tag>
