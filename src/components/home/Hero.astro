@@ -12,7 +12,6 @@ import heroLeftShape from '@/assets/hero-left-shape.avif';
 import FreeQuoteForm from './FreeQuoteForm.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
 
-const optimizedHeroBg = await getImage({ src: heroBgImage, width: 1536, height: 1152, format: 'avif' });
 const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
 ---
 
@@ -20,7 +19,7 @@ const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
   <!-- Background Image -->
   <Image
     alt="background Image"
-    src={optimizedHeroBg.src}
+    src={heroBgImage}
     width={1536}
     height={1152}
     class="absolute -z-10 h-full w-full object-cover"

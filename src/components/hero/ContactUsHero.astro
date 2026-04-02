@@ -17,11 +17,6 @@ interface Props {
 
 const { backgroundImage = heroBgImage, title, subtitle, subtitleIcon = 'badge-tick', class: className } = Astro.props;
 
-const heroImgSrc =
-  typeof backgroundImage === 'string'
-    ? backgroundImage
-    : (await getImage({ src: backgroundImage, width: 1536, height: 1152, format: 'avif' })).src;
-
 const gridFrameOp = await getImage({ src: gridFrame });
 
 const hasSidebar = Astro.slots.has('sidebar');
@@ -30,7 +25,7 @@ const hasSocialProof = Astro.slots.has('social-proof');
 
 <section class={cn('grid-line relative max-h-[833px]', className)}>
   <Image
-    src={heroImgSrc}
+    src={backgroundImage as any}
     alt="About Us"
     width={heroBgImage?.width || 1536}
     height={heroBgImage?.height || 1152}
