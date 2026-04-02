@@ -12,7 +12,7 @@ function getResend() {
   }
   return resendInstance;
 }
-const TO_EMAIL = 'adam@blackknightroofing.com';
+const TO_EMAIL = 'support@blackknightroofing.com';
 const FROM_EMAIL = 'Black Knight Roofing <noreply@blackknightroofing.com>';
 
 function row(label: string, value: string | undefined) {
