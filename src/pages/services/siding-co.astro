@@ -32,28 +32,77 @@ import ComparisonTable from '@/components/services/ComparisonTable.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
 import heroImage from '@/assets/bg/siding-section__hero.avif';
+import sidingMainImg from '@/assets/generated/siding-main.png';
 
-const roofingMaterials = [
+import vinylHorizontalLap from '@/assets/generated/vinyl-horizontal-lap.png';
+import vinylBoardBatten from '@/assets/generated/vinyl-board-batten.png';
+import steelSeamlessPanels from '@/assets/generated/steel-seamless-panels.png';
+import metalRibbedSiding from '@/assets/generated/metal-ribbed-siding.png';
+import fibreCementPanels from '@/assets/generated/fibre-cement-panels.png';
+import stoneVeneerAccent from '@/assets/generated/stone-veneer-accent.png';
+import { callSafely } from 'astro:actions';
+import { string } from 'astro:schema';
+
+const categories = [
   {
-    id: 'shingles',
-    label: 'Architectural Shingles',
-    description:
-      'A reliable, budget-friendly choice with layered dimension, broad color options, and dependable everyday performance for Colorado homes.',
-    image: '/placeholders/popular-materials/1.png',
+    id: 'vinyl',
+    label: 'Vinyl Siding',
+    items: [
+      {
+        id: 'horizontal-lap',
+        title: 'Premium Horizontal Lap',
+        description:
+          'Traditional look with modern performance. Durable, low-maintenance, and available in a wide range of colors to match any Colorado home.',
+        image: vinylHorizontalLap,
+      },
+      {
+        id: 'board-batten',
+        title: 'Authentic Board & Batten',
+        description:
+          'Vertical lines that add height and character. Perfect for farmhouse or modern-rustic styles with the durability of high-grade vinyl.',
+        image: vinylBoardBatten,
+      },
+    ],
   },
   {
-    id: 'steel',
-    label: 'Stone Coated Steel',
-    description:
-      'The ultimate protection against Colorado hail. Lightweight, non-combustible, and designed to last a lifetime with the look of traditional tile or wood shake.',
-    image: '/placeholders/popular-materials/2.png',
+    id: 'metal',
+    label: 'Steel & Metal Siding',
+    items: [
+      {
+        id: 'seamless-steel',
+        title: 'Seamless Steel Panels',
+        description:
+          'The ultimate in structural strength. No seams means no gaps for moisture or insects, providing a clean, unbreakable shield for your home.',
+        image: steelSeamlessPanels,
+      },
+      {
+        id: 'ribbed-metal',
+        title: 'Ribbed Metal Siding',
+        description:
+          'Contemporary architectural appeal with exceptional resilience. Engineered to withstand high winds and severe weather with an industrial-luxury finish.',
+        image: metalRibbedSiding,
+      },
+    ],
   },
   {
-    id: 'tile',
-    label: 'Concrete Tile',
-    description:
-      'Superior thermal performance and exceptional durability. Concrete tile offers high fire resistance and a distinct aesthetic for premium Colorado residences.',
-    image: '/placeholders/popular-materials/3.png',
+    id: 'composite',
+    label: 'Specialty & Composite',
+    items: [
+      {
+        id: 'fibre-cement',
+        title: 'Fibre Cement Panels',
+        description:
+          'Unmatched fire resistance and a premium masonry-like feel. Fiber cement offers the look of natural wood with none of the rotting or pest issues.',
+        image: fibreCementPanels,
+      },
+      {
+        id: 'stone-veneer',
+        title: 'Stone Veneer Accents',
+        description:
+          'Add texture and value with realistic stone accents. Perfectly complements our siding options for a fully finished, high-end exterior look.',
+        image: stoneVeneerAccent,
+      },
+    ],
   },
 ];
 
@@ -88,12 +137,16 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero backgroundImage={heroImage} title="Siding Installation &amp; Replacement in Colorado" subtitle="Siding Services in Colorado">
+  <Hero
+    backgroundImage={heroImage}
+    title="Reliable Siding Services in Denver, CO"
+    subtitle="Siding Installation In Colorado"
+  >
     <p class="text-sm">
-      From roof repairs and full replacements to premium upgrades, Black Knight Roofing helps Colorado homeowners choose
-      the right residential roofing system for protection, curb appeal, and long-term value. We install asphalt
-      shingles, metal roofing, flat roofing, tile, stone-coated steel, and concrete tile systems from Colorado Springs
-      to Fort Collins.
+      New siding should do two things well: protect your home from Colorado weather and make the whole exterior look
+      more finished. Black Knight Roofing helps homeowners choose siding that fits the style of the home, the level of
+      maintenance they want, and the long-term result they are after with vinyl and steel siding options from Colorado
+      Springs to Fort Collins.
     </p>
   </Hero>
 
@@ -109,35 +162,32 @@ const processSteps = [
         <!-- Left contents -->
         <div class="space-y-8 py-8">
           <div class="flex-1 space-y-4">
-            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Residential Roofing' }]} />
+            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Siding' }]} />
 
             <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
-              Repairs vs. Replacement: Which Is Right For You?
+              Siding That Fits the Home and Holds Up Over Time
             </h2>
 
             <p class="text-sm lg:text-base">
-              When you're dealing with a roofing issue, it can feel overwhelming, especially when you do not know what
-              to expect. We help you understand the difference between repairs and replacements, and when each one makes
-              the most sense. In many cases, you might be surprised by what can be repaired, which can save you time and
-              money. And when it is time for a new roofing system, we are here to guide you toward the right product and
-              install it with care.
+              Siding changes more than curb appeal. It affects how your home handles weather, how much upkeep the
+              exterior needs, and how clean and finished the property looks from the street. Black Knight Roofing helps
+              homeowners compare siding options clearly, so you can choose the right look and level of durability
+              without second-guessing the decision later.
             </p>
           </div>
 
-          <Button class="px-8 py-4 text-base" data-estimate-trigger>
-            <span> <strong> FREE </strong> Roof Estimate </span>
-          </Button>
+          <EstimateButton offerText="" actionText="Talk to a Siding Professional" class="px-8 py-4 text-base" />
         </div>
 
         <!-- Right Contents -->
 
-        <div class="">
+        <div class="h-[400px] overflow-hidden rounded-2xl">
           <Image
-            src="/placeholders/thumbnails/residential-1.png"
-            alt="Residential Roofing"
+            src={sidingMainImg}
+            alt="Siding Installation"
             width={600}
             height={400}
-            class="rounded-lg object-cover"
+            class="rounded-2xl object-cover"
           />
         </div>
       </div>
@@ -148,9 +198,9 @@ const processSteps = [
   <Testimonials />
 
   <WhyChooseUs
-    badgeText="Expert Quality & Care"
-    title="Residential Roofing in Denver, CO"
-    description="Your roof should do more than keep water out. It should fit the look of your home, hold up to Colorado weather, and add lasting value without hidden fees or corner-cutting. Black Knight Roofing brings builder-level oversight, straightforward pricing, and residential roofing guidance that helps you feel good about the result long after the crew leaves."
+    badgeText="Why Choose Us"
+    title="Exterior Work That Looks Better Up Close"
+    description="At Black Knight Roofing Roofing, we proudly support Colorado businesses with reliable commercial roofing solutions. We understand the region’s weather challenges, from intense heat to severe storms and hurricanes, and we tailor every project to meet the specific needs of commercial properties. Using high-quality, weather-resistant materials and expert craftsmanship, we ensure your roof is built to last and protect your business from the elements. Serving Colorado is more than just our job—it’s about safeguarding the businesses that drive this vibrant community forward."
     image="/placeholders/thumbnails/residential-2.png"
     buttonText="FREE Roof Estimate"
     imagePosition="left"
@@ -160,7 +210,10 @@ const processSteps = [
 
   <Process steps={processSteps} />
   <OtherServicesCarousel />
-  <PopularRoofingMaterials materials={roofingMaterials} />
+  <PopularRoofingMaterials
+    quote="“Good siding should protect the home, clean up the look, and still make sense for how you want to maintain the exterior.”"
+    categories={categories}
+  />
   <RecentProjects />
   <ServiceAreas />
   <Faqs />

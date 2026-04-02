@@ -32,6 +32,7 @@ import PopularRoofingMaterials from '@/components/services/PopularRoofingMateria
 import ComparisonTable from '@/components/services/ComparisonTable.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
+import commercialWhyChooseUsImg from '@/assets/generated/commercial-why-choose-us.png';
 
 const roofingMaterials = [
   {
@@ -147,8 +148,8 @@ const processSteps = [
   <WhyChooseUs
     badgeText="Why Choose Us"
     title="Supporting Colorado Businesses Like Ours!"
-    description="At Black Knight Roofing Roofing, we proudly support Colorado businesses with reliable commercial roofing solutions. We understand the region’s weather challenges, from intense heat to severe storms and hurricanes, and we customize every project to meet the specific needs of commercial properties. Using high-quality, weather-resistant materials and expert craftsmanship, we ensure your roof is built to last and protect your business from the elements. Serving Colorado is more than just our job—it’s about safeguarding the businesses that drive this vibrant community forward."
-    image="/placeholders/thumbnails/residential-2.png"
+    description="At Black Knight Roofing, we proudly support Colorado businesses with reliable commercial roofing solutions. We understand the region’s weather challenges, from intense heat to severe hail and heavy snow, and we customize every project to meet the specific needs of commercial properties. Using high-quality, weather-resistant materials and expert craftsmanship, we ensure your roof is built to last and protect your business from the elements. Serving Colorado is more than just our job—it’s about safeguarding the businesses that drive this vibrant community forward."
+    image={commercialWhyChooseUsImg}
     buttonText="FREE Roof Estimate"
     imagePosition="left"
   />
@@ -157,7 +158,6 @@ const processSteps = [
 
   <Process steps={processSteps} />
   <OtherServicesCarousel />
-  <PopularRoofingMaterials materials={roofingMaterials} />
   <RecentProjects />
   <ServiceAreas />
   <Faqs />
