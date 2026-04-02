@@ -23,7 +23,7 @@ import heroImage from '@/assets/bg/stone-coated-steel-roofing-section__hero.avif
 
 import heroBg from '@/assets/tiles/hero-bg.png';
 import heroGradient from '@/assets/tiles/hero-gradient.png';
-import comparisonHero from '@/assets/tiles/comparison-hero.png';
+import comparisonHero from '@/assets/tiles/comparison-hero-2.png';
 import BadgeTitle from '@/components/BadgeTitle.astro';
 import EstimateButton from '@/components/EstimateButton.astro';
 
@@ -32,6 +32,17 @@ import steelHailResistance from '@/assets/generated/steel-hail-resistance.png';
 import steelFireSafety from '@/assets/generated/steel-fire-safety.png';
 import steelEnergyEfficiency from '@/assets/generated/steel-energy-efficiency.png';
 import stoneCoatedMainImg from '@/assets/generated/stone-coated-steel-main.png';
+
+// Stone-Coated Style Previews
+import pineCrestPreview from '@/assets/tiles/pine-crest-shake-preview.png';
+import harborwoodThumb from '@/assets/tiles/harborwood-thumb.png';
+import stirlingGrayThumb from '@/assets/tiles/stirling-gray-thumb.png';
+import countryBlendThumb from '@/assets/tiles/country-blend-thumb.png';
+import ironwoodThumb from '@/assets/tiles/ironwood-thumb.png';
+import goldRiverThumb from '@/assets/tiles/gold-river-thumb.png';
+import timberwoodThumb from '@/assets/tiles/timberwood-thumb.png';
+import scBarcelonaThumb from '@/assets/tiles/sc-barcelona-thumb.png';
+import scCharcoalThumb from '@/assets/tiles/sc-charcoal-thumb.png';
 
 const categories = [
   {
@@ -168,16 +179,16 @@ const stoneSteelProfiles = [
     label: 'Pine - Crest shake',
     title: 'Pine - Crest Shake',
     description: 'Engineered to replicate hand-split wood shake with the durability of steel.',
-    previewImage: stoneCoatedMainImg, // Will use generated preview if available
+    previewImage: pineCrestPreview,
     colors: [
-      { name: 'HARBORWOOD', code: '4DAP93569SF', color: '#6D5A4A', thumbnail: '/placeholders/tiles/harborwood.png' },
-      { name: 'STIRLING GRAY', code: '4DAP95427SF', color: '#6B6B6B', thumbnail: '/placeholders/tiles/stirline-gray.png' },
-      { name: 'COUNTRY BLEND', code: '4DAP93145SF', color: '#7B624A', thumbnail: '/placeholders/tiles/country-blend.png' },
-      { name: 'IRONWOOD', code: '4DAP95325SF', color: '#4A4139', thumbnail: '/placeholders/tiles/ironwood.png' },
-      { name: 'GOLD RIVER', code: '4DAP93245SF', color: '#8C7355', thumbnail: '/placeholders/tiles/country-blend.png' },
-      { name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241', thumbnail: '/placeholders/tiles/timberwood.png' },
-      { name: 'BARCELONA', code: '4DAP93185SF', color: '#7B4A4A', thumbnail: '/placeholders/tiles/barcelona.png' },
-      { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', thumbnail: '/placeholders/tiles/charcoal.png' },
+      { name: 'HARBORWOOD', code: '4DAP93569SF', color: '#6D5A4A', thumbnail: harborwoodThumb },
+      { name: 'STIRLING GRAY', code: '4DAP95427SF', color: '#6B6B6B', thumbnail: stirlingGrayThumb },
+      { name: 'COUNTRY BLEND', code: '4DAP93145SF', color: '#7B624A', thumbnail: countryBlendThumb },
+      { name: 'IRONWOOD', code: '4DAP95325SF', color: '#4A4139', thumbnail: ironwoodThumb },
+      { name: 'GOLD RIVER', code: '4DAP93245SF', color: '#8C7355', thumbnail: goldRiverThumb },
+      { name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241', thumbnail: timberwoodThumb },
+      { name: 'BARCELONA', code: '4DAP93185SF', color: '#7B4A4A', thumbnail: scBarcelonaThumb },
+      { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', thumbnail: scCharcoalThumb },
     ],
   },
   {
@@ -185,40 +196,32 @@ const stoneSteelProfiles = [
     label: 'Cottage Shingle',
     title: 'Cottage Shingle',
     description: 'A clean, modern look that complements a variety of architectural styles.',
-    previewImage: stoneCoatedMainImg,
-    colors: [
-      { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', thumbnail: '/placeholders/tiles/charcoal.png' },
-    ],
+    previewImage: pineCrestPreview,
+    colors: [{ name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', thumbnail: scCharcoalThumb }],
   },
   {
     id: 'granite-ridge-shingle',
     label: 'Granite-Ridge Shingle',
     title: 'Granite-Ridge Shingle',
     description: 'The strength of steel with the refined look of architectural shingles.',
-    previewImage: stoneCoatedMainImg,
-    colors: [
-      { name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241', thumbnail: '/placeholders/tiles/timberwood.png' },
-    ],
+    previewImage: pineCrestPreview,
+    colors: [{ name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241', thumbnail: timberwoodThumb }],
   },
   {
     id: 'barrel-vault-tile',
     label: 'Barrel Vault Tile',
     title: 'Barrel Vault Tile',
     description: 'Captures the timeless look of Spanish clay tile in a durable steel format.',
-    previewImage: stoneCoatedMainImg,
-    colors: [
-      { name: 'BARCELONA', code: '4DAP93185SF', color: '#7B4A4A', thumbnail: '/placeholders/tiles/barcelona.png' },
-    ],
+    previewImage: pineCrestPreview,
+    colors: [{ name: 'BARCELONA', code: '4DAP93185SF', color: '#7B4A4A', thumbnail: scBarcelonaThumb }],
   },
   {
     id: 'pacific-tile',
     label: 'Pacific Tile',
     title: 'Pacific Tile',
     description: 'A low-profile Mediterranean-inspired design for a clean, sophisticated roof.',
-    previewImage: stoneCoatedMainImg,
-    colors: [
-      { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', thumbnail: '/placeholders/tiles/charcoal.png' },
-    ],
+    previewImage: pineCrestPreview,
+    colors: [{ name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', thumbnail: scCharcoalThumb }],
   },
 ];
 ---
