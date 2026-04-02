@@ -214,26 +214,30 @@ const menuItems = [
       }
     }
 
-    // Event Delegation
-    if (!window.__MOBILE_MENU_LISTENER_ADDED__) {
-      document.addEventListener('click', e => {
-        const toggle = e.target.closest('#mobile-menu-toggle');
-        const close = e.target.closest('#close-menu');
-        const accordionTrigger = e.target.closest('.accordion-trigger');
-        const targetOverlay = e.target === overlay;
-
-        if (toggle) {
-          const isOpen = toggle.getAttribute('data-open') === 'true';
-          if (isOpen) closeDrawer();
-          else openDrawer();
-        } else if (close || targetOverlay) {
-          closeDrawer();
-        } else if (accordionTrigger) {
-          toggleAccordion(accordionTrigger);
-        }
-      });
-      window.__MOBILE_MENU_LISTENER_ADDED__ = true;
+    // Event Delegation — remove stale listener before adding fresh one
+    if (window.__mobileMenuHandler) {
+      document.removeEventListener('click', window.__mobileMenuHandler);
     }
+
+    function handleMenuClick(e) {
+      const toggle = e.target.closest('#mobile-menu-toggle');
+      const close = e.target.closest('#close-menu');
+      const accordionTrigger = e.target.closest('.accordion-trigger');
+      const targetOverlay = e.target === overlay;
+
+      if (toggle) {
+        const isOpen = toggle.getAttribute('data-open') === 'true';
+        if (isOpen) closeDrawer();
+        else openDrawer();
+      } else if (close || targetOverlay) {
+        closeDrawer();
+      } else if (accordionTrigger) {
+        toggleAccordion(accordionTrigger);
+      }
+    }
+
+    document.addEventListener('click', handleMenuClick);
+    window.__mobileMenuHandler = handleMenuClick;
   }
 
   // Lifecycle
