@@ -69,13 +69,7 @@ const textOrderClass = imagePosition === 'right' ? 'order-1' : 'order-2';
             )
           }
 
-          {
-            title && (
-              <h2 class="max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)] font-medium">
-                {title}
-              </h2>
-            )
-          }
+          {title && <h2 class="text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)] font-medium">{title}</h2>}
 
           {
             description && (
@@ -91,16 +85,18 @@ const textOrderClass = imagePosition === 'right' ? 'order-1' : 'order-2';
 
         {
           buttonText && (
-          <Button
-            href={buttonHref}
-            data-estimate-trigger={
-              ['Estimate', 'Inspection', 'Quote', 'Get Started'].some(term => buttonText?.includes(term)) ? true : undefined
-            }
-          >
-            <span>
-              <strong>{buttonText.split(' ')[0]}</strong> {buttonText.split(' ').slice(1).join(' ')}
-            </span>
-          </Button>
+            <Button
+              href={buttonHref}
+              data-estimate-trigger={
+                ['Estimate', 'Inspection', 'Quote', 'Get Started'].some(term => buttonText?.includes(term))
+                  ? true
+                  : undefined
+              }
+            >
+              <span>
+                <strong>{buttonText.split(' ')[0]}</strong> {buttonText.split(' ').slice(1).join(' ')}
+              </span>
+            </Button>
           )
         }
       </div>
