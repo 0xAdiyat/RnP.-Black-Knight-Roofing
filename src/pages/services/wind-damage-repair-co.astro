@@ -32,6 +32,7 @@ import ComparisonTable from '@/components/services/ComparisonTable.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
 import heroImage from '@/assets/bg/wind-damage-repair-section__hero.avif';
+import sunflow from '@/assets/sunflow.avif';
 
 const roofingMaterials = [
   {
@@ -88,7 +89,11 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero backgroundImage={heroImage} title="Wind Damage Roof Repair in Colorado" subtitle="Wind Damage Repair Services in Colorado">
+  <Hero
+    backgroundImage={heroImage}
+    title="Wind Damage Roof Repair in Colorado"
+    subtitle="Wind Damage Repair Services in Colorado"
+  >
     <p class="text-sm">
       The Front Range lies in "hail alley," a top U.S. hail zone. Colorado ranks second for hail insurance claims, with
       storms April to September dropping hail from pea to golf ball size. Damage like bruised shingles and bent flashing
@@ -103,31 +108,33 @@ const processSteps = [
   </div>
 
   <!-- Service Details -->
-  <NoiseBg class="px-0 py-0">
+  <NoiseBg class="relative px-0 py-0">
+    <Image
+      {...sunflow}
+      alt="Sunflow Image"
+      class="pointer-events-none absolute inset-0 top-0 left-0 w-full opacity-10"
+    />
     <div class="container py-8 lg:py-20">
       <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:items-stretch">
         <!-- Left contents -->
         <div class="space-y-8 py-8">
           <div class="flex-1 space-y-4">
-            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Storm Damage Repair' }]} />
+            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Wind Damage Repair' }]} />
 
             <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
-              You Don't Have To Navigate the Insurance Process On Your Own!
+              Wind Breaks Seals Before It Breaks Shingles
             </h2>
 
             <p class="text-sm lg:text-base">
-              Know what's more stressful than a storm-damaged roof? Dealing with the insurance company after. Adjusters
-              move fast, paperwork piles up, and insurers sometimes classify clear hail damage as "normal wear and tear"
-              — especially on older roofs — to minimize the payout. Most homeowners don't know they can push back, or
-              how. We do. At Black Knight Roofing, insurance claims are part of the job. We inspect your full exterior —
-              roof, gutters, siding, flashing, and windows — document every impact with photos and written reports, and
-              work directly with your adjuster as your advocate. You have up to one year from the storm date to file a
-              claim in most Colorado policies. Don't wait. The longer damage goes uninspected, the harder it is to link
-              to the original event.
+              The most dangerous wind damage on a Colorado roof isn’t the missing shingle, but the one lifted enough for
+              rain to seep in, breaking its seal. This hidden damage often goes unnoticed and causes leaks later. Front
+              Range winds often exceed 60 mph, with gusts up to 100 mph during storms. Every high-wind event deserves
+              inspection. We check the entire roof system—shingles, flashing, valleys, fascia, and soffits—and document
+              with photos. We inspect with a builder’s eye, focusing on the structure, not just the surface.
             </p>
           </div>
 
-          <Button class="px-8 py-4 text-base" data-estimate-trigger> FREE Storm Damage Inspection </Button>
+          <Button class="px-8 py-4 text-base" data-estimate-trigger> FREE Wind Damage Inspection </Button>
         </div>
 
         <!-- Right Contents -->
@@ -150,10 +157,10 @@ const processSteps = [
 
   <WhyChooseUs
     badgeText="Why Choose Us"
-    title="Roofs That Helps Colorado Homes Shine"
-    description="<p>After a storm hits, you'll get door-knockers. Storm chasers — out-of-state contractors who follow hail paths, pressure homeowners into quick signatures, file the claim, collect the insurance check, and disappear before the job is done right. We've seen the aftermath. It's expensive to fix. Black Knight Roofing is local. We live and work on the Front Range, and our reputation here depends on every single job we finish. We're licensed, bonded, insured, and A+ accredited with the BBB — which means we're accountable to this community long after your roof is installed.</p> <p>As a licensed general contractor, Adam inspects your home the way a builder would — not just the shingles, but the full system. Gutters bent and clogged from impact. Flashing lifted at the ridge. Siding dented and cracked. Window seals compromised. We document all of it, back it with our lifetime workmanship warranty, and install using Tamko Pro Certified materials and processes so your replacement stands up to the next storm too.</p>"
+    title="We Fix What the Wind Actually Damaged — Not Just What's Easy to See"
+    description=" <p> Many wind damage repairs miss hidden issues. A roofer might replace a couple of missing shingles and call it done, but nearby shingles with broken seals, lifting ridge caps, and misaligned flashing often get overlooked. We inspect every section of your roof thoroughly, checking for lifted edges, creased tabs, loose nails, and flashing problems. We document all damage with photos to ensure your insurance claim covers everything, not just what's visible from the driveway. </p> <p> Insurance companies sometimes deny wind damage claims, especially on older roofs, blaming wear and tear instead. We link our findings to weather data and damage patterns to support your claim. With our A+ BBB rating, 41+ five-star Google reviews, and lifetime warranty, we stand behind every repair we do.</p>"
     image="/placeholders/thumbnails/residential-2.png"
-    buttonText="FREE Storm Damage Inspection"
+    buttonText="FREE Wind Damage Inspection"
     imagePosition="left"
   />
 

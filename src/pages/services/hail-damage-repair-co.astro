@@ -32,30 +32,7 @@ import PopularRoofingMaterials from '@/components/services/PopularRoofingMateria
 import ComparisonTable from '@/components/services/ComparisonTable.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
-
-const roofingMaterials = [
-  {
-    id: 'shingles',
-    label: 'Architectural Shingles',
-    description:
-      'A reliable, budget-friendly choice with layered dimension, broad color options, and dependable everyday performance for Colorado homes.',
-    image: '/placeholders/popular-materials/1.png',
-  },
-  {
-    id: 'steel',
-    label: 'Stone Coated Steel',
-    description:
-      'The ultimate protection against Colorado hail. Lightweight, non-combustible, and designed to last a lifetime with the look of traditional tile or wood shake.',
-    image: '/placeholders/popular-materials/2.png',
-  },
-  {
-    id: 'tile',
-    label: 'Concrete Tile',
-    description:
-      'Superior thermal performance and exceptional durability. Concrete tile offers high fire resistance and a distinct aesthetic for premium Colorado residences.',
-    image: '/placeholders/popular-materials/3.png',
-  },
-];
+import sunflow from '@/assets/sunflow.avif';
 
 const processSteps = [
   {
@@ -90,14 +67,16 @@ const processSteps = [
 
   <Hero
     backgroundImage={heroImage}
-    title="Hail Damage Repair in Denver, CO"
-    subtitle="Hail Damage Repair Services"
+    title="Your Roof Took a Hit. Here's What To Do Next."
+    subtitle="Hail Damage Repair Services in Colorado"
   >
     <p class="text-sm">
-      The Front Range lies in "hail alley," a top U.S. hail zone. Colorado ranks second for hail insurance claims, with
-      storms April to September dropping hail from pea to golf ball size. Damage like bruised shingles and bent flashing
-      often goes unseen until leaks form. Black Knight Roofing inspects and repairs storm damage properly, working with
-      your insurance adjuster to ensure you get the coverage you deserve.
+      Colorado gets more hail days per year than almost any state in the country — and the Front Range sits squarely in
+      what's known as "hail alley." The problem isn't just what you can see from the ground. A storm that leaves no
+      missing shingles can still bruise the granule layer, crack seal strips, compromise flashing, and quietly shorten
+      your roof's lifespan by years. By the time a leak shows up, the damage has been spreading for months. At Black
+      Knight Roofing, we specialize in hail damage inspection, documentation, and repair for Colorado homes. We know
+      exactly what adjusters look for — and exactly what they miss. Call us before you call your insurance company.
     </p>
   </Hero>
 
@@ -107,27 +86,35 @@ const processSteps = [
   </div>
 
   <!-- Service Details -->
-  <NoiseBg class="px-0 py-0">
+  <NoiseBg class="relative px-0 py-0">
+    <Image
+      {...sunflow}
+      alt="Sunflow Image"
+      class="pointer-events-none absolute inset-0 top-0 left-0 w-full opacity-10"
+    />
+
     <div class="container py-8 lg:py-20">
       <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:items-stretch">
         <!-- Left contents -->
         <div class="space-y-8 py-8">
           <div class="flex-1 space-y-4">
-            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Storm Damage Repair' }]} />
+            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Hail Damage Repair' }]} />
 
             <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
-              You Don't Have To Navigate the Insurance Process On Your Own!
+              You Don't Have To Navigate the Insurance Process On Your Own! Hail Damage Is Often Invisible — Until It
+              Isn't
             </h2>
 
-            <p class="text-sm lg:text-base">
-              Know what's more stressful than a storm-damaged roof? Dealing with the insurance company after. Adjusters
-              move fast, paperwork piles up, and insurers sometimes classify clear hail damage as "normal wear and tear"
-              — especially on older roofs — to minimize the payout. Most homeowners don't know they can push back, or
-              how. We do. At Black Knight Roofing, insurance claims are part of the job. We inspect your full exterior —
-              roof, gutters, siding, flashing, and windows — document every impact with photos and written reports, and
-              work directly with your adjuster as your advocate. You have up to one year from the storm date to file a
-              claim in most Colorado policies. Don't wait. The longer damage goes uninspected, the harder it is to link
-              to the original event.
+            <p class="text-neutral-lighter text-sm font-normal lg:text-base">
+              After a hailstorm, most Colorado homeowners walk outside, look up, see the shingles are still there, and
+              assume everything is fine. It's not always that simple. Hail damage to asphalt shingles shows up as soft
+              spots and circular bruising — areas where the impact has fractured the granule layer beneath the surface.
+              That granule loss exposes the underlying mat to UV radiation and moisture. It doesn't fail immediately. It
+              fails over the next two to five years, quietly, until a heavy snow or hard rain turns a weakened spot into
+              an active leak. We inspect your roof the way it needs to be inspected — up close, methodically, section by
+              section. As a licensed general contractor, we look at the full picture: shingles, ridge caps, flashing,
+              gutters, siding, and windows. We document every impact point with photos and written reports, and we give
+              you a straight answer about what needs to be done.
             </p>
           </div>
 
@@ -136,7 +123,7 @@ const processSteps = [
 
         <!-- Right Contents -->
 
-        <div class="h-[380px] w-full items-center overflow-hidden rounded-lg lg:self-center">
+        <div class="w-full items-center overflow-hidden rounded-lg lg:h-[580px] lg:self-center">
           <Image
             src="/placeholders/thumbnails/roof-replacement-1.avif"
             alt="Roof Replacement"
@@ -154,10 +141,10 @@ const processSteps = [
 
   <WhyChooseUs
     badgeText="Why Choose Us"
-    title="Roofs That Helps Colorado Homes Shine"
-    description="<p>After a storm hits, you'll get door-knockers. Storm chasers — out-of-state contractors who follow hail paths, pressure homeowners into quick signatures, file the claim, collect the insurance check, and disappear before the job is done right. We've seen the aftermath. It's expensive to fix. Black Knight Roofing is local. We live and work on the Front Range, and our reputation here depends on every single job we finish. We're licensed, bonded, insured, and A+ accredited with the BBB — which means we're accountable to this community long after your roof is installed.</p> <p>As a licensed general contractor, Adam inspects your home the way a builder would — not just the shingles, but the full system. Gutters bent and clogged from impact. Flashing lifted at the ridge. Siding dented and cracked. Window seals compromised. We document all of it, back it with our lifetime workmanship warranty, and install using Tamko Pro Certified materials and processes so your replacement stands up to the next storm too.</p>"
+    title="We Inspect Hail Damage the Way Your Insurance Adjuster Will — and Then Some"
+    description="<p>Insurance adjusters often miss subtle roof damage like tiny shingle cracks, loose seals, or scattered granule loss. In Colorado's harsh climate, these small issues can quickly lead to big problems. A roof that looks fine now might fail after a couple of winters. We inspect carefully, spotting damage adjusters might overlook, and provide detailed reports to support your claim.</p> <p>As a licensed general contractor, Adam inspects your home the way a builder would — not just the shingles, but the full system. Gutters bent and clogged from impact. Flashing lifted at the ridge. Siding dented and cracked. Window seals compromised. We document all of it, back it with our lifetime workmanship warranty, and install using Tamko Pro Certified materials and processes so your replacement stands up to the next storm too.</p>"
     image="/placeholders/thumbnails/residential-2.png"
-    buttonText="FREE Storm Damage Inspection"
+    buttonText="FREE Hail Damage Inspection"
     imagePosition="left"
   />
 
