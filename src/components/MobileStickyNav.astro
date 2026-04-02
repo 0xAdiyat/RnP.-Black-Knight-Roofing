@@ -3,8 +3,20 @@ import { Icon } from 'astro-icon/components';
 import Button from './ui/Button.astro';
 ---
 
-<div id="mobile-bottom-nav" class="fixed right-0 bottom-0 left-0 z-50 md:hidden" style="transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); will-change: transform;">
+<!-- Smooth gradient overlay that only shows when bottom navbar hides -->
+<div 
+  id="mobile-bottom-gradient" 
+  class="pointer-events-none fixed right-0 bottom-0 left-0 z-40 h-[100px] bg-gradient-to-t from-[#111111] to-transparent opacity-0 md:hidden"
+  style="transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1); will-change: opacity;"
+></div>
+
+<div
+  id="mobile-bottom-nav"
+  class="fixed right-0 bottom-0 left-0 z-50 md:hidden"
+  style="transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); will-change: transform;"
+>
   <div class="via-primary h-px w-full bg-linear-to-r from-[#594216] via-15% to-[#594216]"></div>
+  
   <div
     class="bg-bg-default/90 container mx-auto flex w-full items-center justify-between gap-4 px-3 py-4 backdrop-blur-xl"
   >

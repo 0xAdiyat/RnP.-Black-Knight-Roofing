@@ -453,6 +453,7 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
     // We use non-null assertion so TS narrowing holds inside nested closures.
     const topbarEl    = document.getElementById('mobile-topbar') as HTMLElement | null;
     const bottomNavEl = document.getElementById('mobile-bottom-nav') as HTMLElement | null;
+    const gradientEl  = document.getElementById('mobile-bottom-gradient') as HTMLElement | null;
     if (!topbarEl || !bottomNavEl) return;
 
     const topbar    = topbarEl!;    // HTMLElement — null already ruled out above
@@ -477,6 +478,9 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
       bottomNav.style.transform = '';
       topbar.style.willChange    = '';
       bottomNav.style.willChange = '';
+      if (gradientEl) {
+        gradientEl.style.opacity = '';
+      }
     }
 
     function showBars() {
@@ -484,6 +488,9 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
       hidden = false;
       topbar.style.transform    = 'translateY(0)';
       bottomNav.style.transform = 'translateY(0)';
+      if (gradientEl) {
+        gradientEl.style.opacity = '0';
+      }
       // Clean up will-change after transition settles (~350 ms)
       setTimeout(() => {
         if (!hidden) clearTransforms();
@@ -498,6 +505,9 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
       bottomNav.style.willChange = 'transform';
       topbar.style.transform    = 'translateY(-100%)';
       bottomNav.style.transform = 'translateY(100%)';
+      if (gradientEl) {
+        gradientEl.style.opacity = '1';
+      }
     }
 
     function isMobileMenuOpen() {
