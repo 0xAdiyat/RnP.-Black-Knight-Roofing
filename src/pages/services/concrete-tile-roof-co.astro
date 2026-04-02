@@ -22,6 +22,7 @@ import heroImage from '@/assets/bg/concrete-tile-roof-section__hero.avif';
 
 import heroBg from '@/assets/tiles/hero-bg.png';
 import heroGradient from '@/assets/tiles/hero-gradient.png';
+import concreteTileRoof from '@/assets/services/concrete-tile-roof.png';
 import comparisonHero from '@/assets/tiles/comparison-hero.png';
 import BadgeTitle from '@/components/BadgeTitle.astro';
 import EstimateButton from '@/components/EstimateButton.astro';
@@ -33,6 +34,95 @@ import component2 from '@/assets/tiles/component-2.png';
 import component3 from '@/assets/tiles/component-3.png';
 import component4 from '@/assets/tiles/component-4.png';
 import component5 from '@/assets/tiles/component-5.png';
+import hailProtection from '@/assets/materials/hail-protection.png';
+import windPerformance from '@/assets/materials/wind-performance.png';
+import wildfireSafety from '@/assets/materials/wildfire-safety.png';
+import energyEfficiency from '@/assets/materials/energy-efficiency.png';
+
+// Generated Assets
+import windInterlocking from '@/assets/generated/wind-interlocking.png';
+import windMass from '@/assets/generated/wind-mass.png';
+import hailImpact from '@/assets/generated/hail-impact.png';
+import hailDurability from '@/assets/generated/hail-durability.png';
+import fireNonCombustible from '@/assets/generated/fire-non-combustible.png';
+import fireEmbers from '@/assets/generated/fire-embers.png';
+import energyThermal from '@/assets/generated/energy-thermal.png';
+import energyVentilation from '@/assets/generated/energy-ventilation.png';
+
+// Concrete Style Previews
+import villaPreview from '@/assets/generated/concrete-villa.png';
+import belAirPreview from '@/assets/generated/concrete-bel-air.png';
+import ponderosaPreview from '@/assets/generated/concrete-ponderosa.png';
+
+const concreteProfiles = [
+  {
+    id: 'villa',
+    label: 'Villa',
+    title: 'Newpoint™ Villa',
+    description: 'A high-profile S-tile that captures the classic look of Mediterranean and Spanish architecture.',
+    previewImage: villaPreview,
+    colors: [
+      { name: 'BARCELONA', code: '4VAP93185SF', color: '#7B4A4A', thumbnail: '/placeholders/tiles/barcelona.png' },
+      { name: 'TERRA COTTA', code: '4VAP9104001', color: '#B35A3E', thumbnail: '/placeholders/tiles/barcelona.png' },
+      { name: 'ADOBE BLEND', code: '4VAP93245SF', color: '#8C7355', thumbnail: '/placeholders/tiles/country-blend.png' },
+    ]
+  },
+  {
+    id: 'bel-air',
+    label: 'Bel Air',
+    title: 'Newpoint™ Bel Air',
+    description: 'A flat-profile tile that creates clean lines for contemporary or traditional home designs.',
+    previewImage: belAirPreview,
+    colors: [
+      { name: 'CHARCOAL', code: '4BAP9104000', color: '#333333', thumbnail: '/placeholders/tiles/stirline-gray.png' },
+      { name: 'STIRLING GRAY', code: '4BAP95427SF', color: '#6B6B6B', thumbnail: '/placeholders/tiles/stirline-gray.png' },
+      { name: 'MOUNTAIN BLEND', code: '4BAP93569SF', color: '#6D5A4A', thumbnail: '/placeholders/tiles/harborwood.png' },
+    ]
+  },
+  {
+    id: 'ponderosa',
+    label: 'Ponderosa',
+    title: 'Newpoint™ Ponderosa',
+    description: 'A medium-profile tile that replicates the rugged texture and beauty of natural wood shake.',
+    previewImage: ponderosaPreview,
+    colors: [
+      { name: 'TIMBERWOOD', code: '4PAP93225SF', color: '#7B6241', thumbnail: '/placeholders/tiles/timberwood.png' },
+      { name: 'IRONWOOD', code: '4PAP95325SF', color: '#4A4139', thumbnail: '/placeholders/tiles/ironwood.png' },
+      { name: 'COUNTRY BLEND', code: '4PAP93145SF', color: '#7B624A', thumbnail: '/placeholders/tiles/country-blend.png' },
+    ]
+  }
+];
+
+const concreteFaqs = [
+  {
+    question: "Is concrete tile roofing a good choice for Colorado?",
+    answer: "Yes — concrete tile is one of the strongest long-term roofing choices for Colorado's climate. It's dense enough to resist hail impact naturally, carries a Class A fire rating, and handles freeze-thaw cycles without cracking or warping the way thinner materials can. With a 50–100 year performance potential and a fully transferable lifetime warranty from Newpoint™, it's a roof you install once."
+  },
+  {
+    question: "How does concrete tile compare to asphalt shingles?",
+    answer: "In every meaningful performance category, concrete tile wins. It lasts two to four times longer (50–100 years vs. 20–30 for asphalt), carries a Class A fire rating vs. asphalt's lower rating, comes with Class 3 or Class 4 hail options, and the Newpoint™ Cool Roof System produces attic temperatures averaging 94° vs. 139° for asphalt in identical test conditions — a 45-degree difference that translates directly to lower energy bills."
+  },
+  {
+    question: "What's the difference between the tile profiles?",
+    answer: "The main distinction is profile height and visual style. High-profile tiles like Mission \"S\" and Villa create the rounded curves of Spanish and Mediterranean architecture. Low-profile tiles like Saxony® 900 Slate, Saxony® 900 Shake, and Madera 900 suit contemporary, traditional, and craftsman homes. Each profile has different hail ratings — Saxony® 900 options carry Class 4, while Mission \"S\" and Madera 900 are Class 3. We'll help you match the right profile to your home's style and your performance goals."
+  },
+  {
+    question: "How energy-efficient is a concrete tile roof?",
+    answer: "Very. The Newpoint™ Cool Roof System — which includes the tile, a specialized underlayment, vented eave risers, an elevated batten system, and a vented ridge — creates continuous airflow under the tile that vents heat away from your roof deck. Oak Ridge National Laboratory research found this system can reduce heating and cooling costs by up to 22% annually. Many color options also carry CRRC Cool Roof ratings for additional reflectance."
+  },
+  {
+    question: "Can I finance a concrete tile roof?",
+    answer: "Yes. Through Service Finance Company and Wisetack, we offer 0% promotional financing, fixed APR options from 8%–12%, and long-term terms up to 10 years with no down payment required. Concrete tile is a premium investment — financing makes it accessible, and the energy savings and extended lifespan often offset the upfront cost over time."
+  },
+  {
+    question: "Does concrete tile roofing hold up in Colorado hail?",
+    answer: "Yes. Concrete tile's density absorbs hail impact differently than granule-coated asphalt — damage is often cosmetic rather than structural, meaning the tile dents rather than cracks through, and your weather protection stays intact. Saxony® 900 Slate and Shake profiles carry Class 4 ratings — the highest available. Mission \"S\" and Madera 900 are Class 3. Many Colorado insurers offer premium discounts for Class 4-rated materials."
+  },
+  {
+    question: "What warranty does concrete tile come with?",
+    answer: "Newpoint™ concrete tile is backed by a fully transferable, non-prorated limited lifetime warranty from Westlake Royal Roofing Solutions™ — one of the most comprehensive roofing warranties on the market. We add our own lifetime workmanship warranty on top. If you sell your home, the Newpoint™ warranty transfers to the new owner, which can be a meaningful selling point."
+  }
+];
 
 const components = [
   { img: component1, label: 'Newpoint™ Concrete Roof Tile' },
@@ -42,27 +132,114 @@ const components = [
   { img: component5, label: 'Vented Ridge' },
 ];
 
-const materials = [
+const categories = [
   {
-    id: 'shingles',
-    label: 'Architectural Shingles',
-    description:
-      'A reliable, budget-friendly choice with layered dimension, broad color options, and dependable everyday performance for Colorado homes.',
-    image: '/placeholders/popular-materials/1.png',
+    id: 'wind',
+    label: 'Wind',
+    items: [
+      {
+        id: 'wind-performance',
+        title: 'High-Wind Performance',
+        description:
+          'With their interlocking design and substantial weight, concrete tiles are tested to sustain high-wind events. They provide a structural barrier that resists lift and stays secure even in Colorado’s intense wind storms.',
+        image: windPerformance,
+      },
+      {
+        id: 'interlocking-integrity',
+        title: 'Superior Uplift Resistance',
+        description:
+          'The physical connection between Newpoint™ tiles creates a structural barrier that prevents wind uplift and ensures tiles stay secure even during intense pressure changes during rapid storms.',
+        image: windInterlocking,
+      },
+      {
+        id: 'substantial-mass',
+        title: 'Physical Weight & Stability',
+        description:
+          'Concrete tiles weigh significantly more than asphalt, helping keep the roof pinned to the deck by gravity and preventing the "lifting" effect common with lighter roofing materials.',
+        image: windMass,
+      },
+    ],
   },
   {
-    id: 'steel',
-    label: 'Stone Coated Steel',
-    description:
-      'The ultimate protection against Colorado hail. Lightweight, non-combustible, and designed to last a lifetime with the look of traditional tile or wood shake.',
-    image: '/placeholders/popular-materials/1.png',
+    id: 'hail',
+    label: 'Hail',
+    items: [
+      {
+        id: 'hail-resistance',
+        title: 'Hail Resistance',
+        description:
+          'Concrete tile is engineered for the Front Range hail corridor, offering Class 3 and Class 4 impact resistance. These heavy, dense tiles handle large hail strikes that would destroy standard asphalt shingles.',
+        image: hailProtection,
+      },
+      {
+        id: 'impact-testing',
+        title: 'Class 4 Impact Rated',
+        description:
+          'Our profiles are tested to meet the highest impact standards, ensuring that Colorado’s large-diameter hail strikes don’t compromise the structural integrity of your home.',
+        image: hailImpact,
+      },
+      {
+        id: 'shatterproof-durability',
+        title: 'Long-Term Structural Durability',
+        description:
+          'Concrete tiles do not degrade or lose protective granules like traditional shingles. They maintain their impact performance over decades of repeated weather exposure.',
+        image: hailDurability,
+      },
+    ],
   },
   {
-    id: 'tile',
-    label: 'Concrete Tile',
-    description:
-      'Superior thermal performance and exceptional durability. Concrete tile offers high fire resistance and a distinct aesthetic for premium Colorado residences.',
-    image: '/placeholders/popular-materials/1.png',
+    id: 'fire',
+    label: 'Fire',
+    items: [
+      {
+        id: 'wildfire-safety',
+        title: 'Wildfire Safety',
+        description:
+          'Newpoint™ tiles carry a Class A fire rating, the highest level of protection available. Since concrete is non-combustible, your roof acts as a critical shield against wildfire embers and heat.',
+        image: wildfireSafety,
+      },
+      {
+        id: 'non-combustible',
+        title: 'Non-Combustible Protection',
+        description:
+          'Being made of natural masonry materials, concrete tiles are inherently fireproof. In fire-prone Colorado landscapes, they provide a primary defense that saves structures from flying embers.',
+        image: fireNonCombustible,
+      },
+      {
+        id: 'ember-resistance',
+        title: 'Sealing Out the Heat',
+        description:
+          'The complete Newpoint™ system includes accessory components designed to block ember entry into the roofing structure, mitigating one of the primary causes of roofing fire spread.',
+        image: fireEmbers,
+      },
+    ],
+  },
+  {
+    id: 'energy',
+    label: 'Energy',
+    items: [
+      {
+        id: 'energy-efficiency',
+        title: 'Energy Efficiency',
+        description:
+          'Concrete tile systems leverage natural thermal mass and ventilated installation methods to reduce heat transfer into your attic. This keeps your home cooler in the summer and contributes to lower annual energy costs.',
+        image: energyEfficiency,
+      },
+      {
+        id: 'thermal-mass',
+        title: 'Natural Thermal Mass',
+        description:
+          'Concrete tiles naturally absorb heat during the day and release it slowly at night, minimizing the radical temperature swings that force HVAC systems to work overtime.',
+        image: energyThermal,
+      },
+      {
+        id: 'ventilated-airspace',
+        title: 'Elevated Batten Systems',
+        description:
+          'Installing tiles on elevated battens creates a continuous air channel (Tile Air Space) which provides natural insulation and keeps attics up to 30 degrees cooler in summer.',
+        image: energyVentilation,
+      },
+    ],
   },
 ];
 ---
@@ -128,11 +305,11 @@ const materials = [
           <div class="flex-1 space-y-4">
             <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Concrete Tile Roofing' }]} />
 
-            <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
+            <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)] text-white">
               What is Concrete Tile Roofing?
             </h2>
 
-            <p class="text-sm lg:text-base">
+            <p class="text-neutral-lighter text-sm lg:text-base">
               Concrete tile roofing combines architectural elegance with long-term structural performance — making it
               one of the most durable and energy-efficient roofing systems for Colorado homes. Unlike traditional
               shingles, concrete tile is solid through its entire thickness, giving it natural resistance to impact,
@@ -140,12 +317,40 @@ const materials = [
               Royal is engineered for both new construction and reroofing, with multidimensional textures and natural
               colorways that harmonize with any architectural style.
             </p>
+            <p class="text-neutral-lighter">Unlike traditional shingles, concrete tile is engineered to provide:</p>
+
+            <ul class="text-neutral-lighter columns-1 gap-x-8 gap-y-4 text-sm sm:columns-2">
+              <li class="mb-4 flex gap-x-2">
+                <Icon name="calender-clock" size={24} class="text-primary shrink-0" />
+                50-100 Year Performance Potential
+              </li>
+
+              <li class="mb-4 flex gap-x-2">
+                <Icon name="shield-fire" size={24} class="text-primary shrink-0" />
+                Class A Fire Rating
+              </li>
+
+              <li class="mb-4 flex gap-x-2">
+                <Icon name="cloude" size={24} class="text-primary shrink-0" />
+                Class 3 & Class 4 Hail-Rated Profiles
+              </li>
+
+              <li class="mb-4 flex gap-x-2">
+                <Icon name="color-test" size={24} class="text-primary shrink-0" />
+                Cool Roof Rated Color Options
+              </li>
+
+              <li class="mb-4 flex gap-x-2">
+                <Icon name="badge-tick" size={24} class="text-primary shrink-0" />
+                Fully Transferable Limited Lifetime Warranty
+              </li>
+            </ul>
           </div>
 
           <div class="flex gap-4">
             <EstimateButton offerText="" actionText="**FREE** Estimate" class="px-8 py-4 text-base" />
 
-            <Button variant="link" class="flex items-center gap-2">
+            <Button variant="link" class="flex h-12 items-center gap-2 py-4 text-base">
               <svg width="13" height="16" viewBox="0 0 13 16" fill="none">
                 <path
                   d="M12.361 8.2787L0.503906 14.868C0.367002 14.9454 0.249442 14.9543 0.151228 14.8948C0.0530134 14.8353 0.00390625 14.7281 0.00390625 14.5733V1.43049C0.00390625 1.27573 0.0530134 1.16858 0.151228 1.10906C0.249442 1.04954 0.367002 1.05846 0.503906 1.13585L12.361 7.72513C12.498 7.80251 12.5664 7.89477 12.5664 8.00192C12.5664 8.10906 12.498 8.20132 12.361 8.2787Z"
@@ -159,10 +364,10 @@ const materials = [
 
         <!-- Right Contents -->
 
-        <div class="h-[400px] w-full items-center overflow-hidden rounded-lg lg:self-center">
+        <div class="h-[500px] w-full items-center overflow-hidden rounded-lg lg:self-center">
           <Image
-            src="/placeholders/thumbnails/residential-1.png"
-            alt="Residential Roofing"
+            src={concreteTileRoof}
+            alt="Newpoint™ Concrete Tile Roofing"
             width={600}
             height={400}
             class="h-full w-full object-cover"
@@ -176,9 +381,14 @@ const materials = [
   <PopularRoofingMaterials
     badge="Why Concrete Tile"
     title="Extreme Weather Protection for Colorado Homes"
-    description="Colorado doesn't have one type of severe weather — it has all of them. Hail season runs April through September. Wind events regularly push past 60 mph on the Front Range. Wildfires are a growing concern across the state, and UV exposure at altitude degrades ordinary roofing materials faster than anywhere at sea level. Unified Steel™ stone-coated panels are engineered to handle all of it — tested and warranted, not just rated."
-    materials={materials}
-    source={{ label: 'Source: Westlake Royal Building Products — Unified Steel™', href: '#' }}
+    description="Colorado’s climate is one of the most demanding in the nation. Hail season, high-mountain winds, and the constant threat of wildfires require a roofing material that does more than just look good. Newpoint™ Concrete Roof Tile is engineered specifically for these extremes — providing Class 4 impact resistance, Class A fire protection, and high-wind performance that lightweight systems simply can't match."
+    categories={categories}
+    quoteRole="Owner & Stone Coated Steel Expert"
+    quote="For every weather we got you covered."
+    source={{
+      label: 'Source: Westlake Royal Building Products — Newpoint™ Concrete Tile',
+      href: 'https://www.westlakeroyalroofing.com/newpoint/',
+    }}
   />
 
   <!-- Comparison Section -->
@@ -337,10 +547,16 @@ const materials = [
   </section>
 
   <ComparisonTable />
-  <StylesProfiles />
+
+  <StylesProfiles 
+    badge="Styles"
+    title="Concrete Tile Profiles"
+    description="Select a Newpoint™ concrete tile profile to see how different textures and CRRC-rated colors transform your home's curb appeal."
+    profiles={concreteProfiles}
+  />
 
   <RecentProjects />
-  <Faqs />
+  <Faqs faqs={concreteFaqs} />
   <ServiceAreas />
 
   <div class="relative">

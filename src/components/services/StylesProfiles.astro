@@ -5,7 +5,40 @@ import previewImg from '@/assets/styles-profiles/pine-crest-shake-preview.png';
 import swatchImg from '@/assets/styles-profiles/shake-texture-swatch.png';
 import NoiseBg from '../NoiseBg.astro';
 
-const profiles = [
+import type { ImageMetadata } from 'astro';
+
+interface Color {
+  name: string;
+  code: string;
+  color: string;
+  thumbnail: any;
+  isDefault?: boolean;
+}
+
+interface Profile {
+  id: string;
+  label: string;
+  title: string;
+  description: string;
+  previewImage: any;
+  colors: Color[];
+}
+
+interface Props {
+  badge?: string;
+  title?: string;
+  description?: string;
+  profiles?: Profile[];
+}
+
+const {
+  badge = 'Options',
+  title = 'Styles & Profiles',
+  description = "Choose a profile that matches your home's architecture—then explore CRRC cool roof color options.",
+  profiles: profilesProp,
+} = Astro.props;
+
+const defaultProfiles: Profile[] = [
   {
     id: 'pine-crest-shake',
     label: 'Pine - Crest shake',
@@ -13,26 +46,43 @@ const profiles = [
     description: 'Engineered to replicate hand-split wood shake with the durability of steel.',
     previewImage: previewImg,
     colors: [
-      { name: 'HARBORWOOD', code: '4DAP93569SF', color: '#6D5A4A',
-        thumbnail: "/placeholders/tiles/harborwood.png"
-
-       },
-      { name: 'STIRLING GRAY', code: '4DAP95427SF', color: '#6B6B6B',
-        thumbnail: "/placeholders/tiles/stirline-gray.png"
-       },
-      { name: 'COUNTRY BLEND', code: '4DAP93145SF', color: '#7B624A',
-        thumbnail: "/placeholders/tiles/country-blend.png"
-       },
-      { name: 'IRONWOOD', code: '4DAP95325SF', color: '#4A4139',
-        thumbnail: "/placeholders/tiles/ironwood.png"
-       },
-      { name: 'Country Blend', code: '4DAP93245SF', color: '#8C7355',
-        thumbnail: "/placeholders/tiles/country-blend.png"
-       },
-      { name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241',
-        thumbnail: "/placeholders/tiles/timberwood.png"
-       },
-    ]
+      {
+        name: 'HARBORWOOD',
+        code: '4DAP93569SF',
+        color: '#6D5A4A',
+        thumbnail: '/placeholders/tiles/harborwood.png',
+      },
+      {
+        name: 'STIRLING GRAY',
+        code: '4DAP95427SF',
+        color: '#6B6B6B',
+        thumbnail: '/placeholders/tiles/stirline-gray.png',
+      },
+      {
+        name: 'COUNTRY BLEND',
+        code: '4DAP93145SF',
+        color: '#7B624A',
+        thumbnail: '/placeholders/tiles/country-blend.png',
+      },
+      {
+        name: 'IRONWOOD',
+        code: '4DAP95325SF',
+        color: '#4A4139',
+        thumbnail: '/placeholders/tiles/ironwood.png',
+      },
+      {
+        name: 'Country Blend',
+        code: '4DAP93245SF',
+        color: '#8C7355',
+        thumbnail: '/placeholders/tiles/country-blend.png',
+      },
+      {
+        name: 'TIMBERWOOD',
+        code: '4DAP93225SF',
+        color: '#7B6241',
+        thumbnail: '/placeholders/tiles/timberwood.png',
+      },
+    ],
   },
   {
     id: 'cottage-shingle',
@@ -41,13 +91,20 @@ const profiles = [
     description: 'A clean, modern look that complements a variety of architectural styles.',
     previewImage: previewImg,
     colors: [
-        { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', isDefault: true,
-            thumbnail: "/placeholders/tiles/9.png"
-        },
-        { name: 'WEATHERED WOOD', code: '4DAP9104001', color: '#5D5D4A',
-            thumbnail: "/placeholders/tiles/10.png"
-        },
-    ]
+      {
+        name: 'CHARCOAL',
+        code: '4DAP9104000',
+        color: '#333333',
+        isDefault: true,
+        thumbnail: '/placeholders/tiles/9.png',
+      },
+      {
+        name: 'WEATHERED WOOD',
+        code: '4DAP9104001',
+        color: '#5D5D4A',
+        thumbnail: '/placeholders/tiles/10.png',
+      },
+    ],
   },
   {
     id: 'granite-ridge-shingle',
@@ -56,10 +113,13 @@ const profiles = [
     description: 'The strength of steel with the refined look of architectural shingles.',
     previewImage: previewImg,
     colors: [
-        { name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241',
-            thumbnail: "/placeholders/tiles/11.png"
-        },
-    ]
+      {
+        name: 'TIMBERWOOD',
+        code: '4DAP93225SF',
+        color: '#7B6241',
+        thumbnail: '/placeholders/tiles/11.png',
+      },
+    ],
   },
   {
     id: 'barrel-vault-tile',
@@ -68,10 +128,13 @@ const profiles = [
     description: 'Captures the timeless look of Spanish clay tile in a durable steel format.',
     previewImage: previewImg,
     colors: [
-        { name: 'BARCELONA', code: '4DAP93185SF', color: '#7B4A4A',
-            thumbnail: "/placeholders/tiles/12.png"
-        },
-    ]
+      {
+        name: 'BARCELONA',
+        code: '4DAP93185SF',
+        color: '#7B4A4A',
+        thumbnail: '/placeholders/tiles/12.png',
+      },
+    ],
   },
   {
     id: 'pacific-tile',
@@ -80,25 +143,31 @@ const profiles = [
     description: 'A low-profile Mediterranean-inspired design for a clean, sophisticated roof.',
     previewImage: previewImg,
     colors: [
-        { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', isDefault: true,
-            thumbnail: "/placeholders/tiles/13.png"
-        },
-    ]
-  }
+      {
+        name: 'CHARCOAL',
+        code: '4DAP9104000',
+        color: '#333333',
+        isDefault: true,
+        thumbnail: '/placeholders/tiles/13.png',
+      },
+    ],
+  },
 ];
+
+const profiles = profilesProp || defaultProfiles;
 ---
 
 <NoiseBg class="px-0 py-0">
   <section class="container py-20 overflow-hidden" id="styles-profiles"> 
   <div class="flex flex-col items-center text-center gap-y-4 mb-20">
       <BadgeTitle 
-          badge="Options" 
-          title="Styles & Profiles" 
+          badge={badge} 
+          title={title} 
           class="flex flex-col items-center"
           titleClass="text-5xl lg:text-7xl font-heading mb-4"
       />
       <p class="text-[#CCCCCC] max-w-2xl text-lg leading-relaxed">
-        Choose a profile that matches your home's architecture—then explore CRRC cool roof color options.
+        {description}
       </p>
     </div>
 
@@ -140,6 +209,10 @@ const profiles = [
             <div class="absolute inset-0 bg-linear-to-t from-black/95 via-black/20 to-transparent opacity-90"></div>
             <div class="absolute inset-0 bg-linear-to-b from-black/50 via-transparent to-transparent opacity-40"></div>
             
+            <!-- Dynamic Color Tint Overlays -->
+            <div class="preview-tint-overlay absolute inset-0 mix-blend-overlay opacity-40 transition-colors duration-700" style={`background-color: ${profile.colors[0]?.color || 'transparent'};`}></div>
+            <div class="preview-tint-multiply absolute inset-0 mix-blend-multiply opacity-[0.15] transition-colors duration-700" style={`background-color: ${profile.colors[0]?.color || 'transparent'};`}></div>
+
             <!-- Overlay content -->
             <div class="absolute top-8 left-8">
                 <div class="flex items-center gap-x-3 bg-white/10 backdrop-blur-xl px-5 py-2 rounded-full border border-white/20 shadow-xl">
@@ -155,8 +228,8 @@ const profiles = [
                 <h3 class="text-[clamp(3rem,6vw,5rem)] leading-none font-medium text-white tracking-tight">{profile.title}</h3>
                 
                 <div class="flex items-center gap-x-3 bg-white/5 backdrop-blur-md w-fit px-3 py-2 rounded-full border border-white/10 group/color">
-                  <div class="size-4 rounded-full bg-[#333333] border border-white/20 shadow-inner group-hover/color:scale-110 transition-transform" />
-                  <span class="text-sm font-semibold text-white/90 active-color-label">Charcoal</span>
+                  <div class="size-4 rounded-full border border-white/20 shadow-inner group-hover/color:scale-110 transition-colors duration-500 active-color-swatch" style={`background-color: ${profile.colors[0]?.color || 'transparent'};`} />
+                  <span class="text-sm font-semibold text-white/90 active-color-label">{profile.colors[0]?.name || 'Select Color'}</span>
                 </div>
 
                 <p class="text-[#CCCCCC] text-base leading-relaxed max-w-xl font-light">
@@ -174,7 +247,7 @@ const profiles = [
 
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-y-12">
                 {profile.colors.map(color => (
-                  <div class="space-y-5 group/swatch cursor-pointer swatch-trigger" data-color-name={color.name}>
+                  <div class="space-y-5 group/swatch cursor-pointer swatch-trigger" data-color-name={color.name} data-color-hex={color.color}>
                     <div class="relative aspect-square rounded-[32px] overflow-hidden bg-[#1A1A1A] p-0.5 shadow-xl transition-all duration-500 group-hover/swatch:shadow-primary/20 group-hover/swatch:-translate-y-2 ring-primary ring-offset-[6px] ring-offset-black transtion-all group-hover/swatch:ring-2 ring-0">
                         <div class="w-full h-full rounded-[30px] overflow-hidden relative">
                           <Image src={color.thumbnail} width={100} height={100} alt={color.name} class="w-full aspect-square h-full object-cover scale-[1.3] transition-transform duration-700 group-hover/swatch:scale-[1.4]" />
@@ -237,8 +310,13 @@ const profiles = [
     swatches.forEach(swatch => {
        swatch.addEventListener('click', () => {
           const colorName = swatch.getAttribute('data-color-name');
+          const colorHex = swatch.getAttribute('data-color-hex');
           const panel = swatch.closest('.style-panel');
           const colorLabel = panel?.querySelector('.active-color-label');
+          const colorSwatchIndicator = panel?.querySelector('.active-color-swatch');
+          const tintOverlay = panel?.querySelector('.preview-tint-overlay');
+          const tintMultiply = panel?.querySelector('.preview-tint-multiply');
+
           if (colorLabel && colorName) {
              colorLabel.textContent = colorName;
              // Add a small animation to the label
@@ -246,6 +324,18 @@ const profiles = [
                 { opacity: 0, transform: 'translateY(5px)' },
                 { opacity: 1, transform: 'translateY(0)' }
              ], { duration: 300, easing: 'ease-out' });
+          }
+
+          if (colorSwatchIndicator && colorHex) {
+              (colorSwatchIndicator as HTMLElement).style.backgroundColor = colorHex;
+          }
+
+          if (tintOverlay && colorHex) {
+              (tintOverlay as HTMLElement).style.backgroundColor = colorHex;
+          }
+          
+          if (tintMultiply && colorHex) {
+              (tintMultiply as HTMLElement).style.backgroundColor = colorHex;
           }
        });
     });

@@ -7,11 +7,13 @@ import Carousel from '@/components/ui/Carousel.astro';
 import CarouselSlide from '@/components/ui/CarouselSlide.astro';
 import PopularRoofingCard from './PopularRoofingCard.astro';
 import { Icon } from 'astro-icon/components';
+import type { ImageMetadata } from 'astro';
 
 interface MaterialItem {
+  id?: string;
   title: string;
   description: string;
-  image: string;
+  image: any;
 }
 
 interface Category {
@@ -79,7 +81,7 @@ const categories =
 
           {
             source && (
-              <p class="flex items-center gap-2">
+              <p class="flex items-center gap-2 text-xs">
                 <Icon name="circle-info" class="text-primary" />
                 <span class="text-neutral-lighter">
                   Source:{' '}
@@ -95,9 +97,9 @@ const categories =
 
       <div class="flex items-center justify-center lg:justify-end">
         <div
-          class="via-primary mt-8 ml-8 h-fit w-full max-w-[320px] rounded-2xl bg-linear-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-px md:max-w-[400px] lg:mt-0 lg:ml-12"
+          class="border-gradient before:via-primary mt-8 ml-8 h-fit w-full max-w-[320px] rounded-2xl p-px before:bg-linear-to-r before:from-white/15 before:to-white/15 md:max-w-[400px] lg:mt-0 lg:ml-12"
         >
-          <NoiseBg class="relative flex items-center rounded-2xl py-6 pr-6 pl-0 lg:py-7">
+          <div class="relative flex items-center rounded-2xl py-6 pr-6 pl-0 lg:py-7">
             {/* Profile image */}
             <div
               class="via-primary z-10 -ml-8 flex w-fit items-center justify-center rounded-full bg-linear-to-r from-[rgba(242,199,68,0)] to-[rgba(242,199,68,0)] p-0.5"
@@ -120,14 +122,14 @@ const categories =
             </div>
 
             <div class="pl-0">
-              <div class="text-sm leading-relaxed italic md:text-base">
+              <div class="text-sm leading-relaxed italic">
                 {quote}
               </div>
-              <div class="text-tx-brand mt-1 text-xs font-bold md:text-sm">
-                {quoteAuthor}, <small class="font-normal opacity-70"> {quoteRole} </small>
+              <div class="text-tx-brand mt-1 text-sm font-bold">
+                {quoteAuthor}, <span class="font-normal opacity-70"> {quoteRole} </span>
               </div>
             </div>
-          </NoiseBg>
+          </div>
         </div>
       </div>
     </div>
