@@ -27,7 +27,10 @@ const activeTabClass = 'bg-primary text-[#111]';
     <div class="mx-auto flex max-w-[920px] flex-col space-y-6 sm:space-y-8">
       <!-- Search & Tabs -->
 
-      <div class="sticky top-16 z-30 pt-4 pb-3 sm:top-20 sm:pt-6 md:top-24">
+      <div
+        class="sticky z-30 pt-4 pb-3 sm:pt-6 md:top-24"
+        style="top: var(--mobile-topbar-h, 64px); transition: top 0.35s cubic-bezier(0.4,0,0.2,1);"
+      >
         <div
           class="pointer-events-none absolute inset-x-0 -inset-y-3 -z-10 bg-linear-to-b from-[#0F0F0F]/0 via-[#0F0F0F]/92 to-[#0F0F0F]/0"
         >

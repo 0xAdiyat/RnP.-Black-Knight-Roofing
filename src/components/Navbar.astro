@@ -440,25 +440,30 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
   // ─── Mobile scroll-hide / show ─────────────────────────────────────────
   // IMPORTANT: We animate <header id="mobile-topbar"> NOT #navbar-wrapper,
   // because transform on the wrapper breaks position:fixed children.
+  //
+  // STICKY OFFSET SYNC: We also drive --mobile-topbar-h on :root so that
+  // any page-level sticky elements can use `top: var(--mobile-topbar-h)`
+  // and glide in perfect sync with the topbar hide/show animation.
+  // This avoids DOM remove/reattach (which causes layout reflow) entirely.
 
-  const MOBILE_BP = 768;
-  const PAUSE_MS  = 400;
-  const EASE      = 'transform 0.35s cubic-bezier(0.4,0,0.2,1)';
+  const MOBILE_BP  = 768;
+  const PAUSE_MS   = 400;
+  const EASE       = 'transform 0.35s cubic-bezier(0.4,0,0.2,1)';
+  const TOP_EASE   = 'top 0.35s cubic-bezier(0.4,0,0.2,1)';
 
   // Persistent refs to allow listener cleanup across Astro page swaps
   let _scrollHandler: (() => void) | null = null;
   let _resizeHandler: (() => void) | null = null;
 
   function setupMobileScrollHide() {
-    // Non-null cast: both elements are guaranteed by the guard below.
-    // We use non-null assertion so TS narrowing holds inside nested closures.
     const topbarEl    = document.getElementById('mobile-topbar') as HTMLElement | null;
     const bottomNavEl = document.getElementById('mobile-bottom-nav') as HTMLElement | null;
     const gradientEl  = document.getElementById('mobile-bottom-gradient') as HTMLElement | null;
     if (!topbarEl || !bottomNavEl) return;
 
-    const topbar    = topbarEl!;    // HTMLElement — null already ruled out above
-    const bottomNav = bottomNavEl!; // HTMLElement — null already ruled out above
+    const topbar    = topbarEl!;
+    const bottomNav = bottomNavEl!;
+    const root      = document.documentElement;
 
     // ─ Cleanup stale listeners from previous page load (Astro view transitions)
     if (_scrollHandler) window.removeEventListener('scroll', _scrollHandler);
@@ -469,19 +474,33 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
     let pauseTimer = 0;
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Seed the CSS variable with the topbar's actual rendered height so
+    // sticky children always start at exactly the right offset.
+    function syncTopbarVar(isHidden: boolean) {
+      if (window.innerWidth >= MOBILE_BP) {
+        // Desktop: variable is irrelevant, set to topbar height (always visible)
+        root.style.setProperty('--mobile-topbar-h', `${topbar.offsetHeight}px`);
+        return;
+      }
+      root.style.setProperty('--mobile-topbar-h', isHidden ? '0px' : `${topbar.offsetHeight}px`);
+    }
+
     if (!prefersReduced) {
       topbar.style.transition = EASE;
       // bottomNav transition is set via its inline style in MobileStickyNav.astro
     }
+
+    // Initialise variable immediately (before any scroll)
+    syncTopbarVar(false);
 
     function clearTransforms() {
       topbar.style.transform    = '';
       bottomNav.style.transform = '';
       topbar.style.willChange    = '';
       bottomNav.style.willChange = '';
-      if (gradientEl) {
-        gradientEl.style.opacity = '';
-      }
+      if (gradientEl) gradientEl.style.opacity = '';
+      syncTopbarVar(false);
     }
 
     function showBars() {
@@ -489,30 +508,24 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
       hidden = false;
       topbar.style.transform    = 'translateY(0)';
       bottomNav.style.transform = 'translateY(0)';
-      if (gradientEl) {
-        gradientEl.style.opacity = '0';
-      }
+      if (gradientEl) gradientEl.style.opacity = '0';
+      syncTopbarVar(false);
       // Clean up will-change after transition settles (~350 ms)
-      setTimeout(() => {
-        if (!hidden) clearTransforms();
-      }, 400);
+      setTimeout(() => { if (!hidden) clearTransforms(); }, 400);
     }
 
     function hideBars() {
       if (hidden) return;
       hidden = true;
-      // Only set will-change right before the animation
       topbar.style.willChange    = 'transform';
       bottomNav.style.willChange = 'transform';
       topbar.style.transform    = 'translateY(-100%)';
       bottomNav.style.transform = 'translateY(100%)';
-      if (gradientEl) {
-        gradientEl.style.opacity = '1';
-      }
+      if (gradientEl) gradientEl.style.opacity = '1';
+      syncTopbarVar(true);
     }
 
     function isMobileMenuOpen() {
-      // Guard: if mobile menu drawer is open, never hide the bars
       const drawer = document.getElementById('mobile-menu-drawer');
       return drawer ? drawer.classList.contains('visible') : false;
     }
@@ -522,28 +535,20 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
     }
 
     function onScroll() {
-      // Only run on mobile
       if (window.innerWidth >= MOBILE_BP) return;
 
       const currentY = window.scrollY;
       const delta    = currentY - lastY;
       lastY = currentY;
 
-      // ─ Guard: keep bars visible while mobile menu is open
-      if (isMobileMenuOpen()) {
-        showBars();
-        return;
-      }
+      if (isMobileMenuOpen()) { showBars(); return; }
 
-      // Reset the pause timer — bars reappear after PAUSE_MS of no scrolling
       clearTimeout(pauseTimer);
       pauseTimer = window.setTimeout(showBars, PAUSE_MS);
 
       if (delta > 2 && currentY > 60 && !isAtPageBottom()) {
-        // Scrolling down past threshold & not at bottom → hide
         hideBars();
       } else if (delta < -2 || isAtPageBottom()) {
-        // Scrolling up or reached bottom → show
         showBars();
         clearTimeout(pauseTimer);
       }
@@ -551,10 +556,11 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
 
     function onResize() {
       if (window.innerWidth >= MOBILE_BP) {
-        // Desktop: always show, clear any leftover transform state
-        hidden = true; // force showBars to run
+        hidden = true;
         showBars();
-        clearTransforms(); // ensure no dangling transform strings
+        clearTransforms();
+      } else {
+        syncTopbarVar(hidden);
       }
     }
 
@@ -566,10 +572,7 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
   }
 
   setupMobileScrollHide();
-  document.addEventListener('astro:after-swap', () => {
-    // Reset lastY will be handled inside setupMobileScrollHide via window.scrollY
-    setupMobileScrollHide();
-  });
+  document.addEventListener('astro:after-swap', setupMobileScrollHide);
 </script>
 
 <style>
