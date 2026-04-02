@@ -11,7 +11,7 @@ export interface BlogListItem {
 const blogEntries = [
   {
     slug: 'hail-damage-9-signs',
-    image: '/bg/hail-damage-repair-section__hero.avif',
+    image: '/bg/concrete-tile-roof-mediterranean-villa-co.png',
     date: 'July 1, 2026',
     readTime: '7 Mins',
     title: 'Hail Damage: 9 Signs Your Roof Took a Hit (Even If It Looks Fine)',
@@ -20,7 +20,7 @@ const blogEntries = [
   },
   {
     slug: 'roof-replacement-cost',
-    image: '/bg/concrete-tile-roof-section__hero.avif',
+    image: '/bg/luxury-shingle-roof-suburban-home-denver.png',
     date: 'July 1, 2026',
     readTime: '8 Mins',
     title: 'Roof Replacement Cost: What Actually Changes the Price in Colorado',
@@ -29,7 +29,7 @@ const blogEntries = [
   },
   {
     slug: 'spring-roof-maintenance',
-    image: '/bg/storm-damage-repair-section__hero.avif',
+    image: '/bg/blue-metal-roofing-modern-house-colorado.png',
     date: 'January 3, 2026',
     readTime: '3 Mins',
     title: 'Spring Roof Maintenance: 12-Minute Routine to Prevent Expensive Repairs',
@@ -38,7 +38,7 @@ const blogEntries = [
   },
   {
     slug: 'the-5-roof-leaks',
-    image: '/bg/metal-roofing-section__hero.avif',
+    image: '/bg/colorado-metal-roof-installation-denver.png',
     date: 'May 12, 2026',
     readTime: '6 Mins',
     title: 'The 5 Roof Leaks That Start Small—and Get Expensive Fast',
@@ -47,7 +47,7 @@ const blogEntries = [
   },
   {
     slug: 'colorado-wind-uplift',
-    image: '/bg/wind-damage-repair-section__hero.avif',
+    image: '/bg/colorado-springs-standing-seam-metal-roof.png',
     date: 'April 21, 2026',
     readTime: '12 Mins',
     title: 'Colorado Wind Uplift: Why Some Roofs Fail Before the Storm Ends',
@@ -56,7 +56,7 @@ const blogEntries = [
   },
   {
     slug: 'hail-damage-checklist',
-    image: '/bg/hail-damage-repair-section__hero.avif',
+    image: '/bg/denver-asphalt-shingle-roof-replacement.png',
     date: 'March 28, 2026',
     readTime: '8 Mins',
     title: 'Hail Damage Checklist: What Insurance Adjusters Notice First',
