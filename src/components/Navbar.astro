@@ -81,7 +81,7 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
   </section>
 
   <!-- Main Navbar -->
-  <header class="navbar-root bg-bg-default relative flex h-20 items-center text-white">
+  <header id="mobile-topbar" class="navbar-root bg-bg-default relative flex h-20 items-center text-white">
     <nav class="container mx-auto flex h-full w-full items-center justify-between text-white">
       <div class="hidden items-center gap-x-12 md:flex">
         <!-- Contact/Phone -->
@@ -433,6 +433,132 @@ const optimizedSunflow = await getImage({ src: sunflow, width: 100, height: 100,
 
   setupNavbar();
   document.addEventListener('astro:after-swap', setupNavbar);
+</script>
+
+<script>
+  // ─── Mobile scroll-hide / show ─────────────────────────────────────────
+  // IMPORTANT: We animate <header id="mobile-topbar"> NOT #navbar-wrapper,
+  // because transform on the wrapper breaks position:fixed children.
+
+  const MOBILE_BP = 768;
+  const PAUSE_MS  = 400;
+  const EASE      = 'transform 0.35s cubic-bezier(0.4,0,0.2,1)';
+
+  // Persistent refs to allow listener cleanup across Astro page swaps
+  let _scrollHandler: (() => void) | null = null;
+  let _resizeHandler: (() => void) | null = null;
+
+  function setupMobileScrollHide() {
+    // Non-null cast: both elements are guaranteed by the guard below.
+    // We use non-null assertion so TS narrowing holds inside nested closures.
+    const topbarEl    = document.getElementById('mobile-topbar') as HTMLElement | null;
+    const bottomNavEl = document.getElementById('mobile-bottom-nav') as HTMLElement | null;
+    if (!topbarEl || !bottomNavEl) return;
+
+    const topbar    = topbarEl!;    // HTMLElement — null already ruled out above
+    const bottomNav = bottomNavEl!; // HTMLElement — null already ruled out above
+
+    // ─ Cleanup stale listeners from previous page load (Astro view transitions)
+    if (_scrollHandler) window.removeEventListener('scroll', _scrollHandler);
+    if (_resizeHandler) window.removeEventListener('resize', _resizeHandler);
+
+    let lastY      = window.scrollY;
+    let hidden     = false;
+    let pauseTimer = 0;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced) {
+      topbar.style.transition = EASE;
+      // bottomNav transition is set via its inline style in MobileStickyNav.astro
+    }
+
+    function clearTransforms() {
+      topbar.style.transform    = '';
+      bottomNav.style.transform = '';
+      topbar.style.willChange    = '';
+      bottomNav.style.willChange = '';
+    }
+
+    function showBars() {
+      if (!hidden) return;
+      hidden = false;
+      topbar.style.transform    = 'translateY(0)';
+      bottomNav.style.transform = 'translateY(0)';
+      // Clean up will-change after transition settles (~350 ms)
+      setTimeout(() => {
+        if (!hidden) clearTransforms();
+      }, 400);
+    }
+
+    function hideBars() {
+      if (hidden) return;
+      hidden = true;
+      // Only set will-change right before the animation
+      topbar.style.willChange    = 'transform';
+      bottomNav.style.willChange = 'transform';
+      topbar.style.transform    = 'translateY(-100%)';
+      bottomNav.style.transform = 'translateY(100%)';
+    }
+
+    function isMobileMenuOpen() {
+      // Guard: if mobile menu drawer is open, never hide the bars
+      const drawer = document.getElementById('mobile-menu-drawer');
+      return drawer ? drawer.classList.contains('visible') : false;
+    }
+
+    function isAtPageBottom() {
+      return window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8;
+    }
+
+    function onScroll() {
+      // Only run on mobile
+      if (window.innerWidth >= MOBILE_BP) return;
+
+      const currentY = window.scrollY;
+      const delta    = currentY - lastY;
+      lastY = currentY;
+
+      // ─ Guard: keep bars visible while mobile menu is open
+      if (isMobileMenuOpen()) {
+        showBars();
+        return;
+      }
+
+      // Reset the pause timer — bars reappear after PAUSE_MS of no scrolling
+      clearTimeout(pauseTimer);
+      pauseTimer = window.setTimeout(showBars, PAUSE_MS);
+
+      if (delta > 2 && currentY > 60 && !isAtPageBottom()) {
+        // Scrolling down past threshold & not at bottom → hide
+        hideBars();
+      } else if (delta < -2 || isAtPageBottom()) {
+        // Scrolling up or reached bottom → show
+        showBars();
+        clearTimeout(pauseTimer);
+      }
+    }
+
+    function onResize() {
+      if (window.innerWidth >= MOBILE_BP) {
+        // Desktop: always show, clear any leftover transform state
+        hidden = true; // force showBars to run
+        showBars();
+        clearTransforms(); // ensure no dangling transform strings
+      }
+    }
+
+    _scrollHandler = onScroll;
+    _resizeHandler = onResize;
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize, { passive: true });
+  }
+
+  setupMobileScrollHide();
+  document.addEventListener('astro:after-swap', () => {
+    // Reset lastY will be handled inside setupMobileScrollHide via window.scrollY
+    setupMobileScrollHide();
+  });
 </script>
 
 <style>
