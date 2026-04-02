@@ -30,6 +30,7 @@ import sunFlow from '@/assets/sunflow.avif';
 import { Image } from 'astro:assets';
 import Hero2 from '@/components/hero/Hero2.astro';
 import ContactUsHero from '@/components/hero/ContactUsHero.astro';
+import Statistics from '@/components/ui/Statistics.astro';
 
 const title = 'Contact Us | Top Veteran Owned Roofing Company | Black Knight Roofing';
 const subtitle = "Colorado's #1 Veteran-Owned Roofing Company";
@@ -95,32 +96,61 @@ const processSteps = [
     subtitle="Contact Us"
   >
     <Fragment slot="social-proof">
-      <a href="tel:9708887230" class="group flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
-        <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5 transition-transform group-hover:scale-110">
+      <a
+        href="tel:9708887230"
+        class="group flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10"
+      >
+        <div
+          class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5 transition-transform group-hover:scale-110"
+        >
           <Icon name="phone" size={24} class="text-primary" />
         </div>
         <div class="flex min-w-0 flex-col items-start text-start">
-          <div class="text-[18px] leading-7 font-bold text-white transition-colors group-hover:text-primary sm:whitespace-nowrap">Give us a Call</div>
+          <div
+            class="group-hover:text-primary text-[18px] leading-7 font-bold text-white transition-colors sm:whitespace-nowrap"
+          >
+            Give us a Call
+          </div>
           <div class="text-sm transition-colors group-hover:text-white/80">(970) 888-7230</div>
         </div>
       </a>
 
-      <a href="mailto:support@blackknightroofing.com" class="group flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
-        <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5 transition-transform group-hover:scale-110">
+      <a
+        href="mailto:support@blackknightroofing.com"
+        class="group flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10"
+      >
+        <div
+          class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5 transition-transform group-hover:scale-110"
+        >
           <Icon name="send-message" size={24} class="text-primary" />
         </div>
         <div class="flex min-w-0 flex-col items-start text-start">
-          <div class="text-[18px] leading-7 font-bold text-white transition-colors group-hover:text-primary sm:whitespace-nowrap">Send us a Message</div>
+          <div
+            class="group-hover:text-primary text-[18px] leading-7 font-bold text-white transition-colors sm:whitespace-nowrap"
+          >
+            Send us a Message
+          </div>
           <div class="text-sm transition-colors group-hover:text-white/80">support@blackknightroofing.com</div>
         </div>
       </a>
 
-      <a href="https://www.google.com/maps/search/?api=1&query=865+Draw+St+Lochbuie+CO+80603" target="_blank" rel="noopener noreferrer" class="group flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10">
-        <div class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5 transition-transform group-hover:scale-110">
+      <a
+        href="https://www.google.com/maps/search/?api=1&query=865+Draw+St+Lochbuie+CO+80603"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10"
+      >
+        <div
+          class="bg-inverted flex h-14 w-14 items-center justify-center rounded-full p-1.5 transition-transform group-hover:scale-110"
+        >
           <Icon name="location-02" size={24} class="text-primary" />
         </div>
         <div class="flex min-w-0 flex-col items-start text-start">
-          <div class="text-[18px] leading-7 font-bold text-white transition-colors group-hover:text-primary sm:whitespace-nowrap">Visit Our Office</div>
+          <div
+            class="group-hover:text-primary text-[18px] leading-7 font-bold text-white transition-colors sm:whitespace-nowrap"
+          >
+            Visit Our Office
+          </div>
           <div class="text-sm transition-colors group-hover:text-white/80">
             865 Draw St <br /> Lochbuie, CO 80603
           </div>
@@ -175,63 +205,16 @@ const processSteps = [
       </div>
 
       <div class="relative aspect-4/3 overflow-hidden rounded-[12px]">
-        <img src="/bg/case-studies-section__hero.avif" alt="Black Knight Roofing Team" class="h-full w-full object-cover" />
+        <img
+          src="/bg/case-studies-section__hero.avif"
+          alt="Black Knight Roofing Team"
+          class="h-full w-full object-cover"
+        />
       </div>
     </div>
   </NoiseBg>
 
-  <!-- Statistics -->
-  <div class="container grid grid-cols-1 gap-x-2 py-16 md:grid-cols-2 lg:grid-cols-4">
-    <!-- Total Projects Completed -->
-    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
-      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
-        <div class="font-heading text-primary text-[2rem]">100+</div>
-        <div>
-          <div class="text-lg font-bold">Roofing Projects</div>
-          <div class="text-[#AAAAAA]">in Colorado</div>
-        </div>
-      </NoiseBg>
-    </div>
-
-    <!-- Google Retings -->
-    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
-      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
-        <div class="text-primary text-[2rem] font-bold">5.0</div>
-        <div class="space-y-1">
-          <div class="text-lg font-bold">
-            <RatingStars rating={5} size={16} fillColor="#F7B715" strokeColor="none" />
-          </div>
-          <div class="text-[#AAAAAA]">40+ Google Reviews</div>
-        </div>
-      </NoiseBg>
-    </div>
-
-    <!-- Workmanship Warranty -->
-    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
-      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
-        <div class="text-primary size-12 font-bold">
-          <Icon name="shield-check" size={48} />
-        </div>
-        <div>
-          <div class="font-heading text-[2rem] leading-11 font-normal">Licensed</div>
-          <div class="text-[#AAAAAA]">Bonded & Insured</div>
-        </div>
-      </NoiseBg>
-    </div>
-
-    <div class="from-primary rounded-[5px] bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
-      <NoiseBg class="flex h-full items-center justify-center gap-x-2 rounded-[5px] px-6 py-4">
-        <div class="text-primary size-12 font-bold">
-          <Icon name="badge" size={48} />
-        </div>
-        <div>
-          <div class="font-heading text-[2rem] leading-11 font-normal">Lifetime</div>
-          <div class="text-[#AAAAAA]">Workmanship Warranty</div>
-        </div>
-      </NoiseBg>
-    </div>
-  </div>
-
+  <Statistics />
   <Process
     steps={processSteps}
     headingClass="font-heading text-[28px] leading-10 font-normal text-white md:text-5xl md:leading-tight lg:text-5xl lg:leading-tight"

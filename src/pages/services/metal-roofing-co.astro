@@ -33,6 +33,7 @@ import SocialProof from '@/components/ui/SocialProof.astro';
 import Statistics from '@/components/ui/Statistics.astro';
 import heroImage from '@/assets/bg/metal-roofing-section__hero.avif';
 import sunflow from '@/assets/sunflow.avif';
+import standingSeamMetal from '@/assets/generated/standing-seam-metal.png';
 
 const roofingMaterials = [
   {
@@ -89,7 +90,11 @@ const processSteps = [
 <Layout>
   <Navbar />
 
-  <Hero backgroundImage={heroImage} title="Colorado's Premiere Metal Roofing Company" subtitle="Metal Roofing In Colorado">
+  <Hero
+    backgroundImage={heroImage}
+    title="Colorado's Premiere Metal Roofing Company"
+    subtitle="Metal Roofing In Colorado"
+  >
     <p class="text-sm">
       At Black Knight Roofing, we specialize in durable metal roofing designed to withstand Colorado's harsh
       conditions—intense UV, hail, high winds, and freeze-thaw cycles. Unlike asphalt shingles, metal roofs last 40-70
@@ -135,19 +140,17 @@ const processSteps = [
             </p>
           </div>
 
-          <Button class="px-8 py-4 text-base" data-estimate-trigger>
-            <span> <strong> FREE </strong> Estimate </span>
-          </Button>
+          <EstimateButton offerText="" actionText="**FREE** Estimate" class="px-8 py-4 text-base" />
         </div>
 
         <!-- Right Contents -->
 
-        <div class="h-[400px] w-full items-center overflow-hidden rounded-lg lg:self-center">
+        <div class="h-[500px] w-full items-center overflow-hidden rounded-lg lg:self-center">
           <Image
-            src="/placeholders/thumbnails/residential-1.png"
-            alt="Residential Roofing"
-            width={600}
-            height={400}
+            src={standingSeamMetal}
+            alt="Standing Seam Metal Roofing"
+            width={standingSeamMetal.width}
+            height={standingSeamMetal.height}
             class="h-full w-full object-cover"
           />
         </div>
@@ -160,10 +163,10 @@ const processSteps = [
 
   <WhyChooseUs
     badgeText="Why Choose Us"
-    title="Proudly Serving Colorado Residents — With Westlake  Royal Products"
+    title="Proudly Serving Colorado Residents — With Westlake Royal Products"
     description="<p>Most roofers can install asphalt shingles, but metal roofing needs special skills and precise work. It requires correct fastener placement, thermal expansion handling, proper underlayment, and careful panel checks. Poor installation can cause leaks and damage, but done right, a metal roof lasts a lifetime. As a Metal Roofing Alliance member and authorized Westlake Royal installer, we meet high standards and offer a lifetime workmanship warranty.</p> <p> We act as licensed general contractors, inspecting your roof’s structure, pitch, decking, ventilation, and drainage before recommending a system. A metal roof over damaged decking or poor ventilation won’t perform well. We handle everything: tear-off, deck repair, installation, and final inspection. Plus, financing options start at $99/month through Service Finance Company and Wisetack. </p>"
-    image="/placeholders/thumbnails/residential-2.png"
-    buttonText="Get FREE Metal Roofing Estimate"
+    image="/placeholders/thumbnails/stone-coated-1.png"
+    buttonText="Get **FREE** Metal Roofing Estimate"
     imagePosition="left"
   />
 
