@@ -18,16 +18,29 @@ import PopularRoofingMaterials from '@/components/services/PopularRoofingMateria
 import ComparisonTable from '@/components/services/ComparisonTable.astro';
 import Statistics from '@/components/ui/Statistics.astro';
 import sunflow from '@/assets/sunflow.avif';
-import WhyStoneCoated from '@/components/services/WhyStoneCoated.astro';
-import heroImage from '@/assets/bg/stone-coated-steel-roofing-section__hero.avif';
+import heroImage from '@/assets/bg/concrete-tile-roof-section__hero.avif';
 
 import heroBg from '@/assets/tiles/hero-bg.png';
 import heroGradient from '@/assets/tiles/hero-gradient.png';
 import comparisonHero from '@/assets/tiles/comparison-hero.png';
 import BadgeTitle from '@/components/BadgeTitle.astro';
-import CompanyInfo from '../company-info.astro';
-import ComparisonSection from '@/components/services/ComparisonSection.astro';
 import EstimateButton from '@/components/EstimateButton.astro';
+
+// Assets
+import roiIllustration from '@/assets/tiles/roi-illustration.png';
+import component1 from '@/assets/tiles/component-1.png';
+import component2 from '@/assets/tiles/component-2.png';
+import component3 from '@/assets/tiles/component-3.png';
+import component4 from '@/assets/tiles/component-4.png';
+import component5 from '@/assets/tiles/component-5.png';
+
+const components = [
+  { img: component1, label: 'Newpoint™ Concrete Roof Tile' },
+  { img: component2, label: 'Westlake Royal TileSeal™ Underlayment' },
+  { img: component3, label: 'Vented Eave Riser' },
+  { img: component4, label: 'Elevated Batten System®' },
+  { img: component5, label: 'Vented Ridge' },
+];
 
 const materials = [
   {
@@ -51,15 +64,6 @@ const materials = [
       'Superior thermal performance and exceptional durability. Concrete tile offers high fire resistance and a distinct aesthetic for premium Colorado residences.',
     image: '/placeholders/popular-materials/1.png',
   },
-];
-
-const components = [
-  {
-    img: '/placeholders/thumbnails/stone-coated-2.png',
-    label: 'Elevated Batten System® (EBS) creates airflow beneath panels ',
-  },
-  { img: '/placeholders/thumbnails/stone-coated-3.png', label: 'Continuous ridge vent exhausts hot air' },
-  { img: '/placeholders/thumbnails/stone-coated-4.png', label: 'Sol-R-Skin™ underlayment enhances performance ' },
 ];
 ---
 
@@ -122,7 +126,7 @@ const components = [
         <!-- Left contents -->
         <div class="space-y-8 py-8">
           <div class="flex-1 space-y-4">
-            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Stone-Coated Steel' }]} />
+            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Concrete Tile Roofing' }]} />
 
             <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
               What is Concrete Tile Roofing?
@@ -179,7 +183,159 @@ const components = [
 
   <!-- Comparison Section -->
 
-  <ComparisonSection />
+  <section class="relative overflow-hidden py-16 lg:py-24">
+    <!-- Dynamic Background Layers -->
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute inset-0 bg-[#0A0A0A]"></div>
+      <Image src={heroBg} alt="" class="absolute inset-0 h-full w-full object-cover opacity-5" loading="lazy" />
+      <Image
+        src={heroGradient}
+        alt=""
+        class="absolute inset-0 h-full w-full object-cover opacity-20 lg:opacity-30"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="container space-y-12">
+      <!-- Temperature Differences Hero -->
+      <div class="relative flex flex-col items-center justify-center pt-10 lg:min-h-[600px] lg:pt-20">
+        <div class="w-full max-w-[1440px]">
+          <Image
+            src={comparisonHero}
+            width={comparisonHero.width}
+            height={comparisonHero.height}
+            alt="Temperature comparison between concrete tile and asphalt shingle roof"
+            class="w-full rounded-3xl object-cover"
+          />
+        </div>
+
+        <div class="relative z-10 flex flex-col items-center justify-center px-4 pt-10 text-center uppercase">
+          <div
+            class="bg-linear-to-b from-white via-[#d9d9d9] to-white/10 bg-clip-text text-[clamp(1.5rem,6vw,5rem)] leading-none font-extrabold tracking-tighter text-transparent"
+          >
+            <span class="block lg:inline">Concrete Tile</span>
+            <span class="text-primary italic opacity-80">vs</span>
+            <span class="block lg:inline">Asphalt Shingle</span>
+          </div>
+          <div
+            class="mt-2 bg-linear-to-b from-white via-[#d9d9d9] to-[#1a1a1a] bg-clip-text text-[clamp(1.8rem,8vw,64px)] font-bold tracking-tight text-transparent lg:mt-4"
+            style="text-shadow: 0px 4px 24px rgba(0,0,0,0.8), 0px -8px 100px black;"
+          >
+            Temperature Differences
+          </div>
+        </div>
+      </div>
+
+      <!-- Core Messaging Section -->
+      <div class="flex flex-col items-center gap-6">
+        <div class="lg:col-span-5">
+          <h2 class="font-heading text-3xl leading-[1.1] tracking-tight lg:text-5xl">
+            Designed for Colorado Architecture. Built from the Right Material.
+          </h2>
+        </div>
+        <div class="border-primary/30 border-l-2 py-2 pl-6 lg:col-span-7 lg:pl-10">
+          <div class="text-neutral-lighter space-y-3 text-base leading-relaxed font-normal lg:text-xl">
+            <p>
+              Colorado homes face extremes — high-altitude UV radiation, rapid temperature swings, freeze-thaw cycles,
+              heavy hailstorms, and growing wildfire risk. The roofing material must do more than look good. It must
+              endure. Concrete tile delivers structural integrity and architectural permanence that lightweight roofing
+              systems can't match. Its density and composition provide natural resistance to impact, heat, and fire —
+              making it a practical and resilient choice for Colorado's demanding climate.
+            </p>
+            <p>
+              *Attic temperatures measured using identical heat sources simulating the sun's radiation comparing the
+              Newpoint™ Cool Roof System to a common asphalt shingle installation.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex w-full items-center gap-2 text-xs">
+          <Icon name="circle-info" class="text-primary" />
+          <span class="text-neutral-lighter">
+            Source:
+            <a
+              href="https://www.westlakeroyalroofing.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-primary text-white underline"
+            >
+              Westlake Royal Building Products.
+            </a>
+          </span>
+        </div>
+      </div>
+
+      <!-- ROI Analysis Section -->
+      <div class="grid items-center gap-10 py-10 lg:grid-cols-2 lg:gap-20">
+        <div class="order-2 space-y-6 lg:order-1 lg:space-y-8">
+          <BadgeTitle badge="The ROI" title="Keeping Temperatures Cool and ROI High" />
+          <p class="text-neutral-lighter text-lg leading-relaxed">
+            The Newpoint™ Cool Roof System and CRRC-rated Cool Roof color options create a more comfortable indoor
+            climate, reduce heating and cooling costs, and help your roof last longer than traditional construction. Oak
+            Ridge National Laboratory research found the system can reduce heating and cooling costs by up to 22%
+            annually.
+          </p>
+
+          <div class="flex w-full items-center gap-2 text-xs">
+            <Icon name="circle-info" class="text-primary" />
+            <span class="text-neutral-lighter">
+              Source:
+              <a
+                href="https://www.westlakeroyalroofing.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-primary text-white underline"
+              >
+                Westlake Royal Building Products.
+              </a>
+            </span>
+          </div>
+
+          <div class="pt-4">
+            <Button variant="primary" size="lg" class="text-sm font-bold tracking-wide uppercase">Learn More</Button>
+          </div>
+        </div>
+        <div class="relative order-1 overflow-hidden rounded-3xl border border-white/10 shadow-2xl lg:order-2">
+          <Image
+            src={roiIllustration}
+            alt="Visual ROI Illustration"
+            class="w-full transition-transform duration-1000 hover:scale-105"
+          />
+        </div>
+      </div>
+
+      <!-- Components Showcase -->
+      <div class="space-y-10">
+        <BadgeTitle
+          badge="How it Work"
+          title="We Use 5 Components to Provide Energy Efficiency and Give Substantial Return on Your Investment"
+          class="mx-auto flex max-w-4xl flex-col items-center text-center"
+        />
+
+        <div
+          class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] justify-center gap-6 lg:flex lg:flex-wrap lg:items-center lg:justify-center"
+        >
+          {
+            components.map(comp => (
+              <div class="group relative w-full max-w-[400px] space-y-3 text-center">
+                <div class="relative aspect-5/3 overflow-hidden rounded-2xl border border-white/5 bg-neutral-900 shadow-xl">
+                  <Image
+                    src={comp.img}
+                    alt={comp.label}
+                    class="h-full w-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                  />
+                </div>
+                <p class="text-neutral-lighter group-hover:text-primary px-2 text-sm font-semibold tracking-wide transition-colors duration-300">
+                  {comp.label}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
   <ComparisonTable />
   <StylesProfiles />
 
