@@ -10,14 +10,37 @@ import roofMini from '@/assets/services/service-roof.png';
 import bgEllipse from '@/assets/comparison/bg-ellipse.svg';
 import sunflow from '@/assets/sunflow.avif';
 
-const comparisonData = [
-  { label: 'Lifespan', icon: 'battery', asphalt: '20–30 years', tile: '50-100 years' },
-  { label: 'Hail Rating', icon: 'hail', asphalt: 'Varies', tile: 'Class A' },
-  { label: 'Wind Warranty', icon: 'wind', asphalt: 'Typically lower', tile: '120 mph' },
-  { label: 'Attic Heat (Tested)', icon: 'heat-meter', asphalt: '139°', tile: '94°' },
-  { label: 'Maintenance', icon: 'setting', asphalt: 'Moderate', tile: 'Minimal' },
-  { label: 'Weight', icon: 'wight-machine', asphalt: 'Heavier layered system', tile: '1.5 lbs/sq-ft' },
-];
+interface ComparisonRow {
+  label: string;
+  icon: string;
+  standard: string;
+  premium: string;
+}
+
+interface Props {
+  title?: string;
+  standardColumn?: string;
+  premiumColumn?: string;
+  standardLabel?: string;
+  premiumLabel?: string;
+  data?: ComparisonRow[];
+}
+
+const {
+  title = 'Stone-Coated Steel vs <br class="hidden lg:block" /> Asphalt Shingles',
+  standardColumn = 'Asphalt Shingles',
+  premiumColumn = 'Stone-Coated Steel',
+  standardLabel = 'Asphalt',
+  premiumLabel = 'Stone-Steel',
+  data = [
+    { label: 'Lifespan', icon: 'battery', standard: '20–30 years', premium: '50-100 years' },
+    { label: 'Hail Rating', icon: 'hail', standard: 'Varies', premium: 'Class 4' },
+    { label: 'Wind Warranty', icon: 'wind', standard: 'Typically lower', premium: '120 mph' },
+    { label: 'Attic Heat (Tested)', icon: 'heat-meter', standard: '139°', premium: '94°' },
+    { label: 'Maintenance', icon: 'setting', standard: 'Moderate', premium: 'Minimal' },
+    { label: 'Weight', icon: 'wight-machine', standard: 'Heavier layered system', premium: '1.4 lbs/sq-ft' },
+  ],
+} = Astro.props;
 ---
 
 <section class="relative container overflow-hidden py-16 lg:py-24">
@@ -49,9 +72,10 @@ const comparisonData = [
             </div>
 
             <div class="relative mt-2 flex items-center justify-center gap-4 lg:gap-16">
-              <h2 class="font-heading mx-auto max-w-[90%] text-3xl leading-tight text-white lg:max-w-none lg:text-6xl">
-                Stone-Coated Steel vs <br class="hidden lg:block" /> Asphalt Shingles
-              </h2>
+              <h2
+                class="font-heading mx-auto max-w-[90%] text-3xl leading-tight text-white lg:max-w-none lg:text-6xl"
+                set:html={title}
+              />
               <Image src={roofMini} alt="" class="hidden h-[84] w-[200px] brightness-75 lg:block" />
               <!-- Floating Ellipse decoration -->
               <Image
@@ -62,7 +86,7 @@ const comparisonData = [
             </div>
           </div>
         </div>
-
+ 
         <!-- Table View (Desktop) -->
         <div class="relative z-10 hidden lg:block">
           <table class="w-full border-separate border-spacing-0">
@@ -70,7 +94,7 @@ const comparisonData = [
               <tr>
                 <th class="border-b border-[#594216] px-6 py-6 text-left text-xl font-medium text-white">Feature</th>
                 <th class="border-b border-[#594216] px-6 py-6 text-left text-xl font-medium text-white"
-                  >Asphalt Shingles</th
+                  >{standardColumn}</th
                 >
                 <th class="relative p-0 text-left">
                   <div
@@ -81,15 +105,15 @@ const comparisonData = [
                   <div
                     class="text-primary relative z-10 border-b border-[#59421650] px-6 py-6 text-left text-xl font-medium"
                   >
-                    Stone-Coated Steel
+                    {premiumColumn}
                   </div>
                 </th>
               </tr>
             </thead>
-
+ 
             <tbody class="text-neutral-lighter">
               {
-                comparisonData.map((row, idx, arr) => (
+                data.map((row, idx, arr) => (
                   <tr class="group">
                     <td class="border-b border-[#594216] px-6 py-7 group-last:border-b-0">
                       <div class="flex items-center gap-4">
@@ -98,7 +122,7 @@ const comparisonData = [
                       </div>
                     </td>
                     <td class="border-b border-[#594216] px-6 py-7 text-left text-white/70 group-last:border-b-0">
-                      {row.asphalt}
+                      {row.standard}
                     </td>
                     <td class="relative p-0 text-left">
                       <div
@@ -114,7 +138,7 @@ const comparisonData = [
                         ]}
                       >
                         <Icon name="double-tick" size={16} />
-                        <span>{row.tile}</span>
+                        <span>{row.premium}</span>
                       </div>
                     </td>
                   </tr>
@@ -123,27 +147,27 @@ const comparisonData = [
             </tbody>
           </table>
         </div>
-
+ 
         <!-- Card View (Mobile/Tablet) -->
         <div class="relative z-10 grid grid-cols-1 gap-6 lg:hidden">
           {
-            comparisonData.map(row => (
+            data.map(row => (
               <div class="space-y-4 rounded-2xl border border-[#594216]/30 bg-neutral-900/50 p-6">
                 <div class="flex items-center gap-3 border-b border-[#594216]/30 pb-3">
                   <Icon name={row.icon} size={20} class="text-primary" />
                   <span class="text-lg font-bold tracking-wide text-white">{row.label}</span>
                 </div>
-
+ 
                 <div class="grid grid-cols-2 gap-4">
                   <div class="space-y-1">
-                    <p class="text-neutral-light text-[10px] font-bold tracking-widest uppercase">Asphalt</p>
-                    <p class="text-sm text-white/80">{row.asphalt}</p>
+                    <p class="text-neutral-light text-[10px] font-bold tracking-widest uppercase">{standardLabel}</p>
+                    <p class="text-sm text-white/80">{row.standard}</p>
                   </div>
                   <div class="space-y-1 border-l border-[#594216]/30 pl-4">
-                    <p class="text-primary text-[10px] font-bold tracking-widest uppercase">Stone-Steel</p>
+                    <p class="text-primary text-[10px] font-bold tracking-widest uppercase">{premiumLabel}</p>
                     <div class="flex items-center gap-2">
                       <Icon name="double-tick" size={14} class="text-primary" />
-                      <p class="text-primary text-sm font-bold">{row.tile}</p>
+                      <p class="text-primary text-sm font-bold">{row.premium}</p>
                     </div>
                   </div>
                 </div>

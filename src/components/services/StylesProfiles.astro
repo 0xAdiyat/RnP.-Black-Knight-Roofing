@@ -250,7 +250,7 @@ const profiles = profilesProp || defaultProfiles;
                   <div class="space-y-5 group/swatch cursor-pointer swatch-trigger" data-color-name={color.name} data-color-hex={color.color}>
                     <div class="relative aspect-square rounded-[32px] overflow-hidden bg-[#1A1A1A] p-0.5 shadow-xl transition-all duration-500 group-hover/swatch:shadow-primary/20 group-hover/swatch:-translate-y-2 ring-primary ring-offset-[6px] ring-offset-black transtion-all group-hover/swatch:ring-2 ring-0">
                         <div class="w-full h-full rounded-[30px] overflow-hidden relative">
-                          <Image src={color.thumbnail} width={100} height={100} alt={color.name} class="w-full aspect-square h-full object-cover scale-[1.3] transition-transform duration-700 group-hover/swatch:scale-[1.4]" />
+                          <Image src={color.thumbnail} width={100} height={100} alt={color.name} class="w-full aspect-square h-full object-cover transition-transform duration-700" />
                           <!-- Color Tint Overlays for high-fidelity look -->
                           <div class="absolute inset-0 transition-opacity duration-500 opacity-40 group-hover/swatch:opacity-60" style={`background-color: ${color.color}; mix-blend-mode: overlay;`}></div>
                           <div class="absolute inset-0 transition-opacity duration-500 opacity-20 group-hover/swatch:opacity-40" style={`background-color: ${color.color}; mix-blend-mode: multiply;`}></div>

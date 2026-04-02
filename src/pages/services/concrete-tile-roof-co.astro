@@ -24,6 +24,16 @@ import heroBg from '@/assets/tiles/hero-bg.png';
 import heroGradient from '@/assets/tiles/hero-gradient.png';
 import concreteTileRoof from '@/assets/services/concrete-tile-roof.png';
 import comparisonHero from '@/assets/tiles/comparison-hero.png';
+import missionSPreview from '@/assets/tiles/mission-s-preview.png';
+import terraCottaThumb from '@/assets/tiles/terra-cotta-thumb.png';
+import barroRojoThumb from '@/assets/tiles/barro-rojo-thumb.png';
+import sierraCoveBrownThumb from '@/assets/tiles/sierra-cove-brown-thumb.png';
+import salernoClayThumb from '@/assets/tiles/salerno-clay-thumb.png';
+import marbledTerraCottaThumb from '@/assets/tiles/marbled-terra-cotta-thumb.png';
+import appleBarkThumb from '@/assets/tiles/apple-bark-thumb.png';
+import laTerraBlendThumb from '@/assets/tiles/la-terra-blend-thumb.png';
+import californiaMissionBlendThumb from '@/assets/tiles/california-mission-blend-thumb.png';
+import cascaraBrownThumb from '@/assets/tiles/cascara-brown-thumb.png';
 import BadgeTitle from '@/components/BadgeTitle.astro';
 import EstimateButton from '@/components/EstimateButton.astro';
 
@@ -56,39 +66,76 @@ import ponderosaPreview from '@/assets/generated/concrete-ponderosa.png';
 
 const concreteProfiles = [
   {
+    id: 'mission-s',
+    label: 'Mission "S"',
+    title: 'Newpoint™ Mission "S"',
+    description: 'A high-profile S-tile that captures the classic look of Mediterranean and Spanish architecture.',
+    previewImage: missionSPreview,
+    colors: [
+      { name: 'Terra Cotta', code: '1MSCS6100', color: '#B35A3E', thumbnail: terraCottaThumb },
+      { name: 'Barro Rojo', code: '1MSCS7024', color: '#8C3F2F', thumbnail: barroRojoThumb },
+      { name: 'Sierra Cove Brown', code: '1MSCS3570', color: '#6D5A4A', thumbnail: sierraCoveBrownThumb },
+      { name: 'Salerno Clay', code: '1MSCS6330', color: '#8C7355', thumbnail: salernoClayThumb },
+      { name: 'Marbled Terra Cotta', code: '1MSCS6129', color: '#B35A3E', thumbnail: marbledTerraCottaThumb },
+      { name: 'Apple Bark', code: '1MSCS0431', color: '#6B5A4A', thumbnail: appleBarkThumb },
+      { name: 'La Terra Blend', code: '1MSCS6031', color: '#8C7355', thumbnail: laTerraBlendThumb },
+      { name: 'California Mission Blend', code: '1MSCS6464', color: '#8C5A4A', thumbnail: californiaMissionBlendThumb },
+      { name: 'Cascara Brown', code: '1MSCS3238', color: '#6D5A4A', thumbnail: cascaraBrownThumb },
+    ]
+  },
+  {
+    id: 'boosted-barcelona',
+    label: 'Boosted Barcelona Caps',
+    title: 'Newpoint™ Boosted Barcelona',
+    description: 'Authentic high-profile design creates the look of a traditional mortar-boosted roof.',
+    previewImage: missionSPreview,
+    colors: [
+      { name: 'TERRA COTTA', code: '4VAP9104001', color: '#B35A3E', thumbnail: terraCottaThumb },
+      { name: 'MARBLED TERRA COTTA', code: '1MSCS6129', color: '#B35A3E', thumbnail: marbledTerraCottaThumb },
+    ]
+  },
+  {
     id: 'villa',
     label: 'Villa',
     title: 'Newpoint™ Villa',
-    description: 'A high-profile S-tile that captures the classic look of Mediterranean and Spanish architecture.',
+    description: 'A medium-profile S-tile providing a classic Mediterranean aesthetic with modern durability.',
     previewImage: villaPreview,
     colors: [
-      { name: 'BARCELONA', code: '4VAP93185SF', color: '#7B4A4A', thumbnail: '/placeholders/tiles/barcelona.png' },
-      { name: 'TERRA COTTA', code: '4VAP9104001', color: '#B35A3E', thumbnail: '/placeholders/tiles/barcelona.png' },
-      { name: 'ADOBE BLEND', code: '4VAP93245SF', color: '#8C7355', thumbnail: '/placeholders/tiles/country-blend.png' },
+      { name: 'BARCELONA', code: '4VAP93185SF', color: '#7B4A4A', thumbnail: barroRojoThumb },
+      { name: 'SALERNO CLAY', code: '1MSCS6330', color: '#8C7355', thumbnail: salernoClayThumb },
     ]
   },
   {
-    id: 'bel-air',
-    label: 'Bel Air',
-    title: 'Newpoint™ Bel Air',
-    description: 'A flat-profile tile that creates clean lines for contemporary or traditional home designs.',
+    id: 'saxony-slate',
+    label: 'Saxony® 900 Slate',
+    title: 'Saxony® 900 Slate',
+    description: 'A low-profile tile that replicates the natural beauty and clean lines of slate.',
     previewImage: belAirPreview,
     colors: [
-      { name: 'CHARCOAL', code: '4BAP9104000', color: '#333333', thumbnail: '/placeholders/tiles/stirline-gray.png' },
-      { name: 'STIRLING GRAY', code: '4BAP95427SF', color: '#6B6B6B', thumbnail: '/placeholders/tiles/stirline-gray.png' },
-      { name: 'MOUNTAIN BLEND', code: '4BAP93569SF', color: '#6D5A4A', thumbnail: '/placeholders/tiles/harborwood.png' },
+      { name: 'CHARCOAL', code: '4BAP9104000', color: '#333333', thumbnail: cascaraBrownThumb },
+      { name: 'SIERRA COVE', code: '1MSCS3570', color: '#6D5A4A', thumbnail: sierraCoveBrownThumb },
     ]
   },
   {
-    id: 'ponderosa',
-    label: 'Ponderosa',
-    title: 'Newpoint™ Ponderosa',
+    id: 'saxony-shake',
+    label: 'Saxony® 900 Shake',
+    title: 'Saxony® 900 Shake',
     description: 'A medium-profile tile that replicates the rugged texture and beauty of natural wood shake.',
     previewImage: ponderosaPreview,
     colors: [
-      { name: 'TIMBERWOOD', code: '4PAP93225SF', color: '#7B6241', thumbnail: '/placeholders/tiles/timberwood.png' },
-      { name: 'IRONWOOD', code: '4PAP95325SF', color: '#4A4139', thumbnail: '/placeholders/tiles/ironwood.png' },
-      { name: 'COUNTRY BLEND', code: '4PAP93145SF', color: '#7B624A', thumbnail: '/placeholders/tiles/country-blend.png' },
+      { name: 'APPLE BARK', code: '1MSCS0431', color: '#6B5A4A', thumbnail: appleBarkThumb },
+      { name: 'LA TERRA BLEND', code: '1MSCS6031', color: '#8C7355', thumbnail: laTerraBlendThumb },
+    ]
+  },
+  {
+    id: 'madera-900',
+    label: 'Madera 900',
+    title: 'Madera 900',
+    description: 'A premium medium-profile shake tile with high-definition textures for maximum curb appeal.',
+    previewImage: ponderosaPreview,
+    colors: [
+      { name: 'CASCARA BROWN', code: '1MSCS3238', color: '#6D5A4A', thumbnail: cascaraBrownThumb },
+      { name: 'CALIFORNIA MISSION', code: '1MSCS6464', color: '#8C5A4A', thumbnail: californiaMissionBlendThumb },
     ]
   }
 ];
@@ -122,6 +169,15 @@ const concreteFaqs = [
     question: "What warranty does concrete tile come with?",
     answer: "Newpoint™ concrete tile is backed by a fully transferable, non-prorated limited lifetime warranty from Westlake Royal Roofing Solutions™ — one of the most comprehensive roofing warranties on the market. We add our own lifetime workmanship warranty on top. If you sell your home, the Newpoint™ warranty transfers to the new owner, which can be a meaningful selling point."
   }
+];
+
+const tileComparison = [
+  { label: 'Lifespan', icon: 'battery', standard: '20-30 years', premium: '50-100 years' },
+  { label: 'Fire Rating', icon: 'shield-fire', standard: 'Lower', premium: 'Class A' },
+  { label: 'Hail Options', icon: 'hail', standard: 'Varies', premium: 'Class 3 & 4' },
+  { label: 'Attic Temp (Tested)', icon: 'heat-meter', standard: '139°', premium: '94°' },
+  { label: 'Energy Savings', icon: 'bolt', standard: '-', premium: 'Up to 22% potential' },
+  { label: 'Aesthetic Value', icon: 'star', standard: 'Standard', premium: 'Architectural premium' },
 ];
 
 const components = [
@@ -546,7 +602,14 @@ const categories = [
     </div>
   </section>
 
-  <ComparisonTable />
+  <ComparisonTable
+    title="Concrete Tile vs <br class='hidden lg:block' /> Asphalt Shingles"
+    standardColumn="Asphalt Shingles"
+    premiumColumn="Concrete Tile"
+    standardLabel="Asphalt"
+    premiumLabel="Concrete"
+    data={tileComparison}
+  />
 
   <StylesProfiles 
     badge="Styles"

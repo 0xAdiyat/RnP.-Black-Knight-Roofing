@@ -27,28 +27,129 @@ import comparisonHero from '@/assets/tiles/comparison-hero.png';
 import BadgeTitle from '@/components/BadgeTitle.astro';
 import EstimateButton from '@/components/EstimateButton.astro';
 
-const materials = [
+import steelWindPerformance from '@/assets/generated/steel-wind-performance.png';
+import steelHailResistance from '@/assets/generated/steel-hail-resistance.png';
+import steelFireSafety from '@/assets/generated/steel-fire-safety.png';
+import steelEnergyEfficiency from '@/assets/generated/steel-energy-efficiency.png';
+import stoneCoatedMainImg from '@/assets/generated/stone-coated-steel-main.png';
+
+const categories = [
   {
-    id: 'shingles',
-    label: 'Architectural Shingles',
-    description:
-      'A reliable, budget-friendly choice with layered dimension, broad color options, and dependable everyday performance for Colorado homes.',
-    image: '/placeholders/popular-materials/1.png',
+    id: 'wind',
+    label: 'Wind',
+    items: [
+      {
+        id: 'wind-performance',
+        title: 'High-Wind Performance',
+        description:
+          'Unified Steel™ panels feature a unique interlocking design that creates a structural barrier against high winds. This system is tested and warranted to withstand winds up to 120 mph, making it ideal for the Colorado Front Range.',
+        image: steelWindPerformance,
+      },
+      {
+        id: 'structural-overlap',
+        title: 'Superior Uplift Resistance',
+        description:
+          'Unlike standard shingles that overlap loosely, our panels fasten to each other and to the roof deck, providing superior resistance to wind uplift even in extreme pressure-change events.',
+        image: steelWindPerformance,
+      },
+      {
+        id: 'hurricane-force',
+        title: 'Hurricane-Force Durability',
+        description:
+          'Extensively tested in high-velocity hurricane zones, Unified Steel™ maintains its integrity when other materials fail, securing your home’s envelope against wind-driven rain.',
+        image: steelWindPerformance,
+      },
+    ],
   },
   {
-    id: 'steel',
-    label: 'Stone Coated Steel',
-    description:
-      'The ultimate protection against Colorado hail. Lightweight, non-combustible, and designed to last a lifetime with the look of traditional tile or wood shake.',
-    image: '/placeholders/popular-materials/1.png',
+    id: 'hail',
+    label: 'Hail',
+    items: [
+      {
+        id: 'hail-armor',
+        title: 'Extreme Hail Armor',
+        description:
+          'Unified Steel™ is built with standard Class 4 impact resistance — the industry\'s highest rating. These panels are engineered to survive 2½" steel ball drops, easily handling Front Range hail that destroys asphalt.',
+        image: steelHailResistance,
+      },
+      {
+        id: 'stone-coated-resilience',
+        title: 'Stone-Coated Resilience',
+        description:
+          'The natural stone granule coating acts as a sacrificial barrier, absorbing impact energy and preventing the steel core from denting or siphoning moisture after a strike.',
+        image: steelHailResistance,
+      },
+      {
+        id: 'shatterproof-steel',
+        title: 'Shatterproof Steel Core',
+        description:
+          'Where traditional tile might crack or shatter under extreme impact, our structural steel core remains intact, ensuring your home stays dry even after the most severe Colorado summer storms.',
+        image: steelHailResistance,
+      },
+    ],
   },
   {
-    id: 'tile',
-    label: 'Concrete Tile',
-    description:
-      'Superior thermal performance and exceptional durability. Concrete tile offers high fire resistance and a distinct aesthetic for premium Colorado residences.',
-    image: '/placeholders/popular-materials/1.png',
+    id: 'fire',
+    label: 'Fire',
+    items: [
+      {
+        id: 'fire-rating',
+        title: 'Class A Fire Rating',
+        description:
+          'Safety is paramount in Colorado’s fire-prone landscapes. Unified Steel™ provides a non-combustible Class A fire rating, the highest protection available against wind-blown embers.',
+        image: steelFireSafety,
+      },
+      {
+        id: 'non-combustible',
+        title: 'Non-Combustible Material',
+        description:
+          'Being made of high-grade steel, these panels will not ignite or fuel a fire. They act as a critical shield, preventing exterior heat and embers from reaching your home’s structure.',
+        image: steelFireSafety,
+      },
+      {
+        id: 'lightweight-safety',
+        title: 'Lightweight Protection',
+        description:
+          'Weighing only 1.4 lbs per square foot, you get heavy-duty fire protection without the need for structural reinforcement often required by heavy clay or concrete tiles.',
+        image: steelFireSafety,
+      },
+    ],
   },
+  {
+    id: 'energy',
+    label: 'Energy',
+    items: [
+      {
+        id: 'asv-ventilation',
+        title: 'Above-Sheathing Ventilation',
+        description:
+          'Our Elevated Batten System® (EBS) creates a continuous air channel between the roof deck and the panels, reducing heat transfer into your attic by up to 45%.',
+        image: steelEnergyEfficiency,
+      },
+      {
+        id: 'cool-roof',
+        title: 'Cool Roof Technology',
+        description:
+          'Stone-coated energy-efficient colors reflect solar radiation, significantly lowering attic temperatures during peak Colorado summer days and reducing cooling costs.',
+        image: steelEnergyEfficiency,
+      },
+      {
+        id: 'thermal-barrier',
+        title: 'Thermal Barrier',
+        description:
+          'The combination of air spacing and reflective granules works as a natural insulator, keeping your home warmer in winter and drastically cooler in summer compared to asphalt.',
+        image: steelEnergyEfficiency,
+      },
+    ],
+  },
+];
+const stoneCoatedComparison = [
+  { label: 'Lifespan', icon: 'battery', standard: '20-30 years', premium: '50+ years' },
+  { label: 'Hail Rating', icon: 'hail', standard: 'Varies', premium: 'Class 4' },
+  { label: 'Wind Warranty', icon: 'wind', standard: 'Typically lower', premium: '120 mph' },
+  { label: 'Attic Heat (Tested)', icon: 'heat-meter', standard: '147°', premium: '89°' },
+  { label: 'Maintenance', icon: 'setting', standard: 'Moderate', premium: 'Minimal' },
+  { label: 'Weight', icon: 'wight-machine', standard: 'Heavier layered system', premium: '1.5 lbs/sq-ft' },
 ];
 
 const components = [
@@ -58,6 +159,67 @@ const components = [
   },
   { img: '/placeholders/thumbnails/stone-coated-3.png', label: 'Continuous ridge vent exhausts hot air' },
   { img: '/placeholders/thumbnails/stone-coated-4.png', label: 'Sol-R-Skin™ underlayment enhances performance ' },
+];
+
+// Corrected Stone-Coated Steel Profiles
+const stoneSteelProfiles = [
+  {
+    id: 'pine-crest-shake',
+    label: 'Pine - Crest shake',
+    title: 'Pine - Crest Shake',
+    description: 'Engineered to replicate hand-split wood shake with the durability of steel.',
+    previewImage: stoneCoatedMainImg, // Will use generated preview if available
+    colors: [
+      { name: 'HARBORWOOD', code: '4DAP93569SF', color: '#6D5A4A', thumbnail: '/placeholders/tiles/harborwood.png' },
+      { name: 'STIRLING GRAY', code: '4DAP95427SF', color: '#6B6B6B', thumbnail: '/placeholders/tiles/stirline-gray.png' },
+      { name: 'COUNTRY BLEND', code: '4DAP93145SF', color: '#7B624A', thumbnail: '/placeholders/tiles/country-blend.png' },
+      { name: 'IRONWOOD', code: '4DAP95325SF', color: '#4A4139', thumbnail: '/placeholders/tiles/ironwood.png' },
+      { name: 'GOLD RIVER', code: '4DAP93245SF', color: '#8C7355', thumbnail: '/placeholders/tiles/country-blend.png' },
+      { name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241', thumbnail: '/placeholders/tiles/timberwood.png' },
+      { name: 'BARCELONA', code: '4DAP93185SF', color: '#7B4A4A', thumbnail: '/placeholders/tiles/barcelona.png' },
+      { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', thumbnail: '/placeholders/tiles/charcoal.png' },
+    ],
+  },
+  {
+    id: 'cottage-shingle',
+    label: 'Cottage Shingle',
+    title: 'Cottage Shingle',
+    description: 'A clean, modern look that complements a variety of architectural styles.',
+    previewImage: stoneCoatedMainImg,
+    colors: [
+      { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', thumbnail: '/placeholders/tiles/charcoal.png' },
+    ],
+  },
+  {
+    id: 'granite-ridge-shingle',
+    label: 'Granite-Ridge Shingle',
+    title: 'Granite-Ridge Shingle',
+    description: 'The strength of steel with the refined look of architectural shingles.',
+    previewImage: stoneCoatedMainImg,
+    colors: [
+      { name: 'TIMBERWOOD', code: '4DAP93225SF', color: '#7B6241', thumbnail: '/placeholders/tiles/timberwood.png' },
+    ],
+  },
+  {
+    id: 'barrel-vault-tile',
+    label: 'Barrel Vault Tile',
+    title: 'Barrel Vault Tile',
+    description: 'Captures the timeless look of Spanish clay tile in a durable steel format.',
+    previewImage: stoneCoatedMainImg,
+    colors: [
+      { name: 'BARCELONA', code: '4DAP93185SF', color: '#7B4A4A', thumbnail: '/placeholders/tiles/barcelona.png' },
+    ],
+  },
+  {
+    id: 'pacific-tile',
+    label: 'Pacific Tile',
+    title: 'Pacific Tile',
+    description: 'A low-profile Mediterranean-inspired design for a clean, sophisticated roof.',
+    previewImage: stoneCoatedMainImg,
+    colors: [
+      { name: 'CHARCOAL', code: '4DAP9104000', color: '#333333', thumbnail: '/placeholders/tiles/charcoal.png' },
+    ],
+  },
 ];
 ---
 
@@ -154,8 +316,8 @@ const components = [
 
         <div class="h-[400px] w-full items-center overflow-hidden rounded-lg lg:self-center">
           <Image
-            src="/placeholders/thumbnails/residential-1.png"
-            alt="Residential Roofing"
+            src={stoneCoatedMainImg}
+            alt="Stone-Coated Steel Roofing"
             width={600}
             height={400}
             class="h-full w-full object-cover"
@@ -169,7 +331,7 @@ const components = [
     badgeText="Why Stone-Coated Steel"
     title="Why Upgrade to Stone-Coated Steel?"
     description="<p>Most roofers can install asphalt shingles, but metal roofing needs special skills and precise work. It requires correct fastener placement, thermal expansion handling, proper underlayment, and careful panel checks. Poor installation can cause leaks and damage, but done right, a metal roof lasts a lifetime. As a Metal Roofing Alliance member and authorized Westlake Royal installer, we meet high standards and offer a lifetime workmanship warranty.</p> <p> We act as licensed general contractors, inspecting your roof’s structure, pitch, decking, ventilation, and drainage before recommending a system. A metal roof over damaged decking or poor ventilation won’t perform well. We handle everything: tear-off, deck repair, installation, and final inspection. Plus, financing options start at $99/month through Service Finance Company and Wisetack. </p>"
-    image="/placeholders/thumbnails/residential-2.png"
+    image={stoneCoatedMainImg}
     buttonText="Get FREE Metal Roofing Estimate"
     imagePosition="left"
   />
@@ -179,8 +341,11 @@ const components = [
     badge="Why Stone-Coated Steel"
     title="Extreme Weather Protection for Colorado Homes"
     description="Colorado doesn't have one type of severe weather — it has all of them. Hail season runs April through September. Wind events regularly push past 60 mph on the Front Range. Wildfires are a growing concern across the state, and UV exposure at altitude degrades ordinary roofing materials faster than anywhere at sea level. Unified Steel™ stone-coated panels are engineered to handle all of it — tested and warranted, not just rated."
-    materials={materials}
-    source={{ label: 'Source: Westlake Royal Building Products — Unified Steel™', href: 'https://www.westlakeroyalroofing.com/unified-steel/' }}
+    categories={categories}
+    source={{
+      label: 'Source: Westlake Royal Building Products — Unified Steel™',
+      href: 'https://www.westlakeroyalroofing.com/unified-steel/',
+    }}
   />
 
   <!-- Comparison Section -->
@@ -248,7 +413,14 @@ const components = [
           <Icon name="circle-info" class="text-primary" />
           <span class="text-neutral-lighter">
             Source:
-            <a href="https://www.westlakeroyalroofing.com/" target="_blank" rel="noopener noreferrer" class="hover:text-primary text-white underline"> Westlake Royal Building Products. </a>
+            <a
+              href="https://www.westlakeroyalroofing.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-primary text-white underline"
+            >
+              Westlake Royal Building Products.
+            </a>
           </span>
         </div>
       </div>
@@ -283,7 +455,12 @@ const components = [
             <Icon name="circle-info" class="text-primary" />
             <span class="text-neutral-lighter">
               Source:
-              <a href="https://www.westlakeroyalroofing.com/unified-steel/" target="_blank" rel="noopener noreferrer" class="hover:text-primary text-white underline">
+              <a
+                href="https://www.westlakeroyalroofing.com/unified-steel/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-primary text-white underline"
+              >
                 Westlake Royal — Unified Steel™, Class 4 impact-rated panels.</a
               >
             </span>
@@ -337,8 +514,15 @@ const components = [
     </div>
   </section>
 
-  <ComparisonTable />
-  <StylesProfiles />
+  <ComparisonTable
+    title="Stone-Coated Steel vs <br class='hidden lg:block' /> Asphalt Shingles"
+    standardColumn="Asphalt Shingles"
+    premiumColumn="Stone-Coated Steel"
+    standardLabel="Asphalt"
+    premiumLabel="Stone-Steel"
+    data={stoneCoatedComparison}
+  />
+  <StylesProfiles profiles={stoneSteelProfiles} />
 
   <RecentProjects />
   <Faqs />
