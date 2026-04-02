@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar.astro';
 import Button from '@/components/ui/Button.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
+import noise from '@/assets/noises.avif';
 import { Icon } from 'astro-icon/components';
 import Brands from '@/components/Brands.astro';
 import AboutFinancing from '@/components/AboutFinancing.astro';
@@ -25,6 +26,7 @@ import { cn } from '@/lib/utils';
 import Footer from '@/components/Footer.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
 import topFrmae from '@/assets/top-frame.avif';
+import roof from '@/assets/roof.avif';
 
 const financeSteps = [
   {
@@ -48,16 +50,21 @@ const financeSteps = [
 ];
 
 import heroImage from '@/assets/bg/faq-and-financing-section__hero.avif';
+import EstimateButton from '@/components/EstimateButton.astro';
 ---
 
 <Layout title="Roofing Financing | Top Veteran Owned Roofing Company | Black Knight Roofing">
   <Navbar />
   <div id="hero-section">
-    <Hero backgroundImage={heroImage} title="Flexible Roof Financing <br/> For All Your Needs" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
+    <Hero
+      backgroundImage={heroImage}
+      title="Flexible Roof Financing <br/> For All Your Needs"
+      subtitle="Colorado's #1 Veteran-Owned Roofing Company"
+    >
       <p>
-        Your roof shouldn't wait because the timing isn't perfect. We work with Service Finance Company and
-        Wisetack to offer payment plans that fit real budgets — starting at $99/month, with no down payment
-        required and no penalty if you pay it off early.
+        Your roof shouldn't wait because the timing isn't perfect. We work with Service Finance Company and Wisetack to
+        offer payment plans that fit real budgets — starting at $99/month, with no down payment required and no penalty
+        if you pay it off early.
       </p>
     </Hero>
   </div>
@@ -125,17 +132,21 @@ import heroImage from '@/assets/bg/faq-and-financing-section__hero.avif';
           <ul class="flex flex-col gap-[16px]">
             <li class="flex items-center gap-[12px]">
               <Icon name="circle-tick" class="text-primary size-8" />
-              <span class="text-lg lg:text-[20px] leading-snug lg:leading-[32px] font-semibold text-[#ccc]"
+              <span class="text-lg leading-snug font-semibold text-[#ccc] lg:text-[20px] lg:leading-[32px]"
                 >Pay nothing for the first 6 months</span
               >
             </li>
             <li class="flex items-center gap-[12px]">
               <Icon name="circle-tick" class="text-primary size-8" />
-              <span class="text-lg lg:text-[20px] leading-snug lg:leading-[32px] font-semibold text-[#ccc]">0% interest for 12 months</span>
+              <span class="text-lg leading-snug font-semibold text-[#ccc] lg:text-[20px] lg:leading-[32px]"
+                >0% interest for 12 months</span
+              >
             </li>
             <li class="flex items-center gap-[12px]">
               <Icon name="circle-tick" class="text-primary size-8" />
-              <span class="text-lg lg:text-[20px] leading-snug lg:leading-[32px] font-semibold text-[#ccc]">New door from $39/mo</span>
+              <span class="text-lg leading-snug font-semibold text-[#ccc] lg:text-[20px] lg:leading-[32px]"
+                >New door from $39/mo</span
+              >
             </li>
           </ul>
 
@@ -175,10 +186,12 @@ import heroImage from '@/assets/bg/faq-and-financing-section__hero.avif';
               financeSteps.map((f, i) => (
                 <div
                   class={cn(
-                    'w-full max-w-[320px] lg:w-[300px] relative transition-transform duration-200 ease-out hover:-translate-y-4 hover:scale-105 cursor-pointer',
-                    i === 0 ? 'z-30 hover:z-50 lg:group-hover:-translate-x-20' : 
-                    i === 1 ? 'z-20 hover:z-50' : 
-                    'z-10 hover:z-50 lg:group-hover:translate-x-20'
+                    'relative w-full max-w-[320px] cursor-pointer transition-transform duration-200 ease-out hover:-translate-y-4 hover:scale-105 lg:w-[300px]',
+                    i === 0
+                      ? 'z-30 hover:z-50 lg:group-hover:-translate-x-20'
+                      : i === 1
+                        ? 'z-20 hover:z-50'
+                        : 'z-10 hover:z-50 lg:group-hover:translate-x-20'
                   )}
                 >
                   <FinanceStepCard image={f.image} step={f.step} title={f.title} description={f.description} />
@@ -187,7 +200,6 @@ import heroImage from '@/assets/bg/faq-and-financing-section__hero.avif';
             }
           </div>
         </div>
-
       </div>
     </div>
   </NoiseBg>
@@ -204,18 +216,35 @@ import heroImage from '@/assets/bg/faq-and-financing-section__hero.avif';
     <Faqs />
   </div>
 
-  <div id="sticky-financing-banner" class="fixed bottom-[80px] lg:sticky lg:bottom-4 z-50 mx-auto w-full lg:mb-10 lg:max-w-[942px] lg:px-4 pointer-events-none transition-all duration-300 ease-out translate-y-[20px] opacity-0 flex flex-col items-center">
-    
+  <div
+    id="sticky-financing-banner"
+    class="pointer-events-none fixed bottom-[80px] z-50 mx-auto flex w-full translate-y-[20px] flex-col items-center opacity-0 transition-all duration-300 ease-out lg:sticky lg:bottom-4 lg:mb-10 lg:max-w-[942px] lg:px-4"
+  >
     <!-- Close Button (Mobile only) -->
-    <div class="w-full flex justify-end lg:hidden pointer-events-auto pr-6 mb-[-24px] relative z-10">
-      <button id="close-financing-banner" class="flex size-[52px] items-center justify-center rounded-full bg-primary border-[2.5px] border-[#111] text-[#111] shadow-lg transition-transform active:scale-95" aria-label="Dismiss">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    <div class="pointer-events-auto relative z-10 mb-[-24px] flex w-full justify-end pr-6 lg:hidden">
+      <button
+        id="close-financing-banner"
+        class="bg-primary flex size-[52px] items-center justify-center rounded-full border-[2.5px] border-[#111] text-[#111] shadow-lg transition-transform active:scale-95"
+        aria-label="Dismiss"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
+        >
       </button>
     </div>
 
     <!-- Banner Inner -->
-    <div class="bg-primary pointer-events-auto w-full lg:rounded-lg shadow-[0_-10px_40px_rgba(0,0,0,0.15)] ring-1 ring-black/5 lg:ring-white/10 origin-bottom transition duration-200 ease-out lg:scale-[0.7] lg:hover:scale-100 lg:hover:shadow-[0_40px_60px_rgba(0,0,0,0.4)]">
-      
+    <div
+      class="bg-primary pointer-events-auto w-full origin-bottom shadow-[0_-10px_40px_rgba(0,0,0,0.15)] ring-1 ring-black/5 transition duration-200 ease-out lg:scale-[0.7] lg:rounded-lg lg:ring-white/10 lg:hover:scale-100 lg:hover:shadow-[0_40px_60px_rgba(0,0,0,0.4)]"
+    >
       <!-- Mobile Layout -->
       <div class="flex flex-col gap-6 px-6 pt-6 pb-6 lg:hidden">
         <!-- Top row: image + text -->
@@ -226,25 +255,36 @@ import heroImage from '@/assets/bg/faq-and-financing-section__hero.avif';
               width={216}
               height={116}
               alt="Credit Card"
-              class="w-[108px] h-[58px] object-cover drop-shadow-sm"
+              class="h-[58px] w-[108px] object-cover drop-shadow-sm"
               style="aspect-ratio: 54/29;"
             />
           </div>
           <div class="flex flex-1 flex-col gap-2 text-[#000]">
-            <h4 style="font-family: 'Instrument Serif', serif; font-size: 20px; font-weight: 400; line-height: 28px; color: #000;">Explore 0%* APR Financing for your project</h4>
-            <p style="font-family: Manrope, sans-serif; font-size: 12px; font-weight: 400; line-height: 16px; color: #444;">*0% interest for promotional period only</p>
+            <h4
+              style="font-family: 'Instrument Serif', serif; font-size: 20px; font-weight: 400; line-height: 28px; color: #000;"
+            >
+              Explore 0%* APR Financing for your project
+            </h4>
+            <p
+              style="font-family: Manrope, sans-serif; font-size: 12px; font-weight: 400; line-height: 16px; color: #444;"
+            >
+              *0% interest for promotional period only
+            </p>
           </div>
         </div>
 
         <!-- Bottom row: button (left) + phone (centered) -->
-        <div class="flex items-center justify-between w-full">
+        <div class="flex w-full items-center justify-between">
           <Button
-            class="bg-white text-[#111] px-5 py-2.5 text-sm font-semibold rounded-[4px] shadow-[0_2px_4px_rgba(0,0,0,0.08)] hover:bg-white active:scale-95 transition-transform"
+            class="rounded-[4px] bg-white px-5 py-2.5 text-sm font-semibold text-[#111] shadow-[0_2px_4px_rgba(0,0,0,0.08)] transition-transform hover:bg-white active:scale-95"
             data-estimate-trigger
           >
             See Options
           </Button>
-          <a href="tel:9708887230" class="flex flex-1 items-center justify-center gap-2 text-[#111] font-medium text-[18px] transition-opacity hover:opacity-80">
+          <a
+            href="tel:9708887230"
+            class="flex flex-1 items-center justify-center gap-2 text-[18px] font-medium text-[#111] transition-opacity hover:opacity-80"
+          >
             <Icon name="phone" class="size-5" />
             <span>(970) 888-7230</span>
           </a>
@@ -252,7 +292,7 @@ import heroImage from '@/assets/bg/faq-and-financing-section__hero.avif';
       </div>
 
       <!-- Desktop Layout -->
-      <div class="hidden lg:flex w-full flex-col items-center gap-6 p-5 lg:p-6 lg:flex-row lg:items-center">
+      <div class="hidden w-full flex-col items-center gap-6 p-5 lg:flex lg:flex-row lg:items-center lg:p-6">
         <div class="shrink-0">
           <Image
             src={CreditCardImage}
@@ -276,7 +316,10 @@ import heroImage from '@/assets/bg/faq-and-financing-section__hero.avif';
             >
               See Options
             </Button>
-            <a href="tel:9708887230" class="flex items-center gap-x-2 text-lg font-semibold transition-opacity hover:opacity-80 lg:text-base">
+            <a
+              href="tel:9708887230"
+              class="flex items-center gap-x-2 text-lg font-semibold transition-opacity hover:opacity-80 lg:text-base"
+            >
               <Icon name="phone" class="size-6" />
               <span>(970) 888-7230 </span>
             </a>
@@ -289,6 +332,99 @@ import heroImage from '@/assets/bg/faq-and-financing-section__hero.avif';
   <div id="brands-section">
     <Brands />
   </div>
+
+  <!-- CTA Section -->
+  <section class="py-10 sm:py-20">
+    <div class="container">
+      <div
+        class="border-gradient before:via-primary relative before:bg-linear-to-r before:from-transparent before:to-transparent"
+      >
+        <div class="relative overflow-hidden rounded-[24px]">
+          <Image
+            src={roof}
+            width={roof.width}
+            height={roof.height}
+            alt="roof"
+            class="absolute top-0 right-0 h-[140%] w-full object-cover object-right opacity-70 transition-opacity duration-700"
+          />
+
+          <Image
+            src={noise}
+            alt="noise"
+            class="absolute top-0 right-0 h-[140%] w-full object-cover object-right opacity-10 transition-opacity duration-700"
+          />
+
+          <!-- Content -->
+          <div
+            class="relative z-10 flex flex-col items-center gap-6 bg-linear-[30deg] from-[rgba(242,199,68,0.7)] to-[rgba(13,13,13,0.3)] to-45% px-6 py-6 text-center"
+          >
+            <!-- Badge/Chip -->
+            <BadgeTitle badge="Let's Get Started" title="Apply Online Today" class="flex flex-col items-center" />
+
+            <!-- Heading & Text -->
+            <p class="text-neutral-lighter mx-auto max-w-2xl pb-6 text-sm leading-relaxed">
+              Most homeowners put off a roof they know needs replacing because the cost feels like too much to take on
+              at once. Financing changes that. Fill out a short form, see your options, and get your project on the
+              calendar — without emptying your savings account.
+            </p>
+
+            <!-- Button with Arrow Callout -->
+            <div class="relative">
+              <EstimateButton offerText="" actionText="Get Approved" />
+
+              <!-- Arrow & Handwritten Note (Visible on desktop) -->
+              <div class="absolute -top-4 left-[calc(100%+16px)] hidden -translate-y-1/2 lg:flex">
+                <div class="flex items-center gap-4 whitespace-nowrap">
+                  <!-- Arrow -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="90"
+                    height="23"
+                    viewBox="0 0 90 23"
+                    fill="none"
+                    class="h-8 w-auto opacity-60"
+                  >
+                    <path
+                      d="M4.20312 7.70595C14.8698 11.296 41.8031 17.5068 64.2031 13.6295C67.9365 13.2705 77.9631 10.6139 88.2031 2.85938"
+                      stroke="url(#paint0_linear_17029_56390)"
+                      stroke-width="2"
+                      stroke-linecap="round"></path>
+                    <path
+                      d="M20.4375 0.172852C20.8942 -0.137698 21.5166 -0.0191765 21.8271 0.4375C22.1377 0.89419 22.0192 1.51659 21.5625 1.82715C15.0658 6.24489 9.5142 7.77626 5.59277 8.00488C7.38685 9.14202 9.34084 10.5047 11.1934 12.0117C14.6103 14.7914 17.8599 18.2007 18.9541 21.7021C19.1186 22.2292 18.8249 22.7894 18.2979 22.9541C17.7708 23.1186 17.2106 22.8249 17.0459 22.2979C16.14 19.3994 13.3061 16.3086 9.93164 13.5635C6.59779 10.8514 2.9074 8.61271 0.541016 7.38867C0.0506437 7.13503 -0.141991 6.53147 0.111328 6.04102C0.285754 5.70379 0.625663 5.50741 0.980469 5.5C1.01809 5.49924 1.05586 5.50131 1.09375 5.50488C1.15292 5.51041 1.21209 5.52065 1.27051 5.53711C1.28039 5.5399 1.28996 5.54377 1.2998 5.54688C1.32266 5.55409 1.34561 5.56135 1.36816 5.57031C1.36912 5.57069 1.37014 5.57091 1.37109 5.57129C3.46043 6.40702 10.6073 6.8574 20.4375 0.172852Z"
+                      fill="white"></path>
+                    <defs>
+                      <linearGradient
+                        id="paint0_linear_17029_56390"
+                        x1="98.6031"
+                        y1="5.01341"
+                        x2="62.5709"
+                        y2="-26.4136"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop stop-color="#686868"></stop>
+                        <stop offset="1" stop-color="white"></stop>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+
+                  <div class="font-caveat flex translate-y-4 rotate-[-10deg] flex-col items-start">
+                    <span
+                      class="bg-linear-to-r from-white to-[#8C8C8C] bg-clip-text text-3xl leading-tight text-transparent italic"
+                      >No Obligation</span
+                    >
+                    <span
+                      class="bg-linear-to-r from-white/80 to-[#8C8C8C]/80 bg-clip-text text-[19px] leading-none text-transparent"
+                      >It only takes 60 seconds</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <Footer />
 </Layout>
 
