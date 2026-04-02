@@ -34,16 +34,11 @@ const {
   hasSocialProof = true,
   hasEstimateButton = true,
 } = Astro.props;
-
-const heroBgSrc =
-  typeof backgroundImage === 'string'
-    ? backgroundImage
-    : (await getImage({ src: backgroundImage, width: 1536, height: 1152, format: 'webp' })).src;
 ---
 
 <section class={cn('relative lg:max-h-[833px]', className)}>
   <Image
-    src={heroBgSrc}
+    src={backgroundImage as any}
     alt="hero-bg"
     width={1536}
     height={1152}
