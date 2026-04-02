@@ -40,7 +40,7 @@ const staticPages: SitemapEntry[] = [
   { url: '/before-and-after', changefreq: 'weekly', priority: 0.7, lastmod: today },
 
   // Blog hub
-  { url: '/blogs', changefreq: 'weekly', priority: 0.8, lastmod: today },
+  { url: '/blog', changefreq: 'weekly', priority: 0.8, lastmod: today },
 
   // Case studies hub
   { url: '/case-studies', changefreq: 'weekly', priority: 0.7, lastmod: today },

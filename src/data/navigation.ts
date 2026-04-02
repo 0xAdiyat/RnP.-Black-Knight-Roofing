@@ -3,7 +3,7 @@ export const quickLinks = [
   { label: 'About', url: '/about-us' },
   { label: 'Past Work', url: '/gallery' },
   { label: 'Financing', url: '/financing' },
-  { label: 'Blogs', url: '/blogs' },
+  { label: 'Blogs', url: '/blog' },
   { label: 'FAQs', url: '/faqs' },
   { label: 'Services', url: '/services' },
   { label: 'Service Areas', url: '/service-areas' },

@@ -67,7 +67,7 @@ const blogEntries = [
 
 export const blogListItems: BlogListItem[] = blogEntries.map((blog) => ({
   ...blog,
-  href: `/blogs/${blog.slug}`,
+  href: `/blog/${blog.slug}`,
 }));
 
 export const recentBlogListItems = blogListItems.slice(0, 3);
