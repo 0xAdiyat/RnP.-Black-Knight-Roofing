@@ -39,7 +39,6 @@ interface VisualService {
   class?: string;
   premium?: boolean;
   href?: string;
-  buttons?: ServiceButton[] | string[];
 }
 
 const visualServices: VisualService[] = [
@@ -118,15 +117,14 @@ const mobileStackServices = [
 
 <NoiseBg class="relative overflow-x-hidden px-0 py-20">
   <div class="">
-    <div
-      class="absolute inset-0 top-0 left-0 flex h-20 w-full items-center justify-center"
-      style={`
-          background-image: url(${dividerImageOp.src});
-          background-repeat: no-repeat;
-          background-position: center;
-      `}
-    >
-    </div>
+    <Image
+      src={dividerImage}
+      alt="Divider"
+      width={1500}
+      height={80}
+      fetchpriority="high"
+      class="absolute inset-0 top-0 left-0 flex h-10 w-full items-center justify-center"
+    />
 
     <div class="z-10 container space-y-12 py-8 lg:py-12">
       <!-- Heading Content -->
@@ -331,15 +329,14 @@ const mobileStackServices = [
   />
 
   <!-- Divider shape -->
-  <div
-    class="absolute right-0 bottom-0 left-0 flex h-20 w-full items-center justify-center"
-    style={`
-          background-image: url(${dividerImageOp.src});
-          background-repeat: no-repeat;
-          background-position: center;
-      `}
-  >
-  </div>
+  <Image
+    src={dividerImage}
+    alt="Divider"
+    width={1500}
+    height={80}
+    fetchpriority="high"
+    class="absolute right-0 bottom-0 left-0 flex h-10 w-full items-center justify-center"
+  />
 </NoiseBg>
 
 <script>
