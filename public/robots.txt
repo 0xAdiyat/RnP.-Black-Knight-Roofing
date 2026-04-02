@@ -1,2 +1,13 @@
+# Black Knight Roofing — robots.txt
+# https://www.blackknightroofing.com
+
 User-agent: *
-Disallow: /
+Allow: /
+
+# Block low-value & internal paths
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /404
+
+# Sitemaps
+Sitemap: https://www.blackknightroofing.com/sitemap.xml
