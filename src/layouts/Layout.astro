@@ -57,13 +57,13 @@ const socialImageURL = new URL(image, siteUrl);
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
     <ClientRouter />
-    <SpeedInsights />
   </head>
   <body>
     <slot />
-    <HumanManifesto />
-    <EstimateDialog />
-    <SiteLinksModal />
+    <HumanManifesto transition:persist />
+    <EstimateDialog transition:persist />
+    <SiteLinksModal transition:persist />
+    <SpeedInsights />
   </body>
 </html>
 
