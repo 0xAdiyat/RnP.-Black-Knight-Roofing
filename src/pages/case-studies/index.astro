@@ -18,54 +18,62 @@ import WorkCard from '@/components/recent-projects/WorkCard.astro';
 import Pagination from '@/components/ui/pagination/Pagination.astro';
 import Carousel from '@/components/ui/Carousel.astro';
 import heroBg from '@/assets/bg/case-studies-section__hero.avif';
+import caseStudiesHero from '@/assets/bg/case-studies-section__hero.avif';
+import sidingHero from '@/assets/bg/siding-section__hero.avif';
+import metalRoofingHero from '@/assets/bg/metal-roofing-section__hero.avif';
+import concreteTileHero from '@/assets/bg/concrete-tile-roof-section__hero.avif';
+import asphaltShingleHero from '@/assets/bg/roof-replacement-section__hero.avif';
+import commercialRoofingHero from '@/assets/bg/commercial-roofing-section__hero.avif';
+import guttersHero from '@/assets/bg/gutters-section__hero.avif';
+import hailHero from '@/assets/bg/hail-damage-repair-section__hero.avif';
 
 const works = [
   {
-    image: '/bg/case-studies-section__hero.avif',
+    image: caseStudiesHero,
     title: 'EDCO METAL SIDING',
     subtitle: 'CHARCOAL GRAY',
-    category: 'Roofing',
+    category: 'Siding',
   },
   {
-    image: '/placeholders/works/metal-roof-installation-colorado.jpg',
+    image: metalRoofingHero,
     title: 'Stone Coated Steel',
     subtitle: 'Weathered Wood',
     category: 'Roofing',
   },
   {
-    image: '/placeholders/works/shingle-roof-replacement-denver.jpg',
+    image: concreteTileHero,
     title: 'Concrete Tile',
     subtitle: 'Barcelona Sand',
     category: 'Roofing',
   },
   {
-    image: '/placeholders/works/storm-damage-roof-repair-co.jpg',
+    image: asphaltShingleHero,
     title: 'Asphalt Shingle',
     subtitle: 'Estate Gray',
     category: 'Roofing',
   },
   {
-    image: '/bg/case-studies-section__hero.avif',
-    title: 'EDCO METAL SIDING',
-    subtitle: 'CHARCOAL GRAY',
+    image: sidingHero,
+    title: 'Vinyl Siding Replacement',
+    subtitle: 'DESERT TAN',
+    category: 'Siding',
+  },
+  {
+    image: commercialRoofingHero,
+    title: 'TPO Commercial Roof',
+    subtitle: 'Flat Roof Specialist',
     category: 'Roofing',
   },
   {
-    image: '/placeholders/works/metal-roof-installation-colorado.jpg',
-    title: 'Stone Coated Steel',
-    subtitle: 'Weathered Wood',
-    category: 'Roofing',
+    image: guttersHero,
+    title: 'Seamless Gutters',
+    subtitle: '6-Inch K-Style',
+    category: 'Gutters',
   },
   {
-    image: '/placeholders/works/shingle-roof-replacement-denver.jpg',
-    title: 'Concrete Tile',
-    subtitle: 'Barcelona Sand',
-    category: 'Roofing',
-  },
-  {
-    image: '/placeholders/works/storm-damage-roof-repair-co.jpg',
-    title: 'Asphalt Shingle',
-    subtitle: 'Estate Gray',
+    image: hailHero,
+    title: 'Hail Damage Repair',
+    subtitle: 'Insurance Claim Expert',
     category: 'Roofing',
   },
 ];
