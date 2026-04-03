@@ -28,7 +28,7 @@ const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
   />
 
   <!-- Subtle Desktop Overlay -->
-  <div class="pointer-events-none absolute inset-0 -z-10 hidden h-full w-full bg-black/20 lg:block"></div>
+  <div class="pointer-events-none absolute inset-0 -z-10 hidden h-full w-full bg-black/25 lg:block"></div>
 
   <!-- Hero Left Shape -->
   <Image
@@ -158,13 +158,9 @@ const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
                   stroke-width="1.95046"></path>
               </g>
               <defs>
-                 <pattern id="pattern0_16409_61398" patternUnits="userSpaceOnUse" width="200" height="200">
-                   <image
-                     width="200"
-                     height="200"
-                     xlink:href={noiseBgOp.src}
-                   />
-                 </pattern>
+                <pattern id="pattern0_16409_61398" patternUnits="userSpaceOnUse" width="200" height="200">
+                  <image width="200" height="200" xlink:href={noiseBgOp.src} />
+                </pattern>
                 <radialGradient
                   id="paint0_radial_16409_61398"
                   cx="0"
@@ -187,7 +183,6 @@ const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
                   <stop stop-color="#F2C744"></stop>
                   <stop offset="1" stop-color="#594216"></stop>
                 </radialGradient>
-
               </defs>
             </svg>
 

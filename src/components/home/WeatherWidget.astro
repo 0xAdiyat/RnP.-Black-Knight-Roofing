@@ -3,14 +3,13 @@ import Button from '@/components/ui/Button.astro';
 import stormBg from '@/assets/storm-bg.png';
 ---
 
-<div class="weather-widget absolute top-[62%] right-0 z-10 hidden w-[132px] -translate-y-1/2 overflow-hidden rounded-l-[10px] lg:block">
-  <div class="bg-tertiary flex w-full flex-col items-center p-2">
-    <div class="flex flex-col items-center uppercase">
+<div class="weather-widget absolute top-[55%] right-0 z-10 hidden w-[124px] -translate-y-1/2 overflow-hidden rounded-l-md lg:block">  <div class="bg-tertiary flex w-full flex-col items-center p-3">
+    <div class="flex flex-col items-center text-[11px] font-bold tracking-wider uppercase">
       <strong> COLORADO</strong>
-      <span> WEATHER</span>
+      <span class="text-[9px] font-medium opacity-80"> WEATHER</span>
     </div>
-    <div>
-      <svg xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71" fill="none">
+    <div class="py-1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 71 71" fill="none" class="h-12 w-12">
         <path
           d="M28.7554 53.605C18.7444 53.605 10.6504 45.511 10.6504 35.5C10.6504 25.489 18.7444 17.395 28.7554 17.395C35.5714 17.395 41.4644 21.158 44.5174 26.696C45.2984 26.554 46.0084 26.483 46.7894 26.483C54.2444 26.483 60.3504 32.518 60.3504 40.044C60.3504 47.499 54.3154 53.605 46.7894 53.605C43.6654 53.605 32.3054 53.605 28.7554 53.605Z"
           fill="white"></path>
@@ -20,11 +19,11 @@ import stormBg from '@/assets/storm-bg.png';
       </svg>
     </div>
 
-    <h5 class="font-body leading-8 font-medium">45°F</h5>
-    <div class="text-center text-[11px]">scattered clouds</div>
+    <div class="text-xl leading-none font-bold">45°F</div>
+    <div class="mt-1 text-center text-[9px] opacity-80 uppercase tracking-tight">scattered clouds</div>
   </div>
   <div
-    class="px-4 py-3"
+    class="px-3 py-5"
     style={`
       background-image:url(${stormBg.src});
       background-repeat: no-repeat;
@@ -32,13 +31,13 @@ import stormBg from '@/assets/storm-bg.png';
       background-size: cover;
     `}
   >
-    <div class="space-y-4 py-1">
-      <p class="font-[Inter] text-center">
-        <span class="underline decoration-white/80 underline-offset-4">
-          Do you have <strong class="font-[Inter] font-semibold"> storm damage?</strong>
+    <div class="space-y-4 py-0.5">
+      <p class="font-[Inter] text-center text-[14px] leading-tight">
+        <span class="underline decoration-white/60 underline-offset-2">
+          Do you have <strong class="font-semibold">storm damage?</strong>
         </span>
       </p>
-      <Button class="text-center text-xs font-bold" href="/contact-us" data-estimate-trigger>Get an Inspection</Button>
+      <Button class="h-10 w-full text-center text-xs font-bold" href="/contact-us" data-estimate-trigger>Get an Inspection</Button>
     </div>
   </div>
 </div>
@@ -52,13 +51,11 @@ import stormBg from '@/assets/storm-bg.png';
   @keyframes weather-widget-enter {
     from {
       opacity: 0;
-      transform: translateX(48px) translateY(-50%);
-    }
+      transform: translateX(48px) translateY(-50%);    }
 
     to {
       opacity: 1;
-      transform: translateX(0) translateY(-50%);
-    }
+      transform: translateX(0) translateY(-50%);    }
   }
 
   @media (prefers-reduced-motion: reduce) {
