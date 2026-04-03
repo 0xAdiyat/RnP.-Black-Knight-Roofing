@@ -20,6 +20,7 @@ import Statistics from '@/components/ui/Statistics.astro';
 import sunflow from '@/assets/sunflow.avif';
 import WhyStoneCoated from '@/components/services/WhyStoneCoated.astro';
 import heroImage from '@/assets/bg/stone-coated-steel-roofing-section__hero.avif';
+import profileImg from '@/assets/hero-person.avif';
 
 import heroBg from '@/assets/tiles/hero-bg.png';
 import heroGradient from '@/assets/tiles/hero-gradient.png';
@@ -51,23 +52,9 @@ const categories = [
     items: [
       {
         id: 'wind-performance',
-        title: 'High-Wind Performance',
+        title: 'Wind',
         description:
-          'Unified Steel™ panels feature a unique interlocking design that creates a structural barrier against high winds. This system is tested and warranted to withstand winds up to 120 mph, making it ideal for the Colorado Front Range.',
-        image: steelWindPerformance,
-      },
-      {
-        id: 'structural-overlap',
-        title: 'Superior Uplift Resistance',
-        description:
-          'Unlike standard shingles that overlap loosely, our panels fasten to each other and to the roof deck, providing superior resistance to wind uplift even in extreme pressure-change events.',
-        image: steelWindPerformance,
-      },
-      {
-        id: 'hurricane-force',
-        title: 'Hurricane-Force Durability',
-        description:
-          'Extensively tested in high-velocity hurricane zones, Unified Steel™ maintains its integrity when other materials fail, securing your home’s envelope against wind-driven rain.',
+          'Unified Steel™ panels are tested and warranted to withstand 120 mph winds — well above the sustained gusts that Front Range storms regularly produce. Interlocking panel design means there are no exposed edges to catch and lift. Where asphalt shingles lose tabs and break seals, stone-coated steel holds.',
         image: steelWindPerformance,
       },
     ],
@@ -78,23 +65,9 @@ const categories = [
     items: [
       {
         id: 'hail-armor',
-        title: 'Extreme Hail Armor',
+        title: 'Hail',
         description:
-          'Unified Steel™ is built with standard Class 4 impact resistance — the industry\'s highest rating. These panels are engineered to survive 2½" steel ball drops, easily handling Front Range hail that destroys asphalt.',
-        image: steelHailResistance,
-      },
-      {
-        id: 'stone-coated-resilience',
-        title: 'Stone-Coated Resilience',
-        description:
-          'The natural stone granule coating acts as a sacrificial barrier, absorbing impact energy and preventing the steel core from denting or siphoning moisture after a strike.',
-        image: steelHailResistance,
-      },
-      {
-        id: 'shatterproof-steel',
-        title: 'Shatterproof Steel Core',
-        description:
-          'Where traditional tile might crack or shatter under extreme impact, our structural steel core remains intact, ensuring your home stays dry even after the most severe Colorado summer storms.',
+          'All Unified Steel™ panels carry a Class 4 hail impact rating — the highest available. They\'re warranted against hailstones up to 2½" in diameter, which covers the majority of hail events recorded along Colorado\'s Front Range. Normal shingles crack and bruise under repeated hail. Stone-coated steel takes the hit and stays weathertight.',
         image: steelHailResistance,
       },
     ],
@@ -105,51 +78,10 @@ const categories = [
     items: [
       {
         id: 'fire-rating',
-        title: 'Class A Fire Rating',
+        title: 'Fire',
         description:
-          'Safety is paramount in Colorado’s fire-prone landscapes. Unified Steel™ provides a non-combustible Class A fire rating, the highest protection available against wind-blown embers.',
+          'Unified Steel™ uses fire-resistant materials that carry a Class A fire rating — the highest classification available for roofing products. In Colorado, where wildfire risk is real and growing, a non-combustible roof is a meaningful layer of protection for your home and your insurance rate.',
         image: steelFireSafety,
-      },
-      {
-        id: 'non-combustible',
-        title: 'Non-Combustible Material',
-        description:
-          'Being made of high-grade steel, these panels will not ignite or fuel a fire. They act as a critical shield, preventing exterior heat and embers from reaching your home’s structure.',
-        image: steelFireSafety,
-      },
-      {
-        id: 'lightweight-safety',
-        title: 'Lightweight Protection',
-        description:
-          'Weighing only 1.4 lbs per square foot, you get heavy-duty fire protection without the need for structural reinforcement often required by heavy clay or concrete tiles.',
-        image: steelFireSafety,
-      },
-    ],
-  },
-  {
-    id: 'energy',
-    label: 'Energy',
-    items: [
-      {
-        id: 'asv-ventilation',
-        title: 'Above-Sheathing Ventilation',
-        description:
-          'Our Elevated Batten System® (EBS) creates a continuous air channel between the roof deck and the panels, reducing heat transfer into your attic by up to 45%.',
-        image: steelEnergyEfficiency,
-      },
-      {
-        id: 'cool-roof',
-        title: 'Cool Roof Technology',
-        description:
-          'Stone-coated energy-efficient colors reflect solar radiation, significantly lowering attic temperatures during peak Colorado summer days and reducing cooling costs.',
-        image: steelEnergyEfficiency,
-      },
-      {
-        id: 'thermal-barrier',
-        title: 'Thermal Barrier',
-        description:
-          'The combination of air spacing and reflective granules works as a natural insulator, keeping your home warmer in winter and drastically cooler in summer compared to asphalt.',
-        image: steelEnergyEfficiency,
       },
     ],
   },
@@ -344,6 +276,10 @@ const stoneSteelProfiles = [
     title="Extreme Weather Protection for Colorado Homes"
     description="Colorado doesn't have one type of severe weather — it has all of them. Hail season runs April through September. Wind events regularly push past 60 mph on the Front Range. Wildfires are a growing concern across the state, and UV exposure at altitude degrades ordinary roofing materials faster than anywhere at sea level. Unified Steel™ stone-coated panels are engineered to handle all of it — tested and warranted, not just rated."
     categories={categories}
+    quote="“For every weather we got you covered.”"
+    quoteAuthor="Adam Knight"
+    quoteRole="Owner & Stone Coated Steel Expert"
+    quoteImage={profileImg}
     source={{
       label: 'Source: Westlake Royal Building Products — Unified Steel™',
       href: 'https://www.westlakeroyalroofing.com/unified-steel/',
