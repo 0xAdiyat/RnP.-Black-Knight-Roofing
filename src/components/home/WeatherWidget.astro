@@ -3,8 +3,7 @@ import Button from '@/components/ui/Button.astro';
 import stormBg from '@/assets/storm-bg.png';
 ---
 
-<div class="weather-widget absolute top-1/2 right-0 z-10 hidden w-[124px] -translate-y-1/2 overflow-hidden rounded-l-md lg:block">
-  <div class="bg-tertiary flex w-full flex-col items-center p-2 pt-4">
+<div class="weather-widget absolute top-[55%] right-0 z-10 hidden w-[124px] -translate-y-1/2 overflow-hidden rounded-l-md lg:block">  <div class="bg-tertiary flex w-full flex-col items-center p-3">
     <div class="flex flex-col items-center text-[11px] font-bold tracking-wider uppercase">
       <strong> COLORADO</strong>
       <span class="text-[9px] font-medium opacity-80"> WEATHER</span>
@@ -52,13 +51,11 @@ import stormBg from '@/assets/storm-bg.png';
   @keyframes weather-widget-enter {
     from {
       opacity: 0;
-      transform: translateX(48px) translateY(-50%);
-    }
+      transform: translateX(48px) translateY(-50%);    }
 
     to {
       opacity: 1;
-      transform: translateX(0) translateY(-50%);
-    }
+      transform: translateX(0) translateY(-50%);    }
   }
 
   @media (prefers-reduced-motion: reduce) {
