@@ -1,0 +1,87 @@
+
+> build
+> astro build
+
+13:44:09 [content] Syncing content
+13:44:09 [content] Synced content
+13:44:09 [types] Generated 32ms
+13:44:10 [build] output: "server"
+13:44:10 [build] mode: "server"
+13:44:10 [build] directory: /Users/0xadiyat/IdeaProjects/RnP.-Black-Knight-Roofing/dist/
+13:44:10 [build] adapter: @astrojs/vercel
+13:44:10 [build] Collecting build info...
+13:44:10 [build] ✓ Completed in 1.04s.
+13:44:10 [build] Building server entrypoints...
+13:44:12 [astro-icon] Loaded icons from src/icons
+13:44:14 [vite] ✓ built in 3.32s
+13:44:14 [build] ✓ Completed in 3.35s.
+
+ building client (vite) 
+13:44:14 [vite] transforming...
+13:44:14 [vite] ✓ 99 modules transformed.
+13:44:15 [vite] rendering chunks...
+13:44:15 [vite] computing gzip size...
+13:44:15 [vite] dist/client/_astro/swiper.vGUScjdh.css                                              4.13 kB │ gzip:  1.11 kB
+13:44:15 [vite] dist/client/_astro/client.B9YBqyHK.js                                               0.03 kB │ gzip:  0.05 kB
+13:44:15 [vite] dist/client/_astro/create-element-if-not-defined.D6ulWgWK.js                        0.27 kB │ gzip:  0.23 kB
+13:44:15 [vite] dist/client/_astro/Brands.astro_astro_type_script_index_0_lang.uSYY55Z_.js          0.40 kB │ gzip:  0.30 kB
+13:44:15 [vite] dist/client/_astro/Process.astro_astro_type_script_index_0_lang.BtqItoLL.js         0.49 kB │ gzip:  0.33 kB
+13:44:15 [vite] dist/client/_astro/ProjectSwiper.astro_astro_type_script_index_0_lang.ZF_szJu5.js   0.50 kB │ gzip:  0.35 kB
+13:44:15 [vite] dist/client/_astro/Services.astro_astro_type_script_index_0_lang.CU_ueE5A.js        0.85 kB │ gzip:  0.49 kB
+13:44:15 [vite] dist/client/_astro/EstimateForm.astro_astro_type_script_index_0_lang.DlNgp24w.js    0.85 kB │ gzip:  0.49 kB
+13:44:15 [vite] dist/client/_astro/ContactUsForm.astro_astro_type_script_index_0_lang.CQMGwZLA.js   0.91 kB │ gzip:  0.50 kB
+13:44:15 [vite] dist/client/_astro/Carousel.astro_astro_type_script_index_0_lang.C6Dpbtz3.js        1.30 kB │ gzip:  0.64 kB
+13:44:15 [vite] dist/client/_astro/free-mode.B5izbPMG.js                                            3.40 kB │ gzip:  1.23 kB
+13:44:15 [vite] dist/client/_astro/effect-cards.JVA1sU2F.js                                         3.90 kB │ gzip:  1.77 kB
+13:44:15 [vite] dist/client/_astro/autoplay.CipcOlCj.js                                             4.02 kB │ gzip:  1.47 kB
+13:44:15 [vite] dist/client/_astro/navigation.B3DRB8KN.js                                           4.13 kB │ gzip:  1.68 kB
+13:44:15 [vite] dist/client/_astro/QuoteForm.astro_astro_type_script_index_0_lang.Dj9uVyw9.js       5.98 kB │ gzip:  2.02 kB
+13:44:15 [vite] dist/client/_astro/virtual.DZ0mowqP.js                                              6.79 kB │ gzip:  3.08 kB
+13:44:15 [vite] dist/client/_astro/pagination.BHK2EdUH.js                                           8.91 kB │ gzip:  2.91 kB
+13:44:15 [vite] dist/client/_astro/ClientRouter.astro_astro_type_script_index_0_lang.DiM-wiTE.js   15.40 kB │ gzip:  5.31 kB
+13:44:15 [vite] dist/client/_astro/swiper.ocZRPqS2.js                                              69.48 kB │ gzip: 21.60 kB
+13:44:15 [vite] ✓ built in 1.60s
+
+ prerendering static routes 
+13:44:15 ▶ src/pages/blog/[slug].astro
+13:44:15   ├─ /blog/hail-damage-9-signs/index.html (+39ms) 
+13:44:16   ├─ /blog/roof-replacement-cost/index.html (+13ms) 
+13:44:16   ├─ /blog/spring-roof-maintenance/index.html (+10ms) 
+13:44:16   ├─ /blog/the-5-roof-leaks/index.html (+12ms) 
+13:44:16   ├─ /blog/colorado-wind-uplift/index.html (+8ms) 
+13:44:16   └─ /blog/hail-damage-checklist/index.html (+9ms) 
+13:44:16 ▶ src/pages/case-studies/[slug].astro
+13:44:16   ├─ /case-studies/edco-metal-siding-charcoal-gray/index.html (+12ms) 
+13:44:16   ├─ /case-studies/stone-coated-steel-weathered-wood/index.html (+12ms) 
+13:44:16   ├─ /case-studies/concrete-tile-barcelona-sand/index.html (+12ms) 
+13:44:16   ├─ /case-studies/asphalt-shingle-estate-gray/index.html (+13ms) 
+13:44:16   ├─ /case-studies/vinyl-siding-replacement-desert-tan/index.html (+18ms) 
+13:44:16   ├─ /case-studies/tpo-commercial-roof/index.html (+7ms) 
+13:44:16   ├─ /case-studies/seamless-gutters-6-inch-k-style/index.html (+9ms) 
+13:44:16   └─ /case-studies/hail-damage-repair/index.html (+8ms) 
+13:44:16 ▶ src/pages/service-areas/[slug].astro
+13:44:16   ├─ /service-areas/brighton-co/index.html (+17ms) 
+13:44:16   ├─ /service-areas/fort-collins-co/index.html (+14ms) 
+13:44:16   ├─ /service-areas/westminster-co/index.html (+12ms) 
+13:44:16   ├─ /service-areas/lakewood-co/index.html (+12ms) 
+13:44:16   ├─ /service-areas/loveland-co/index.html (+12ms) 
+13:44:16   ├─ /service-areas/thornton-co/index.html (+9ms) 
+13:44:16   ├─ /service-areas/littleton-co/index.html (+14ms) 
+13:44:16   ├─ /service-areas/longmont-co/index.html (+11ms) 
+13:44:16   ├─ /service-areas/arvada-co/index.html (+13ms) 
+13:44:16   ├─ /service-areas/centennial-co/index.html (+14ms) 
+13:44:16   ├─ /service-areas/boulder-co/index.html (+11ms) 
+13:44:16   ├─ /service-areas/denver-co/index.html (+10ms) 
+13:44:16   ├─ /service-areas/castle-rock-co/index.html (+12ms) 
+13:44:16   ├─ /service-areas/broomfield-co/index.html (+11ms) 
+13:44:16   ├─ /service-areas/aurora-co/index.html (+9ms) 
+13:44:16   ├─ /service-areas/greeley-co/index.html (+13ms) 
+13:44:16   ├─ /service-areas/lochbuie-co/index.html (+17ms) 
+13:44:16   └─ /service-areas/colorado-springs-co/index.html (+10ms) 
+13:44:16 ✓ Completed in 617ms.
+
+13:44:16 [build] Rearranging server assets...
+13:44:16 [@astrojs/vercel] Bundling function ../../../../dist/server/entry.mjs
+13:44:18 [@astrojs/vercel] Copying static files to .vercel/output/static
+13:44:21 [build] Server built in 12.45s
+13:44:21 [build] Complete!
