@@ -19,6 +19,7 @@ import ComparisonTable from '@/components/services/ComparisonTable.astro';
 import Statistics from '@/components/ui/Statistics.astro';
 import sunflow from '@/assets/sunflow.avif';
 import heroImage from '@/assets/bg/concrete-tile-roof-section__hero.avif';
+import profileImg from '@/assets/hero-person.avif';
 
 import heroBg from '@/assets/tiles/hero-bg.png';
 import heroGradient from '@/assets/tiles/hero-gradient.png';
@@ -194,24 +195,10 @@ const categories = [
     label: 'Wind',
     items: [
       {
-        id: 'wind-performance',
-        title: 'High-Wind Performance',
+        id: 'wind-mass',
+        title: 'Wind',
         description:
-          'With their interlocking design and substantial weight, concrete tiles are tested to sustain high-wind events. They provide a structural barrier that resists lift and stays secure even in Colorado’s intense wind storms.',
-        image: windPerformance,
-      },
-      {
-        id: 'interlocking-integrity',
-        title: 'Superior Uplift Resistance',
-        description:
-          'The physical connection between Newpoint™ tiles creates a structural barrier that prevents wind uplift and ensures tiles stay secure even during intense pressure changes during rapid storms.',
-        image: windInterlocking,
-      },
-      {
-        id: 'substantial-mass',
-        title: 'Physical Weight & Stability',
-        description:
-          'Concrete tiles weigh significantly more than asphalt, helping keep the roof pinned to the deck by gravity and preventing the "lifting" effect common with lighter roofing materials.',
+          "Concrete tile's weight works in its favor against wind. Each Newpoint™ tile is installed over a batten system with proper mechanical fastening — meaning Colorado's Front Range gusts don't lift or peel tiles the way they can with lightweight shingle systems. High-profile tile models are specifically tested to FM 4473 wind standards",
         image: windMass,
       },
     ],
@@ -222,24 +209,10 @@ const categories = [
     items: [
       {
         id: 'hail-resistance',
-        title: 'Hail Resistance',
+        title: 'Hail',
         description:
-          'Concrete tile is engineered for the Front Range hail corridor, offering Class 3 and Class 4 impact resistance. These heavy, dense tiles handle large hail strikes that would destroy standard asphalt shingles.',
-        image: hailProtection,
-      },
-      {
-        id: 'impact-testing',
-        title: 'Class 4 Impact Rated',
-        description:
-          'Our profiles are tested to meet the highest impact standards, ensuring that Colorado’s large-diameter hail strikes don’t compromise the structural integrity of your home.',
+          'Newpoint™ concrete tile profiles carry Class 3 or Class 4 hail ratings — the two highest classifications available. Their dense composition absorbs impact energy differently than granule-coated materials, which means hail damage to concrete tile is often cosmetic rather than structural. Colorado homeowners often qualify for insurance discounts with Class 4-rated tile.',
         image: hailImpact,
-      },
-      {
-        id: 'shatterproof-durability',
-        title: 'Long-Term Structural Durability',
-        description:
-          'Concrete tiles do not degrade or lose protective granules like traditional shingles. They maintain their impact performance over decades of repeated weather exposure.',
-        image: hailDurability,
       },
     ],
   },
@@ -248,52 +221,11 @@ const categories = [
     label: 'Fire',
     items: [
       {
-        id: 'wildfire-safety',
-        title: 'Wildfire Safety',
+        id: 'fire-rating',
+        title: 'Fire',
         description:
-          'Newpoint™ tiles carry a Class A fire rating, the highest level of protection available. Since concrete is non-combustible, your roof acts as a critical shield against wildfire embers and heat.',
-        image: wildfireSafety,
-      },
-      {
-        id: 'non-combustible',
-        title: 'Non-Combustible Protection',
-        description:
-          'Being made of natural masonry materials, concrete tiles are inherently fireproof. In fire-prone Colorado landscapes, they provide a primary defense that saves structures from flying embers.',
+          'All Newpoint™ concrete tiles carry a Class A fire rating — the highest classification for roofing products. Concrete is naturally non-combustible, which means there\'s no underlying material that can ignite or accelerate a fire. In Colorado, where wildfire risk is real and growing, a Class A-rated roof is one of the most meaningful protections you can add to your home.',
         image: fireNonCombustible,
-      },
-      {
-        id: 'ember-resistance',
-        title: 'Sealing Out the Heat',
-        description:
-          'The complete Newpoint™ system includes accessory components designed to block ember entry into the roofing structure, mitigating one of the primary causes of roofing fire spread.',
-        image: fireEmbers,
-      },
-    ],
-  },
-  {
-    id: 'energy',
-    label: 'Energy',
-    items: [
-      {
-        id: 'energy-efficiency',
-        title: 'Energy Efficiency',
-        description:
-          'Concrete tile systems leverage natural thermal mass and ventilated installation methods to reduce heat transfer into your attic. This keeps your home cooler in the summer and contributes to lower annual energy costs.',
-        image: energyEfficiency,
-      },
-      {
-        id: 'thermal-mass',
-        title: 'Natural Thermal Mass',
-        description:
-          'Concrete tiles naturally absorb heat during the day and release it slowly at night, minimizing the radical temperature swings that force HVAC systems to work overtime.',
-        image: energyThermal,
-      },
-      {
-        id: 'ventilated-airspace',
-        title: 'Elevated Batten Systems',
-        description:
-          'Installing tiles on elevated battens creates a continuous air channel (Tile Air Space) which provides natural insulation and keeps attics up to 30 degrees cooler in summer.',
-        image: energyVentilation,
       },
     ],
   },
@@ -437,12 +369,14 @@ const categories = [
   <PopularRoofingMaterials
     badge="Why Concrete Tile"
     title="Extreme Weather Protection for Colorado Homes"
-    description="Colorado’s climate is one of the most demanding in the nation. Hail season, high-mountain winds, and the constant threat of wildfires require a roofing material that does more than just look good. Newpoint™ Concrete Roof Tile is engineered specifically for these extremes — providing Class 4 impact resistance, Class A fire protection, and high-wind performance that lightweight systems simply can't match."
+    description="Colorado's climate tests every roofing material — high-altitude UV that fades and degrades lighter systems, hail seasons that peak April through September, temperature swings of 30+ degrees in a single day, and freeze-thaw cycles all winter long. Concrete tile handles all of it through material density, not coatings. It's solid through its entire thickness, which means there's nothing to peel, chip, or lose to UV exposure over time."
     categories={categories}
+    quote="“For every weather we got you covered.”"
+    quoteAuthor="Adam Knight"
     quoteRole="Owner & Stone Coated Steel Expert"
-    quote="For every weather we got you covered."
+    quoteImage={profileImg}
     source={{
-      label: 'Source: Westlake Royal Building Products — Newpoint™ Concrete Tile',
+      label: 'Source: Westlake Royal Building Products — Newpoint™ Concrete Roof Tile',
       href: 'https://www.westlakeroyalroofing.com/newpoint/',
     }}
   />
