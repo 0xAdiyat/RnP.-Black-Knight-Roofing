@@ -13,6 +13,12 @@ import Breadcrumb from '@/components/ui/Breadcrumb.astro';
 import Hero from '@/components/hero/Hero.astro';
 import { Image } from 'astro:assets';
 import heroImage from '@/assets/bg/residential-roofing-section__hero.avif';
+import edcoImg from '@/assets/generated/steel-seamless-panels.png';
+import metalImg from '@/assets/generated/standing-seam-metal.png';
+import tileImg from '@/assets/generated/concrete-villa.png';
+import stoneCoatedImg from '@/assets/generated/stone-coated-steel-main.png';
+import flatRoofImg from '@/assets/bg/commercial-roofing-section__hero.avif';
+import profileImg from '@/assets/hero-person.avif';
 import Process from '@/components/process/Process.astro';
 import step1 from '@/assets/steps/step-1.png';
 import step2 from '@/assets/steps/step-2.png';
@@ -24,29 +30,79 @@ import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
 import OtherServicesCarousel from '@/components/services/OtherServicesCarousel.astro';
 import PopularRoofingMaterials from '@/components/services/PopularRoofingMaterials.astro';
 import Statistics from '@/components/ui/Statistics.astro';
-import HeroImage from '@/assets/bg/residential-bg.png';
 
-const roofingMaterials = [
+const roofingMaterialsCategories = [
   {
     id: 'shingles',
     label: 'Architectural Shingles',
-    description:
-      'A reliable, budget-friendly choice with layered dimension, broad color options, and dependable everyday performance for Colorado homes.',
-    image: '/placeholders/popular-materials/1.png',
+    items: [
+      {
+        title: 'Architectural Shingles',
+        description:
+          'A reliable, budget-friendly choice with layered dimension, broad color options, and dependable everyday performance for Colorado homes.',
+        image: heroImage,
+      },
+    ],
   },
   {
-    id: 'steel',
-    label: 'Stone Coated Steel',
-    description:
-      'The ultimate protection against Colorado hail. Lightweight, non-combustible, and designed to last a lifetime with the look of traditional tile or wood shake.',
-    image: '/placeholders/popular-materials/2.png',
+    id: 'edco-steel',
+    label: 'EDCO Steel',
+    items: [
+      {
+        title: 'EDCO Steel',
+        description:
+          'Built for long-term durability with a clean architectural finish, strong weather resistance, and lower maintenance over time.',
+        image: edcoImg,
+      },
+    ],
   },
   {
-    id: 'tile',
-    label: 'Concrete Tile',
-    description:
-      'Superior thermal performance and exceptional durability. Concrete tile offers high fire resistance and a distinct aesthetic for premium Colorado residences.',
-    image: '/placeholders/popular-materials/3.png',
+    id: 'metal',
+    label: 'Metal Roofing',
+    items: [
+      {
+        title: 'Metal Roofing',
+        description:
+          'Lightweight, durable, and energy-efficient—ideal for homeowners who want modern performance with a long service life.',
+        image: metalImg,
+      },
+    ],
+  },
+  {
+    id: 'concrete-tile',
+    label: 'Concrete Roof Tile',
+    items: [
+      {
+        title: 'Concrete Roof Tile',
+        description:
+          'We install Newpoint™ concrete tile by Westlake Royal Building Products, featuring a transferable lifetime warranty, Class A fire rating, and a Cool Roof System that cuts attic heat by up to 45°F. Comes in 6 profiles and various colors, lasting 50–100 years with proper care.',
+        image: tileImg,
+      },
+    ],
+  },
+  {
+    id: 'stone-coated-steel',
+    label: 'Stone-Coated Steel',
+    items: [
+      {
+        title: 'Stone-Coated Steel',
+        description:
+          'We install Unified Steel™ by Westlake Royal Building Products, a stone-coated steel roofing with Class 4 impact protection, 120 MPH wind resistance, and a 50-Year transferable warranty. Available in five profiles mimicking shake, shingle, and tile without the weight or upkeep of natural materials.',
+        image: stoneCoatedImg,
+      },
+    ],
+  },
+  {
+    id: 'flat-roofing',
+    label: 'EPDM & Flat Roofing',
+    items: [
+      {
+        title: 'EPDM & Flat Roofing',
+        description:
+          'A practical flat-roof solution with strong waterproofing, low upkeep, and dependable protection for residential and commercial structures.',
+        image: flatRoofImg,
+      },
+    ],
   },
 ];
 
@@ -151,7 +207,14 @@ const processSteps = [
 
   <Process steps={processSteps} />
   <OtherServicesCarousel />
-  <PopularRoofingMaterials materials={roofingMaterials} />
+  <PopularRoofingMaterials
+    categories={roofingMaterialsCategories}
+    description="Colorado's climate is harder on roofs than most homeowners realize. High-altitude UV exposure, freeze-thaw cycles, hail season from April through September, and wind that shifts direction without warning — every material handles these differently. The right choice isn't always the cheapest one upfront, and it's not always the most expensive either. We'll give you a straight comparison based on your home, your neighborhood, and how long you want to own it."
+    quote="“Most homeowners think price is the only difference between materials. It's not. The real difference is what you're dealing with ten years from now.”"
+    quoteAuthor="Adam Knight"
+    quoteRole="President"
+    quoteImage={profileImg}
+  />
   <RecentProjects />
   <ServiceAreas />
   <Faqs />

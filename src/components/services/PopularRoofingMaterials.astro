@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import NoiseBg from '@/components/NoiseBg.astro';
 import BadgeTitle from '@/components/BadgeTitle.astro';
-import Tabs from '@/components/ui/Tabs.astro';
 import Carousel from '@/components/ui/Carousel.astro';
 import CarouselSlide from '@/components/ui/CarouselSlide.astro';
 import PopularRoofingCard from './PopularRoofingCard.astro';
@@ -29,7 +28,7 @@ interface Props {
   quote?: string;
   quoteAuthor?: string;
   quoteRole?: string;
-  quoteImage?: string;
+  quoteImage?: any;
   categories?: Category[];
   materials?: any[];
   source?: {
@@ -67,9 +66,12 @@ const categories =
         },
       ]
     : []);
+
+// Flatten items for single carousel
+const allItems = categories.flatMap(c => c.items);
 ---
 
-<NoiseBg class="relative px-0 py-0">
+<NoiseBg class="relative px-0 py-0 overflow-hidden">
   <div class="py-10 lg:py-20">
     <div class="container grid grid-cols-1 gap-12 pb-8 lg:grid-cols-2">
       <div class="space-y-4">
@@ -134,36 +136,105 @@ const categories =
       </div>
     </div>
 
-    <!-- Roofing Materials -->
-    <Tabs tabs={categories.map((c: Category) => ({ label: c.label, id: c.id }))} listClass="no-scrollbar container">
-      {
-        categories.map((category: Category) => (
-          <div data-tab-panel={category.id} class="hidden">
-            <Carousel
-              slidesPerView={1.2}
-              spaceBetween={0}
-              centeredSlides={true}
-              autoplay={true}
-              loop={true}
-              loopedSlides={1}
-              breakpoints={{
-                1024: {
-                  slidesPerView: 1.6,
-                  spaceBetween: 0,
-                  centeredSlides: false,
-                  loopedSlides: 1,
-                },
-              }}
-            >
-              {category.items.map((item: MaterialItem) => (
-                <CarouselSlide>
-                  <PopularRoofingCard title={item.title} description={item.description} image={item.image} />
-                </CarouselSlide>
-              ))}
-            </Carousel>
-          </div>
-        ))
-      }
-    </Tabs>
+    <!-- Roofing Materials Navigation -->
+    <div class="container overflow-x-auto no-scrollbar border-b border-white/15 mb-4 lg:mb-10">
+      <div class="flex flex-row items-center gap-x-6 lg:gap-x-12 min-w-max pb-px overflow-hidden">
+        {allItems.map((item: MaterialItem, index: number) => (
+          <button
+            class="material-tab-trigger py-3 lg:py-4 transition-all duration-300 cursor-pointer text-[#828282] hover:text-white relative text-center whitespace-nowrap shrink-0 text-sm lg:text-base"
+            data-slide-index={index}
+          >
+            {item.title}
+            <div class="material-tab-indicator absolute bottom-0 left-0 h-0.5 w-full bg-primary opacity-0 transition-opacity duration-300" />
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Single Roofing Materials Carousel -->
+    <div class="relative">
+      <Carousel
+        class="popular-materials-carousel"
+        slidesPerView={1.1}
+        spaceBetween={0}
+        centeredSlides={true}
+        autoplay={false}
+        loop={false}
+        breakpoints={{
+          1024: {
+            slidesPerView: 1.15,
+            spaceBetween: 10,
+            centeredSlides: true,
+          },
+        }}
+      >
+        {allItems.map((item: MaterialItem) => (
+          <CarouselSlide>
+            <PopularRoofingCard title={item.title} description={item.description} image={item.image} />
+          </CarouselSlide>
+        ))}
+      </Carousel>
+    </div>
   </div>
 </NoiseBg>
+
+<style>
+  .material-tab-trigger.active {
+    color: var(--color-primary, #F7B715);
+  }
+  .material-tab-trigger.active .material-tab-indicator {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  function setupMaterialSync() {
+    const swiperEl = document.querySelector('.popular-materials-carousel') as any;
+    const tabTriggers = document.querySelectorAll('.material-tab-trigger');
+    
+    if (!swiperEl || tabTriggers.length === 0) return;
+
+    // Helper to update active tab state
+    function updateActiveTab(index: number) {
+      tabTriggers.forEach((btn, i) => {
+        if (i === index) {
+          btn.classList.add('active');
+          // Smooth scroll tab into view if needed
+          btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    // Connect to Swiper instance
+    const swiperReady = () => {
+      const swiper = swiperEl.swiper;
+      if (!swiper) {
+        setTimeout(swiperReady, 100);
+        return;
+      }
+
+      // Initial state
+      updateActiveTab(swiper.activeIndex);
+
+      // Listener: Slide Change -> Update Tab
+      swiper.on('slideChange', () => {
+        updateActiveTab(swiper.activeIndex);
+      });
+
+      // Listener: Tab Click -> Slide Change
+      tabTriggers.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          swiper.slideTo(i);
+        });
+      });
+    };
+
+    swiperReady();
+  }
+
+  // Run on load and after swaps
+  setupMaterialSync();
+  document.addEventListener('astro:after-swap', setupMaterialSync);
+</script>
