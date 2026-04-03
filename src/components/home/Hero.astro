@@ -27,6 +27,9 @@ const noiseBgOp = await getImage({ src: noiseBg, format: 'avif' });
     loading="eager"
   />
 
+  <!-- Subtle Desktop Overlay -->
+  <div class="pointer-events-none absolute inset-0 -z-10 hidden h-full w-full bg-black/20 lg:block"></div>
+
   <!-- Hero Left Shape -->
   <Image
     src={heroLeftShape}
