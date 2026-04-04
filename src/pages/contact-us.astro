@@ -14,7 +14,7 @@ import RatingStars from '@/components/ui/RatingStars.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Process from '@/components/process/Process.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
-import { homeFaqs } from '@/data/faqs/home';
+import { contactFaqs } from '@/data/faqs/contact';
 
 import step1 from '@/assets/steps/step-1.png';
 import step2 from '@/assets/steps/step-2.png';
@@ -223,7 +223,8 @@ const processSteps = [
     subheadingClass="font-normal"
   />
   <Faqs
-    faqs={homeFaqs}
+    faqs={contactFaqs}
+    phoneNumber="(720) 805-9666"
     headingClass="font-heading text-[28px] leading-10 font-normal text-white lg:text-5xl lg:leading-tight"
     phoneLinkClass="text-white text-[20px] leading-8 font-medium underline"
   />
