@@ -144,7 +144,7 @@ const areaFaqs = getServiceAreaFaqs(area.city, 'the Front Range');
     <div class="container py-20">
       <BadgeTitle
         badge="Our Services"
-        title={`Roofing Services Offered in ${area.city}`}
+        title={`Roofing Services Offered in ${area.city}, ${area.state}`}
         class="flex flex-col items-center text-center"
       />
       <div class="grid grid-cols-12 gap-x-4 gap-y-8 pt-16">
@@ -152,7 +152,7 @@ const areaFaqs = getServiceAreaFaqs(area.city, 'the Front Range');
           services.map((service, index) => (
             <ServiceCard
               image={service.image}
-              title={service.title}
+              title={`${service.title} in ${area.city}, ${area.state}`}
               description={service.description}
               icon={service.icon}
               tags={service.tags}
