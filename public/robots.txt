@@ -1,14 +1,19 @@
 # Black Knight Roofing — robots.txt
 # https://www.blackknightroofing.com
 
-# TEMPORARILY BLOCKING ALL CRAWLERS
 User-agent: *
-Disallow: /
+Allow: /
 
-# Block low-value & internal paths
-# Disallow: /api/
-# Disallow: /_astro/
-# Disallow: /404
+# Pages not ready for indexing
+Disallow: /gallery
+Disallow: /before-and-after
+Disallow: /case-studies
+Disallow: /blog
+
+# Internal / utility paths
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /404
 
 # Sitemaps
 # Sitemap: https://www.blackknightroofing.com/sitemap.xml

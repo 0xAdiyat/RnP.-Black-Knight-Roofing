@@ -24,7 +24,7 @@ const totalPages = Math.ceil(blogListItems.length / itemsPerPage);
 const displayedBlogs = blogListItems.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 ---
 
-<Layout>
+<Layout noindex={true}>
   <Navbar />
   <Hero
     backgroundImage={heroImage}

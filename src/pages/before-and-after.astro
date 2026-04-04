@@ -86,7 +86,7 @@ const currentPage = Number(url.searchParams.get('page')) || 1;
 const totalPages = 96; // Matching the image's '96' at the end
 ---
 
-<Layout>
+<Layout noindex={true}>
   <Navbar />
 
   <Hero backgroundImage={heroImage} title="Before &amp; After Gallery" subtitle="Colorado's #1 Veteran-Owned Roofing Company">

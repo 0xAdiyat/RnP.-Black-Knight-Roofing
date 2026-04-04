@@ -92,7 +92,7 @@ const totalPages = Math.ceil(works.length / itemsPerPage);
 const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 ---
 
-<Layout title="Denver Roofing Case Studies | Black Knight Roofing">
+<Layout title="Denver Roofing Case Studies | Black Knight Roofing" noindex={true}>
   <Navbar />
   <Hero backgroundImage={heroBg} title="Roofing Case Studies" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
     <p>
