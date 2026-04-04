@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import NoiseBg from '../NoiseBg.astro';
 import Button from '../ui/Button.astro';
+import { homeFaqs } from '@/data/faqs/home';
 import FaqItem from './FaqItem.astro';
 
 interface FaqData {
@@ -29,7 +30,7 @@ const {
   buttonHref,
   phoneNumber = '(970) 888-7230',
   phoneLinkClass,
-  faqs = [],
+  faqs = homeFaqs,
   class: className,
 } = Astro.props;
 ---
