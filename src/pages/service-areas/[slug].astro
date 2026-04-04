@@ -15,7 +15,7 @@ import RatingStars from '@/components/ui/RatingStars.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Process from '@/components/process/Process.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
-import { homeFaqs } from '@/data/faqs/home';
+import { getServiceAreaFaqs } from '@/data/faqs/service-area';
 
 import step1 from '@/assets/steps/step-1.png';
 import step2 from '@/assets/steps/step-2.png';
@@ -89,6 +89,8 @@ const processSteps = [
     description: 'Our expert team completes the project to the highest standards with a final walkthrough.',
   },
 ];
+
+const areaFaqs = getServiceAreaFaqs(area.city, 'the Front Range');
 ---
 
 <Layout title={`Roofing Services in ${area.city}, ${area.state} | Black Knight Roofing`}>
@@ -216,7 +218,7 @@ const processSteps = [
   </NoiseBg>
 
   <Process steps={processSteps} />
-  <Faqs faqs={homeFaqs} />
+  <Faqs faqs={areaFaqs} />
 
   <div class="relative">
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
