@@ -7,7 +7,7 @@ import { residentialCTA } from '@/data/cta';
 import Footer from '@/components/Footer.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
-import { servicesFaqs } from '@/data/faqs/services';
+import { residentialFaqs } from '@/data/faqs/residential-roofing';
 import NoiseBg from '@/components/NoiseBg.astro';
 import WhyChooseUs from '@/components/WhyChooseUs.astro';
 import Button from '@/components/ui/Button.astro';
@@ -92,7 +92,7 @@ const processSteps = [
 
   <Hero backgroundImage={heroImage} title="A Roof Replacement You Can Trust in Colorado" subtitle="Roof Replacement Services In Colorado">
     <p class="text-sm">
-      At Black Knight Roofing Roofing, we understand that your roof is more than just a covering—it's the first line of
+      At Black Knight Roofing, we understand that your roof is more than just a covering—it's the first line of
       defense for your home or business. Over time, roofs can suffer from weather damage, aging materials, or unexpected
       events, putting your property at risk. That's why our roof replacement services are designed to provide durable,
       high-quality solutions with expert craftsmanship and a stress-free experience. Whether it's residential or
@@ -120,7 +120,7 @@ const processSteps = [
             </h2>
 
             <p class="text-sm lg:text-base">
-              Florida's weather can be unpredictable, from intense heat to hurricane-force winds. Our roof replacement
+              Colorado's weather can be unpredictable, from intense heat to high winds and hail. Our roof replacement
               solutions are designed specifically for this environment, using materials and installation techniques that
               withstand the toughest conditions. We're committed to protecting your property and providing exceptional
               customer service throughout the project. Whether it's a storm-damaged commercial roof or an aging
@@ -217,7 +217,7 @@ const processSteps = [
   <Process steps={processSteps} />
   <RecentProjects />
   <ServiceAreas />
-  <Faqs faqs={servicesFaqs} />
+  <Faqs faqs={residentialFaqs} />
   <RecentArticales />
 
   <div class="relative">

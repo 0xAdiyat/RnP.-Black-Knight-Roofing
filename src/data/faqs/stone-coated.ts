@@ -27,5 +27,10 @@ export const stoneCoatedFaqs: FaqItem[] = [
   {
     question: "What kind of warranty comes with a stone-coated steel roof?",
     answer: "Unified Steel™ by Westlake Royal comes with a 50-year limited warranty that's fully transferable. At Black Knight Roofing, we add our lifetime workmanship warranty on top for complete peace of mind."
-  }
+  },
+  {
+    question: "How is stone-coated steel different from regular metal roofing?",
+    answer:
+      "Standard metal roofing — panels and standing seam — has an exposed metal surface. Stone-coated steel has a galvanized steel core covered with a layer of natural stone granules bonded with acrylic film. It absorbs hail impact rather than denting, significantly reduces noise, adds thermal mass, and can replicate the look of traditional materials. It also installs over a batten system that creates Above-Sheathing Ventilation — something most metal roofing systems don't include.",
+  },
 ];
