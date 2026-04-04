@@ -6,6 +6,7 @@ import CTASection from '@/components/cta/CTASection.astro';
 import Footer from '@/components/Footer.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
+import { servicesFaqs } from '@/data/faqs/services';
 import NoiseBg from '@/components/NoiseBg.astro';
 import WhyChooseUs from '@/components/WhyChooseUs.astro';
 import Button from '@/components/ui/Button.astro';
@@ -159,7 +160,7 @@ const processSteps = [
   <OtherServicesCarousel />
   <RecentProjects />
   <ServiceAreas />
-  <Faqs />
+  <Faqs faqs={servicesFaqs} />
   <RecentArticales />
 
   <div class="relative">

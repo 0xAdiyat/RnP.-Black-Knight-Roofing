@@ -15,6 +15,7 @@ import step4 from '@/assets/steps/step-4.png';
 import RecentProjects from '@/components/recent-projects/RecentProjects.astro';
 import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
+import { homeFaqs } from '@/data/faqs/home';
 import RecentArticales from '@/components/articales/RecentArticales.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import Footer from '@/components/Footer.astro';
@@ -63,7 +64,7 @@ const processSteps = [
   <ProcessFlow steps={processSteps} />
   <RecentProjects />
   <ServiceAreas />
-  <Faqs />
+  <Faqs faqs={homeFaqs} />
   <RecentArticales />
   <Brands />
   <CTASection />

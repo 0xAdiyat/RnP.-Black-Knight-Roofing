@@ -20,6 +20,7 @@ import step3 from '@/assets/steps/step-3.png';
 import step4 from '@/assets/steps/step-4.png';
 import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
+import { servicesFaqs } from '@/data/faqs/services';
 import RecentArticales from '@/components/articales/RecentArticales.astro';
 import NoiseBg from '@/components/NoiseBg.astro';
 import BadgeTitle from '@/components/BadgeTitle.astro';
@@ -124,7 +125,7 @@ const processSteps = [
   <Testimonials />
   <Process steps={processSteps} />
   <ServiceAreas />
-  <Faqs />
+  <Faqs faqs={servicesFaqs} />
   <RecentArticales />
 
   <div class="relative">

@@ -14,6 +14,7 @@ import RatingStars from '@/components/ui/RatingStars.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Process from '@/components/process/Process.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
+import { homeFaqs } from '@/data/faqs/home';
 
 import step1 from '@/assets/steps/step-1.png';
 import step2 from '@/assets/steps/step-2.png';
@@ -214,7 +215,7 @@ const processSteps = [
   </NoiseBg>
 
   <Process steps={processSteps} />
-  <Faqs />
+  <Faqs faqs={homeFaqs} />
 
   <div class="relative">
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>

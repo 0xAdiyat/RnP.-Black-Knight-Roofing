@@ -6,6 +6,7 @@ import CTASection from '@/components/cta/CTASection.astro';
 import Footer from '@/components/Footer.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
+import { homeFaqs } from '@/data/faqs/home';
 import NoiseBg from '@/components/NoiseBg.astro';
 import Button from '@/components/ui/Button.astro';
 import { Icon } from 'astro-icon/components';
@@ -177,7 +178,7 @@ const totalPages = 96; // Matching the image's '96' at the end
   </div>
   <Testimonials />
   <ServiceAreas />
-  <Faqs />
+  <Faqs faqs={homeFaqs} />
   <RecentArticales />
   <div class="relative">
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
