@@ -11,6 +11,7 @@ import RatingStars from '@/components/ui/RatingStars.astro';
 import Brands from '@/components/Brands.astro';
 import RecentArticales from '@/components/articales/RecentArticales.astro';
 import CTASection from '@/components/cta/CTASection.astro';
+import { blogCTA } from '@/data/cta';
 import Breadcrumb from '@/components/ui/Breadcrumb.astro';
 import heroImage from '@/assets/bg/blogs-and-blog-details-section__hero.avif';
 
@@ -807,7 +808,7 @@ const pageTitle = `${blog.title} | Black Knight Roofing`;
     <Brands />
   </div>
 
-  <CTASection />
+  <CTASection cta={blogCTA} />
 
   <Footer />
 </Layout>

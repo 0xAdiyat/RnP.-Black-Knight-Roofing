@@ -5,16 +5,40 @@ import QuoteForm from '@/components/cta/QuoteForm.astro';
 import roof from '@/assets/roof.avif';
 import BadgeTitle from '../BadgeTitle.astro';
 import Avatar from '../ui/Avatar.astro';
+import type { CTAData } from '@/data/cta/types';
+
+interface Props {
+  cta?: CTAData;
+}
+
+const { cta = {} } = Astro.props;
+
+const {
+  badge = 'Get Started',
+  title = 'Your Roof Deserves a Contractor Who Treats It Like Their Own',
+  excerpt = "“Every roof we build, we treat like it's our family's house underneath it. That's the only standard we know.”",
+  author = {
+    name: 'Adam Knight',
+    avatar: '/placeholders/profile.png',
+    title: ', President & Owner',
+  },
+  button = {
+    label: 'Contact Our Team',
+    href: '/contact-us',
+  },
+  handwrittenText = 'No Obligation<br />Free Roof Inspection',
+  backgroundImage = roof,
+} = cta;
 ---
 
 <section class="relative container py-12">
   <div class="via-primary/50 absolute inset-x-0 bottom-0 h-0.5 bg-linear-to-r from-transparent to-transparent"></div>
   <div class="relative container overflow-hidden rounded-2xl px-0">
     <Image
-      src={roof}
+      src={backgroundImage}
       alt="Roof"
-      width={roof.width}
-      height={roof.height}
+      width={backgroundImage.width}
+      height={backgroundImage.height}
       class="absolute inset-0 h-full w-full object-cover object-[center_40%] opacity-30"
     />
 
@@ -25,23 +49,22 @@ import Avatar from '../ui/Avatar.astro';
       <div class="lg:p-8">
         <div class="flex flex-col space-y-6 px-6 text-center lg:items-start lg:text-left">
           <BadgeTitle
-            badge="Get Started"
-            title="Your Roof Deserves a Contractor Who Treats It Like Their Own"
+            badge={badge}
+            title={title}
             class="flex flex-col items-center lg:items-start lg:text-left"
           />
 
           <div class="space-y-4">
             <p class="mx-auto max-w-[500px] text-base leading-relaxed text-white/70 lg:mx-0">
-              “Every roof we build, we treat like it's our family's house underneath it. That's the only standard we
-              know.”
+              {excerpt}
             </p>
 
             <!-- Profile -->
             <div class="flex items-center justify-center gap-x-4 lg:justify-start">
-              <Avatar src="/placeholders/profile.png" alt="Adam Knight" />
+              <Avatar src={author.avatar} alt={author.name} />
               <div class="flex items-center text-left">
-                <strong class="font-sm font-bold text-white">Adam Knight</strong>
-                <span class="text-xs font-normal text-white/50">, President & Owner </span>
+                <strong class="font-sm font-bold text-white">{author.name}</strong>
+                <span class="text-xs font-normal text-white/50">{author.title}</span>
               </div>
             </div>
           </div>
@@ -50,7 +73,7 @@ import Avatar from '../ui/Avatar.astro';
           <div
             class="relative flex flex-col items-center gap-4 pt-0 pb-12 sm:flex-row sm:items-end sm:gap-12 lg:gap-x-7"
           >
-            <Button class="h-11 w-fit px-8 py-4 text-sm font-bold" href="/contact-us">Contact Our Team</Button>
+            <Button class="h-11 w-fit px-8 py-4 text-sm font-bold" href={button.href}>{button.label}</Button>
 
             <div
               class="absolute top-11 right-0 flex items-center justify-center sm:top-0 sm:right-auto sm:left-full sm:pb-2 sm:pl-4"
@@ -89,9 +112,8 @@ import Avatar from '../ui/Avatar.astro';
 
               <span
                 class="font-caveat -mb-4 rotate-12 bg-linear-to-r from-white to-[#8C8C8C] bg-clip-text text-center text-2xl text-nowrap italic sm:mt-0 sm:translate-y-8 sm:rotate-12"
-              >
-                No Obligation<br />Free Roof Inspection
-              </span>
+                set:html={handwrittenText}
+              />
             </div>
           </div>
         </div>

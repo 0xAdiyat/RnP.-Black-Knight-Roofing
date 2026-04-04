@@ -18,6 +18,7 @@ import Faqs from '@/components/faqs/Faqs.astro';
 import { homeFaqs } from '@/data/faqs/home';
 import RecentArticales from '@/components/articales/RecentArticales.astro';
 import CTASection from '@/components/cta/CTASection.astro';
+import { defaultCTA } from '@/data/cta';
 import Footer from '@/components/Footer.astro';
 
 const processSteps = [
@@ -67,6 +68,6 @@ const processSteps = [
   <Faqs faqs={homeFaqs} />
   <RecentArticales />
   <Brands />
-  <CTASection />
+  <CTASection cta={defaultCTA} />
   <Footer />
 </Layout>
