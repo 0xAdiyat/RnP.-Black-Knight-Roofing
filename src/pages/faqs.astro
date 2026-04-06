@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Hero from '@/components/hero/Hero.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
+import { defaultCTA } from '@/data/cta';
 import Footer from '@/components/Footer.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
 
@@ -41,6 +42,6 @@ import FaqHeroImage from '@/assets/bg/faq-and-financing-section__hero.avif';
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
     <Brands />
   </div>
-  <CTASection />
+  <CTASection cta={defaultCTA} />
   <Footer />
 </Layout>

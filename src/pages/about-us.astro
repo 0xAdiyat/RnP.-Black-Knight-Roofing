@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Hero from '@/components/hero/Hero.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
+import { defaultCTA } from '@/data/cta';
 import Footer from '@/components/Footer.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
 
@@ -20,6 +21,7 @@ import step3 from '@/assets/steps/step-3.png';
 import step4 from '@/assets/steps/step-4.png';
 import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
+import { homeFaqs } from '@/data/faqs/home';
 import RecentArticales from '@/components/articales/RecentArticales.astro';
 import NoiseBg from '@/components/NoiseBg.astro';
 import TeamCard from '@/components/TeamCard.astro';
@@ -122,12 +124,12 @@ const processSteps = [
     <Process steps={processSteps} />
   </div>
   <ServiceAreas />
-  <Faqs />
+  <Faqs faqs={homeFaqs} />
   <RecentArticales />
   <div class="relative">
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
     <Brands />
   </div>
-  <CTASection />
+  <CTASection cta={defaultCTA} />
   <Footer />
 </Layout>

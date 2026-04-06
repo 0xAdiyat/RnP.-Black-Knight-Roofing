@@ -3,9 +3,11 @@ import Layout from '@/layouts/Layout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
+import { commercialCTA } from '@/data/cta';
 import Footer from '@/components/Footer.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
+import { commercialFaqs } from '@/data/faqs/commercial-roofing';
 import NoiseBg from '@/components/NoiseBg.astro';
 import WhyChooseUs from '@/components/WhyChooseUs.astro';
 import Button from '@/components/ui/Button.astro';
@@ -109,7 +111,7 @@ const processSteps = [
         <!-- Left contents -->
         <div class="space-y-8 py-8">
           <div class="flex-1 space-y-4">
-            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Residential Roofing' }]} />
+            <Breadcrumb items={[{ label: 'Services', href: '/services' }, { label: 'Commercial Roofing' }]} />
 
             <h2 class="text-medium max-w-[530px] text-[clamp(28px,4vw,48px)] leading-[clamp(40px,4vw,52px)]">
               Your Local Commercial Metal Roofing Pros
@@ -159,13 +161,13 @@ const processSteps = [
   <OtherServicesCarousel />
   <RecentProjects />
   <ServiceAreas />
-  <Faqs />
+  <Faqs faqs={commercialFaqs} />
   <RecentArticales />
 
   <div class="relative">
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
     <Brands />
   </div>
-  <CTASection />
+  <CTASection cta={commercialCTA} />
   <Footer />
 </Layout>

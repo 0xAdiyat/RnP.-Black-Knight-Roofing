@@ -1,6 +1,5 @@
 import type { APIRoute } from 'astro';
 import { serviceAreas } from '@/data/service-areas';
-import { blogListItems } from '@/data/blogs';
 
 const SITE = 'https://www.blackknightroofing.com';
 
@@ -36,16 +35,7 @@ const staticPages: SitemapEntry[] = [
   { url: '/contact-us', changefreq: 'monthly', priority: 0.9, lastmod: today },
   { url: '/financing', changefreq: 'monthly', priority: 0.8, lastmod: today },
   { url: '/faqs', changefreq: 'monthly', priority: 0.7, lastmod: today },
-  { url: '/gallery', changefreq: 'weekly', priority: 0.7, lastmod: today },
-  { url: '/before-and-after', changefreq: 'weekly', priority: 0.7, lastmod: today },
-
-  // Blog hub
-  { url: '/blog', changefreq: 'weekly', priority: 0.8, lastmod: today },
-
   // Case studies hub
-  { url: '/case-studies', changefreq: 'weekly', priority: 0.7, lastmod: today },
-  { url: '/case-studies/1', changefreq: 'monthly', priority: 0.6, lastmod: today },
-  { url: '/case-studies/star-house-siding-upgrade', changefreq: 'monthly', priority: 0.6, lastmod: today },
 
   // Service areas hub
   { url: '/service-areas', changefreq: 'weekly', priority: 0.9, lastmod: today },
@@ -83,16 +73,9 @@ const serviceAreaPages: SitemapEntry[] = serviceAreas.map(area => ({
   lastmod: today,
 }));
 
-const blogPages: SitemapEntry[] = blogListItems.map(blog => ({
-  url: blog.href,
-  changefreq: 'monthly',
-  priority: 0.7,
-  lastmod: today,
-}));
-
 // ─── Assemble ────────────────────────────────────────────────────────────────
 
-const allEntries = [...staticPages, ...serviceAreaPages, ...blogPages];
+const allEntries = [...staticPages, ...serviceAreaPages];
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>

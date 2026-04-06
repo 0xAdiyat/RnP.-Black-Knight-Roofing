@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar.astro';
 import Hero from '@/components/hero/Hero.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
+import { defaultCTA } from '@/data/cta';
 import Footer from '@/components/Footer.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
 
@@ -13,6 +14,7 @@ import RatingStars from '@/components/ui/RatingStars.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Process from '@/components/process/Process.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
+import { contactFaqs } from '@/data/faqs/contact';
 
 import step1 from '@/assets/steps/step-1.png';
 import step2 from '@/assets/steps/step-2.png';
@@ -97,7 +99,7 @@ const processSteps = [
   >
     <Fragment slot="social-proof">
       <a
-        href="tel:9708887230"
+        href="tel:7208059666"
         class="group flex w-full items-center gap-x-4 px-6 py-4 md:w-auto md:px-8 md:py-0 lg:px-10"
       >
         <div
@@ -111,7 +113,7 @@ const processSteps = [
           >
             Give us a Call
           </div>
-          <div class="text-sm transition-colors group-hover:text-white/80">(970) 888-7230</div>
+          <div class="text-sm transition-colors group-hover:text-white/80">(720) 805-9666</div>
         </div>
       </a>
 
@@ -221,6 +223,8 @@ const processSteps = [
     subheadingClass="font-normal"
   />
   <Faqs
+    faqs={contactFaqs}
+    phoneNumber="(720) 805-9666"
     headingClass="font-heading text-[28px] leading-10 font-normal text-white lg:text-5xl lg:leading-tight"
     phoneLinkClass="text-white text-[20px] leading-8 font-medium underline"
   />
@@ -229,6 +233,6 @@ const processSteps = [
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
     <Brands />
   </div>
-  <CTASection />
+  <CTASection cta={defaultCTA} />
   <Footer />
 </Layout>

@@ -3,9 +3,11 @@ import Layout from '@/layouts/Layout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
+import { defaultCTA } from '@/data/cta';
 import Footer from '@/components/Footer.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
+import { homeFaqs } from '@/data/faqs/home';
 import NoiseBg from '@/components/NoiseBg.astro';
 import Button from '@/components/ui/Button.astro';
 import { Icon } from 'astro-icon/components';
@@ -86,7 +88,7 @@ const currentPage = Number(url.searchParams.get('page')) || 1;
 const totalPages = 96; // Matching the image's '96' at the end
 ---
 
-<Layout>
+<Layout noindex={true}>
   <Navbar />
 
   <Hero backgroundImage={heroImage} title="Before &amp; After Gallery" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
@@ -177,12 +179,12 @@ const totalPages = 96; // Matching the image's '96' at the end
   </div>
   <Testimonials />
   <ServiceAreas />
-  <Faqs />
+  <Faqs faqs={homeFaqs} />
   <RecentArticales />
   <div class="relative">
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
     <Brands />
   </div>
-  <CTASection />
+  <CTASection cta={defaultCTA} />
   <Footer />
 </Layout>

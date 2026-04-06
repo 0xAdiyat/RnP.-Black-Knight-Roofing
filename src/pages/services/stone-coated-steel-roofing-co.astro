@@ -3,8 +3,10 @@ import Layout from '@/layouts/Layout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
+import { residentialCTA } from '@/data/cta';
 import Footer from '@/components/Footer.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
+import { stoneCoatedFaqs } from '@/data/faqs/stone-coated';
 import NoiseBg from '@/components/NoiseBg.astro';
 import Button from '@/components/ui/Button.astro';
 import { Icon } from 'astro-icon/components';
@@ -463,13 +465,13 @@ const stoneSteelProfiles = [
   <StylesProfiles profiles={stoneSteelProfiles} />
 
   <RecentProjects />
-  <Faqs />
+  <Faqs faqs={stoneCoatedFaqs} />
   <ServiceAreas />
 
   <div class="relative">
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
     <Brands />
   </div>
-  <CTASection />
+  <CTASection cta={residentialCTA} />
   <Footer />
 </Layout>

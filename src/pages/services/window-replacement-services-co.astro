@@ -3,9 +3,11 @@ import Layout from '@/layouts/Layout.astro';
 import Navbar from '@/components/Navbar.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
+import { residentialCTA } from '@/data/cta';
 import Footer from '@/components/Footer.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
+import { windowFaqs } from '@/data/faqs/windows';
 import NoiseBg from '@/components/NoiseBg.astro';
 import WhyChooseUs from '@/components/WhyChooseUs.astro';
 import Button from '@/components/ui/Button.astro';
@@ -176,13 +178,13 @@ const processSteps = [
   <Process steps={processSteps} />
   <RecentProjects />
   <ServiceAreas />
-  <Faqs />
+  <Faqs faqs={windowFaqs} />
   <RecentArticales />
 
   <div class="relative">
     <div class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#F2C744]/50 to-transparent"></div>
     <Brands />
   </div>
-  <CTASection />
+  <CTASection cta={residentialCTA} />
   <Footer />
 </Layout>

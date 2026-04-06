@@ -25,6 +25,7 @@ import CreditCardImage from '@/assets/credit-card.avif';
 import { cn } from '@/lib/utils';
 import Footer from '@/components/Footer.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
+import { financingFaqs } from '@/data/faqs/financing';
 import topFrmae from '@/assets/top-frame.avif';
 import roof from '@/assets/roof.avif';
 
@@ -213,7 +214,7 @@ import EstimateButton from '@/components/EstimateButton.astro';
       class="absolute inset-x-0 top-0 left-0 w-full"
     />
 
-    <Faqs />
+    <Faqs faqs={financingFaqs} />
   </div>
 
   <div
