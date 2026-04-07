@@ -22,7 +22,7 @@ const {
   variant = 'primary',
   size = 'lg',
   class: className = 'text-base font-bold',
-  href: _href,
+  href,
   showDivider = true,
   offerColor = 'text-[#855901]',
   dividerColor = 'bg-[rgba(133,89,1,0.4)]',
@@ -57,10 +57,13 @@ const processedAction = processMarkdown(actionText);
   variant={variant}
   size={size}
   class={className}
-  type="button"
-  aria-haspopup="dialog"
-  aria-controls="estimate-dialog"
-  data-estimate-trigger
+  href={href}
+  target={href ? '_blank' : undefined}
+  rel={href ? 'noopener noreferrer' : undefined}
+  type={href ? undefined : 'button'}
+  aria-haspopup={href ? undefined : 'dialog'}
+  aria-controls={href ? undefined : 'estimate-dialog'}
+  data-estimate-trigger={href ? undefined : true}
   {...rest}
 >
   {offerText && (

@@ -52,6 +52,8 @@ const financeSteps = [
 
 import heroImage from '@/assets/bg/faq-and-financing-section__hero.avif';
 import EstimateButton from '@/components/EstimateButton.astro';
+
+const wisetackPrequalifyUrl = 'https://wisetack.us/#/kb2wmd7/prequalify';
 ---
 
 <Layout title="Roofing Financing | Top Veteran Owned Roofing Company | Black Knight Roofing">
@@ -160,7 +162,9 @@ import EstimateButton from '@/components/EstimateButton.astro';
         <Button
           variant="primary"
           class="flex h-[56px] items-center justify-center rounded-[4px] px-[32px] py-[16px] text-[16px] font-semibold text-[#111]"
-          data-estimate-trigger
+          href={wisetackPrequalifyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Get Approved
         </Button>
@@ -278,7 +282,9 @@ import EstimateButton from '@/components/EstimateButton.astro';
         <div class="flex w-full items-center justify-between">
           <Button
             class="rounded-[4px] bg-white px-5 py-2.5 text-sm font-semibold text-[#111] shadow-[0_2px_4px_rgba(0,0,0,0.08)] transition-transform hover:bg-white active:scale-95"
-            data-estimate-trigger
+            href={wisetackPrequalifyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             See Options
           </Button>
@@ -313,7 +319,9 @@ import EstimateButton from '@/components/EstimateButton.astro';
           <div class="flex flex-col items-center gap-y-4 lg:items-end">
             <Button
               class="text-inverted w-full bg-white px-6 py-4 text-sm leading-5 font-bold transition-transform hover:scale-105 hover:bg-white hover:ring-2 hover:ring-black/20 lg:w-auto"
-              data-estimate-trigger
+              href={wisetackPrequalifyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               See Options
             </Button>
@@ -371,7 +379,7 @@ import EstimateButton from '@/components/EstimateButton.astro';
 
             <!-- Button with Arrow Callout -->
             <div class="relative">
-              <EstimateButton offerText="" actionText="Get Approved" />
+              <EstimateButton offerText="" actionText="Get Approved" href={wisetackPrequalifyUrl} />
 
               <!-- Arrow & Handwritten Note (Visible on desktop) -->
               <div class="absolute -top-4 left-[calc(100%+16px)] hidden -translate-y-1/2 lg:flex">
