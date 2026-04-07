@@ -6,6 +6,19 @@ import Button from '@/components/ui/Button.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
 import bbbLogo from '@/assets/bbb-logo.png';
 
+// Illastrations
+import SingleHome from '@/assets/illustrations/single-family-house.png';
+import Townhome from '@/assets/illustrations/townhome.png';
+import Commercial from '@/assets/illustrations/comercial-building.png';
+import MobileHome from '@/assets/illustrations/mobile-home.png';
+import Clock from '@/assets/illustrations/clock.png';
+import CalenderMonthApril from '@/assets/illustrations/calender-april-7.png';
+import CalenderMonthMay from '@/assets/illustrations/calender-may-7.png';
+import QuestionCircle from '@/assets/illustrations/question-circle.png';
+import RoofReplacement from '@/assets/illustrations/roof-replacement.png';
+import LargeRepair from '@/assets/illustrations/roof-large-repair.png';
+import SmallRepair from '@/assets/illustrations/roof-small-repair.png';
+
 const visualThesis =
   'A dark premium conversion card with confident serif typography, tactile option tiles, and a final booking reveal that feels deliberate instead of bolted on.';
 const contentPlan = 'Headline, proof, five-step qualification flow, then booking.';
@@ -13,29 +26,31 @@ const interactionThesis =
   'Use selection tiles with instant state feedback, a measured step transition, and a same-step reveal from contact capture into booking.';
 
 const homeTypes = [
-  { value: 'Single Family', icon: 'home' },
-  { value: 'Townhome / Duplex', icon: 'teams' },
-  { value: 'Commercial', icon: 'briefcase' },
-  { value: 'Mobile Home', icon: 'location-02' },
+  { value: 'Single Family', thubmnail: SingleHome },
+  { value: 'Townhome / Duplex', thubmnail: Townhome },
+  { value: 'Commercial', thubmnail: Commercial },
+  { value: 'Mobile Home', thubmnail: MobileHome },
 ];
 
 const timelines = [
-  { value: 'ASAP', icon: 'clock' },
-  { value: 'This Month', icon: 'calendar' },
-  { value: 'Next Month', icon: 'calender-clock' },
-  { value: 'Not Sure', icon: 'question-circle' },
+  { value: 'ASAP', thubmnail: Clock },
+  { value: 'This Month', thubmnail: CalenderMonthApril },
+  { value: 'Next Month', thubmnail: CalenderMonthMay },
+  { value: 'Not Sure', thubmnail: QuestionCircle },
 ];
 
 const scopes = [
-  { value: 'Roof Replacement', icon: 'roof-fire' },
-  { value: 'Large Repair', icon: 'shield-check' },
-  { value: 'Small Repair', icon: 'roof-fix' },
-  { value: 'Other', icon: 'dots' },
+  { value: 'Roof Replacement', thubmnail: RoofReplacement },
+  { value: 'Large Repair', thubmnail: LargeRepair },
+  { value: 'Small Repair', thubmnail: SmallRepair },
+  { value: 'Other', thubmnail: QuestionCircle },
 ];
+
+const calcomLink = import.meta.env.PUBLIC_CALCOM_LINK || 'tarunsoft/30min';
 ---
 
 <div
-  class="w-full max-w-[34.375rem] rounded-[1.75rem] bg-[#f2c744] p-[10px] shadow-[0_28px_80px_rgba(0,0,0,0.48)]"
+  class="w-full max-w-[765px] rounded-[1.75rem] bg-[#f2c744] p-[10px] shadow-[0_28px_80px_rgba(0,0,0,0.48)]"
   data-visual-thesis={visualThesis}
   data-content-plan={contentPlan}
   data-interaction-thesis={interactionThesis}
@@ -54,12 +69,12 @@ const scopes = [
         <RatingStars rating={5} size={22} fillColor="#F7B715" strokeColor="transparent" />
       </div>
 
-      <h2 class="mx-auto max-w-[15ch] text-center text-[2.05rem] leading-[1.1] font-normal text-white sm:text-[2.5rem]">
+      <h2 class="mx-auto text-center text-[clamp(1.5rem,2rem,2rem)] leading-[1.1] font-normal text-white">
         Get a FREE Instant Roofing Estimate For Your Property
       </h2>
 
       <div
-        class="funnel-quote-error pointer-events-none max-h-0 overflow-hidden text-center text-sm font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+        class="funnel-quote-error pointer-events-none max-h-0 overflow-hidden text-center text-sm font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
         role="alert"
         aria-hidden="true"
       >
@@ -70,26 +85,28 @@ const scopes = [
       </div>
 
       <div class="flex items-center justify-center gap-x-2 px-2 sm:px-4">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <>
-            <div
-              class="funnel-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50 transition-all duration-300 ease-out"
-              data-step={index + 1}
-              data-state={index === 0 ? 'active' : 'upcoming'}
-            >
-              <span class="funnel-step-label">{index + 1}</span>
-            </div>
-            {index < 4 && (
+        {
+          Array.from({ length: 5 }).map((_, index) => (
+            <>
               <div
-                class="funnel-step-line h-px flex-1 bg-white/20 transition-colors duration-300 ease-out"
-                data-after-step={index + 1}
-              ></div>
-            )}
-          </>
-        ))}
+                class="funnel-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50 transition-all duration-300 ease-out"
+                data-step={index + 1}
+                data-state={index === 0 ? 'active' : 'upcoming'}
+              >
+                <span class="funnel-step-label">{index + 1}</span>
+              </div>
+              {index < 4 && (
+                <div
+                  class="funnel-step-line h-px flex-1 bg-white/20 transition-colors duration-300 ease-out"
+                  data-after-step={index + 1}
+                />
+              )}
+            </>
+          ))
+        }
       </div>
 
-      <form class="funnel-quote-form-fields" novalidate>
+      <form class="funnel-quote-form-fields" novalidate data-cal-link={calcomLink}>
         <input type="hidden" name="landingPage" value="/roof-quote" />
         <input type="hidden" name="pagePath" value="/roof-quote" />
         <input type="hidden" name="utmSource" value="" />
@@ -100,151 +117,197 @@ const scopes = [
         <input type="hidden" name="fbclid" value="" />
 
         <div class="funnel-steps-shell relative overflow-hidden">
-          <section class="funnel-step is-active space-y-4" data-step="1" aria-hidden="false">
+          <!-- Home type step -->
+          <div class="funnel-step is-active space-y-6" data-step="1" aria-hidden="false">
+            <div class="space-y-1 text-center">
+              <p class="font-heading text-2xl font-medium text-white">What describes your home?</p>
+              <p class="text-white/56">Pick the option that best matches the property.</p>
+            </div>
+
             <div class="space-y-2">
-              <p class="text-[1.375rem] font-medium text-white">What describes your home?</p>
-              <p class="text-sm leading-6 text-white/56">Pick the option that best matches the property.</p>
+              <div class="border-radial grid grid-cols-2 gap-3 rounded-2xl p-2 sm:grid-cols-4">
+                {
+                  homeTypes.map(option => (
+                    <label class="funnel-choice-card group">
+                      <input class="funnel-choice-input" type="radio" name="homeType" value={option.value} required />
+                      <span class="funnel-choice-surface">
+                        <span class="funnel-choice-icon">
+                          <Image
+                            src={option.thubmnail}
+                            alt={option.value}
+                            width={option.thubmnail.width}
+                            height={option.thubmnail.height}
+                            fetchpriority="high"
+                            loading="eager"
+                          />
+                        </span>
+                        <span class="funnel-choice-copy">
+                          <span class="funnel-choice-title">{option.value}</span>
+                        </span>
+                        <span class="funnel-choice-check">
+                          <Icon name="tick" class="size-3.5" />
+                        </span>
+                      </span>
+                    </label>
+                  ))
+                }
+              </div>
+
+              <p
+                class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
+                aria-hidden="true"
+              >
+                <span class="block pt-2">Please select one option.</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Timeline step -->
+          <div class="funnel-step space-y-6" data-step="2" aria-hidden="true" inert>
+            <div class="space-y-1 text-center">
+              <p class="font-heading text-2xl font-medium text-white">When are you wanting this project completed?</p>
+              <p class="text-white/56">This helps us understand urgency and scheduling needs.</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {homeTypes.map(option => (
-                <label class="funnel-choice-card group">
-                  <input class="funnel-choice-input" type="radio" name="homeType" value={option.value} required />
-                  <span class="funnel-choice-surface">
-                    <span class="funnel-choice-icon">
-                      <Icon name={option.icon} class="size-5" />
-                    </span>
-                    <span class="funnel-choice-copy">
-                      <span class="funnel-choice-title">{option.value}</span>
-                    </span>
-                    <span class="funnel-choice-check">
-                      <Icon name="tick" class="size-3.5" />
-                    </span>
-                  </span>
-                </label>
-              ))}
+            <div class="space-y-2">
+              <div class="border-radial grid grid-cols-2 gap-3 rounded-2xl p-2 sm:grid-cols-4">
+                {
+                  timelines.map(option => (
+                    <label class="funnel-choice-card group">
+                      <input class="funnel-choice-input" type="radio" name="timeline" value={option.value} required />
+                      <span class="funnel-choice-surface">
+                        <span class="funnel-choice-icon">
+                          <Image
+                            src={option.thubmnail}
+                            alt={option.value}
+                            width={option.thubmnail.width}
+                            height={option.thubmnail.height}
+                            fetchpriority="high"
+                            loading="eager"
+                            class="aspect-square size-[100px]"
+                          />
+                        </span>
+                        <span class="funnel-choice-copy">
+                          <span class="funnel-choice-title">{option.value}</span>
+                        </span>
+                        <span class="funnel-choice-check">
+                          <Icon name="tick" class="size-3.5" />
+                        </span>
+                      </span>
+                    </label>
+                  ))
+                }
+              </div>
+
+              <p
+                class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
+                aria-hidden="true"
+              >
+                <span class="block pt-2">Please select one option.</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Roofing Type Step -->
+          <section class="funnel-step space-y-6" data-step="3" aria-hidden="true" inert>
+            <div class="space-y-1 text-center">
+              <p class="font-heading text-2xl font-medium text-white">What is the scope of your roofing project?</p>
+              <p class="text-white/56">Choose the closest match for the work you need.</p>
             </div>
 
-            <p
-              class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
-              aria-hidden="true"
-            >
-              <span class="block pt-2">Please select one option.</span>
-            </p>
+            <div class="space-y-2">
+              <div class="border-radial grid grid-cols-2 gap-3 rounded-2xl p-2 sm:grid-cols-4">
+                {
+                  scopes.map(option => (
+                    <label class="funnel-choice-card group">
+                      <input
+                        class="funnel-choice-input"
+                        type="radio"
+                        name="projectScope"
+                        value={option.value}
+                        required
+                      />
+                      <span class="funnel-choice-surface">
+                        <span class="funnel-choice-icon">
+                          <Image
+                            src={option.thubmnail}
+                            alt={option.value}
+                            width={option.thubmnail.width}
+                            height={option.thubmnail.height}
+                            fetchpriority="high"
+                            loading="eager"
+                            class="w-[100px]"
+                          />
+                        </span>
+                        <span class="funnel-choice-copy">
+                          <span class="funnel-choice-title">{option.value}</span>
+                        </span>
+                        <span class="funnel-choice-check">
+                          <Icon name="tick" class="size-3.5" />
+                        </span>
+                      </span>
+                    </label>
+                  ))
+                }
+              </div>
+
+              <p
+                class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
+                aria-hidden="true"
+              >
+                <span class="block pt-2">Please select one option.</span>
+              </p>
+            </div>
           </section>
 
-          <section class="funnel-step space-y-4" data-step="2" aria-hidden="true" inert>
-            <div class="space-y-2">
-              <p class="text-[1.375rem] font-medium text-white">When are you wanting this project completed?</p>
-              <p class="text-sm leading-6 text-white/56">This helps us understand urgency and scheduling needs.</p>
+          <!-- Address -->
+          <section class="funnel-step space-y-6" data-step="4" aria-hidden="true" inert>
+            <div class="space-y-1">
+              <p class="font-heading text-2xl font-medium text-white">What is the address of this project?</p>
+              <p class="text-white/56">Tell us where the property is located.</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {timelines.map(option => (
-                <label class="funnel-choice-card group">
-                  <input class="funnel-choice-input" type="radio" name="timeline" value={option.value} required />
-                  <span class="funnel-choice-surface">
-                    <span class="funnel-choice-icon">
-                      <Icon name={option.icon} class="size-5" />
-                    </span>
-                    <span class="funnel-choice-copy">
-                      <span class="funnel-choice-title">{option.value}</span>
-                    </span>
-                    <span class="funnel-choice-check">
-                      <Icon name="tick" class="size-3.5" />
-                    </span>
-                  </span>
-                </label>
-              ))}
-            </div>
-
-            <p
-              class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
-              aria-hidden="true"
-            >
-              <span class="block pt-2">Please select one option.</span>
-            </p>
-          </section>
-
-          <section class="funnel-step space-y-4" data-step="3" aria-hidden="true" inert>
-            <div class="space-y-2">
-              <p class="text-[1.375rem] font-medium text-white">What is the scope of your roofing project?</p>
-              <p class="text-sm leading-6 text-white/56">Choose the closest match for the work you need.</p>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {scopes.map(option => (
-                <label class="funnel-choice-card group">
-                  <input class="funnel-choice-input" type="radio" name="projectScope" value={option.value} required />
-                  <span class="funnel-choice-surface">
-                    <span class="funnel-choice-icon">
-                      <Icon name={option.icon} class="size-5" />
-                    </span>
-                    <span class="funnel-choice-copy">
-                      <span class="funnel-choice-title">{option.value}</span>
-                    </span>
-                    <span class="funnel-choice-check">
-                      <Icon name="tick" class="size-3.5" />
-                    </span>
-                  </span>
-                </label>
-              ))}
-            </div>
-
-            <p
-              class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
-              aria-hidden="true"
-            >
-              <span class="block pt-2">Please select one option.</span>
-            </p>
-          </section>
-
-          <section class="funnel-step space-y-4" data-step="4" aria-hidden="true" inert>
-            <div class="space-y-2">
-              <p class="text-[1.375rem] font-medium text-white">What is the address of this project?</p>
-              <p class="text-sm leading-6 text-white/56">Tell us where the property is located.</p>
-            </div>
-
-            <div class="grid gap-4">
+            <div class="border-radial grid gap-4 rounded-2xl p-4">
+              <!-- Location -->
               <div>
                 <label class="mb-2 block text-sm font-medium text-white">Address</label>
-                <div class="funnel-field-wrapper funnel-field-wrapper-search from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
-                  <NoiseBg class="rounded-[0.70rem] px-0 py-0">
-                    <div class="relative">
-                      <Icon name="search" class="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-white/45" />
-                      <input
-                        type="text"
-                        name="addressLookup"
-                        placeholder="Colorado, USA"
-                        required
-                        class="w-full rounded-[0.70rem] bg-white/5 py-3.5 pr-4 pl-12 text-base text-white placeholder:text-white/38 focus:outline-none"
-                      />
-                    </div>
-                  </NoiseBg>
+                <div class="funnel-field-wrapper funnel-field-wrapper-search from-primary border-radial rounded-xl">
+                  <div class="relative">
+                    <Icon
+                      name="search"
+                      class="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-white/45"
+                    />
+                    <input
+                      type="text"
+                      name="addressLookup"
+                      placeholder="Colorado, USA"
+                      required
+                      class="h-11 w-full rounded-[0.70rem] bg-white/5 py-2 pr-4 pl-12 text-base text-white placeholder:text-white/38 focus:outline-none"
+                    />
+                  </div>
                 </div>
                 <p
-                  class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+                  class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
                   aria-hidden="true"
                 >
                   <span class="block pt-2">Address is required.</span>
                 </p>
               </div>
 
+              <!-- Street -->
               <div>
                 <label class="mb-2 block text-sm font-medium text-white">Street Address</label>
-                <div class="funnel-field-wrapper from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
-                  <NoiseBg class="rounded-[0.70rem] px-0 py-0">
-                    <input
-                      type="text"
-                      name="streetAddress"
-                      placeholder="Address"
-                      required
-                      class="w-full rounded-[0.70rem] bg-white/5 px-4 py-3.5 text-base text-white placeholder:text-white/38 focus:outline-none"
-                    />
-                  </NoiseBg>
+                <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
+                  <input
+                    type="text"
+                    name="streetAddress"
+                    placeholder="Address"
+                    required
+                    class="w-full rounded-[0.70rem] bg-white/5 px-4 py-2 text-base text-white placeholder:text-white/38 focus:outline-none"
+                  />
                 </div>
                 <p
-                  class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+                  class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
                   aria-hidden="true"
                 >
                   <span class="block pt-2">Street address is required.</span>
@@ -252,42 +315,40 @@ const scopes = [
               </div>
 
               <div class="grid grid-cols-1 gap-4 sm:grid-cols-[1.25fr_0.8fr]">
+                <!-- City -->
                 <div>
                   <label class="mb-2 block text-sm font-medium text-white">City</label>
-                  <div class="funnel-field-wrapper from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
-                    <NoiseBg class="rounded-[0.70rem] px-0 py-0">
-                      <input
-                        type="text"
-                        name="city"
-                        placeholder="City"
-                        required
-                        class="w-full rounded-[0.70rem] bg-white/5 px-4 py-3.5 text-base text-white placeholder:text-white/38 focus:outline-none"
-                      />
-                    </NoiseBg>
+                  <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
+                    <input
+                      type="text"
+                      name="city"
+                      placeholder="City"
+                      required
+                      class="h-11 w-full rounded-[0.70rem] bg-white/5 px-4 py-2 text-base text-white placeholder:text-white/38 focus:outline-none"
+                    />
                   </div>
                   <p
-                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
                     aria-hidden="true"
                   >
                     <span class="block pt-2">City is required.</span>
                   </p>
                 </div>
 
+                <!-- Postal -->
                 <div>
                   <label class="mb-2 block text-sm font-medium text-white">Postal code</label>
-                  <div class="funnel-field-wrapper from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
-                    <NoiseBg class="rounded-[0.70rem] px-0 py-0">
-                      <input
-                        type="text"
-                        name="postalCode"
-                        placeholder="Postal code"
-                        required
-                        class="w-full rounded-[0.70rem] bg-white/5 px-4 py-3.5 text-base text-white placeholder:text-white/38 focus:outline-none"
-                      />
-                    </NoiseBg>
+                  <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
+                    <input
+                      type="text"
+                      name="postalCode"
+                      placeholder="Postal code"
+                      required
+                      class="h-11 w-full rounded-[0.70rem] bg-white/5 px-4 py-2 text-base text-white placeholder:text-white/38 focus:outline-none"
+                    />
                   </div>
                   <p
-                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
                     aria-hidden="true"
                   >
                     <span class="block pt-2">Postal code is required.</span>
@@ -297,29 +358,28 @@ const scopes = [
             </div>
           </section>
 
-          <section class="funnel-step space-y-4" data-step="5" aria-hidden="true" inert>
+          <!-- Contact Info -->
+          <section class="funnel-step space-y-6" data-step="5" aria-hidden="true" inert>
             <div class="funnel-final-panel is-active space-y-4" data-panel="lead">
-              <div class="space-y-2">
-                <p class="text-[1.375rem] font-medium text-white">Where should we send your estimate details?</p>
-                <p class="text-sm leading-6 text-white/56">Submit your contact info and then choose a time to talk.</p>
+              <div class="space-y-1">
+                <p class="font-heading text-2xl font-medium text-white">Where should we send your estimate details?</p>
+                <p class="text-white/56">Submit your contact info and then choose a time to talk.</p>
               </div>
 
               <div class="grid gap-4">
                 <div>
                   <label class="mb-2 block text-sm font-medium text-white">Email *</label>
-                  <div class="funnel-field-wrapper from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
-                    <NoiseBg class="rounded-[0.70rem] px-0 py-0">
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        required
-                        class="w-full rounded-[0.70rem] bg-white/5 px-4 py-3.5 text-base text-white placeholder:text-white/38 focus:outline-none"
-                      />
-                    </NoiseBg>
+                  <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      required
+                      class="h-11 w-full rounded-[0.70rem] bg-white/5 px-4 py-2 text-base text-white placeholder:text-white/38 focus:outline-none"
+                    />
                   </div>
                   <p
-                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
                     aria-hidden="true"
                   >
                     <span class="block pt-2">A valid email is required.</span>
@@ -328,40 +388,36 @@ const scopes = [
 
                 <div>
                   <label class="mb-2 block text-sm font-medium text-white">Full Name</label>
-                  <div class="funnel-field-wrapper from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
-                    <NoiseBg class="rounded-[0.70rem] px-0 py-0">
-                      <input
-                        type="text"
-                        name="fullName"
-                        placeholder="Full Name"
-                        required
-                        class="w-full rounded-[0.70rem] bg-white/5 px-4 py-3.5 text-base text-white placeholder:text-white/38 focus:outline-none"
-                      />
-                    </NoiseBg>
+                  <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
+                    <input
+                      type="text"
+                      name="fullName"
+                      placeholder="Full Name"
+                      required
+                      class="h-11 w-full rounded-[0.70rem] bg-white/5 px-4 py-2 text-base text-white placeholder:text-white/38 focus:outline-none"
+                    />
                   </div>
                   <p
-                  class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
-                  aria-hidden="true"
-                >
-                  <span class="block pt-2">Full name is required.</span>
-                </p>
+                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
+                    aria-hidden="true"
+                  >
+                    <span class="block pt-2">Full name is required.</span>
+                  </p>
                 </div>
 
                 <div>
                   <label class="mb-2 block text-sm font-medium text-white">Phone *</label>
-                  <div class="funnel-field-wrapper from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
-                    <NoiseBg class="rounded-[0.70rem] px-0 py-0">
-                      <input
-                        type="tel"
-                        name="phone"
-                        placeholder="Phone"
-                        required
-                        class="w-full rounded-[0.70rem] bg-white/5 px-4 py-3.5 text-base text-white placeholder:text-white/38 focus:outline-none"
-                      />
-                    </NoiseBg>
+                  <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="Phone"
+                      required
+                      class="h-11 w-full rounded-[0.70rem] bg-white/5 px-4 py-2 text-base text-white placeholder:text-white/38 focus:outline-none"
+                    />
                   </div>
                   <p
-                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
                     aria-hidden="true"
                   >
                     <span class="block pt-2">Phone number is required.</span>
@@ -370,44 +426,60 @@ const scopes = [
               </div>
             </div>
 
+            <!-- Booking -->
             <div class="funnel-final-panel hidden space-y-4" data-panel="booking">
               <div class="space-y-2 text-center">
                 <p class="text-[1.375rem] font-medium text-white">Book your roofing consultation</p>
-                <p class="text-sm leading-6 text-white/56">Choose a time that works for you and we’ll take it from there.</p>
+                <p class="text-sm leading-6 text-white/56">
+                  Choose a time that works for you and we’ll take it from there.
+                </p>
               </div>
 
               <div class="funnel-cal-shell rounded-[1rem] border border-white/10 bg-black/25 p-2">
                 <div class="funnel-cal-frame">
-                  <div id="my-cal-inline-30min" class="h-full w-full overflow-auto"></div>
+                  <div id="my-cal-inline-30min" class="w-full"></div>
                 </div>
               </div>
             </div>
           </section>
         </div>
 
+        <!-- Cta -->
         <div class="mt-8 flex items-center justify-center gap-x-3">
-          <Button type="button" variant="outline" class="funnel-btn-back hidden min-w-[120px] justify-center">
+          <Button
+            type="button"
+            variant="outline"
+            class="funnel-btn-back border-primary hidden min-w-[120px] justify-center"
+          >
             Back
           </Button>
           <Button type="button" class="funnel-btn-next min-w-[148px] justify-center text-[1rem]">
             <span class="funnel-btn-next-label">Next</span>
-            <svg class="funnel-btn-next-spinner hidden size-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg
+              class="funnel-btn-next-spinner hidden size-4 animate-spin"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
             </svg>
           </Button>
         </div>
 
-        <p class="mt-4 text-center text-xs leading-5 text-white/60">
+        <p class="mt-4 text-center text-sm leading-5 font-normal text-balance text-white/60">
           By submitting this form, you agree that Black Knight Roofing may contact you about your request. See our
-          <a href="/privacy-policy" class="text-primary font-semibold transition-colors hover:text-white">
+          <a
+            href="/privacy-policy"
+            class="text-primary font-semibold underline-offset-4 transition-colors hover:text-white hover:underline"
+          >
             Privacy Policy
           </a>
           for details.
         </p>
       </form>
 
-      <div class="flex items-center justify-center gap-x-4 border-t border-white/10 pt-5 sm:gap-x-6">
+      <div class="flex items-center justify-center gap-x-4 pt-5 sm:gap-x-6">
         <div class="flex items-center gap-x-2">
           <Icon name="google-logo" class="size-4 text-white sm:size-5" />
           <div class="flex flex-col gap-y-[2px] text-[11px] leading-tight sm:text-xs">
@@ -461,6 +533,8 @@ const scopes = [
   .funnel-choice-card {
     display: block;
     cursor: pointer;
+    touch-action: manipulation;
+    height: max-content;
   }
 
   .funnel-choice-input {
@@ -479,6 +553,7 @@ const scopes = [
     overflow: hidden;
     border-radius: 0.85rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px;
     background:
       radial-gradient(circle at top left, rgba(242, 199, 68, 0.13), transparent 45%),
       linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
@@ -512,15 +587,15 @@ const scopes = [
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 6.7rem;
+    height: 8rem;
     color: #f2c744;
   }
 
   .funnel-choice-title {
     display: block;
-    font-size: 0.98rem;
+    font-size: 0.875rem;
     line-height: 1.35;
-    font-weight: 800;
+    font-weight: 600;
     color: white;
     text-align: center;
     text-wrap: balance;
@@ -534,10 +609,10 @@ const scopes = [
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 3.4rem;
-    padding: 0.65rem 0.55rem;
-    background: rgba(255, 255, 255, 0.08);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    /* min-height: 3.4rem; */
+    /* padding: 0.65rem 0.55rem; */
+    /* background: rgba(255, 255, 255, 0.08); */
+    /* border-top: 1px solid rgba(255, 255, 255, 0.08); */
   }
 
   .funnel-choice-icon :global(svg) {
@@ -549,14 +624,14 @@ const scopes = [
   .funnel-field-wrapper-search :global(section) {
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04)),
-      linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)),
-      var(--noise-bg, #111);
+      linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)), var(--noise-bg, #111);
   }
 
   .funnel-cal-frame {
-    height: min(37.5rem, 72vh);
-    overflow: hidden;
+    min-height: 37.5rem;
     border-radius: 0.9rem;
+    position: relative;
+    z-index: 10;
   }
 </style>
 
@@ -764,12 +839,10 @@ const scopes = [
           if (!groupValid) valid = false;
         });
 
-        currentPanel
-          .querySelectorAll('input[required]:not([type="radio"]), select[required]')
-          .forEach(input => {
-            const fieldValid = updateFieldState(input, true);
-            if (!fieldValid) valid = false;
-          });
+        currentPanel.querySelectorAll('input[required]:not([type="radio"]), select[required]').forEach(input => {
+          const fieldValid = updateFieldState(input, true);
+          if (!fieldValid) valid = false;
+        });
 
         if (!valid) {
           setGlobalErrorVisibility(true);
@@ -780,54 +853,53 @@ const scopes = [
       };
 
       const ensureCalLoaded = () =>
-        new Promise((resolve, reject) => {
-          const startCal = () => {
-            if (!window.Cal) {
-              reject(new Error('Cal failed to initialize.'));
-              return;
-            }
-
-            window.Cal('init', '30min', { origin: 'https://app.cal.com' });
-            window.Cal.ns['30min']('inline', {
-              elementOrSelector: '#my-cal-inline-30min',
-              config: { layout: 'month_view', useSlotsViewOnSmallScreen: 'true', theme: 'dark' },
-              calLink: 'tarunsoft/30min',
-            });
-
-            window.Cal.ns['30min']('ui', {
-              theme: 'dark',
-              cssVarsPerTheme: {
-                light: { 'cal-brand': '#0B2B26' },
-                dark: { 'cal-brand': '#C2E800' },
-              },
-              hideEventTypeDetails: false,
-              layout: 'month_view',
-            });
-
-            resolve();
-          };
-
-          if (window.Cal?.loaded) {
-            startCal();
-            return;
+        new Promise((resolve) => {
+          if (!window.Cal) {
+            (function (C, A, L) {
+              let p = function (a, ar) { a.q.push(ar); };
+              let d = C.document;
+              C.Cal = C.Cal || function () {
+                let cal = C.Cal;
+                let ar = arguments;
+                if (!cal.loaded) {
+                  cal.ns = {};
+                  cal.q = cal.q || [];
+                  let s = d.createElement('script');
+                  s.src = A;
+                  d.head.appendChild(s);
+                  cal.loaded = true;
+                }
+                if (ar[0] === L) {
+                  const api = function () { p(api, arguments); };
+                  const namespace = ar[1];
+                  api.q = api.q || [];
+                  typeof namespace === 'string' ? (cal.ns[namespace] = cal.ns[namespace] || api) : p(cal, ar);
+                  return;
+                }
+                p(cal, ar);
+              };
+            })(window, 'https://app.cal.com/embed/embed.js', 'init');
           }
 
-          const existing = document.querySelector('script[data-cal-embed="true"]');
-          if (existing) {
-            existing.addEventListener('load', startCal, { once: true });
-            existing.addEventListener('error', () => reject(new Error('Cal script failed to load.')), {
-              once: true,
-            });
-            return;
-          }
+          const calLink = form.dataset.calLink || 'tarunsoft/30min';
+          window.Cal('init', '30min', { origin: 'https://app.cal.com' });
+          window.Cal.ns['30min']('inline', {
+            elementOrSelector: '#my-cal-inline-30min',
+            config: { layout: 'month_view', useSlotsViewOnSmallScreen: true, theme: 'dark' },
+            calLink: calLink,
+          });
 
-          const script = document.createElement('script');
-          script.src = 'https://app.cal.com/embed/embed.js';
-          script.async = true;
-          script.dataset.calEmbed = 'true';
-          script.addEventListener('load', startCal, { once: true });
-          script.addEventListener('error', () => reject(new Error('Cal script failed to load.')), { once: true });
-          document.head.appendChild(script);
+          window.Cal.ns['30min']('ui', {
+            theme: 'dark',
+            cssVarsPerTheme: {
+              light: { 'cal-brand': '#0B2B26' },
+              dark: { 'cal-brand': '#C2E800' },
+            },
+            hideEventTypeDetails: false,
+            layout: 'month_view',
+          });
+
+          resolve();
         });
 
       const revealBookingPanel = async () => {
