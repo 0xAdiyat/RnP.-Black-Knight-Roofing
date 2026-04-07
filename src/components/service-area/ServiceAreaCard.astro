@@ -11,6 +11,7 @@ interface Props {
 }
 
 const { image, city, state, href = '#', class: className } = Astro.props;
+const imageAlt = `${city}, ${state} roofing and exterior project by Black Knight Roofing`;
 ---
 
 <a href={href} class="from-primary rounded-2xl bg-radial-[at_30%_30%] via-[#594216] to-[#594216] p-px">
@@ -24,9 +25,9 @@ const { image, city, state, href = '#', class: className } = Astro.props;
     <div class="absolute inset-0 transition-transform duration-500 group-hover:scale-105">
       {
         typeof image === 'string' ? (
-          <img src={image} alt={`${city}, ${state}`} class="h-full w-full object-cover" />
+          <img src={image} alt={imageAlt} class="h-full w-full object-cover" />
         ) : (
-          <Image src={image} alt={`${city}, ${state}`} class="h-full w-full object-cover" />
+          <Image src={image} alt={imageAlt} class="h-full w-full object-cover" />
         )
       }
       <!-- Overlay Gradient -->
