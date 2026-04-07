@@ -13,15 +13,16 @@ interface Props {
 }
 
 const { image, title, subtitle, category, href } = Astro.props;
+const imageAlt = `${title}${subtitle ? ` ${subtitle}` : ''} ${category.toLowerCase()} project by Black Knight Roofing`;
 const Tag = href ? 'a' : 'div';
 ---
 
 <Tag class="relative h-[387px] overflow-hidden rounded-2xl" {...href ? { href } : {}}>
   {
     typeof image === 'string' ? (
-      <Image src={image} alt={title} width={358} height={387} class="h-full w-full rounded-2xl object-cover" />
+      <Image src={image} alt={imageAlt} width={358} height={387} class="h-full w-full rounded-2xl object-cover" />
     ) : (
-      <Image src={image} alt={title} width={358} height={387} class="h-full w-full rounded-2xl object-cover" />
+      <Image src={image} alt={imageAlt} width={358} height={387} class="h-full w-full rounded-2xl object-cover" />
     )
   }
 

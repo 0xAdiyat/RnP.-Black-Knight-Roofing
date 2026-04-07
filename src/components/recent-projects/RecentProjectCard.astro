@@ -13,7 +13,7 @@ interface Props {
 
 const {
   image,
-  imageAlt = 'Project Image',
+  imageAlt,
   title,
   category = 'Roofing',
   href,
@@ -21,6 +21,7 @@ const {
 } = Astro.props;
 
 const imageSrc = typeof image === 'string' ? image : image.src;
+const resolvedImageAlt = imageAlt || `${title} ${category.toLowerCase()} project by Black Knight Roofing`;
 ---
 
 <button
@@ -30,14 +31,14 @@ const imageSrc = typeof image === 'string' ? image : image.src;
   data-project-title={title}
   data-project-category={category}
   data-project-image={imageSrc}
-  data-project-alt={imageAlt}
+  data-project-alt={resolvedImageAlt}
   aria-label={`Open ${title} in full screen view`}
 >
   {
     typeof image === 'string' ? (
       <Image
         src={image}
-        alt={imageAlt}
+        alt={resolvedImageAlt}
         width={600}
         height={600}
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
@@ -45,7 +46,7 @@ const imageSrc = typeof image === 'string' ? image : image.src;
     ) : (
       <Image
         src={image}
-        alt={imageAlt}
+        alt={resolvedImageAlt}
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
       />
     )

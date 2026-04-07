@@ -18,6 +18,8 @@ const {
   afterLabel = 'After',
   class: className,
 } = Astro.props;
+const beforeAlt = `${beforeLabel} photo of the roofing project`;
+const afterAlt = `${afterLabel} photo of the completed roofing project`;
 ---
 
 <div class={cn('group relative overflow-hidden rounded-2xl select-none', className)} data-before-after>
@@ -25,9 +27,9 @@ const {
   <div class="relative h-full w-full">
     {
       typeof afterImage === 'string' ? (
-        <Image src={afterImage} alt="After" width={800} height={450} class="h-full w-full object-cover" />
+        <Image src={afterImage} alt={afterAlt} width={800} height={450} class="h-full w-full object-cover" />
       ) : (
-        <Image src={afterImage} alt="After" width={800} height={450} class="h-full w-full object-cover" />
+        <Image src={afterImage} alt={afterAlt} width={800} height={450} class="h-full w-full object-cover" />
       )
     }
 
@@ -43,9 +45,9 @@ const {
     <div class="relative h-full w-full">
        {
         typeof beforeImage === 'string' ? (
-          <Image src={beforeImage} alt="Before" width={800} height={450} class="h-full w-full object-cover" />
+          <Image src={beforeImage} alt={beforeAlt} width={800} height={450} class="h-full w-full object-cover" />
         ) : (
-          <Image src={beforeImage} alt="Before" width={800} height={450} class="h-full w-full object-cover" />
+          <Image src={beforeImage} alt={beforeAlt} width={800} height={450} class="h-full w-full object-cover" />
         )
       }
 
