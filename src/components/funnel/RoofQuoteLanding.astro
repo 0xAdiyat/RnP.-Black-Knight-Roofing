@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import FunnelQuoteForm from '@/components/funnel/FunnelQuoteForm.astro';
+import Brands from '@/components/Brands.astro';
+import heroLogo from '@/assets/hero-logo.avif';
+import roofImage from '@/assets/roof.avif';
+import gridFrame from '@/assets/grid-frame.avif';
+
+const visualThesis =
+  'A dramatic full-bleed roof backdrop with a dark steel-blue gradient field, a centered crest logo, and a single conversion card.';
+const contentPlan = 'Logo, funnel form, trust strip.';
+const interactionThesis = 'Use the existing stepper motion and keep the rest of the page still.';
+---
+
+<section
+  class="relative isolate overflow-hidden bg-[#0d0d0d]"
+  data-visual-thesis={visualThesis}
+  data-content-plan={contentPlan}
+  data-interaction-thesis={interactionThesis}
+>
+  <div class="absolute inset-0">
+    <Image
+      src={roofImage}
+      alt="Black Knight Roofing project background"
+      width={roofImage.width}
+      height={roofImage.height}
+      class="absolute inset-0 h-full w-full object-cover object-center"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,13,13,0.24)_0%,rgba(13,13,13,0.1)_22%,rgba(8,42,64,0.52)_54%,rgba(13,13,13,0.92)_100%)]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.42)_0%,rgba(0,0,0,0.18)_20%,rgba(0,0,0,0.62)_100%)]"></div>
+    <div
+      class="absolute inset-x-0 bottom-0 h-[58%] opacity-70"
+      style={`background-image: url(${gridFrame.src}); background-size: 670px auto; background-position: center top;`}
+    ></div>
+    <div class="absolute inset-x-0 bottom-0 h-[48%] bg-[linear-gradient(180deg,rgba(8,42,64,0)_0%,rgba(8,42,64,0.72)_46%,rgba(13,13,13,1)_100%)]"></div>
+  </div>
+
+  <div class="relative z-10 flex min-h-[calc(100svh-1px)] flex-col">
+    <div class="container flex flex-1 flex-col items-center px-4 pt-10 pb-14 sm:pt-12 sm:pb-18 lg:pt-16">
+      <a href="/" class="mb-6 block sm:mb-8" aria-label="Black Knight Roofing home">
+        <Image
+          src={heroLogo}
+          alt="Black Knight Roofing"
+          width={heroLogo.width}
+          height={heroLogo.height}
+          class="h-auto w-[9rem] drop-shadow-[0_20px_50px_rgba(0,0,0,0.55)] sm:w-[10.5rem]"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </a>
+
+      <div class="flex w-full flex-1 items-center justify-center">
+        <FunnelQuoteForm />
+      </div>
+    </div>
+
+    <Brands class="bg-[#111111]/95 py-8 sm:py-10" />
+  </div>
+</section>

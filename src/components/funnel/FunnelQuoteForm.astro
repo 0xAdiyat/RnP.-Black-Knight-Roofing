@@ -1,0 +1,1002 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import NoiseBg from '@/components/NoiseBg.astro';
+import Button from '@/components/ui/Button.astro';
+import RatingStars from '@/components/ui/RatingStars.astro';
+import bbbLogo from '@/assets/bbb-logo.png';
+
+const visualThesis =
+  'A dark premium conversion card with confident serif typography, tactile option tiles, and a final booking reveal that feels deliberate instead of bolted on.';
+const contentPlan = 'Headline, proof, five-step qualification flow, then booking.';
+const interactionThesis =
+  'Use selection tiles with instant state feedback, a measured step transition, and a same-step reveal from contact capture into booking.';
+
+const homeTypes = [
+  { value: 'Single Family', icon: 'home' },
+  { value: 'Townhome / Duplex', icon: 'teams' },
+  { value: 'Commercial', icon: 'briefcase' },
+  { value: 'Mobile Home', icon: 'location-02' },
+];
+
+const timelines = [
+  { value: 'ASAP', icon: 'clock' },
+  { value: 'This Month', icon: 'calendar' },
+  { value: 'Next Month', icon: 'calender-clock' },
+  { value: 'Not Sure', icon: 'question-circle' },
+];
+
+const scopes = [
+  { value: 'Roof Replacement', icon: 'roof-fire' },
+  { value: 'Large Repair', icon: 'shield-check' },
+  { value: 'Small Repair', icon: 'roof-fix' },
+  { value: 'Other', icon: 'dots' },
+];
+---
+
+<div
+  class="w-full max-w-[34.375rem] rounded-[1.75rem] bg-[#f2c744] p-[10px] shadow-[0_28px_80px_rgba(0,0,0,0.48)]"
+  data-visual-thesis={visualThesis}
+  data-content-plan={contentPlan}
+  data-interaction-thesis={interactionThesis}
+>
+  <NoiseBg class="funnel-quote-form rounded-[1.35rem] bg-[#222222] px-6 pt-8 pb-6 sm:px-10">
+    <div id="funnel-quote-success" class="hidden flex-col items-center justify-center gap-y-6 py-8 text-center">
+      <div class="bg-primary/20 border-primary/40 flex size-16 items-center justify-center rounded-full border">
+        <Icon name="circle-tick" class="text-primary size-8" />
+      </div>
+      <h3 class="text-xl font-semibold text-white">Estimate Request Received</h3>
+      <p class="text-sm text-neutral-400">Choose a time below and we’ll confirm the details.</p>
+    </div>
+
+    <div id="funnel-quote-form-content" class="space-y-6">
+      <div class="flex justify-center">
+        <RatingStars rating={5} size={22} fillColor="#F7B715" strokeColor="transparent" />
+      </div>
+
+      <h2 class="mx-auto max-w-[15ch] text-center text-[2.05rem] leading-[1.1] font-normal text-white sm:text-[2.5rem]">
+        Get a FREE Instant Roofing Estimate For Your Property
+      </h2>
+
+      <div
+        class="funnel-quote-error pointer-events-none max-h-0 overflow-hidden text-center text-sm font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+        role="alert"
+        aria-hidden="true"
+      >
+        <div class="pt-1">
+          <span class="block">There was a problem with your submission.</span>
+          <span class="block">Please review the fields below.</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center gap-x-2 px-2 sm:px-4">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <>
+            <div
+              class="funnel-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50 transition-all duration-300 ease-out"
+              data-step={index + 1}
+              data-state={index === 0 ? 'active' : 'upcoming'}
+            >
+              <span class="funnel-step-label">{index + 1}</span>
+            </div>
+            {index < 4 && (
+              <div
+                class="funnel-step-line h-px flex-1 bg-white/20 transition-colors duration-300 ease-out"
+                data-after-step={index + 1}
+              ></div>
+            )}
+          </>
+        ))}
+      </div>
+
+      <form class="funnel-quote-form-fields" novalidate>
+        <input type="hidden" name="landingPage" value="/roof-quote" />
+        <input type="hidden" name="pagePath" value="/roof-quote" />
+        <input type="hidden" name="utmSource" value="" />
+        <input type="hidden" name="utmMedium" value="" />
+        <input type="hidden" name="utmCampaign" value="" />
+        <input type="hidden" name="utmContent" value="" />
+        <input type="hidden" name="utmTerm" value="" />
+        <input type="hidden" name="fbclid" value="" />
+
+        <div class="funnel-steps-shell relative overflow-hidden">
+          <section class="funnel-step is-active space-y-4" data-step="1" aria-hidden="false">
+            <div class="space-y-2">
+              <p class="text-[1.375rem] font-medium text-white">What describes your home?</p>
+              <p class="text-sm leading-6 text-white/56">Pick the option that best matches the property.</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {homeTypes.map(option => (
+                <label class="funnel-choice-card group">
+                  <input class="funnel-choice-input" type="radio" name="homeType" value={option.value} required />
+                  <span class="funnel-choice-surface">
+                    <span class="funnel-choice-icon">
+                      <Icon name={option.icon} class="size-5" />
+                    </span>
+                    <span class="funnel-choice-copy">
+                      <span class="funnel-choice-title">{option.value}</span>
+                    </span>
+                    <span class="funnel-choice-check">
+                      <Icon name="tick" class="size-3.5" />
+                    </span>
+                  </span>
+                </label>
+              ))}
+            </div>
+
+            <p
+              class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+              aria-hidden="true"
+            >
+              <span class="block pt-2">Please select one option.</span>
+            </p>
+          </section>
+
+          <section class="funnel-step space-y-4" data-step="2" aria-hidden="true" inert>
+            <div class="space-y-2">
+              <p class="text-[1.375rem] font-medium text-white">When are you wanting this project completed?</p>
+              <p class="text-sm leading-6 text-white/56">This helps us understand urgency and scheduling needs.</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {timelines.map(option => (
+                <label class="funnel-choice-card group">
+                  <input class="funnel-choice-input" type="radio" name="timeline" value={option.value} required />
+                  <span class="funnel-choice-surface">
+                    <span class="funnel-choice-icon">
+                      <Icon name={option.icon} class="size-5" />
+                    </span>
+                    <span class="funnel-choice-copy">
+                      <span class="funnel-choice-title">{option.value}</span>
+                    </span>
+                    <span class="funnel-choice-check">
+                      <Icon name="tick" class="size-3.5" />
+                    </span>
+                  </span>
+                </label>
+              ))}
+            </div>
+
+            <p
+              class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+              aria-hidden="true"
+            >
+              <span class="block pt-2">Please select one option.</span>
+            </p>
+          </section>
+
+          <section class="funnel-step space-y-4" data-step="3" aria-hidden="true" inert>
+            <div class="space-y-2">
+              <p class="text-[1.375rem] font-medium text-white">What is the scope of your roofing project?</p>
+              <p class="text-sm leading-6 text-white/56">Choose the closest match for the work you need.</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {scopes.map(option => (
+                <label class="funnel-choice-card group">
+                  <input class="funnel-choice-input" type="radio" name="projectScope" value={option.value} required />
+                  <span class="funnel-choice-surface">
+                    <span class="funnel-choice-icon">
+                      <Icon name={option.icon} class="size-5" />
+                    </span>
+                    <span class="funnel-choice-copy">
+                      <span class="funnel-choice-title">{option.value}</span>
+                    </span>
+                    <span class="funnel-choice-check">
+                      <Icon name="tick" class="size-3.5" />
+                    </span>
+                  </span>
+                </label>
+              ))}
+            </div>
+
+            <p
+              class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+              aria-hidden="true"
+            >
+              <span class="block pt-2">Please select one option.</span>
+            </p>
+          </section>
+
+          <section class="funnel-step space-y-4" data-step="4" aria-hidden="true" inert>
+            <div class="space-y-2">
+              <p class="text-[1.375rem] font-medium text-white">What is the address of this project?</p>
+              <p class="text-sm leading-6 text-white/56">Tell us where the property is located.</p>
+            </div>
+
+            <div class="grid gap-4">
+              <div>
+                <label class="mb-2 block text-sm font-medium text-white">Address</label>
+                <div class="funnel-field-wrapper funnel-field-wrapper-search from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
+                  <NoiseBg class="rounded-[0.70rem] px-0 py-0">
+                    <div class="relative">
+                      <Icon name="search" class="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-white/45" />
+                      <input
+                        type="text"
+                        name="addressLookup"
+                        placeholder="Colorado, USA"
+                        required
+                        class="w-full rounded-[0.70rem] bg-white/5 py-3.5 pr-4 pl-12 text-base text-white placeholder:text-white/38 focus:outline-none"
+                      />
+                    </div>
+                  </NoiseBg>
+                </div>
+                <p
+                  class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+                  aria-hidden="true"
+                >
+                  <span class="block pt-2">Address is required.</span>
+                </p>
+              </div>
+
+              <div>
+                <label class="mb-2 block text-sm font-medium text-white">Street Address</label>
+                <div class="funnel-field-wrapper from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
+                  <NoiseBg class="rounded-[0.70rem] px-0 py-0">
+                    <input
+                      type="text"
+                      name="streetAddress"
+                      placeholder="Address"
+                      required
+                      class="w-full rounded-[0.70rem] bg-white/5 px-4 py-3.5 text-base text-white placeholder:text-white/38 focus:outline-none"
+                    />
+                  </NoiseBg>
+                </div>
+                <p
+                  class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+                  aria-hidden="true"
+                >
+                  <span class="block pt-2">Street address is required.</span>
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-[1.25fr_0.8fr]">
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-white">City</label>
+                  <div class="funnel-field-wrapper from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
+                    <NoiseBg class="rounded-[0.70rem] px-0 py-0">
+                      <input
+                        type="text"
+                        name="city"
+                        placeholder="City"
+                        required
+                        class="w-full rounded-[0.70rem] bg-white/5 px-4 py-3.5 text-base text-white placeholder:text-white/38 focus:outline-none"
+                      />
+                    </NoiseBg>
+                  </div>
+                  <p
+                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+                    aria-hidden="true"
+                  >
+                    <span class="block pt-2">City is required.</span>
+                  </p>
+                </div>
+
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-white">Postal code</label>
+                  <div class="funnel-field-wrapper from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
+                    <NoiseBg class="rounded-[0.70rem] px-0 py-0">
+                      <input
+                        type="text"
+                        name="postalCode"
+                        placeholder="Postal code"
+                        required
+                        class="w-full rounded-[0.70rem] bg-white/5 px-4 py-3.5 text-base text-white placeholder:text-white/38 focus:outline-none"
+                      />
+                    </NoiseBg>
+                  </div>
+                  <p
+                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+                    aria-hidden="true"
+                  >
+                    <span class="block pt-2">Postal code is required.</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="funnel-step space-y-4" data-step="5" aria-hidden="true" inert>
+            <div class="funnel-final-panel is-active space-y-4" data-panel="lead">
+              <div class="space-y-2">
+                <p class="text-[1.375rem] font-medium text-white">Where should we send your estimate details?</p>
+                <p class="text-sm leading-6 text-white/56">Submit your contact info and then choose a time to talk.</p>
+              </div>
+
+              <div class="grid gap-4">
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-white">Email *</label>
+                  <div class="funnel-field-wrapper from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
+                    <NoiseBg class="rounded-[0.70rem] px-0 py-0">
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        required
+                        class="w-full rounded-[0.70rem] bg-white/5 px-4 py-3.5 text-base text-white placeholder:text-white/38 focus:outline-none"
+                      />
+                    </NoiseBg>
+                  </div>
+                  <p
+                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+                    aria-hidden="true"
+                  >
+                    <span class="block pt-2">A valid email is required.</span>
+                  </p>
+                </div>
+
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-white">Full Name</label>
+                  <div class="funnel-field-wrapper from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
+                    <NoiseBg class="rounded-[0.70rem] px-0 py-0">
+                      <input
+                        type="text"
+                        name="fullName"
+                        placeholder="Full Name"
+                        required
+                        class="w-full rounded-[0.70rem] bg-white/5 px-4 py-3.5 text-base text-white placeholder:text-white/38 focus:outline-none"
+                      />
+                    </NoiseBg>
+                  </div>
+                  <p
+                  class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+                  aria-hidden="true"
+                >
+                  <span class="block pt-2">Full name is required.</span>
+                </p>
+                </div>
+
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-white">Phone *</label>
+                  <div class="funnel-field-wrapper from-primary rounded-xl bg-radial-[at_25%_25%] to-[#594216] p-px">
+                    <NoiseBg class="rounded-[0.70rem] px-0 py-0">
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="Phone"
+                        required
+                        class="w-full rounded-[0.70rem] bg-white/5 px-4 py-3.5 text-base text-white placeholder:text-white/38 focus:outline-none"
+                      />
+                    </NoiseBg>
+                  </div>
+                  <p
+                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
+                    aria-hidden="true"
+                  >
+                    <span class="block pt-2">Phone number is required.</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="funnel-final-panel hidden space-y-4" data-panel="booking">
+              <div class="space-y-2 text-center">
+                <p class="text-[1.375rem] font-medium text-white">Book your roofing consultation</p>
+                <p class="text-sm leading-6 text-white/56">Choose a time that works for you and we’ll take it from there.</p>
+              </div>
+
+              <div class="funnel-cal-shell rounded-[1rem] border border-white/10 bg-black/25 p-2">
+                <div class="funnel-cal-frame">
+                  <div id="my-cal-inline-30min" class="h-full w-full overflow-auto"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="mt-8 flex items-center justify-center gap-x-3">
+          <Button type="button" variant="outline" class="funnel-btn-back hidden min-w-[120px] justify-center">
+            Back
+          </Button>
+          <Button type="button" class="funnel-btn-next min-w-[148px] justify-center text-[1rem]">
+            <span class="funnel-btn-next-label">Next</span>
+            <svg class="funnel-btn-next-spinner hidden size-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+          </Button>
+        </div>
+
+        <p class="mt-4 text-center text-xs leading-5 text-white/60">
+          By submitting this form, you agree that Black Knight Roofing may contact you about your request. See our
+          <a href="/privacy-policy" class="text-primary font-semibold transition-colors hover:text-white">
+            Privacy Policy
+          </a>
+          for details.
+        </p>
+      </form>
+
+      <div class="flex items-center justify-center gap-x-4 border-t border-white/10 pt-5 sm:gap-x-6">
+        <div class="flex items-center gap-x-2">
+          <Icon name="google-logo" class="size-4 text-white sm:size-5" />
+          <div class="flex flex-col gap-y-[2px] text-[11px] leading-tight sm:text-xs">
+            <RatingStars rating={5} size={8} fillColor="#fff" strokeColor="transparent" />
+            <span class="font-semibold text-white">5.0 Rating</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-x-2">
+          <Icon name="facebook-logo" class="size-4 text-white sm:size-5" />
+          <div class="flex flex-col gap-y-[2px] text-[11px] leading-tight sm:text-xs">
+            <RatingStars rating={5} size={8} fillColor="#fff" strokeColor="transparent" />
+            <span class="font-semibold text-white">5.0 Rating</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-x-2">
+          <Image src={bbbLogo} alt="BBB" width={16} height={16} class="size-4 sm:size-5" />
+          <div class="flex flex-col gap-y-[2px] text-[11px] leading-tight sm:text-xs">
+            <RatingStars rating={5} size={8} fillColor="#fff" strokeColor="transparent" />
+            <span class="font-semibold text-white">A+ Rating</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </NoiseBg>
+</div>
+
+<style>
+  .funnel-steps-shell {
+    transition: height 320ms ease;
+  }
+
+  .funnel-step {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(14px);
+    pointer-events: none;
+    transition:
+      opacity 280ms ease,
+      transform 320ms ease;
+  }
+
+  .funnel-step.is-active {
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .funnel-choice-card {
+    display: block;
+    cursor: pointer;
+  }
+
+  .funnel-choice-input {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .funnel-choice-surface {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-height: 10rem;
+    overflow: hidden;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background:
+      radial-gradient(circle at top left, rgba(242, 199, 68, 0.13), transparent 45%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    transition:
+      border-color 180ms ease,
+      transform 180ms ease,
+      background 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .funnel-choice-card:hover .funnel-choice-surface {
+    transform: translateY(-1px);
+    border-color: rgba(242, 199, 68, 0.42);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+  }
+
+  .funnel-choice-input:focus-visible + .funnel-choice-surface {
+    outline: 2px solid rgba(242, 199, 68, 0.8);
+    outline-offset: 2px;
+  }
+
+  .funnel-choice-input:checked + .funnel-choice-surface {
+    border-color: rgba(242, 199, 68, 0.8);
+    background:
+      radial-gradient(circle at top left, rgba(242, 199, 68, 0.22), transparent 45%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    box-shadow: inset 0 0 0 1px rgba(242, 199, 68, 0.4);
+  }
+
+  .funnel-choice-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 6.7rem;
+    color: #f2c744;
+  }
+
+  .funnel-choice-title {
+    display: block;
+    font-size: 0.98rem;
+    line-height: 1.35;
+    font-weight: 800;
+    color: white;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .funnel-choice-check {
+    display: none;
+  }
+
+  .funnel-choice-copy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.4rem;
+    padding: 0.65rem 0.55rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .funnel-choice-icon :global(svg) {
+    width: 3rem;
+    height: 3rem;
+    color: #f2c744;
+  }
+
+  .funnel-field-wrapper-search :global(section) {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04)),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)),
+      var(--noise-bg, #111);
+  }
+
+  .funnel-cal-frame {
+    height: min(37.5rem, 72vh);
+    overflow: hidden;
+    border-radius: 0.9rem;
+  }
+</style>
+
+<script>
+  // @ts-nocheck
+  function initFunnelQuoteForms() {
+    document.querySelectorAll('.funnel-quote-form-fields').forEach(form => {
+      if (!(form instanceof HTMLFormElement)) return;
+      if (form.dataset.initialized) return;
+      form.dataset.initialized = 'true';
+
+      const wrapper = form.closest('.funnel-quote-form');
+      if (!(wrapper instanceof HTMLElement)) return;
+
+      const TOTAL_STEPS = 5;
+      let currentStep = 1;
+      let activeStepObserver = null;
+      let bookingVisible = false;
+      let calendarInitialized = false;
+
+      const steps = form.querySelectorAll('.funnel-step');
+      const dots = wrapper.querySelectorAll('.funnel-step-dot');
+      const lines = wrapper.querySelectorAll('.funnel-step-line');
+      const btnBack = form.querySelector('.funnel-btn-back');
+      const btnNext = form.querySelector('.funnel-btn-next');
+      const globalError = wrapper.querySelector('.funnel-quote-error');
+      const stepsShell = form.querySelector('.funnel-steps-shell');
+      const bookingPanel = form.querySelector('.funnel-final-panel[data-panel="booking"]');
+      const leadPanel = form.querySelector('.funnel-final-panel[data-panel="lead"]');
+
+      const assignAttributionFields = () => {
+        const params = new URLSearchParams(window.location.search);
+        const mappings = {
+          pagePath: window.location.pathname,
+          utmSource: params.get('utm_source') ?? '',
+          utmMedium: params.get('utm_medium') ?? '',
+          utmCampaign: params.get('utm_campaign') ?? '',
+          utmContent: params.get('utm_content') ?? '',
+          utmTerm: params.get('utm_term') ?? '',
+          fbclid: params.get('fbclid') ?? '',
+        };
+
+        Object.entries(mappings).forEach(([name, value]) => {
+          const input = form.elements.namedItem(name);
+          if (input instanceof HTMLInputElement) {
+            input.value = value;
+          }
+        });
+      };
+
+      const setShellHeight = (targetStep = currentStep) => {
+        if (!(stepsShell instanceof HTMLElement)) return;
+        const activeStep = form.querySelector(`.funnel-step[data-step="${targetStep}"]`);
+        if (!(activeStep instanceof HTMLElement)) return;
+
+        const nextHeight = Math.ceil(Math.max(activeStep.offsetHeight, activeStep.scrollHeight)) + 8;
+        stepsShell.style.height = `${nextHeight}px`;
+      };
+
+      const observeActiveStep = step => {
+        if (activeStepObserver) {
+          activeStepObserver.disconnect();
+        }
+
+        const activeStep = form.querySelector(`.funnel-step[data-step="${step}"]`);
+        if (!(activeStep instanceof HTMLElement) || typeof ResizeObserver === 'undefined') return;
+
+        activeStepObserver = new ResizeObserver(() => {
+          setShellHeight(step);
+        });
+
+        activeStepObserver.observe(activeStep);
+      };
+
+      const toggleMessageVisibility = (element, visible) => {
+        if (!(element instanceof HTMLElement)) return;
+        element.style.maxHeight = visible ? `${element.scrollHeight}px` : '0px';
+        element.style.opacity = visible ? '1' : '0';
+        element.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      };
+
+      const setGlobalErrorVisibility = visible => {
+        toggleMessageVisibility(globalError, visible);
+      };
+
+      const setFieldErrorVisibility = (fieldError, visible) => {
+        toggleMessageVisibility(fieldError, visible);
+      };
+
+      const getFieldElements = input => {
+        const fieldGroup =
+          input.closest('.funnel-step > div, .funnel-step > .grid > div, .funnel-choice-card') || input.parentElement;
+        const fieldError = input.closest('.funnel-step')?.querySelector('.funnel-field-error');
+        const fieldWrapper =
+          fieldGroup?.querySelector('.funnel-field-wrapper') ||
+          input.closest('.funnel-field-wrapper') ||
+          input.closest('.funnel-choice-card')?.querySelector('.funnel-choice-surface');
+
+        return { fieldError, fieldWrapper };
+      };
+
+      const getFieldValidationMessage = input => {
+        const value = input.value.trim();
+
+        if (input.type === 'radio') {
+          const checked = form.querySelector(`input[name="${input.name}"]:checked`);
+          return checked ? '' : 'Please select one option.';
+        }
+
+        if (input.name === 'postalCode') {
+          if (!value) return 'Postal code is required.';
+          const digits = value.replace(/\D/g, '');
+          return digits.length >= 5 ? '' : 'Please enter a valid postal code.';
+        }
+
+        if (input.name === 'addressLookup') {
+          return value.length >= 2 ? '' : 'Address is required.';
+        }
+
+        if (input.name === 'streetAddress') {
+          return value.length >= 5 ? '' : 'Street address is required.';
+        }
+
+        if (input.name === 'city') {
+          return value.length >= 2 ? '' : 'City is required.';
+        }
+
+        if (input.name === 'phone') {
+          if (!value) return 'Phone number is required.';
+          const digits = value.replace(/\D/g, '');
+          return digits.length >= 10 ? '' : 'Please enter a valid phone number.';
+        }
+
+        if (input.type === 'email') {
+          if (!value) return 'A valid email is required.';
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(value) ? '' : 'Please enter a valid email address.';
+        }
+
+        if (!value) {
+          switch (input.name) {
+            case 'fullName':
+              return 'Full name is required.';
+            default:
+              return 'The field is required.';
+          }
+        }
+
+        return '';
+      };
+
+      const updateFieldState = (input, showError = false) => {
+        const { fieldError, fieldWrapper } = getFieldElements(input);
+        const message = getFieldValidationMessage(input);
+        const isValid = message === '';
+
+        if (fieldError instanceof HTMLElement) {
+          const content = fieldError.querySelector('span');
+          if (content) content.textContent = message;
+          setFieldErrorVisibility(fieldError, showError && !isValid);
+        }
+
+        if (input.type === 'radio') {
+          const cards = form.querySelectorAll(`input[name="${input.name}"]`);
+          cards.forEach(radio => {
+            const surface = radio.closest('.funnel-choice-card')?.querySelector('.funnel-choice-surface');
+            surface?.classList.toggle('ring-1', showError && !isValid);
+            surface?.classList.toggle('ring-red-500', showError && !isValid);
+          });
+        } else if (fieldWrapper instanceof HTMLElement) {
+          fieldWrapper.classList.toggle('ring-1', !isValid && showError);
+          fieldWrapper.classList.toggle('ring-red-500', !isValid && showError);
+        }
+
+        return isValid;
+      };
+
+      const clearErrors = () => {
+        setGlobalErrorVisibility(false);
+
+        form.querySelectorAll('.funnel-field-error').forEach(el => {
+          setFieldErrorVisibility(el, false);
+        });
+
+        form.querySelectorAll('.funnel-field-wrapper, .funnel-choice-surface').forEach(el => {
+          el.classList.remove('ring-1', 'ring-red-500');
+        });
+
+        requestAnimationFrame(() => setShellHeight());
+      };
+
+      const validateStep = step => {
+        const currentPanel = form.querySelector(`.funnel-step[data-step="${step}"]`);
+        if (!(currentPanel instanceof HTMLElement)) return true;
+
+        clearErrors();
+        let valid = true;
+
+        const requiredInputs = Array.from(currentPanel.querySelectorAll('input[required]'));
+        const radioNames = new Set(requiredInputs.filter(input => input.type === 'radio').map(input => input.name));
+
+        radioNames.forEach(name => {
+          const representative = currentPanel.querySelector(`input[name="${name}"]`);
+          const groupValid = updateFieldState(representative, true);
+          if (!groupValid) valid = false;
+        });
+
+        currentPanel
+          .querySelectorAll('input[required]:not([type="radio"]), select[required]')
+          .forEach(input => {
+            const fieldValid = updateFieldState(input, true);
+            if (!fieldValid) valid = false;
+          });
+
+        if (!valid) {
+          setGlobalErrorVisibility(true);
+        }
+
+        requestAnimationFrame(() => setShellHeight(step));
+        return valid;
+      };
+
+      const ensureCalLoaded = () =>
+        new Promise((resolve, reject) => {
+          const startCal = () => {
+            if (!window.Cal) {
+              reject(new Error('Cal failed to initialize.'));
+              return;
+            }
+
+            window.Cal('init', '30min', { origin: 'https://app.cal.com' });
+            window.Cal.ns['30min']('inline', {
+              elementOrSelector: '#my-cal-inline-30min',
+              config: { layout: 'month_view', useSlotsViewOnSmallScreen: 'true', theme: 'dark' },
+              calLink: 'tarunsoft/30min',
+            });
+
+            window.Cal.ns['30min']('ui', {
+              theme: 'dark',
+              cssVarsPerTheme: {
+                light: { 'cal-brand': '#0B2B26' },
+                dark: { 'cal-brand': '#C2E800' },
+              },
+              hideEventTypeDetails: false,
+              layout: 'month_view',
+            });
+
+            resolve();
+          };
+
+          if (window.Cal?.loaded) {
+            startCal();
+            return;
+          }
+
+          const existing = document.querySelector('script[data-cal-embed="true"]');
+          if (existing) {
+            existing.addEventListener('load', startCal, { once: true });
+            existing.addEventListener('error', () => reject(new Error('Cal script failed to load.')), {
+              once: true,
+            });
+            return;
+          }
+
+          const script = document.createElement('script');
+          script.src = 'https://app.cal.com/embed/embed.js';
+          script.async = true;
+          script.dataset.calEmbed = 'true';
+          script.addEventListener('load', startCal, { once: true });
+          script.addEventListener('error', () => reject(new Error('Cal script failed to load.')), { once: true });
+          document.head.appendChild(script);
+        });
+
+      const revealBookingPanel = async () => {
+        if (!(leadPanel instanceof HTMLElement) || !(bookingPanel instanceof HTMLElement)) return;
+
+        leadPanel.classList.remove('is-active');
+        leadPanel.classList.add('hidden');
+        bookingPanel.classList.remove('hidden');
+        bookingPanel.classList.add('is-active');
+        bookingVisible = true;
+
+        if (btnNext instanceof HTMLElement) btnNext.classList.add('hidden');
+        if (btnBack instanceof HTMLElement) btnBack.classList.add('hidden');
+
+        if (!calendarInitialized) {
+          await ensureCalLoaded();
+          calendarInitialized = true;
+        }
+
+        requestAnimationFrame(() => setShellHeight(5));
+      };
+
+      const showStep = step => {
+        steps.forEach(el => {
+          const stepNumber = Number(el.dataset.step);
+          const isActive = stepNumber === step;
+          el.classList.toggle('is-active', isActive);
+          el.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+          if (isActive) {
+            el.removeAttribute('inert');
+          } else {
+            el.setAttribute('inert', '');
+          }
+        });
+
+        dots.forEach(dot => {
+          const stepNumber = Number(dot.dataset.step);
+          const label = dot.querySelector('.funnel-step-label');
+          const isCompleted = stepNumber < step;
+          const isActive = stepNumber === step;
+
+          if (isCompleted) {
+            dot.dataset.state = 'complete';
+            dot.className =
+              'funnel-step-dot bg-primary flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-black transition-all duration-300 ease-out';
+            if (label) label.textContent = '✓';
+          } else if (isActive) {
+            dot.dataset.state = 'active';
+            dot.className =
+              'funnel-step-dot bg-primary flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-black transition-all duration-300 ease-out';
+            if (label) label.textContent = String(stepNumber);
+          } else {
+            dot.dataset.state = 'upcoming';
+            dot.className =
+              'funnel-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50 transition-all duration-300 ease-out';
+            if (label) label.textContent = String(stepNumber);
+          }
+        });
+
+        lines.forEach(line => {
+          const afterStep = Number(line.dataset.afterStep);
+          if (afterStep < step) {
+            line.classList.remove('bg-white/20');
+            line.classList.add('bg-primary/40');
+          } else {
+            line.classList.remove('bg-primary/40');
+            line.classList.add('bg-white/20');
+          }
+        });
+
+        if (btnBack instanceof HTMLElement) {
+          btnBack.classList.toggle('hidden', step === 1 || bookingVisible);
+        }
+
+        if (btnNext instanceof HTMLElement) {
+          btnNext.classList.remove('hidden');
+          const label = btnNext.querySelector('.funnel-btn-next-label');
+          if (label) {
+            label.textContent = step === 5 ? 'View Booking Times' : 'Next';
+          }
+        }
+
+        currentStep = step;
+        observeActiveStep(step);
+        requestAnimationFrame(() => setShellHeight(step));
+      };
+
+      const handleFinalStepSubmit = async () => {
+        if (!validateStep(5)) return;
+
+        if (btnNext instanceof HTMLButtonElement) {
+          btnNext.disabled = true;
+          const label = btnNext.querySelector('.funnel-btn-next-label');
+          const spinner = btnNext.querySelector('.funnel-btn-next-spinner');
+          if (label) label.textContent = 'Loading…';
+          if (spinner) spinner.classList.remove('hidden');
+        }
+
+        try {
+          await revealBookingPanel();
+        } catch (error) {
+          console.error(error);
+          if (btnNext instanceof HTMLButtonElement) {
+            btnNext.disabled = false;
+            const label = btnNext.querySelector('.funnel-btn-next-label');
+            const spinner = btnNext.querySelector('.funnel-btn-next-spinner');
+            if (label) label.textContent = 'View Booking Times';
+            if (spinner) spinner.classList.add('hidden');
+          }
+          alert('There was a problem sending your request. Please try again.');
+        }
+      };
+
+      btnNext?.addEventListener('click', () => {
+        if (!validateStep(currentStep)) return;
+
+        if (currentStep < TOTAL_STEPS) {
+          showStep(currentStep + 1);
+          return;
+        }
+
+        handleFinalStepSubmit();
+      });
+
+      btnBack?.addEventListener('click', () => {
+        clearErrors();
+        if (currentStep > 1) {
+          showStep(currentStep - 1);
+        }
+      });
+
+      form.querySelectorAll('input[required], select[required]').forEach(input => {
+        const validateCurrentField = () => {
+          if (input.type === 'radio') {
+            updateFieldState(input, false);
+            return;
+          }
+
+          const hasVisibleError =
+            form.querySelector('.funnel-quote-error')?.getAttribute('aria-hidden') === 'false' ||
+            input.closest('.funnel-step')?.querySelector('.funnel-field-error[aria-hidden="false"]');
+
+          updateFieldState(input, Boolean(hasVisibleError));
+
+          const currentPanel = input.closest('.funnel-step');
+          const hasStepErrors = currentPanel?.querySelector('.funnel-field-error[aria-hidden="false"]');
+          setGlobalErrorVisibility(Boolean(hasStepErrors));
+          requestAnimationFrame(() => setShellHeight());
+        };
+
+        const eventName = input.type === 'radio' ? 'change' : 'input';
+        input.addEventListener(eventName, validateCurrentField);
+        input.addEventListener('blur', () => {
+          if (input.type === 'radio') return;
+          updateFieldState(input, true);
+          const currentPanel = input.closest('.funnel-step');
+          const hasStepErrors = currentPanel?.querySelector('.funnel-field-error[aria-hidden="false"]');
+          setGlobalErrorVisibility(Boolean(hasStepErrors));
+          requestAnimationFrame(() => setShellHeight());
+        });
+      });
+
+      assignAttributionFields();
+      window.addEventListener('resize', () => setShellHeight(currentStep));
+      showStep(1);
+      requestAnimationFrame(() => setShellHeight(1));
+    });
+  }
+
+  initFunnelQuoteForms();
+  document.addEventListener('astro:after-swap', initFunnelQuoteForms);
+</script>
