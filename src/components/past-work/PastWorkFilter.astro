@@ -126,7 +126,7 @@ const filterHeadingByPage: Record<PastWorkPage, string> = {
       </div>
 
       <div
-        class="grid w-fit max-w-4xl grid-cols-2 gap-2 rounded-2xl border border-white/24 p-2 sm:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center"
+        class="grid w-full max-w-fit grid-cols-2 gap-2 rounded-2xl border border-white/24 p-2 sm:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center"
       >
         {
           tiles.map((tile, index) => (
@@ -138,7 +138,7 @@ const filterHeadingByPage: Record<PastWorkPage, string> = {
                 data-gallery-filter={galleryRoot ? tile.galleryFilter : undefined}
                 data-past-work-tile
                 class:list={[
-                  'group xs:h-[135px] relative block h-[120px] w-full shrink-0 overflow-hidden rounded-xl text-center transition-colors duration-300 ease-out lg:w-[130px]',
+                  'group xs:h-[135px] relative inline-block aspect-square h-[120px] w-full shrink-0 overflow-hidden rounded-xl text-center transition-colors duration-300 ease-out lg:w-[130px]',
                   activeTile === tile.key ? 'border-radial' : 'border-gradient',
                 ]}
               >
