@@ -18,11 +18,7 @@ interface Props {
   galleryRoot?: boolean;
 }
 
-const {
-  currentPage,
-  activeGalleryFilter = 'featured',
-  galleryRoot = false,
-} = Astro.props;
+const { currentPage, activeGalleryFilter = 'featured', galleryRoot = false } = Astro.props;
 
 const getGalleryHref = (filter: GalleryFilter) => {
   const url = new URL('/gallery', Astro.url.origin);
@@ -82,8 +78,7 @@ const tiles: Array<{
   },
 ];
 
-const activeTile: TileKey =
-  currentPage === 'gallery' ? activeGalleryFilter : currentPage;
+const activeTile: TileKey = currentPage === 'gallery' ? activeGalleryFilter : currentPage;
 
 const filterHeadingByPage: Record<PastWorkPage, string> = {
   gallery: 'Filter GALLERY By:',
@@ -92,11 +87,7 @@ const filterHeadingByPage: Record<PastWorkPage, string> = {
 };
 ---
 
-<div
-  class="relative px-0 py-0"
-  data-past-work-filter
-  data-gallery-root={galleryRoot ? '' : undefined}
->
+<div class="relative px-0 py-0" data-past-work-filter data-gallery-root={galleryRoot ? '' : undefined}>
   <Image
     src={sunFlow}
     alt=""
@@ -112,7 +103,18 @@ const filterHeadingByPage: Record<PastWorkPage, string> = {
     <div class="z-10 flex flex-col items-center space-y-6">
       <div class="flex items-center justify-center gap-3">
         <div class="flex size-7 items-center justify-center rounded-full bg-[#F2C744] text-black sm:size-8">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:size-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="sm:size-4"
+          >
             <line x1="4" y1="6" x2="20" y2="6"></line>
             <line x1="4" y1="12" x2="14" y2="12"></line>
             <line x1="4" y1="18" x2="8" y2="18"></line>
@@ -123,18 +125,20 @@ const filterHeadingByPage: Record<PastWorkPage, string> = {
         </div>
       </div>
 
-      <div class="grid w-full max-w-4xl grid-cols-2 gap-2 rounded-2xl border border-white/24 p-2 sm:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center">
+      <div
+        class="grid w-fit max-w-4xl grid-cols-2 gap-2 rounded-2xl border border-white/24 p-2 sm:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center"
+      >
         {
           tiles.map((tile, index) => (
             <>
-              {index === 4 && <div class="hidden h-[90px] w-px bg-white/15 lg:block"></div>}
+              {index === 4 && <div class="hidden h-[90px] w-px bg-white/15 lg:block" />}
               <a
                 href={tile.href}
                 aria-current={activeTile === tile.key ? 'page' : undefined}
                 data-gallery-filter={galleryRoot ? tile.galleryFilter : undefined}
                 data-past-work-tile
                 class:list={[
-                  'group relative block h-[120px] w-full shrink-0 overflow-hidden rounded-xl text-center transition-colors duration-300 ease-out xs:h-[135px] lg:w-[130px]',
+                  'group xs:h-[135px] relative block h-[120px] w-full shrink-0 overflow-hidden rounded-xl text-center transition-colors duration-300 ease-out lg:w-[130px]',
                   activeTile === tile.key ? 'border-radial' : 'border-gradient',
                 ]}
               >
@@ -143,17 +147,20 @@ const filterHeadingByPage: Record<PastWorkPage, string> = {
                   alt=""
                   class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div class:list={[
-                  'absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-300',
-                  activeTile === tile.key ? 'opacity-40' : 'opacity-100',
-                ]} data-past-work-gradient></div>
+                <div
+                  class:list={[
+                    'absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-300',
+                    activeTile === tile.key ? 'opacity-40' : 'opacity-100',
+                  ]}
+                  data-past-work-gradient
+                />
                 <div
                   class:list={[
                     'absolute inset-0 rounded-xl bg-[#F2C744]/60 transition-opacity duration-300',
                     activeTile === tile.key ? 'opacity-100' : 'opacity-0',
                   ]}
                   data-past-work-active-overlay
-                ></div>
+                />
                 <div class="absolute inset-x-0 bottom-0 z-10 p-[16px]">
                   <div
                     class="text-[14px] leading-[20px] font-medium text-white transition-colors duration-300"
