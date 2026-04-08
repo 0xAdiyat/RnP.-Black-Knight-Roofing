@@ -84,6 +84,12 @@ const tiles: Array<{
 
 const activeTile: TileKey =
   currentPage === 'gallery' ? activeGalleryFilter : currentPage;
+
+const filterHeadingByPage: Record<PastWorkPage, string> = {
+  gallery: 'Filter GALLERY By:',
+  'before-after': 'Filter BEFORE-AFTER By:',
+  'case-studies': 'Filter CASE STUDIES By:',
+};
 ---
 
 <div
@@ -105,14 +111,16 @@ const activeTile: TileKey =
   <div class="container py-20">
     <div class="z-10 flex flex-col items-center space-y-6">
       <div class="flex items-center justify-center gap-3">
-        <div class="flex size-8 items-center justify-center rounded-full bg-[#F2C744] text-black">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <div class="flex size-7 items-center justify-center rounded-full bg-[#F2C744] text-black sm:size-8">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:size-4">
             <line x1="4" y1="6" x2="20" y2="6"></line>
             <line x1="4" y1="12" x2="14" y2="12"></line>
             <line x1="4" y1="18" x2="8" y2="18"></line>
           </svg>
         </div>
-        <div class="text-[20px] font-medium tracking-tight text-white/90">Filter GALLERY By:</div>
+        <div class="text-base font-medium tracking-tight text-white/90 sm:text-[20px]">
+          {filterHeadingByPage[currentPage]}
+        </div>
       </div>
 
       <div class="grid w-full max-w-4xl grid-cols-2 gap-2 rounded-2xl border border-white/24 p-2 sm:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center">
