@@ -130,6 +130,9 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
         <input type="hidden" name="utmContent" value="" />
         <input type="hidden" name="utmTerm" value="" />
         <input type="hidden" name="fbclid" value="" />
+        <input type="hidden" name="gclid" value="" />
+        <input type="hidden" name="msclkid" value="" />
+        <input type="hidden" name="ttclid" value="" />
 
         <div class="funnel-steps-shell relative overflow-hidden">
           <!-- Home type step -->
@@ -488,6 +491,14 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
                 </p>
               </div>
 
+              <p
+                class="funnel-webhook-warning hidden rounded-xl border border-amber-400/30 bg-amber-500/10 px-3 py-2 text-xs leading-5 text-amber-200"
+                role="status"
+              >
+                We could not confirm lead sync after two attempts. You can still book below, and we will reconcile your
+                request.
+              </p>
+
               <div class="funnel-cal-shell rounded-[1rem] border border-white/10 bg-black/25 p-4 sm:p-6">
                 <div id="cal-inline-container" class="w-full lg:w-[992px]" data-cal-link={calcomLink}></div>
 
@@ -792,6 +803,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
       const stepsShell = form.querySelector('.funnel-steps-shell');
       const bookingPanel = form.querySelector('.funnel-final-panel[data-panel="booking"]');
       const leadPanel = form.querySelector('.funnel-final-panel[data-panel="lead"]');
+      const webhookWarning = form.querySelector('.funnel-webhook-warning');
       const addressLookupInput = form.elements.namedItem('addressLookup');
       const streetAddressInput = form.elements.namedItem('streetAddress');
       const cityInput = form.elements.namedItem('city');
@@ -800,6 +812,10 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
       const googleBiasLat = Number(form.dataset.googleBiasLat ?? '39.7392');
       const googleBiasLng = Number(form.dataset.googleBiasLng ?? '-104.9903');
       const googleBiasRadius = Number(form.dataset.googleBiasRadius ?? '160934');
+      const wavebookWebhookUrl =
+        'https://services.leadconnectorhq.com/hooks/QubIB9oYi7Q0mBKuLdWY/webhook-trigger/6635256a-bfb9-4df6-913a-413f115a4109';
+      const WAVEBOOK_TIMEOUT_MS = 8000;
+      const WAVEBOOK_RETRY_DELAY_MS = 700;
 
       const isAddressComponentFilled = input => input instanceof HTMLInputElement && input.value.trim().length > 0;
       const hasManualAddressFallback = () =>
@@ -823,6 +839,9 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
           utmContent: params.get('utm_content') ?? '',
           utmTerm: params.get('utm_term') ?? '',
           fbclid: params.get('fbclid') ?? '',
+          gclid: params.get('gclid') ?? '',
+          msclkid: params.get('msclkid') ?? '',
+          ttclid: params.get('ttclid') ?? '',
         };
 
         Object.entries(mappings).forEach(([name, value]) => {
@@ -1110,6 +1129,98 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
         return valid;
       };
 
+      const validateStepsThrough = finalStep => {
+        for (let step = 1; step <= finalStep; step += 1) {
+          const valid = validateStep(step);
+          if (!valid) {
+            showStep(step);
+            return false;
+          }
+        }
+        showStep(finalStep);
+        return true;
+      };
+
+      const wait = delayMs =>
+        new Promise(resolve => {
+          window.setTimeout(resolve, delayMs);
+        });
+
+      const postWavebookPayload = async payload => {
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), WAVEBOOK_TIMEOUT_MS);
+
+        try {
+          const response = await fetch(wavebookWebhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            signal: controller.signal,
+          });
+
+          if (!response.ok) {
+            throw new Error(`Webhook submission failed with status ${response.status}`);
+          }
+        } finally {
+          window.clearTimeout(timeoutId);
+        }
+      };
+
+      const getFormPayload = () => {
+        const formData = new FormData(form);
+        const values = {};
+
+        formData.forEach((value, key) => {
+          if (typeof value === 'string') {
+            values[key] = value.trim();
+          }
+        });
+
+        const [firstName = '', ...restNameParts] = (values.fullName || '').split(/\s+/).filter(Boolean);
+        const lastName = restNameParts.join(' ');
+        const queryParams = new URLSearchParams(window.location.search);
+
+        return {
+          ...values,
+          firstName,
+          lastName,
+          submittedAt: new Date().toISOString(),
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+          referrer: document.referrer || '',
+          userAgent: navigator.userAgent || '',
+          currentUrl: window.location.href,
+          queryString: window.location.search || '',
+          funnelName: 'roof_quote_funnel',
+          formName: 'roof_quote_step_5',
+          funnelStep: 5,
+          leadStatus: 'submitted_before_booking',
+          submissionChannel: 'wavebook_webhook',
+          fbclid: values.fbclid || queryParams.get('fbclid') || '',
+          gclid: values.gclid || queryParams.get('gclid') || '',
+          msclkid: values.msclkid || queryParams.get('msclkid') || '',
+          ttclid: values.ttclid || queryParams.get('ttclid') || '',
+        };
+      };
+
+      const submitToWavebookWithRetry = async payload => {
+        try {
+          await postWavebookPayload(payload);
+          return true;
+        } catch (error) {
+          console.error('Wavebook webhook attempt 1 failed:', error);
+        }
+
+        await wait(WAVEBOOK_RETRY_DELAY_MS);
+
+        try {
+          await postWavebookPayload(payload);
+          return true;
+        } catch (error) {
+          console.error('Wavebook webhook attempt 2 failed:', error);
+          return false;
+        }
+      };
+
       const ensureCalLoaded = () =>
         new Promise(resolve => {
           if (!window.Cal) {
@@ -1291,28 +1402,38 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
       };
 
       const handleFinalStepSubmit = async () => {
-        if (!validateStep(5)) return;
+        if (!validateStepsThrough(5)) return;
+
+        if (webhookWarning instanceof HTMLElement) {
+          webhookWarning.classList.add('hidden');
+        }
 
         if (btnNext instanceof HTMLButtonElement) {
           btnNext.disabled = true;
           const label = btnNext.querySelector('.funnel-btn-next-label');
           const spinner = btnNext.querySelector('.funnel-btn-next-spinner');
-          if (label) label.textContent = 'Loading…';
+          if (label) label.textContent = 'Submitting...';
           if (spinner) spinner.classList.remove('hidden');
         }
 
         try {
+          const payload = getFormPayload();
+          const webhookSuccess = await submitToWavebookWithRetry(payload);
           await revealBookingPanel();
+
+          if (!webhookSuccess && webhookWarning instanceof HTMLElement) {
+            webhookWarning.classList.remove('hidden');
+          }
         } catch (error) {
           console.error(error);
           if (btnNext instanceof HTMLButtonElement) {
             btnNext.disabled = false;
             const label = btnNext.querySelector('.funnel-btn-next-label');
             const spinner = btnNext.querySelector('.funnel-btn-next-spinner');
-            if (label) label.textContent = 'View Booking Times';
+            if (label) label.textContent = 'Submit';
             if (spinner) spinner.classList.add('hidden');
           }
-          alert('There was a problem sending your request. Please try again.');
+          alert('There was a problem opening the calendar. Please try again.');
         }
       };
 
