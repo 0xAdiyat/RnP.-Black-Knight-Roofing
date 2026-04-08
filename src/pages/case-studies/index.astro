@@ -86,10 +86,14 @@ const works = [
   },
 ];
 
-const currentPage = Number(Astro.url.searchParams.get('page') || 1);
+const requestedPage = Number(Astro.url.searchParams.get('page') || 1);
 const itemsPerPage = 4;
-const totalPages = Math.ceil(works.length / itemsPerPage);
-const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+const totalItems = works.length;
+const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+const currentPage = Math.min(Math.max(requestedPage, 1), totalPages);
+const visibleSlugs = new Set(
+  works.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((work) => work.slug)
+);
 ---
 
 <Layout title="Denver Roofing Case Studies | Black Knight Roofing" noindex={true}>
@@ -114,19 +118,27 @@ const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage
 
   <!-- Gallery -->
   <NoiseBg class="px-0 py-0">
-    <div class="container py-10 lg:py-20">
+    <div class="container py-10 lg:py-20" data-case-studies-root>
       <div class="grid auto-cols-max auto-rows-max grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 lg:gap-x-2">
         {
-          displayedWorks.map(work => (
-            <WorkCard image={work.image} title={work.title} subtitle={work.subtitle} category={work.category} href={`/case-studies/${work.slug}`} />
+          works.map(work => (
+            <div data-case-study-card data-card-id={work.slug} class:list={[visibleSlugs.has(work.slug) ? '' : 'hidden']}>
+              <WorkCard image={work.image} title={work.title} subtitle={work.subtitle} category={work.category} href={`/case-studies/${work.slug}`} />
+            </div>
           ))
         }
       </div>
 
-      <!-- Pagination -->
-      <div class="mt-12 flex justify-center">
-        <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl="/case-studies" />
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalItems={totalItems}
+        itemsPerPage={itemsPerPage}
+        itemLabel="Projects"
+        variant="gallery"
+        clientMode={true}
+        baseUrl="/case-studies"
+      />
     </div>
   </NoiseBg>
 
@@ -191,4 +203,177 @@ const displayedWorks = works.slice((currentPage - 1) * itemsPerPage, currentPage
   </div>
   <CTASection cta={defaultCTA} />
   <Footer />
+
+  <script define:vars={{ totalItems, itemsPerPage, initialPage: currentPage }}>
+    const root = document.querySelector('[data-case-studies-root]');
+
+    if (root) {
+      const cards = Array.from(root.querySelectorAll('[data-case-study-card]'));
+      const paginationRoot = root.querySelector('[data-pagination-root]');
+      const pagesContainer = paginationRoot?.querySelector('[data-pagination-pages]');
+      const prevButton = paginationRoot?.querySelector('[data-pagination-prev]');
+      const nextButton = paginationRoot?.querySelector('[data-pagination-next]');
+      const count = paginationRoot?.querySelector('[data-pagination-count]');
+      const summary = paginationRoot?.querySelector('[data-pagination-summary]');
+
+      const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+      const state = { page: initialPage };
+      const filterSection = document.querySelector('[data-past-work-filter]');
+
+      const getPages = (currentPage, maxPages) => {
+        const pages = [];
+        const maxVisible = 7;
+
+        if (maxPages <= maxVisible) {
+          for (let i = 1; i <= maxPages; i += 1) pages.push(i);
+          return pages;
+        }
+
+        if (currentPage <= 4) return [1, 2, 3, 4, 5, 'DOTS', maxPages];
+        if (currentPage >= maxPages - 3) return [1, 'DOTS', maxPages - 4, maxPages - 3, maxPages - 2, maxPages - 1, maxPages];
+        return [1, 'DOTS', currentPage - 1, currentPage, currentPage + 1, 'DOTS', maxPages];
+      };
+
+      const updateUrl = (mode = 'replace') => {
+        const url = new URL(window.location.href);
+        if (state.page <= 1) {
+          url.searchParams.delete('page');
+        } else {
+          url.searchParams.set('page', String(state.page));
+        }
+        window.history[mode === 'push' ? 'pushState' : 'replaceState']({}, '', `${url.pathname}${url.search}`);
+      };
+
+      const getNavbarOffset = () => {
+        const navbarWrapper = document.getElementById('navbar-wrapper');
+        const mobileTopbar = document.getElementById('mobile-topbar');
+        const rootStyles = getComputedStyle(document.documentElement);
+        const syncedMobileTopbarHeight = Number.parseFloat(rootStyles.getPropertyValue('--mobile-topbar-h')) || 0;
+        const measuredNavbarHeight = navbarWrapper?.getBoundingClientRect().height || mobileTopbar?.getBoundingClientRect().height || 0;
+        const navbarHeight = Math.max(syncedMobileTopbarHeight, measuredNavbarHeight);
+        const extraOffset = window.innerWidth < 768 ? 28 : 16;
+        return navbarHeight + extraOffset;
+      };
+
+      const scrollToFilterTop = () => {
+        if (!filterSection) return;
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const top = window.scrollY + filterSection.getBoundingClientRect().top - getNavbarOffset();
+            window.scrollTo({
+              top: Math.max(0, top),
+              behavior: 'smooth',
+            });
+          });
+        });
+      };
+
+      const animateCards = (visibleCards) => {
+        visibleCards.forEach((card, index) => {
+          card.animate(
+            [
+              { opacity: 0, transform: 'translateY(16px) scale(0.985)' },
+              { opacity: 1, transform: 'translateY(0) scale(1)' },
+            ],
+            {
+              duration: 340,
+              delay: index * 40,
+              easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+              fill: 'both',
+            }
+          );
+        });
+      };
+
+      const renderPagination = () => {
+        if (!pagesContainer || !prevButton || !nextButton || !count || !summary) return;
+
+        pagesContainer.innerHTML = '';
+        prevButton.disabled = state.page <= 1;
+        nextButton.disabled = state.page >= totalPages;
+        prevButton.classList.toggle('pointer-events-none', state.page <= 1);
+        prevButton.classList.toggle('opacity-30', state.page <= 1);
+        nextButton.classList.toggle('pointer-events-none', state.page >= totalPages);
+        nextButton.classList.toggle('opacity-30', state.page >= totalPages);
+
+        getPages(state.page, totalPages).forEach((page) => {
+          if (page === 'DOTS') {
+            const dot = document.createElement('span');
+            dot.className = 'inline-flex size-11 items-center justify-center text-white/50';
+            dot.textContent = '...';
+            pagesContainer.append(dot);
+            return;
+          }
+
+          const pageButton = document.createElement('button');
+          pageButton.type = 'button';
+          pageButton.dataset.paginationPage = String(page);
+          pageButton.textContent = String(page);
+          pageButton.className =
+            'inline-flex size-11 items-center justify-center rounded-full text-sm font-medium backdrop-blur-[16.5px] transition-all duration-300';
+
+          if (state.page === page) {
+            pageButton.classList.add('border-radial', 'bg-[#0d0d0d]', 'text-white');
+          } else {
+            pageButton.classList.add('bg-white/10', 'text-white/70', 'hover:bg-white/20', 'hover:text-white');
+          }
+
+          pageButton.addEventListener('click', () => {
+            if (state.page === page) return;
+            state.page = page;
+            render({ pushHistory: true, scrollToFilter: true });
+          });
+
+          pagesContainer.append(pageButton);
+        });
+
+        const start = (state.page - 1) * itemsPerPage + 1;
+        const end = Math.min(state.page * itemsPerPage, totalItems);
+        count.textContent = `${totalItems} ${totalItems === 1 ? 'Project' : 'Projects'}`;
+        summary.textContent = `Showing ${start}-${end} of ${totalItems}`;
+      };
+
+      const render = ({ pushHistory = false, scrollToFilter = false } = {}) => {
+        state.page = Math.min(Math.max(state.page, 1), totalPages);
+        const start = (state.page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const visibleCards = [];
+
+        cards.forEach((card, index) => {
+          const isVisible = index >= start && index < end;
+          card.classList.toggle('hidden', !isVisible);
+          if (isVisible) visibleCards.push(card);
+        });
+
+        renderPagination();
+        updateUrl(pushHistory ? 'push' : 'replace');
+        if (scrollToFilter) {
+          scrollToFilterTop();
+        }
+        requestAnimationFrame(() => animateCards(visibleCards));
+      };
+
+      prevButton?.addEventListener('click', () => {
+        if (state.page <= 1) return;
+        state.page -= 1;
+        render({ pushHistory: true, scrollToFilter: true });
+      });
+
+      nextButton?.addEventListener('click', () => {
+        if (state.page >= totalPages) return;
+        state.page += 1;
+        render({ pushHistory: true, scrollToFilter: true });
+      });
+
+      window.addEventListener('popstate', () => {
+        const url = new URL(window.location.href);
+        const page = Number(url.searchParams.get('page') || '1');
+        state.page = Number.isFinite(page) && page > 0 ? page : 1;
+        render({ scrollToFilter: true });
+      });
+
+      render();
+    }
+  </script>
 </Layout>

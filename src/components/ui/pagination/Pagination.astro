@@ -10,6 +10,12 @@ interface Props {
   baseUrl: string; // e.g., '/gallery'
   queryParam?: string; // e.g., 'page'
   searchParams?: Record<string, string | number | undefined>;
+  variant?: 'default' | 'gallery';
+  totalItems?: number;
+  itemsPerPage?: number;
+  itemLabel?: string;
+  singularItemLabel?: string;
+  clientMode?: boolean;
   class?: string;
 }
 
@@ -19,8 +25,17 @@ const {
   baseUrl,
   queryParam = 'page',
   searchParams = {},
+  variant = 'default',
+  totalItems,
+  itemsPerPage,
+  itemLabel = 'Projects',
+  singularItemLabel,
+  clientMode = false,
   class: className,
 } = Astro.props;
+
+const safeTotalPages = Math.max(1, totalPages || 1);
+const safeCurrentPage = Math.min(Math.max(currentPage || 1, 1), safeTotalPages);
 
 const getPageUrl = (page: number) => {
   const url = new URL(baseUrl, Astro.url.origin);
@@ -39,58 +54,198 @@ const generatePages = () => {
   const maxVisiblePages = 7;
 
   if (totalPages <= maxVisiblePages) {
-    for (let i = 1; i <= totalPages; i++) pages.push(i);
+    for (let i = 1; i <= safeTotalPages; i++) pages.push(i);
   } else {
-    if (currentPage <= 4) {
-      pages.push(1, 2, 3, 4, 5, 'DOTS', totalPages);
-    } else if (currentPage >= totalPages - 3) {
-      pages.push(1, 'DOTS', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+    if (safeCurrentPage <= 4) {
+      pages.push(1, 2, 3, 4, 5, 'DOTS', safeTotalPages);
+    } else if (safeCurrentPage >= safeTotalPages - 3) {
+      pages.push(1, 'DOTS', safeTotalPages - 4, safeTotalPages - 3, safeTotalPages - 2, safeTotalPages - 1, safeTotalPages);
     } else {
-      pages.push(1, 'DOTS', currentPage - 1, currentPage, currentPage + 1, 'DOTS', totalPages);
+      pages.push(1, 'DOTS', safeCurrentPage - 1, safeCurrentPage, safeCurrentPage + 1, 'DOTS', safeTotalPages);
     }
   }
   return pages;
 };
 
 const pages = generatePages();
+
+const resolvedTotalItems =
+  typeof totalItems === 'number' ? totalItems : typeof itemsPerPage === 'number' ? safeTotalPages * itemsPerPage : undefined;
+
+const rangeStart =
+  typeof resolvedTotalItems === 'number' && resolvedTotalItems > 0 && typeof itemsPerPage === 'number'
+    ? (safeCurrentPage - 1) * itemsPerPage + 1
+    : undefined;
+
+const rangeEnd =
+  typeof resolvedTotalItems === 'number' && resolvedTotalItems > 0 && typeof itemsPerPage === 'number'
+    ? Math.min(safeCurrentPage * itemsPerPage, resolvedTotalItems)
+    : undefined;
+
+const resolvedSingularItemLabel = singularItemLabel || (itemLabel.endsWith('s') ? itemLabel.slice(0, -1) : itemLabel);
 ---
 
-<nav aria-label="Pagination" class={cn('flex items-center gap-2', className)}>
-  <!-- Previous Button -->
-  <PaginationLink
-    href={currentPage > 1 ? getPageUrl(currentPage - 1) : undefined}
-    isDisabled={currentPage <= 1}
-    aria-label="Go to previous page"
-  >
-    <Icon name="chevron-left" class="size-5" />
-  </PaginationLink>
+{
+  variant === 'gallery' ? (
+    <nav
+      aria-label="Pagination"
+      data-pagination-root
+      class={cn('mt-12 flex flex-col items-center justify-between gap-8 md:flex-row', className)}
+    >
+      <div class="flex flex-col gap-1.5 text-center md:text-left">
+        {
+          typeof resolvedTotalItems === 'number' && (
+            <div class="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/45" data-pagination-count>
+              {resolvedTotalItems} {resolvedTotalItems === 1 ? resolvedSingularItemLabel : itemLabel}
+            </div>
+          )
+        }
+        {
+          typeof rangeStart === 'number' && typeof rangeEnd === 'number' && typeof resolvedTotalItems === 'number' ? (
+            <div class="text-sm text-white/65" data-pagination-summary>
+              Showing {rangeStart}-{rangeEnd} of {resolvedTotalItems}
+            </div>
+          ) : null
+        }
+      </div>
 
-  <!-- Page Numbers -->
-  <div class="flex items-center gap-2">
-    {
-      pages.map((page) =>
-        page === 'DOTS' ? (
-          <PaginationEllipsis />
-        ) : (
-          <PaginationLink
-            href={getPageUrl(page)}
-            isActive={currentPage === page}
-            aria-label={`Go to page ${page}`}
-            aria-current={currentPage === page ? 'page' : undefined}
-          >
-            {page}
-          </PaginationLink>
-        )
-      )
-    }
-  </div>
+      <div class="flex items-center gap-2.5">
+        {
+          clientMode ? (
+            <button
+              type="button"
+              data-pagination-prev
+              aria-label="Go to previous page"
+              class:list={[
+                'inline-flex size-11 items-center justify-center rounded-full bg-white/10 text-white/70 backdrop-blur-[16.5px] transition-all duration-300 hover:bg-white/20 hover:text-white',
+                safeCurrentPage <= 1 ? 'pointer-events-none opacity-30' : '',
+              ]}
+              disabled={safeCurrentPage <= 1}
+            >
+              <Icon name="chevron-left" class="size-5" />
+            </button>
+          ) : (
+            <a
+              href={safeCurrentPage > 1 ? getPageUrl(safeCurrentPage - 1) : undefined}
+              aria-label="Go to previous page"
+              class:list={[
+                'inline-flex size-11 items-center justify-center rounded-full bg-white/10 text-white/70 backdrop-blur-[16.5px] transition-all duration-300 hover:bg-white/20 hover:text-white',
+                safeCurrentPage <= 1 ? 'pointer-events-none opacity-30' : '',
+              ]}
+              aria-disabled={safeCurrentPage <= 1 ? 'true' : undefined}
+            >
+              <Icon name="chevron-left" class="size-5" />
+            </a>
+          )
+        }
 
-  <!-- Next Button -->
-  <PaginationLink
-    href={currentPage < totalPages ? getPageUrl(currentPage + 1) : undefined}
-    isDisabled={currentPage >= totalPages}
-    aria-label="Go to next page"
-  >
-    <Icon name="chevron-right" class="size-5" />
-  </PaginationLink>
-</nav>
+        <div class="flex items-center gap-2" data-pagination-pages>
+          {
+            pages.map((page) =>
+              page === 'DOTS' ? (
+                <PaginationEllipsis />
+              ) : (
+                clientMode ? (
+                  <button
+                    type="button"
+                    data-pagination-page={page}
+                    class:list={[
+                      'inline-flex size-11 items-center justify-center rounded-full text-sm font-medium backdrop-blur-[16.5px] transition-all duration-300',
+                      safeCurrentPage === page
+                        ? 'border-radial bg-[#0d0d0d] text-white'
+                        : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white',
+                    ]}
+                    aria-label={`Go to page ${page}`}
+                    aria-current={safeCurrentPage === page ? 'page' : undefined}
+                  >
+                    {page}
+                  </button>
+                ) : (
+                  <a
+                    href={getPageUrl(page)}
+                    class:list={[
+                      'inline-flex size-11 items-center justify-center rounded-full text-sm font-medium backdrop-blur-[16.5px] transition-all duration-300',
+                      safeCurrentPage === page
+                        ? 'border-radial bg-[#0d0d0d] text-white'
+                        : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white',
+                    ]}
+                    aria-label={`Go to page ${page}`}
+                    aria-current={safeCurrentPage === page ? 'page' : undefined}
+                  >
+                    {page}
+                  </a>
+                )
+              )
+            )
+          }
+        </div>
+
+        {
+          clientMode ? (
+            <button
+              type="button"
+              data-pagination-next
+              aria-label="Go to next page"
+              class:list={[
+                'inline-flex size-11 items-center justify-center rounded-full bg-white/10 text-white/70 backdrop-blur-[16.5px] transition-all duration-300 hover:bg-white/20 hover:text-white',
+                safeCurrentPage >= safeTotalPages ? 'pointer-events-none opacity-30' : '',
+              ]}
+              disabled={safeCurrentPage >= safeTotalPages}
+            >
+              <Icon name="chevron-right" class="size-5" />
+            </button>
+          ) : (
+            <a
+              href={safeCurrentPage < safeTotalPages ? getPageUrl(safeCurrentPage + 1) : undefined}
+              aria-label="Go to next page"
+              class:list={[
+                'inline-flex size-11 items-center justify-center rounded-full bg-white/10 text-white/70 backdrop-blur-[16.5px] transition-all duration-300 hover:bg-white/20 hover:text-white',
+                safeCurrentPage >= safeTotalPages ? 'pointer-events-none opacity-30' : '',
+              ]}
+              aria-disabled={safeCurrentPage >= safeTotalPages ? 'true' : undefined}
+            >
+              <Icon name="chevron-right" class="size-5" />
+            </a>
+          )
+        }
+      </div>
+    </nav>
+  ) : (
+    <nav aria-label="Pagination" class={cn('flex items-center gap-2', className)}>
+      <PaginationLink
+        href={safeCurrentPage > 1 ? getPageUrl(safeCurrentPage - 1) : undefined}
+        isDisabled={safeCurrentPage <= 1}
+        aria-label="Go to previous page"
+      >
+        <Icon name="chevron-left" class="size-5" />
+      </PaginationLink>
+
+      <div class="flex items-center gap-2">
+        {
+          pages.map((page) =>
+            page === 'DOTS' ? (
+              <PaginationEllipsis />
+            ) : (
+              <PaginationLink
+                href={getPageUrl(page)}
+                isActive={safeCurrentPage === page}
+                aria-label={`Go to page ${page}`}
+                aria-current={safeCurrentPage === page ? 'page' : undefined}
+              >
+                {page}
+              </PaginationLink>
+            )
+          )
+        }
+      </div>
+
+      <PaginationLink
+        href={safeCurrentPage < safeTotalPages ? getPageUrl(safeCurrentPage + 1) : undefined}
+        isDisabled={safeCurrentPage >= safeTotalPages}
+        aria-label="Go to next page"
+      >
+        <Icon name="chevron-right" class="size-5" />
+      </PaginationLink>
+    </nav>
+  )
+}
