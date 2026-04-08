@@ -18,7 +18,7 @@ const interactionThesis = 'Use the existing stepper motion and keep the rest of 
   data-content-plan={contentPlan}
   data-interaction-thesis={interactionThesis}
 >
-  <div class="absolute inset-0">
+  <div class="bg-line absolute inset-0">
     <Image
       src={roofImage}
       alt="Black Knight Roofing project background"
@@ -28,26 +28,17 @@ const interactionThesis = 'Use the existing stepper motion and keep the rest of 
       loading="eager"
       fetchpriority="high"
     />
-    <div
-      class="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,13,13,0.24)_0%,rgba(13,13,13,0.1)_22%,rgba(8,42,64,0.52)_54%,rgba(13,13,13,0.92)_100%)]"
-    >
-    </div>
-    <div
-      class="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.42)_0%,rgba(0,0,0,0.18)_20%,rgba(0,0,0,0.62)_100%)]"
-    >
-    </div>
-    <div
-      class="absolute inset-x-0 bottom-0 h-[58%] opacity-70"
-      style={`background-image: url(${gridFrame.src}); background-size: 670px auto; background-position: center top;`}
-    >
-    </div>
-    <div
-      class="absolute inset-x-0 bottom-0 h-[48%] bg-[linear-gradient(180deg,rgba(8,42,64,0)_0%,rgba(8,42,64,0.72)_46%,rgba(13,13,13,1)_100%)]"
-    >
-    </div>
   </div>
 
-  <div class="relative z-10 flex min-h-[calc(100svh-1px)] flex-col">
+  <div class="hero-bg-gradient relative z-10 flex min-h-[calc(100svh-1px)] flex-col">
+    <Image
+      src={gridFrame.src}
+      alt=""
+      width={gridFrame.width}
+      height={gridFrame.height}
+      class="absolute inset-0 h-full w-full object-cover object-center opacity-50"
+    />
+
     <div class="container flex flex-1 flex-col items-center space-y-8 px-4 py-[112px] sm:space-y-12">
       <a href="/" class="block" aria-label="Black Knight Roofing home">
         <Image

@@ -18,6 +18,7 @@ import QuestionCircle from '@/assets/illustrations/question-circle.png';
 import RoofReplacement from '@/assets/illustrations/roof-replacement.png';
 import LargeRepair from '@/assets/illustrations/roof-large-repair.png';
 import SmallRepair from '@/assets/illustrations/roof-small-repair.png';
+import { cn } from '@/lib/utils';
 
 const visualThesis =
   'A dark premium conversion card with confident serif typography, tactile option tiles, and a final booking reveal that feels deliberate instead of bolted on.';
@@ -54,7 +55,9 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
 ---
 
 <div
-  class="from-primary/5 to-primary w-fit max-w-7xl rounded-[1.75rem] bg-linear-to-b p-[10px] shadow-[0_28px_80px_rgba(0,0,0,0.48)]"
+  class={cn(
+    'from-primary/5 to-primary w-fit min-[820px]:min-w-[820px] max-w-7xl rounded-[1.75rem] bg-linear-to-b p-[10px] shadow-[0_28px_80px_rgba(0,0,0,0.48)]'
+  )}
   data-visual-thesis={visualThesis}
   data-content-plan={contentPlan}
   data-interaction-thesis={interactionThesis}
@@ -65,7 +68,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
         <Icon name="circle-tick" class="text-primary size-8" />
       </div>
       <h3 class="text-xl font-semibold text-white">Estimate Request Received</h3>
-      <p class="text-sm text-neutral-400">Choose a time below and we’ll confirm the details.</p>
+      <p class="text-sm text-neutral-400">Choose a time below and we&apos;ll confirm the details.</p>
     </div>
 
     <div id="funnel-quote-form-content" class="space-y-6">
@@ -670,6 +673,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
     color: white;
     text-align: center;
     text-wrap: balance;
+  }
+
+  @media (max-width: 768px) {
+    .funnel-choice-title {
+      font-size: 0.6875rem;
+    }
   }
 
   .funnel-choice-input:checked + .funnel-choice-surface .funnel-choice-title,
