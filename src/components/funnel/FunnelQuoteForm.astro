@@ -47,6 +47,10 @@ const scopes = [
 ];
 
 const calcomLink = import.meta.env.PUBLIC_CALCOM_LINK || 'tarunsoft/30min';
+const googleMapsApiKey = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || '';
+const googleAutocompleteBiasLat = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCOMPLETE_BIAS_LAT || '39.7392');
+const googleAutocompleteBiasLng = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCOMPLETE_BIAS_LNG || '-104.9903');
+const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCOMPLETE_BIAS_RADIUS || '160934');
 ---
 
 <div
@@ -106,7 +110,15 @@ const calcomLink = import.meta.env.PUBLIC_CALCOM_LINK || 'tarunsoft/30min';
         }
       </div>
 
-      <form class="funnel-quote-form-fields" novalidate data-cal-link={calcomLink}>
+      <form
+        class="funnel-quote-form-fields"
+        novalidate
+        data-cal-link={calcomLink}
+        data-google-maps-api-key={googleMapsApiKey}
+        data-google-bias-lat={googleAutocompleteBiasLat}
+        data-google-bias-lng={googleAutocompleteBiasLng}
+        data-google-bias-radius={googleAutocompleteBiasRadius}
+      >
         <input type="hidden" name="landingPage" value="/roof-quote" />
         <input type="hidden" name="pagePath" value="/roof-quote" />
         <input type="hidden" name="utmSource" value="" />
@@ -658,11 +670,62 @@ const calcomLink = import.meta.env.PUBLIC_CALCOM_LINK || 'tarunsoft/30min';
       linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)), var(--noise-bg, #111);
   }
 
+  :global(.pac-container) {
+    margin-top: 0.35rem;
+    border: 1px solid rgba(242, 199, 68, 0.28);
+    border-radius: 0.9rem;
+    background: #161616;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
+    font-family: InterVariable, Inter, Arial, sans-serif;
+  }
+
+  :global(.pac-item) {
+    border-top-color: rgba(255, 255, 255, 0.08);
+    padding: 0.7rem 0.9rem;
+    color: rgba(255, 255, 255, 0.88);
+    background: transparent;
+  }
+
+  :global(.pac-item:hover),
+  :global(.pac-item-selected) {
+    background: rgba(242, 199, 68, 0.12);
+  }
+
+  :global(.pac-item-query) {
+    color: #fff;
+  }
+
   /* Embedded calendar frame no longer needed */
 </style>
 
 <script>
   // @ts-nocheck
+  function loadGoogleMapsPlaces(apiKey) {
+    if (!apiKey) return Promise.resolve(null);
+    if (window.google?.maps?.places) return Promise.resolve(window.google);
+    if (window.__googleMapsPlacesPromise) return window.__googleMapsPlacesPromise;
+
+    window.__googleMapsPlacesPromise = new Promise((resolve, reject) => {
+      const existingScript = document.querySelector('script[data-google-maps-places-loader]');
+      if (existingScript) {
+        existingScript.addEventListener('load', () => resolve(window.google));
+        existingScript.addEventListener('error', () => reject(new Error('Google Maps failed to load.')));
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&libraries=places`;
+      script.async = true;
+      script.defer = true;
+      script.dataset.googleMapsPlacesLoader = 'true';
+      script.onload = () => resolve(window.google);
+      script.onerror = () => reject(new Error('Google Maps failed to load.'));
+      document.head.appendChild(script);
+    });
+
+    return window.__googleMapsPlacesPromise;
+  }
+
   function initFunnelQuoteForms() {
     document.querySelectorAll('.funnel-quote-form-fields').forEach(form => {
       if (!(form instanceof HTMLFormElement)) return;
@@ -687,6 +750,26 @@ const calcomLink = import.meta.env.PUBLIC_CALCOM_LINK || 'tarunsoft/30min';
       const stepsShell = form.querySelector('.funnel-steps-shell');
       const bookingPanel = form.querySelector('.funnel-final-panel[data-panel="booking"]');
       const leadPanel = form.querySelector('.funnel-final-panel[data-panel="lead"]');
+      const addressLookupInput = form.elements.namedItem('addressLookup');
+      const streetAddressInput = form.elements.namedItem('streetAddress');
+      const cityInput = form.elements.namedItem('city');
+      const postalCodeInput = form.elements.namedItem('postalCode');
+      const googleMapsApiKey = form.dataset.googleMapsApiKey ?? '';
+      const googleBiasLat = Number(form.dataset.googleBiasLat ?? '39.7392');
+      const googleBiasLng = Number(form.dataset.googleBiasLng ?? '-104.9903');
+      const googleBiasRadius = Number(form.dataset.googleBiasRadius ?? '160934');
+
+      const isAddressComponentFilled = input => input instanceof HTMLInputElement && input.value.trim().length > 0;
+      const hasManualAddressFallback = () =>
+        isAddressComponentFilled(streetAddressInput) &&
+        isAddressComponentFilled(cityInput) &&
+        isAddressComponentFilled(postalCodeInput);
+
+      const setAddressSelectionState = (selected, selectedLabel = '') => {
+        if (!(addressLookupInput instanceof HTMLInputElement)) return;
+        addressLookupInput.dataset.placeSelected = selected ? 'true' : 'false';
+        addressLookupInput.dataset.selectedValue = selected ? selectedLabel : '';
+      };
 
       const assignAttributionFields = () => {
         const params = new URLSearchParams(window.location.search);
@@ -750,7 +833,7 @@ const calcomLink = import.meta.env.PUBLIC_CALCOM_LINK || 'tarunsoft/30min';
       const getFieldElements = input => {
         const fieldGroup =
           input.closest('.funnel-step > div, .funnel-step > .grid > div, .funnel-choice-card') || input.parentElement;
-        const fieldError = input.closest('.funnel-step')?.querySelector('.funnel-field-error');
+        const fieldError = fieldGroup?.querySelector('.funnel-field-error') || input.parentElement?.querySelector('.funnel-field-error');
         const fieldWrapper =
           fieldGroup?.querySelector('.funnel-field-wrapper') ||
           input.closest('.funnel-field-wrapper') ||
@@ -774,7 +857,11 @@ const calcomLink = import.meta.env.PUBLIC_CALCOM_LINK || 'tarunsoft/30min';
         }
 
         if (input.name === 'addressLookup') {
-          return value.length >= 2 ? '' : 'Address is required.';
+          if (value.length < 2) return 'Address is required.';
+          const placeSelected = input.dataset.placeSelected === 'true';
+          return placeSelected || hasManualAddressFallback()
+            ? ''
+            : 'Please select an address from the list or complete the fields below.';
         }
 
         if (input.name === 'streetAddress') {
@@ -847,6 +934,103 @@ const calcomLink = import.meta.env.PUBLIC_CALCOM_LINK || 'tarunsoft/30min';
         });
 
         requestAnimationFrame(() => setShellHeight());
+      };
+
+      const updateAddressFieldsValidity = showError => {
+        if (addressLookupInput instanceof HTMLInputElement) updateFieldState(addressLookupInput, showError);
+        if (streetAddressInput instanceof HTMLInputElement) updateFieldState(streetAddressInput, showError);
+        if (cityInput instanceof HTMLInputElement) updateFieldState(cityInput, showError);
+        if (postalCodeInput instanceof HTMLInputElement) updateFieldState(postalCodeInput, showError);
+
+        const addressStep = addressLookupInput?.closest('.funnel-step');
+        const hasStepErrors = addressStep?.querySelector('.funnel-field-error[aria-hidden="false"]');
+        setGlobalErrorVisibility(Boolean(hasStepErrors));
+        requestAnimationFrame(() => setShellHeight());
+      };
+
+      const getAddressComponent = (components, types) => {
+        if (!Array.isArray(components)) return '';
+        const matched = components.find(component => types.every(type => component.types?.includes(type)));
+        return matched?.long_name ?? '';
+      };
+
+      const populateAddressFromPlace = place => {
+        const components = place?.address_components;
+        if (!Array.isArray(components)) return false;
+
+        const streetNumber = getAddressComponent(components, ['street_number']);
+        const route = getAddressComponent(components, ['route']);
+        const city =
+          getAddressComponent(components, ['locality']) ||
+          getAddressComponent(components, ['postal_town']) ||
+          getAddressComponent(components, ['sublocality_level_1']) ||
+          getAddressComponent(components, ['administrative_area_level_2']);
+        const postalCode = getAddressComponent(components, ['postal_code']);
+        const postalCodeSuffix = getAddressComponent(components, ['postal_code_suffix']);
+
+        if (!(streetAddressInput instanceof HTMLInputElement)) return false;
+        if (!(cityInput instanceof HTMLInputElement)) return false;
+        if (!(postalCodeInput instanceof HTMLInputElement)) return false;
+        if (!(addressLookupInput instanceof HTMLInputElement)) return false;
+
+        streetAddressInput.value = [streetNumber, route].filter(Boolean).join(' ').trim();
+        cityInput.value = city;
+        postalCodeInput.value = postalCodeSuffix ? `${postalCode}-${postalCodeSuffix}` : postalCode;
+        addressLookupInput.value = place.formatted_address || place.name || addressLookupInput.value;
+        setAddressSelectionState(true, addressLookupInput.value.trim());
+        updateAddressFieldsValidity(false);
+        return true;
+      };
+
+      const initAddressAutocomplete = async () => {
+        if (!(addressLookupInput instanceof HTMLInputElement)) return;
+        if (!googleMapsApiKey) return;
+
+        try {
+          await loadGoogleMapsPlaces(googleMapsApiKey);
+        } catch (error) {
+          console.error(error);
+          return;
+        }
+
+        if (!window.google?.maps?.places) return;
+        if (addressLookupInput.dataset.autocompleteInitialized === 'true') return;
+
+        const autocomplete = new window.google.maps.places.Autocomplete(addressLookupInput, {
+          componentRestrictions: { country: ['us'] },
+          fields: ['address_components', 'formatted_address', 'name'],
+          types: ['address'],
+        });
+
+        autocomplete.setBounds(
+          new window.google.maps.Circle({
+            center: { lat: googleBiasLat, lng: googleBiasLng },
+            radius: googleBiasRadius,
+          }).getBounds(),
+        );
+        autocomplete.setOptions({ strictBounds: false });
+
+        addressLookupInput.dataset.autocompleteInitialized = 'true';
+        setAddressSelectionState(false);
+
+        autocomplete.addListener('place_changed', () => {
+          const place = autocomplete.getPlace();
+          const populated = populateAddressFromPlace(place);
+
+          if (!populated) {
+            setAddressSelectionState(false);
+            updateAddressFieldsValidity(true);
+          }
+        });
+
+        addressLookupInput.addEventListener('input', () => {
+          if (!(addressLookupInput instanceof HTMLInputElement)) return;
+
+          const selectedValue = addressLookupInput.dataset.selectedValue ?? '';
+          if (!selectedValue || addressLookupInput.value.trim() !== selectedValue) {
+            setAddressSelectionState(false);
+          }
+        });
       };
 
       const validateStep = step => {
@@ -1112,6 +1296,7 @@ const calcomLink = import.meta.env.PUBLIC_CALCOM_LINK || 'tarunsoft/30min';
       });
 
       assignAttributionFields();
+      void initAddressAutocomplete();
       window.addEventListener('resize', () => setShellHeight(currentStep));
       showStep(1);
       requestAnimationFrame(() => setShellHeight(1));
