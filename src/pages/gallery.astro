@@ -378,10 +378,18 @@ const hasResults = filteredWorks.length > 0;
       const updateFilterTiles = () => {
         filterTiles.forEach((tile) => {
           const isActive = tile.dataset.galleryFilter === state.filter;
+          const gradient = tile.querySelector('[data-past-work-gradient]');
+          const activeOverlay = tile.querySelector('[data-past-work-active-overlay]');
+          const label = tile.querySelector('[data-past-work-label]');
+
           tile.setAttribute('aria-current', isActive ? 'page' : 'false');
           tile.classList.toggle('border-radial', isActive);
           tile.classList.toggle('border-gradient', !isActive);
-          tile.classList.toggle('scale-[1.02]', isActive);
+          gradient?.classList.toggle('opacity-40', isActive);
+          gradient?.classList.toggle('opacity-100', !isActive);
+          activeOverlay?.classList.toggle('opacity-100', isActive);
+          activeOverlay?.classList.toggle('opacity-0', !isActive);
+          label?.classList.toggle('text-white', true);
         });
       };
 
