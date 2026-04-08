@@ -54,7 +54,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
 ---
 
 <div
-  class="w-full max-w-[765px] rounded-[1.75rem] bg-[#f2c744] p-[10px] shadow-[0_28px_80px_rgba(0,0,0,0.48)]"
+  class="from-primary/5 to-primary w-fit max-w-7xl rounded-[1.75rem] bg-linear-to-b p-[10px] shadow-[0_28px_80px_rgba(0,0,0,0.48)]"
   data-visual-thesis={visualThesis}
   data-content-plan={contentPlan}
   data-interaction-thesis={interactionThesis}
@@ -151,6 +151,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
                             height={option.thubmnail.height}
                             fetchpriority="high"
                             loading="eager"
+                            class="w-[100px]"
                           />
                         </span>
                         <span class="funnel-choice-copy">
@@ -378,26 +379,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
                 <p class="text-white/56">Submit your contact info and then choose a time to talk.</p>
               </div>
 
-              <div class="grid gap-4">
-                <div>
-                  <label class="mb-2 block text-sm font-medium text-white">Email *</label>
-                  <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      required
-                      class="h-11 w-full rounded-[0.70rem] bg-white/5 px-4 py-2 text-base text-white placeholder:text-white/38 focus:outline-none"
-                    />
-                  </div>
-                  <p
-                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
-                    aria-hidden="true"
-                  >
-                    <span class="block pt-2">A valid email is required.</span>
-                  </p>
-                </div>
-
+              <div class="grid gap-4 px-px">
                 <div>
                   <label class="mb-2 block text-sm font-medium text-white">Full Name</label>
                   <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
@@ -414,6 +396,25 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
                     aria-hidden="true"
                   >
                     <span class="block pt-2">Full name is required.</span>
+                  </p>
+                </div>
+
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-white">Email *</label>
+                  <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      required
+                      class="h-11 w-full rounded-[0.70rem] bg-white/5 px-4 py-2 text-base text-white placeholder:text-white/38 focus:outline-none"
+                    />
+                  </div>
+                  <p
+                    class="funnel-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
+                    aria-hidden="true"
+                  >
+                    <span class="block pt-2">A valid email is required.</span>
                   </p>
                 </div>
 
@@ -447,38 +448,30 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
                 </p>
               </div>
 
-              <div class="funnel-cal-shell flex items-center justify-center rounded-[1rem] border border-white/10 bg-black/25 p-6 sm:p-10">
-                <button
-                  id="cal-trigger-btn"
-                  type="button"
-                  data-cal-namespace="30min"
-                  data-cal-link={calcomLink}
-                  data-cal-config='{"layout":"month_view","theme":"dark"}'
-                  class="group flex w-full max-w-xs flex-col items-center justify-center gap-y-4 rounded-2xl border border-primary/30 bg-primary/10 p-8 transition-all duration-300 hover:border-primary/60 hover:bg-primary/20 hover:shadow-[0_0_24px_rgba(242,199,68,0.2)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-[#222]"
-                >
-                  <Image
-                    src={CalenderMonthApril}
-                    alt="Schedule"
-                    class="size-20 object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-110 group-active:scale-95"
-                  />
-                  <div class="space-y-1 text-center">
-                    <span class="block text-lg font-semibold text-white">Select a Date</span>
-                    <span class="block text-sm text-primary">Opens in popup</span>
-                  </div>
-                </button>
+              <div class="funnel-cal-shell rounded-[1rem] border border-white/10 bg-black/25 p-4 sm:p-6">
+                <div id="cal-inline-container" class="min-h-[520px] w-full" data-cal-link={calcomLink}></div>
 
-                <div id="booking-success-card" class="hidden w-full max-w-xs flex-col items-center gap-y-4 rounded-2xl border border-green-500/30 bg-green-500/10 p-8 text-center animate-in fade-in zoom-in duration-500">
-                  <div class="flex size-14 items-center justify-center rounded-full bg-green-500/20 border border-green-500/40">
+                <div
+                  id="booking-success-card"
+                  class="animate-in fade-in zoom-in mx-auto hidden w-full max-w-lg flex-col items-center gap-y-4 rounded-2xl border border-green-500/30 bg-green-500/10 p-8 text-center duration-500"
+                >
+                  <div
+                    class="flex size-14 items-center justify-center rounded-full border border-green-500/40 bg-green-500/20"
+                  >
                     <Icon name="circle-tick" class="size-8 text-green-500" />
                   </div>
                   <div class="space-y-2">
                     <p class="text-lg font-semibold text-white">Booking Confirmed!</p>
                     <div id="booking-confirmed-details" class="space-y-1">
-                       <p class="text-sm font-medium text-white/90" id="booking-date"></p>
-                       <p class="text-xs text-neutral-400" id="booking-time"></p>
+                      <p class="text-sm font-medium text-white/90" id="booking-date"></p>
+                      <p class="text-xs text-neutral-400" id="booking-time"></p>
                     </div>
                   </div>
-                  <button type="button" class="mt-2 text-xs font-semibold text-primary underline underline-offset-4 hover:text-white transition-colors" onclick={`window.Cal.ns['30min']('ui', { theme: 'dark' }); window.Cal.ns['30min']('modal', { calLink: '${calcomLink}' });`}>
+                  <button
+                    type="button"
+                    class="text-primary mt-2 text-xs font-semibold underline underline-offset-4 transition-colors hover:text-white"
+                    onclick={`window.Cal.ns['30min']('ui', { theme: 'dark' }); window.Cal.ns['30min']('modal', { calLink: '${calcomLink}' });`}
+                  >
                     Change Appointment
                   </button>
                 </div>
@@ -492,11 +485,11 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
           <Button
             type="button"
             variant="outline"
-            class="funnel-btn-back border-primary hidden min-w-[120px] justify-center"
+            class="funnel-btn-back border-primary hidden h-12 min-w-[120px] justify-center"
           >
             Back
           </Button>
-          <Button type="button" class="funnel-btn-next min-w-[148px] justify-center text-[1rem]">
+          <Button type="button" class="funnel-btn-next h-12 min-w-[148px] justify-center text-[1rem]">
             <span class="funnel-btn-next-label">Next</span>
             <svg
               class="funnel-btn-next-spinner hidden size-4 animate-spin"
@@ -620,9 +613,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
 
   .funnel-choice-input:checked + .funnel-choice-surface {
     border-color: rgba(242, 199, 68, 0.8);
-    background:
-      radial-gradient(circle at top left, rgba(242, 199, 68, 0.22), transparent 45%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    background: var(--color-primary);
     box-shadow: inset 0 0 0 1px rgba(242, 199, 68, 0.4);
   }
 
@@ -644,6 +635,11 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
     text-wrap: balance;
   }
 
+  .funnel-choice-input:checked + .funnel-choice-surface .funnel-choice-title,
+  .funnel-choice-input:checked + .funnel-choice-surface .funnel-choice-icon {
+    color: var(--color-inverted) !important;
+  }
+
   .funnel-choice-check {
     display: none;
   }
@@ -652,10 +648,6 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
     display: flex;
     align-items: center;
     justify-content: center;
-    /* min-height: 3.4rem; */
-    /* padding: 0.65rem 0.55rem; */
-    /* background: rgba(255, 255, 255, 0.08); */
-    /* border-top: 1px solid rgba(255, 255, 255, 0.08); */
   }
 
   .funnel-choice-icon :global(svg) {
@@ -668,6 +660,10 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04)),
       linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)), var(--noise-bg, #111);
+  }
+
+  .funnel-field-wrapper {
+    padding-inline: 1px;
   }
 
   :global(.pac-container) {
@@ -831,13 +827,20 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
       };
 
       const getFieldElements = input => {
-        const fieldGroup =
-          input.closest('.funnel-step > div, .funnel-step > .grid > div, .funnel-choice-card') || input.parentElement;
-        const fieldError = fieldGroup?.querySelector('.funnel-field-error') || input.parentElement?.querySelector('.funnel-field-error');
         const fieldWrapper =
-          fieldGroup?.querySelector('.funnel-field-wrapper') ||
           input.closest('.funnel-field-wrapper') ||
           input.closest('.funnel-choice-card')?.querySelector('.funnel-choice-surface');
+
+        // Most fields have the error message as the immediate sibling of the wrapper
+        let fieldError = fieldWrapper?.nextElementSibling?.classList.contains('funnel-field-error')
+          ? fieldWrapper.nextElementSibling
+          : null;
+
+        // Fallback: search the closest container (useful for radio groups/choice cards)
+        if (!fieldError) {
+          const container = input.closest('.funnel-choice-card')?.parentElement || input.closest('.funnel-step');
+          fieldError = container?.querySelector('.funnel-field-error');
+        }
 
         return { fieldError, fieldWrapper };
       };
@@ -845,52 +848,51 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
       const getFieldValidationMessage = input => {
         const value = input.value.trim();
 
+        // 1. Radio buttons (Step 1-3)
         if (input.type === 'radio') {
           const checked = form.querySelector(`input[name="${input.name}"]:checked`);
-          return checked ? '' : 'Please select one option.';
+          return checked ? '' : 'Please select an option.';
         }
 
+        // 2. Fetch label or placeholder for the field to create friendly messages
+        const fieldGroup = input.closest('.funnel-choice-card') || input.parentElement?.parentElement;
+        const labelText = fieldGroup?.querySelector('label')?.textContent.replace(/[*:]/g, '').trim();
+        const fieldName = labelText || input.placeholder || 'This field';
+
+        // 3. Handle empty state for required fields
+        if (!value && input.hasAttribute('required')) {
+          return `${fieldName} is required.`;
+        }
+
+        // 4. Specific validation for non-empty but invalid fields
         if (input.name === 'postalCode') {
-          if (!value) return 'Postal code is required.';
           const digits = value.replace(/\D/g, '');
           return digits.length >= 5 ? '' : 'Please enter a valid postal code.';
         }
 
         if (input.name === 'addressLookup') {
-          if (value.length < 2) return 'Address is required.';
           const placeSelected = input.dataset.placeSelected === 'true';
           return placeSelected || hasManualAddressFallback()
             ? ''
             : 'Please select an address from the list or complete the fields below.';
         }
 
-        if (input.name === 'streetAddress') {
-          return value.length >= 5 ? '' : 'Street address is required.';
+        if (input.name === 'streetAddress' && value.length < 5) {
+          return 'Please enter a full street address.';
         }
 
-        if (input.name === 'city') {
-          return value.length >= 2 ? '' : 'City is required.';
+        if (input.name === 'city' && value.length < 2) {
+          return 'Please enter a valid city name.';
         }
 
         if (input.name === 'phone') {
-          if (!value) return 'Phone number is required.';
           const digits = value.replace(/\D/g, '');
-          return digits.length >= 10 ? '' : 'Please enter a valid phone number.';
+          return digits.length >= 10 ? '' : 'Please enter a valid 10-digit phone number.';
         }
 
         if (input.type === 'email') {
-          if (!value) return 'A valid email is required.';
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           return emailRegex.test(value) ? '' : 'Please enter a valid email address.';
-        }
-
-        if (!value) {
-          switch (input.name) {
-            case 'fullName':
-              return 'Full name is required.';
-            default:
-              return 'The field is required.';
-          }
         }
 
         return '';
@@ -1006,7 +1008,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
           new window.google.maps.Circle({
             center: { lat: googleBiasLat, lng: googleBiasLng },
             radius: googleBiasRadius,
-          }).getBounds(),
+          }).getBounds()
         );
         autocomplete.setOptions({ strictBounds: false });
 
@@ -1063,31 +1065,37 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
       };
 
       const ensureCalLoaded = () =>
-        new Promise((resolve) => {
+        new Promise(resolve => {
           if (!window.Cal) {
             (function (C, A, L) {
-              let p = function (a, ar) { a.q.push(ar); };
-              let d = C.document;
-              C.Cal = C.Cal || function () {
-                let cal = C.Cal;
-                let ar = arguments;
-                if (!cal.loaded) {
-                  cal.ns = {};
-                  cal.q = cal.q || [];
-                  let s = d.createElement('script');
-                  s.src = A;
-                  d.head.appendChild(s);
-                  cal.loaded = true;
-                }
-                if (ar[0] === L) {
-                  const api = function () { p(api, arguments); };
-                  const namespace = ar[1];
-                  api.q = api.q || [];
-                  typeof namespace === 'string' ? (cal.ns[namespace] = cal.ns[namespace] || api) : p(cal, ar);
-                  return;
-                }
-                p(cal, ar);
+              let p = function (a, ar) {
+                a.q.push(ar);
               };
+              let d = C.document;
+              C.Cal =
+                C.Cal ||
+                function () {
+                  let cal = C.Cal;
+                  let ar = arguments;
+                  if (!cal.loaded) {
+                    cal.ns = {};
+                    cal.q = cal.q || [];
+                    let s = d.createElement('script');
+                    s.src = A;
+                    d.head.appendChild(s);
+                    cal.loaded = true;
+                  }
+                  if (ar[0] === L) {
+                    const api = function () {
+                      p(api, arguments);
+                    };
+                    const namespace = ar[1];
+                    api.q = api.q || [];
+                    typeof namespace === 'string' ? (cal.ns[namespace] = cal.ns[namespace] || api) : p(cal, ar);
+                    return;
+                  }
+                  p(cal, ar);
+                };
             })(window, 'https://app.cal.com/embed/embed.js', 'init');
           }
 
@@ -1103,16 +1111,17 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
             layout: 'month_view',
           });
 
+          // Inline initialization moved to revealBookingPanel for better DOM timing
+
           window.Cal.ns['30min']('on', {
             action: 'bookingSuccessful',
-            callback: (e) => {
+            callback: e => {
               const data = e.detail.data;
               const booking = data.booking;
               if (booking) {
-                const triggerBtn = document.getElementById('cal-trigger-btn');
-                const successCard = document.getElementById('booking-success-card');
-                const dateEl = document.getElementById('booking-date');
-                const timeEl = document.getElementById('booking-time');
+                const successCard = wrapper.querySelector('#booking-success-card');
+                const dateEl = wrapper.querySelector('#booking-date');
+                const timeEl = wrapper.querySelector('#booking-time');
 
                 const startDate = new Date(booking.startTime);
                 const endDate = new Date(booking.endTime);
@@ -1121,15 +1130,17 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
                 const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
 
                 if (dateEl) dateEl.textContent = startDate.toLocaleDateString('en-US', dateOptions);
-                if (timeEl) timeEl.textContent = `${startDate.toLocaleTimeString('en-US', timeOptions)} - ${endDate.toLocaleTimeString('en-US', timeOptions)}`;
+                if (timeEl)
+                  timeEl.textContent = `${startDate.toLocaleTimeString('en-US', timeOptions)} - ${endDate.toLocaleTimeString('en-US', timeOptions)}`;
 
-                if (triggerBtn) triggerBtn.classList.add('hidden');
+                const inlineContainer = wrapper.querySelector('#cal-inline-container');
+                if (inlineContainer) inlineContainer.classList.add('hidden');
                 if (successCard) successCard.classList.remove('hidden');
 
                 // Trigger height recalculation
                 if (typeof setShellHeight === 'function') setShellHeight(5);
               }
-            }
+            },
           });
 
           resolve();
@@ -1149,8 +1160,21 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
 
         if (!calendarInitialized) {
           await ensureCalLoaded();
+
+          const target = wrapper.querySelector('#cal-inline-container');
+          if (target && window.Cal?.ns?.['30min']) {
+            window.Cal.ns['30min']('inline', {
+              elementOrSelector: target,
+              calLink: form.dataset.calLink || 'tarunsoft/30min',
+              layout: 'month_view',
+              config: { layout: 'month_view', theme: 'dark' },
+            });
+          }
           calendarInitialized = true;
         }
+
+        if (btnNext) btnNext.style.display = 'none';
+        if (btnBack) btnBack.style.display = 'none';
 
         requestAnimationFrame(() => setShellHeight(5));
       };
@@ -1211,7 +1235,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
           btnNext.classList.remove('hidden');
           const label = btnNext.querySelector('.funnel-btn-next-label');
           if (label) {
-            label.textContent = step === 5 ? 'View Booking Times' : 'Next';
+            label.textContent = step === 5 ? 'Submit' : 'Next';
           }
         }
 
@@ -1285,6 +1309,21 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
 
         const eventName = input.type === 'radio' ? 'change' : 'input';
         input.addEventListener(eventName, validateCurrentField);
+
+        // Auto-forwarding for steps 1, 2, and 3
+        if (input.type === 'radio') {
+          input.addEventListener('change', () => {
+            const stepEl = input.closest('.funnel-step');
+            const stepNumber = stepEl ? parseInt(stepEl.dataset.step) : 0;
+            if (stepNumber >= 1 && stepNumber <= 3) {
+              setTimeout(() => {
+                if (currentStep === stepNumber) {
+                  btnNext?.click();
+                }
+              }, 320);
+            }
+          });
+        }
         input.addEventListener('blur', () => {
           if (input.type === 'radio') return;
           updateFieldState(input, true);

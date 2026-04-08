@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import FunnelQuoteForm from '@/components/funnel/FunnelQuoteForm.astro';
 import Brands from '@/components/Brands.astro';
 import heroLogo from '@/assets/hero-logo.avif';
-import roofImage from '@/assets/roof.avif';
+import roofImage from '@/assets/bg/roof-quote.jpg';
 import gridFrame from '@/assets/grid-frame.avif';
 
 const visualThesis =
@@ -24,7 +24,7 @@ const interactionThesis = 'Use the existing stepper motion and keep the rest of 
       alt="Black Knight Roofing project background"
       width={roofImage.width}
       height={roofImage.height}
-      class="absolute inset-0 h-full w-full object-cover object-center"
+      class="absolute inset-0 h-full w-full scale-125 object-cover object-center sm:scale-150"
       loading="eager"
       fetchpriority="high"
     />
@@ -48,8 +48,8 @@ const interactionThesis = 'Use the existing stepper motion and keep the rest of 
   </div>
 
   <div class="relative z-10 flex min-h-[calc(100svh-1px)] flex-col">
-    <div class="container flex flex-1 flex-col items-center px-4 pt-10 pb-14 sm:pt-12 sm:pb-18 lg:pt-16">
-      <a href="/" class="mb-6 block sm:mb-8" aria-label="Black Knight Roofing home">
+    <div class="container flex flex-1 flex-col items-center space-y-8 px-4 py-[112px] sm:space-y-12">
+      <a href="/" class="block" aria-label="Black Knight Roofing home">
         <Image
           src={heroLogo}
           alt="Black Knight Roofing"
@@ -61,11 +61,11 @@ const interactionThesis = 'Use the existing stepper motion and keep the rest of 
         />
       </a>
 
-      <div class="flex w-full flex-1 items-center justify-center">
+      <div class="flex w-fit items-center justify-center">
         <FunnelQuoteForm />
       </div>
     </div>
 
-    <Brands class="bg-[#111111]/95 py-8 sm:py-10" />
+    <Brands class="bg-[#111111]/95" />
   </div>
 </section>
