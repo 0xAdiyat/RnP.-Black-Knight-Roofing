@@ -137,10 +137,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
             </div>
 
             <div class="space-y-2">
-              <div class="border-radial grid grid-cols-2 gap-3 rounded-2xl p-2 sm:grid-cols-4">
+              <div
+                class="border-radial grid auto-cols-auto auto-rows-max grid-cols-2 gap-3 rounded-2xl p-2 sm:grid-cols-4"
+              >
                 {
                   homeTypes.map(option => (
-                    <label class="funnel-choice-card group">
+                    <label class="funnel-choice-card group block">
                       <input class="funnel-choice-input" type="radio" name="homeType" value={option.value} required />
                       <span class="funnel-choice-surface">
                         <span class="funnel-choice-icon">
@@ -283,7 +285,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
             <div class="border-radial grid gap-4 rounded-2xl p-4">
               <!-- Location -->
               <div>
-                <label class="mb-2 block text-sm font-medium text-white">Address</label>
+                <label class="mb-2 flex items-center gap-x-1.5 text-sm font-medium text-white">
+                  <sup>
+                    <Icon name="star-icon" class="text-primary size-3" />
+                  </sup>
+                  Address
+                </label>
                 <div class="funnel-field-wrapper funnel-field-wrapper-search from-primary border-radial rounded-xl">
                   <div class="relative">
                     <Icon
@@ -309,7 +316,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
 
               <!-- Street -->
               <div>
-                <label class="mb-2 block text-sm font-medium text-white">Street Address</label>
+                <label class="mb-2 flex items-center gap-x-1.5 text-sm font-medium text-white">
+                  <sup>
+                    <Icon name="star-icon" class="text-primary size-3" />
+                  </sup>
+                  Street Address
+                </label>
                 <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
                   <input
                     type="text"
@@ -330,7 +342,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
               <div class="grid grid-cols-1 gap-4 sm:grid-cols-[1.25fr_0.8fr]">
                 <!-- City -->
                 <div>
-                  <label class="mb-2 block text-sm font-medium text-white">City</label>
+                  <label class="mb-2 flex items-center gap-x-1.5 text-sm font-medium text-white">
+                    <sup>
+                      <Icon name="star-icon" class="text-primary size-3" />
+                    </sup>
+                    City
+                  </label>
                   <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
                     <input
                       type="text"
@@ -350,7 +367,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
 
                 <!-- Postal -->
                 <div>
-                  <label class="mb-2 block text-sm font-medium text-white">Postal code</label>
+                  <label class="mb-2 flex items-center gap-x-1.5 text-sm font-medium text-white">
+                    <sup>
+                      <Icon name="star-icon" class="text-primary size-3" />
+                    </sup>
+                    Postal code
+                  </label>
                   <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
                     <input
                       type="text"
@@ -381,7 +403,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
 
               <div class="grid gap-4 px-px">
                 <div>
-                  <label class="mb-2 block text-sm font-medium text-white">Full Name</label>
+                  <label class="mb-2 flex items-center gap-x-1.5 text-sm font-medium text-white">
+                    <sup>
+                      <Icon name="star-icon" class="text-primary size-3" />
+                    </sup>
+                    Full Name
+                  </label>
                   <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
                     <input
                       type="text"
@@ -400,7 +427,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
                 </div>
 
                 <div>
-                  <label class="mb-2 block text-sm font-medium text-white">Email *</label>
+                  <label class="mb-2 flex items-center gap-x-1.5 text-sm font-medium text-white">
+                    <sup>
+                      <Icon name="star-icon" class="text-primary size-3" />
+                    </sup>
+                    Email
+                  </label>
                   <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
                     <input
                       type="email"
@@ -419,7 +451,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
                 </div>
 
                 <div>
-                  <label class="mb-2 block text-sm font-medium text-white">Phone *</label>
+                  <label class="mb-2 flex items-center gap-x-1.5 text-sm font-medium text-white">
+                    <sup>
+                      <Icon name="star-icon" class="text-primary size-3" />
+                    </sup>
+                    Phone
+                  </label>
                   <div class="funnel-field-wrapper from-primary border-radial rounded-xl">
                     <input
                       type="tel"
@@ -449,7 +486,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
               </div>
 
               <div class="funnel-cal-shell rounded-[1rem] border border-white/10 bg-black/25 p-4 sm:p-6">
-                <div id="cal-inline-container" class="min-h-[520px] w-full" data-cal-link={calcomLink}></div>
+                <div id="cal-inline-container" class="w-full lg:w-[992px]" data-cal-link={calcomLink}></div>
 
                 <div
                   id="booking-success-card"
@@ -503,7 +540,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
           </Button>
         </div>
 
-        <p class="mt-4 text-center text-sm leading-5 font-normal text-balance text-white/60">
+        <p class="mx-auto mt-4 max-w-xl text-center text-sm leading-5 font-normal text-balance text-white/60">
           By submitting this form, you agree that Black Knight Roofing may contact you about your request. See our
           <a
             href="/privacy-policy"
@@ -570,7 +607,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
     display: block;
     cursor: pointer;
     touch-action: manipulation;
-    height: max-content;
+    aspect-ratio: 1;
   }
 
   .funnel-choice-input {
