@@ -76,6 +76,85 @@ const socialImageURL = new URL(image, siteUrl);
     <EstimateDialog transition:persist />
     <SiteLinksModal transition:persist />
     <SpeedInsights />
+    <script is:inline>
+      (() => {
+        const pastWorkPaths = new Set(['/gallery', '/before-and-after', '/case-studies']);
+        let lastPathname = window.location.pathname;
+        let skipAutoScrollOnce = false;
+
+        const getNavbarOffset = () => {
+          const navbarWrapper = document.getElementById('navbar-wrapper');
+          const mobileTopbar = document.getElementById('mobile-topbar');
+          const navbarHeight = navbarWrapper?.getBoundingClientRect().height || mobileTopbar?.getBoundingClientRect().height || 0;
+
+          return navbarHeight + 16;
+        };
+
+        const scrollToPastWorkFilter = () => {
+          const target = document.querySelector('[data-past-work-filter]');
+          if (!target) return;
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              const top = window.scrollY + target.getBoundingClientRect().top - getNavbarOffset();
+              window.scrollTo({
+                top: Math.max(0, top),
+                behavior: 'smooth',
+              });
+            });
+          });
+        };
+
+        const shouldAutoScroll = (pathname, { initial = false } = {}) => {
+          if (!pastWorkPaths.has(pathname)) return false;
+          if (window.location.hash) return false;
+
+          if (skipAutoScrollOnce) {
+            skipAutoScrollOnce = false;
+            return false;
+          }
+
+          if (initial) {
+            const navigationEntry = performance.getEntriesByType('navigation')[0];
+            if (navigationEntry && navigationEntry.type === 'back_forward') return false;
+            return true;
+          }
+
+          return pathname !== lastPathname;
+        };
+
+        const handlePastWorkEntry = ({ initial = false } = {}) => {
+          const pathname = window.location.pathname;
+          const shouldScroll = shouldAutoScroll(pathname, { initial });
+          lastPathname = pathname;
+
+          if (shouldScroll) {
+            scrollToPastWorkFilter();
+          }
+        };
+
+        window.addEventListener('popstate', () => {
+          skipAutoScrollOnce = true;
+          lastPathname = window.location.pathname;
+        });
+
+        document.addEventListener('astro:page-load', () => {
+          handlePastWorkEntry();
+        });
+
+        if (document.readyState === 'loading') {
+          document.addEventListener(
+            'DOMContentLoaded',
+            () => {
+              handlePastWorkEntry({ initial: true });
+            },
+            { once: true }
+          );
+        } else {
+          handlePastWorkEntry({ initial: true });
+        }
+      })();
+    </script>
   </body>
 </html>
 
