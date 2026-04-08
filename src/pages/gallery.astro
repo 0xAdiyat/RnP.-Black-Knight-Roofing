@@ -14,18 +14,11 @@ import { Icon } from 'astro-icon/components';
 import Button from '@/components/ui/Button.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
 import EmptyGalleryFolder from '@/components/ui/EmptyGalleryFolder.astro';
-import sunFlow from '@/assets/sunflow.avif';
-import { Image } from 'astro:assets';
 import WorkCard from '@/components/recent-projects/WorkCard.astro';
 import Statistics from '@/components/ui/Statistics.astro';
 import SocialProof from '@/components/ui/SocialProof.astro';
+import PastWorkFilter from '@/components/past-work/PastWorkFilter.astro';
 import heroImage from '@/assets/bg/services-and-gallery-section__hero.avif';
-import serviceRoofingImg from '@/assets/services/service-roofing.png';
-import serviceSidingImg from '@/assets/services/service-siding.png';
-import serviceGutterImg from '@/assets/services/service-gutter.png';
-import beforeAfterImg from '@/assets/comparison/roof-mini.png';
-import residentialHero from '@/assets/bg/residential-roofing-section__hero.avif';
-import caseStudiesHero from '@/assets/bg/case-studies-section__hero.avif';
 import metalRoofingHero from '@/assets/bg/metal-roofing-section__hero.avif';
 import stoneCoatedHero from '@/assets/bg/stone-coated-steel-roofing-section__hero.avif';
 import concreteTileHero from '@/assets/bg/concrete-tile-roof-section__hero.avif';
@@ -33,12 +26,7 @@ import asphaltShingleHero from '@/assets/bg/roof-replacement-section__hero.avif'
 import commercialRoofingHero from '@/assets/bg/commercial-roofing-section__hero.avif';
 import sidingHero from '@/assets/bg/siding-section__hero.avif';
 import guttersHero from '@/assets/bg/gutters-section__hero.avif';
-import beforeAfterHero from '@/assets/bg/before-after-section__hero.avif';
-import tile1 from '@/assets/tiles/component-1.png';
-import tile2 from '@/assets/tiles/component-2.png';
-import tile3 from '@/assets/tiles/component-3.png';
-import tile4 from '@/assets/tiles/component-4.png';
-import tile5 from '@/assets/tiles/component-5.png';
+import residentialHero from '@/assets/bg/residential-roofing-section__hero.avif';
 import hailHero from '@/assets/bg/hail-damage-repair-section__hero.avif';
 import stormHero from '@/assets/bg/storm-damage-repair-section__hero.avif';
 import windHero from '@/assets/bg/wind-damage-repair-section__hero.avif';
@@ -166,22 +154,6 @@ const displayedWorks = filteredWorks.slice((currentPage - 1) * itemsPerPage, cur
 const visibleWorkIds = new Set(displayedWorks.map((work) => work.id));
 const hasResults = filteredWorks.length > 0;
 
-const getFilterHref = (filter: GalleryFilter) => {
-  const url = new URL('/gallery', Astro.url.origin);
-  if (filter !== 'featured') {
-    url.searchParams.set('filter', filter);
-  }
-  return url.pathname + url.search;
-};
-
-const galleryFilters = [
-  { label: 'Featured', image: residentialHero.src, type: 'filter', filter: 'featured' as GalleryFilter },
-  { label: 'Roofing', image: asphaltShingleHero.src, type: 'filter', filter: 'roofing' as GalleryFilter },
-  { label: 'Siding', image: sidingHero.src, type: 'filter', filter: 'siding' as GalleryFilter },
-  { label: 'Gutters', image: guttersHero.src, type: 'filter', filter: 'gutters' as GalleryFilter },
-  { label: 'Before-After', image: beforeAfterHero.src, type: 'link', href: '/before-and-after' },
-  { label: 'Case Studies', image: caseStudiesHero.src, type: 'link', href: '/case-studies' },
-];
 ---
 
 <Layout title="Denver Roofing Portfolio | Black Knight Roofing" noindex={true}>
@@ -202,62 +174,7 @@ const galleryFilters = [
   </div>
 
   <!-- Filters -->
-  <div class="relative px-0 py-0" data-gallery-root data-past-work-filter>
-    <Image
-      src={sunFlow}
-      alt=""
-      width={1920}
-      height={1080}
-      fetchpriority="high"
-      loading="eager"
-      format="avif"
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-      class="absolute inset-0 h-full w-full object-cover opacity-20"
-    />
-    <div class="container py-20">
-      <div class="z-10 flex flex-col items-center space-y-6">
-        <div class="flex items-center justify-center gap-3">
-          <div class="flex size-8 items-center justify-center rounded-full bg-[#B68A3D] text-black">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="4" y1="6" x2="20" y2="6"></line>
-              <line x1="4" y1="12" x2="14" y2="12"></line>
-              <line x1="4" y1="18" x2="8" y2="18"></line>
-            </svg>
-          </div>
-          <div class="text-[20px] font-medium tracking-tight text-white/90">Filter GALLERY By:</div>
-        </div>
-
-        <div class="grid w-full max-w-4xl grid-cols-2 gap-2 rounded-2xl border border-white/24 p-2 sm:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center">
-          {
-            galleryFilters.map((filter, index) => (
-              <>
-                {index === 4 && <div class="hidden h-[90px] w-px bg-white/15 lg:block"></div>}
-                <a
-                  href={filter.type === 'filter' && filter.filter ? getFilterHref(filter.filter) : filter.href}
-                  aria-current={filter.type === 'filter' && activeFilter === filter.filter ? 'page' : undefined}
-                  data-gallery-filter={filter.type === 'filter' ? filter.filter : undefined}
-                  class:list={[
-                    'group relative block h-[120px] w-full shrink-0 overflow-hidden rounded-xl text-center transition-transform duration-300 ease-out hover:-translate-y-1 xs:h-[135px] lg:w-[130px]',
-                    filter.type === 'filter' && activeFilter === filter.filter ? 'border-radial' : 'border-gradient',
-                  ]}
-                >
-                  <img
-                    src={filter.image}
-                    alt=""
-                    class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent"></div>
-                  <div class="absolute inset-x-0 bottom-0 p-[16px]">
-                    <div class="text-[14px] leading-[20px] font-medium text-white">{filter.label}</div>
-                  </div>
-                </a>
-              </>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </div>
+  <PastWorkFilter currentPage="gallery" activeGalleryFilter={activeFilter} galleryRoot={true} />
 
   <!-- Gallery -->
   <NoiseBg class="px-0">

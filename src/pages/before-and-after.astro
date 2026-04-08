@@ -17,10 +17,10 @@ import RatingStars from '@/components/ui/RatingStars.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
 import RecentArticales from '@/components/articales/RecentArticales.astro';
 import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
-import sunFlow from '@/assets/sunflow.avif';
 import BeforeAfter from '@/components/comparison/BeforeAfter.astro';
 import Pagination from '@/components/ui/pagination/Pagination.astro';
 import Statistics from '@/components/ui/Statistics.astro';
+import PastWorkFilter from '@/components/past-work/PastWorkFilter.astro';
 import heroImage from '@/assets/bg/before-after-section__hero.avif';
 import stormHero from '@/assets/bg/storm-damage-repair-section__hero.avif';
 import asphaltShingleHero from '@/assets/bg/roof-replacement-section__hero.avif';
@@ -105,53 +105,7 @@ const totalPages = 96; // Matching the image's '96' at the end
   </div>
 
   <!-- Filters -->
-  <div class="relative px-0 py-0" data-past-work-filter>
-    <Image
-      src={sunFlow}
-      alt=""
-      width={1920}
-      height={1080}
-      class="absolute inset-0 h-full w-full object-cover opacity-20"
-    />
-    <div class="container py-12 lg:py-20">
-      <div class="z-10 flex flex-col items-center space-y-8 lg:space-y-10">
-        <div class="flex flex-col items-center gap-4 text-center">
-          <div class="text-xs font-bold tracking-[0.2em] text-white/50 uppercase">Visual Transitions</div>
-          <h2 class="font-heading text-4xl text-white md:text-5xl">Filter Gallery By:</h2>
-        </div>
-
-        <div class="flex flex-wrap items-end justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-2">
-          {
-            [
-              { name: 'All Work', icon: 'gallery-image' },
-              { name: 'Stone Coated', icon: 'stone-roof' },
-              { name: 'Asphalt', icon: 'roof-icon' },
-              { name: 'Concrete Tile', icon: 'materials' },
-              { isSeparator: true },
-              { name: 'Siding', icon: 'materials' },
-              { name: 'Gutters', icon: 'roof-air-flow' },
-            ].map(cat =>
-              cat.isSeparator ? (
-                <div class="mx-4 hidden h-[90px] w-px bg-white/15 lg:block" />
-              ) : (
-                <button class="group flex flex-col items-center gap-3 transition-all hover:-translate-y-1">
-                  <div class="group-hover:border-primary/50 flex h-[110px] w-[95px] items-center justify-center rounded-xl border border-white/5 bg-white/5 shadow-2xl transition-all duration-300 group-hover:bg-white/10 sm:h-[135px] sm:w-[116px]">
-                    <Icon
-                      name={cat.icon}
-                      class="text-primary size-8 transition-transform duration-300 group-hover:scale-110 sm:size-10"
-                    />
-                  </div>
-                  <span class="text-[10px] font-bold tracking-wider text-white/40 uppercase transition-colors duration-300 group-hover:text-white sm:text-xs">
-                    {cat.name}
-                  </span>
-                </button>
-              )
-            )
-          }
-        </div>
-      </div>
-    </div>
-  </div>
+  <PastWorkFilter currentPage="before-after" />
 
   <!-- Before and After Gallery -->
   <NoiseBg class="px-0 py-0">

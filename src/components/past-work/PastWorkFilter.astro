@@ -1,0 +1,148 @@
+---
+import { Image } from 'astro:assets';
+import sunFlow from '@/assets/sunflow.avif';
+import residentialHero from '@/assets/bg/residential-roofing-section__hero.avif';
+import asphaltShingleHero from '@/assets/bg/roof-replacement-section__hero.avif';
+import sidingHero from '@/assets/bg/siding-section__hero.avif';
+import guttersHero from '@/assets/bg/gutters-section__hero.avif';
+import beforeAfterHero from '@/assets/bg/before-after-section__hero.avif';
+import caseStudiesHero from '@/assets/bg/case-studies-section__hero.avif';
+
+type GalleryFilter = 'featured' | 'roofing' | 'siding' | 'gutters';
+type PastWorkPage = 'gallery' | 'before-after' | 'case-studies';
+type TileKey = GalleryFilter | 'before-after' | 'case-studies';
+
+interface Props {
+  currentPage: PastWorkPage;
+  activeGalleryFilter?: GalleryFilter;
+  galleryRoot?: boolean;
+}
+
+const {
+  currentPage,
+  activeGalleryFilter = 'featured',
+  galleryRoot = false,
+} = Astro.props;
+
+const getGalleryHref = (filter: GalleryFilter) => {
+  const url = new URL('/gallery', Astro.url.origin);
+  if (filter !== 'featured') {
+    url.searchParams.set('filter', filter);
+  }
+
+  return `${url.pathname}${url.search}`;
+};
+
+const tiles: Array<{
+  key: TileKey;
+  label: string;
+  image: string;
+  href: string;
+  galleryFilter?: GalleryFilter;
+}> = [
+  {
+    key: 'featured',
+    label: 'Featured',
+    image: residentialHero.src,
+    href: getGalleryHref('featured'),
+    galleryFilter: 'featured',
+  },
+  {
+    key: 'roofing',
+    label: 'Roofing',
+    image: asphaltShingleHero.src,
+    href: getGalleryHref('roofing'),
+    galleryFilter: 'roofing',
+  },
+  {
+    key: 'siding',
+    label: 'Siding',
+    image: sidingHero.src,
+    href: getGalleryHref('siding'),
+    galleryFilter: 'siding',
+  },
+  {
+    key: 'gutters',
+    label: 'Gutters',
+    image: guttersHero.src,
+    href: getGalleryHref('gutters'),
+    galleryFilter: 'gutters',
+  },
+  {
+    key: 'before-after',
+    label: 'Before-After',
+    image: beforeAfterHero.src,
+    href: '/before-and-after',
+  },
+  {
+    key: 'case-studies',
+    label: 'Case Studies',
+    image: caseStudiesHero.src,
+    href: '/case-studies',
+  },
+];
+
+const activeTile: TileKey =
+  currentPage === 'gallery' ? activeGalleryFilter : currentPage;
+---
+
+<div
+  class="relative px-0 py-0"
+  data-past-work-filter
+  data-gallery-root={galleryRoot ? '' : undefined}
+>
+  <Image
+    src={sunFlow}
+    alt=""
+    width={1920}
+    height={1080}
+    fetchpriority="high"
+    loading="eager"
+    format="avif"
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+    class="absolute inset-0 h-full w-full object-cover opacity-20"
+  />
+  <div class="container py-20">
+    <div class="z-10 flex flex-col items-center space-y-6">
+      <div class="flex items-center justify-center gap-3">
+        <div class="flex size-8 items-center justify-center rounded-full bg-[#B68A3D] text-black">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6"></line>
+            <line x1="4" y1="12" x2="14" y2="12"></line>
+            <line x1="4" y1="18" x2="8" y2="18"></line>
+          </svg>
+        </div>
+        <div class="text-[20px] font-medium tracking-tight text-white/90">Filter GALLERY By:</div>
+      </div>
+
+      <div class="grid w-full max-w-4xl grid-cols-2 gap-2 rounded-2xl border border-white/24 p-2 sm:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center">
+        {
+          tiles.map((tile, index) => (
+            <>
+              {index === 4 && <div class="hidden h-[90px] w-px bg-white/15 lg:block"></div>}
+              <a
+                href={tile.href}
+                aria-current={activeTile === tile.key ? 'page' : undefined}
+                data-gallery-filter={galleryRoot ? tile.galleryFilter : undefined}
+                class:list={[
+                  'group relative block h-[120px] w-full shrink-0 overflow-hidden rounded-xl text-center transition-transform duration-300 ease-out hover:-translate-y-1 xs:h-[135px] lg:w-[130px]',
+                  activeTile === tile.key ? 'border-radial scale-[1.02]' : 'border-gradient',
+                ]}
+              >
+                <img
+                  src={tile.image}
+                  alt=""
+                  class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent"></div>
+                <div class="absolute inset-x-0 bottom-0 p-[16px]">
+                  <div class="text-[14px] leading-[20px] font-medium text-white">{tile.label}</div>
+                </div>
+              </a>
+            </>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
