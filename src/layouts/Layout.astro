@@ -85,9 +85,13 @@ const socialImageURL = new URL(image, siteUrl);
         const getNavbarOffset = () => {
           const navbarWrapper = document.getElementById('navbar-wrapper');
           const mobileTopbar = document.getElementById('mobile-topbar');
-          const navbarHeight = navbarWrapper?.getBoundingClientRect().height || mobileTopbar?.getBoundingClientRect().height || 0;
+          const rootStyles = getComputedStyle(document.documentElement);
+          const syncedMobileTopbarHeight = Number.parseFloat(rootStyles.getPropertyValue('--mobile-topbar-h')) || 0;
+          const measuredNavbarHeight = navbarWrapper?.getBoundingClientRect().height || mobileTopbar?.getBoundingClientRect().height || 0;
+          const navbarHeight = Math.max(syncedMobileTopbarHeight, measuredNavbarHeight);
+          const extraOffset = window.innerWidth < 768 ? 28 : 16;
 
-          return navbarHeight + 16;
+          return navbarHeight + extraOffset;
         };
 
         const scrollToPastWorkFilter = () => {
