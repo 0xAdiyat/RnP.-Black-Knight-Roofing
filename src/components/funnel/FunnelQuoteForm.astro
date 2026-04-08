@@ -402,7 +402,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
           <!-- Contact Info -->
           <section class="funnel-step space-y-6" data-step="5" aria-hidden="true" inert>
             <div class="funnel-final-panel is-active space-y-4" data-panel="lead">
-              <div class="space-y-1">
+              <div class="space-y-1 text-center">
                 <p class="font-heading text-2xl font-medium text-white">Where should we send your estimate details?</p>
                 <p class="text-white/56">Submit your contact info and then choose a time to talk.</p>
               </div>
@@ -501,31 +501,6 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
 
               <div class="funnel-cal-shell rounded-[1rem] border border-white/10 bg-black/25 p-4 sm:p-6">
                 <div id="cal-inline-container" class="w-full lg:w-[992px]" data-cal-link={calcomLink}></div>
-
-                <div
-                  id="booking-success-card"
-                  class="animate-in fade-in zoom-in mx-auto hidden w-full max-w-lg flex-col items-center gap-y-4 rounded-2xl border border-green-500/30 bg-green-500/10 p-8 text-center duration-500"
-                >
-                  <div
-                    class="flex size-14 items-center justify-center rounded-full border border-green-500/40 bg-green-500/20"
-                  >
-                    <Icon name="circle-tick" class="size-8 text-green-500" />
-                  </div>
-                  <div class="space-y-2">
-                    <p class="text-lg font-semibold text-white">Booking Confirmed!</p>
-                    <div id="booking-confirmed-details" class="space-y-1">
-                      <p class="text-sm font-medium text-white/90" id="booking-date"></p>
-                      <p class="text-xs text-neutral-400" id="booking-time"></p>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    class="text-primary mt-2 text-xs font-semibold underline underline-offset-4 transition-colors hover:text-white"
-                    onclick={`window.Cal.ns['30min']('ui', { theme: 'dark' }); window.Cal.ns['30min']('modal', { calLink: '${calcomLink}' });`}
-                  >
-                    Change Appointment
-                  </button>
-                </div>
               </div>
             </div>
           </section>
@@ -813,7 +788,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
       const googleBiasLng = Number(form.dataset.googleBiasLng ?? '-104.9903');
       const googleBiasRadius = Number(form.dataset.googleBiasRadius ?? '160934');
       const wavebookWebhookUrl =
-        'https://services.leadconnectorhq.com/hooks/QubIB9oYi7Q0mBKuLdWY/webhook-trigger/6635256a-bfb9-4df6-913a-413f115a4109';
+        'https://services.leadconnectorhq.com/hooks/QubIB9oYi7Q0mBKuLdWY/webhook-trigger/e4986955-4314-4bc1-b067-5ef75ed4ad11';
       const WAVEBOOK_TIMEOUT_MS = 8000;
       const WAVEBOOK_RETRY_DELAY_MS = 700;
 
@@ -1268,37 +1243,9 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
             layout: 'month_view',
           });
 
-          // Inline initialization moved to revealBookingPanel for better DOM timing
-
-          window.Cal.ns['30min']('on', {
-            action: 'bookingSuccessful',
-            callback: e => {
-              const data = e.detail.data;
-              const booking = data.booking;
-              if (booking) {
-                const successCard = wrapper.querySelector('#booking-success-card');
-                const dateEl = wrapper.querySelector('#booking-date');
-                const timeEl = wrapper.querySelector('#booking-time');
-
-                const startDate = new Date(booking.startTime);
-                const endDate = new Date(booking.endTime);
-
-                const dateOptions = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
-                const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
-
-                if (dateEl) dateEl.textContent = startDate.toLocaleDateString('en-US', dateOptions);
-                if (timeEl)
-                  timeEl.textContent = `${startDate.toLocaleTimeString('en-US', timeOptions)} - ${endDate.toLocaleTimeString('en-US', timeOptions)}`;
-
-                const inlineContainer = wrapper.querySelector('#cal-inline-container');
-                if (inlineContainer) inlineContainer.classList.add('hidden');
-                if (successCard) successCard.classList.remove('hidden');
-
-                // Trigger height recalculation
-                if (typeof setShellHeight === 'function') setShellHeight(5);
-              }
-            },
-          });
+          // Inline initialization moved to revealBookingPanel for better DOM timing.
+          // We intentionally do not override `bookingSuccessful`, so Cal's native
+          // inline success view remains visible after booking.
 
           resolve();
         });
