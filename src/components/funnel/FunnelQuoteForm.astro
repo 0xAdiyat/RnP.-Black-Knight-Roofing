@@ -1177,6 +1177,23 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
         };
       };
 
+      const buildCalPrefill = payload => {
+        const line = (label, value) => (value ? `${label}: ${value}` : '');
+        const notesLines = [
+          line('Home Type', payload.homeType),
+          line('Project Timeline', payload.timeline),
+          line('Project Scope', payload.projectScope),
+          line('Project Address', [payload.streetAddress, payload.city, payload.postalCode].filter(Boolean).join(', ')),
+          line('Phone', payload.phone),
+        ].filter(Boolean);
+
+        return {
+          name: payload.fullName || '',
+          email: payload.email || '',
+          notes: notesLines.join('\n'),
+        };
+      };
+
       const submitToWavebookWithRetry = async payload => {
         try {
           await postWavebookPayload(payload);
@@ -1250,7 +1267,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
           resolve();
         });
 
-      const revealBookingPanel = async () => {
+      const revealBookingPanel = async payload => {
         if (!(leadPanel instanceof HTMLElement) || !(bookingPanel instanceof HTMLElement)) return;
 
         leadPanel.classList.remove('is-active');
@@ -1264,6 +1281,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
 
         if (!calendarInitialized) {
           await ensureCalLoaded();
+          const calPrefill = buildCalPrefill(payload ?? {});
 
           const target = wrapper.querySelector('#cal-inline-container');
           if (target && window.Cal?.ns?.['30min']) {
@@ -1271,7 +1289,14 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
               elementOrSelector: target,
               calLink: form.dataset.calLink || 'tarunsoft/30min',
               layout: 'month_view',
-              config: { layout: 'month_view', theme: 'dark' },
+              prefill: calPrefill,
+              config: {
+                layout: 'month_view',
+                theme: 'dark',
+                name: calPrefill.name,
+                email: calPrefill.email,
+                notes: calPrefill.notes,
+              },
             });
           }
           calendarInitialized = true;
@@ -1366,7 +1391,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.PUBLIC_GOOGLE_AUTOCO
         try {
           const payload = getFormPayload();
           const webhookSuccess = await submitToWavebookWithRetry(payload);
-          await revealBookingPanel();
+          await revealBookingPanel(payload);
 
           if (!webhookSuccess && webhookWarning instanceof HTMLElement) {
             webhookWarning.classList.remove('hidden');
