@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import { actions } from 'astro:actions';
 import NoiseBg from '@/components/NoiseBg.astro';
 import Button from '@/components/ui/Button.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
@@ -35,6 +34,7 @@ const testimonials = [
     rating: 5,
   },
 ];
+const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
 ---
 
 <NoiseBg
@@ -114,18 +114,18 @@ const testimonials = [
         <div id="contact-us-form-container">
           <div class="text-xl font-medium text-white">Fill out this form to get in touch:</div>
 
-          <form class="space-y-4" id="contact-us-form" novalidate>
+          <form class="space-y-4" id="contact-us-form" novalidate data-ghl-webhook-url={ghlSharedWebhookUrl}>
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <!-- First Name -->
+                  <!-- Full Name -->
                   <div class="group space-y-2">
                     <label class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white">
                       <sup>
                         <Icon name="star-icon" size={12} class="text-primary transition-transform duration-300 group-focus-within:rotate-45" />
                       </sup>
-                      First Name
+                      Full Name
                     </label>
                     <div class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]">
-                      <input type="text" name="firstName" placeholder="John Doe" required
+                      <input type="text" name="fullName" placeholder="John Doe" required
                         class="w-full rounded-lg bg-[#131313] px-4 py-3 text-base text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none lg:text-sm"
                       />
                     </div>
@@ -254,11 +254,63 @@ const testimonials = [
 </NoiseBg>
 
 <script>
-  import { actions } from 'astro:actions';
-
   const form = document.getElementById('contact-us-form') as HTMLFormElement | null;
   const container = document.getElementById('contact-us-form-container');
   const successMsg = document.getElementById('contact-us-success');
+  const WEBHOOK_TIMEOUT_MS = 8000;
+  const WEBHOOK_RETRY_DELAY_MS = 700;
+
+  const wait = (delayMs: number) =>
+    new Promise(resolve => {
+      window.setTimeout(resolve, delayMs);
+    });
+
+  const getAttributionData = () => {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      utmSource: params.get('utm_source') ?? '',
+      utmMedium: params.get('utm_medium') ?? '',
+      utmCampaign: params.get('utm_campaign') ?? '',
+      utmContent: params.get('utm_content') ?? '',
+      utmTerm: params.get('utm_term') ?? '',
+      fbclid: params.get('fbclid') ?? '',
+      gclid: params.get('gclid') ?? '',
+      msclkid: params.get('msclkid') ?? '',
+      ttclid: params.get('ttclid') ?? '',
+    };
+  };
+
+  const postWebhookPayload = async (url: string, payload: Record<string, string>) => {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT_MS);
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Webhook submission failed with status ${response.status}`);
+      }
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+  };
+
+  const submitWebhookWithRetry = async (url: string, payload: Record<string, string>) => {
+    try {
+      await postWebhookPayload(url, payload);
+      return;
+    } catch (error) {
+      console.error('GHL webhook attempt 1 failed:', error);
+    }
+
+    await wait(WEBHOOK_RETRY_DELAY_MS);
+    await postWebhookPayload(url, payload);
+  };
 
   if (form) {
     form.addEventListener('submit', async (e) => {
@@ -279,10 +331,29 @@ const testimonials = [
       if (spinner) spinner.classList.remove('hidden');
 
       try {
-        const formData = new FormData(form);
-        const { error } = await actions.sendContactForm(formData);
+        const webhookUrl = form.dataset.ghlWebhookUrl ?? '';
+        if (!webhookUrl) throw new Error('GHL_SHARED_WEBHOOK_URL is missing.');
 
-        if (error) throw new Error('Submission failed');
+        const formData = new FormData(form);
+        const values = Object.fromEntries(
+          Array.from(formData.entries()).map(([key, value]) => [key, typeof value === 'string' ? value.trim() : '']),
+        ) as Record<string, string>;
+
+        const payload = {
+          ...values,
+          formType: 'contact_us',
+          formName: 'contact_us_form',
+          submissionChannel: 'ghl_shared_webhook',
+          landingPage: window.location.pathname,
+          pagePath: window.location.pathname,
+          submittedAt: new Date().toISOString(),
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+          currentUrl: window.location.href,
+          referrer: document.referrer || '',
+          ...getAttributionData(),
+        };
+
+        await submitWebhookWithRetry(webhookUrl, payload);
 
         container?.classList.add('hidden');
         successMsg?.classList.remove('hidden');
