@@ -56,13 +56,13 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
 
 <div
   class={cn(
-    'from-primary/5 to-primary w-fit min-[820px]:min-w-[820px] max-w-7xl rounded-[1.75rem] bg-linear-to-b p-[10px] shadow-[0_28px_80px_rgba(0,0,0,0.48)]'
+    'from-primary/5 to-primary w-fit min-[820px]:min-w-[820px] max-w-7xl rounded-[1.5rem] sm:rounded-[1.75rem] bg-linear-to-b p-0.5 sm:p-[10px] shadow-[0_28px_80px_rgba(0,0,0,0.48)]'
   )}
   data-visual-thesis={visualThesis}
   data-content-plan={contentPlan}
   data-interaction-thesis={interactionThesis}
 >
-  <NoiseBg class="funnel-quote-form rounded-[1.35rem] bg-[#222222] px-6 pt-8 pb-6 sm:px-10">
+  <NoiseBg class="funnel-quote-form rounded-[1.35rem] bg-[#222222] px-3 pt-8 pb-6 sm:px-10">
     <div id="funnel-quote-success" class="hidden flex-col items-center justify-center gap-y-6 py-8 text-center">
       <div class="bg-primary/20 border-primary/40 flex size-16 items-center justify-center rounded-full border">
         <Icon name="circle-tick" class="text-primary size-8" />
@@ -91,7 +91,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         </div>
       </div>
 
-      <div class="flex items-center justify-center gap-x-2 px-2 sm:px-4">
+      <div class="flex items-center justify-center gap-x-2 px-4 sm:px-4">
         {
           Array.from({ length: 5 }).map((_, index) => (
             <>
@@ -138,8 +138,10 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           <!-- Home type step -->
           <div class="funnel-step is-active space-y-6" data-step="1" aria-hidden="false">
             <div class="space-y-1 text-center">
-              <p class="font-heading text-2xl font-medium text-white">What describes your home?</p>
-              <p class="text-white/56">Pick the option that best matches the property.</p>
+              <p class="font-heading text-2xl font-medium text-balance text-white">What describes your home?</p>
+              <p class="text-[clamp(14px,3vw,16px)] text-balance text-white/56">
+                Pick the option that best matches the property.
+              </p>
             </div>
 
             <div class="space-y-2">
@@ -186,8 +188,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           <!-- Timeline step -->
           <div class="funnel-step space-y-6" data-step="2" aria-hidden="true" inert>
             <div class="space-y-1 text-center">
-              <p class="font-heading text-2xl font-medium text-white">When are you wanting this project completed?</p>
-              <p class="text-white/56">This helps us understand urgency and scheduling needs.</p>
+              <p class="font-heading text-2xl font-medium text-balance text-white">
+                When are you wanting this project completed?
+              </p>
+              <p class="text-[clamp(14px,3vw,16px)] text-balance text-white/56">
+                This helps us understand urgency and scheduling needs.
+              </p>
             </div>
 
             <div class="space-y-2">
@@ -232,8 +238,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           <!-- Roofing Type Step -->
           <section class="funnel-step space-y-6" data-step="3" aria-hidden="true" inert>
             <div class="space-y-1 text-center">
-              <p class="font-heading text-2xl font-medium text-white">What is the scope of your roofing project?</p>
-              <p class="text-white/56">Choose the closest match for the work you need.</p>
+              <p class="font-heading text-2xl font-medium text-balance text-white">
+                What is the scope of your roofing project?
+              </p>
+              <p class="text-[clamp(14px,3vw,16px)] text-balance text-white/56">
+                Choose the closest match for the work you need.
+              </p>
             </div>
 
             <div class="space-y-2">
@@ -284,8 +294,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           <!-- Address -->
           <section class="funnel-step space-y-6" data-step="4" aria-hidden="true" inert>
             <div class="space-y-1">
-              <p class="font-heading text-2xl font-medium text-white">What is the address of this project?</p>
-              <p class="text-white/56">Tell us where the property is located.</p>
+              <p class="font-heading text-2xl font-medium text-balance text-white">
+                What is the address of this project?
+              </p>
+              <p class="text-[clamp(14px,3vw,16px)] text-balance text-white/56">
+                Tell us where the property is located.
+              </p>
             </div>
 
             <div class="border-radial grid gap-4 rounded-2xl p-4">
@@ -403,8 +417,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           <section class="funnel-step space-y-6" data-step="5" aria-hidden="true" inert>
             <div class="funnel-final-panel is-active space-y-4" data-panel="lead">
               <div class="space-y-1 text-center">
-                <p class="font-heading text-2xl font-medium text-white">Where should we send your estimate details?</p>
-                <p class="text-white/56">Submit your contact info and then choose a time to talk.</p>
+                <p class="font-heading text-2xl font-medium text-balance text-white">
+                  Where should we send your estimate details?
+                </p>
+                <p class="text-[clamp(14px,3vw,16px)] text-balance text-white/56">
+                  Submit your contact info and then choose a time to talk.
+                </p>
               </div>
 
               <div class="grid gap-4 px-px">
@@ -485,8 +503,8 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
             <!-- Booking -->
             <div class="funnel-final-panel hidden space-y-4" data-panel="booking">
               <div class="space-y-2 text-center">
-                <p class="text-[1.375rem] font-medium text-white">Book your roofing consultation</p>
-                <p class="text-sm leading-6 text-white/56">
+                <p class="text-[1.375rem] font-medium text-balance text-white">Book your roofing consultation</p>
+                <p class="text-[clamp(14px,3vw,16px)] text-balance text-white/56">
                   Choose a time that works for you and we’ll take it from there.
                 </p>
               </div>
