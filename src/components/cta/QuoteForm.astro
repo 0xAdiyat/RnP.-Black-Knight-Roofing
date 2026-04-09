@@ -598,6 +598,8 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
         await postWebhookPayload(url, payload);
       };
 
+      form.addEventListener('submit', (e) => e.preventDefault());
+
       // Next button
       btnNext?.addEventListener('click', () => {
         if (!validateStep(currentStep)) return;
