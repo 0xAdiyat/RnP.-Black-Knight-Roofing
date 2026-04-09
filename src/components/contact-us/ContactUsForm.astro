@@ -116,16 +116,16 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
 
           <form class="space-y-4" id="contact-us-form" novalidate data-ghl-webhook-url={ghlSharedWebhookUrl}>
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <!-- First Name -->
+                  <!-- Full Name -->
                   <div class="group space-y-2">
                     <label class="flex items-center gap-x-1.5 text-sm font-medium text-[#828282] transition-colors duration-300 group-focus-within:text-white">
                       <sup>
                         <Icon name="star-icon" size={12} class="text-primary transition-transform duration-300 group-focus-within:rotate-45" />
                       </sup>
-                      First Name
+                      Full Name
                     </label>
                     <div class="from-primary rounded-lg bg-radial-[at_35%_10%] via-[#594216] to-[#594216] p-px transition-all duration-500 ease-in-out focus-within:bg-radial-[at_70%_20%] focus-within:via-[#F7B715]">
-                      <input type="text" name="firstName" placeholder="John Doe" required
+                      <input type="text" name="fullName" placeholder="John Doe" required
                         class="w-full rounded-lg bg-[#131313] px-4 py-3 text-base text-white transition-all duration-300 placeholder:text-[#aaa] focus:outline-none lg:text-sm"
                       />
                     </div>

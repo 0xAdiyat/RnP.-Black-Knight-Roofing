@@ -175,8 +175,8 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
               <NoiseBg class="rounded-lg px-0 py-0">
                 <input
                   type="text"
-                  name="firstName"
-                  placeholder="First Name"
+                  name="fullName"
+                  placeholder="Full Name"
                   required
                   class="w-full rounded-lg bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none"
                 />
@@ -185,26 +185,7 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
             <p
               class="quote-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
               aria-hidden="true">
-              <span class="block pt-2">First name is required.</span>
-            </p>
-          </div>
-
-          <div>
-            <div class="quote-field-wrapper from-primary rounded-lg bg-radial-[at_25%_25%] to-[#594216] p-px">
-              <NoiseBg class="rounded-lg px-0 py-0">
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  required
-                  class="w-full rounded-lg bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none"
-                />
-              </NoiseBg>
-            </div>
-            <p
-              class="quote-field-error max-h-0 overflow-hidden text-xs font-semibold tracking-wide text-red-500 uppercase opacity-0 transition-all duration-300 ease-out"
-              aria-hidden="true">
-              <span class="block pt-2">Last name is required.</span>
+              <span class="block pt-2">Full name is required.</span>
             </p>
           </div>
 
@@ -427,10 +408,8 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
 
         if (!value) {
           switch (input.name) {
-            case 'firstName':
-              return 'First name is required.';
-            case 'lastName':
-              return 'Last name is required.';
+            case 'fullName':
+              return 'Full name is required.';
             default:
               return 'The field is required.';
           }
