@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import { actions } from 'astro:actions';
 import NoiseBg from '@/components/NoiseBg.astro';
 import Button from '@/components/ui/Button.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
@@ -31,6 +30,7 @@ const {
   rating = 5,
   class: className,
 } = Astro.props;
+const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
 
 ---
 
@@ -102,7 +102,7 @@ const {
     </div>
 
     <!-- Form -->
-    <form class="quote-form" novalidate method="POST" action={actions.sendQuoteForm}>
+    <form class="quote-form" novalidate data-ghl-webhook-url={ghlSharedWebhookUrl}>
       <div class="quote-steps-shell relative overflow-hidden">
       <!-- Step 1: Zip Code -->
       <div class="quote-step is-active space-y-4" data-step="1" aria-hidden="false">
@@ -326,8 +326,6 @@ const {
 </style>
 
 <script>
-  import { actions } from 'astro:actions';
-
   function initQuoteForms() {
     document.querySelectorAll<HTMLElement>('.quote-form').forEach(form => {
       // Prevent duplicate initialization
@@ -339,6 +337,8 @@ const {
 
       const TOTAL_STEPS = 3;
       let currentStep = 1;
+      const WEBHOOK_TIMEOUT_MS = 8000;
+      const WEBHOOK_RETRY_DELAY_MS = 700;
 
       // Elements
       const steps = form.querySelectorAll<HTMLElement>('.quote-step');
@@ -567,6 +567,58 @@ const {
         return valid;
       }
 
+      const wait = (delayMs: number) =>
+        new Promise(resolve => {
+          window.setTimeout(resolve, delayMs);
+        });
+
+      const getAttributionData = () => {
+        const params = new URLSearchParams(window.location.search);
+        return {
+          utmSource: params.get('utm_source') ?? '',
+          utmMedium: params.get('utm_medium') ?? '',
+          utmCampaign: params.get('utm_campaign') ?? '',
+          utmContent: params.get('utm_content') ?? '',
+          utmTerm: params.get('utm_term') ?? '',
+          fbclid: params.get('fbclid') ?? '',
+          gclid: params.get('gclid') ?? '',
+          msclkid: params.get('msclkid') ?? '',
+          ttclid: params.get('ttclid') ?? '',
+        };
+      };
+
+      const postWebhookPayload = async (url: string, payload: Record<string, string>) => {
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT_MS);
+
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            signal: controller.signal,
+          });
+
+          if (!response.ok) {
+            throw new Error(`Webhook submission failed with status ${response.status}`);
+          }
+        } finally {
+          window.clearTimeout(timeoutId);
+        }
+      };
+
+      const submitWebhookWithRetry = async (url: string, payload: Record<string, string>) => {
+        try {
+          await postWebhookPayload(url, payload);
+          return;
+        } catch (error) {
+          console.error('GHL webhook attempt 1 failed:', error);
+        }
+
+        await wait(WEBHOOK_RETRY_DELAY_MS);
+        await postWebhookPayload(url, payload);
+      };
+
       // Next button
       btnNext?.addEventListener('click', () => {
         if (!validateStep(currentStep)) return;
@@ -600,10 +652,29 @@ const {
         }
 
         try {
-          const formData = new FormData(form as HTMLFormElement);
-          const { error } = await actions.sendQuoteForm(formData);
+          const webhookUrl = form.dataset.ghlWebhookUrl ?? '';
+          if (!webhookUrl) throw new Error('GHL_SHARED_WEBHOOK_URL is missing.');
 
-          if (error) throw new Error('Submission failed');
+          const formData = new FormData(form as HTMLFormElement);
+          const values = Object.fromEntries(
+            Array.from(formData.entries()).map(([key, value]) => [key, typeof value === 'string' ? value.trim() : '']),
+          ) as Record<string, string>;
+
+          const payload = {
+            ...values,
+            formType: 'quote',
+            formName: 'cta_quote_form',
+            submissionChannel: 'ghl_shared_webhook',
+            landingPage: window.location.pathname,
+            pagePath: window.location.pathname,
+            submittedAt: new Date().toISOString(),
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+            currentUrl: window.location.href,
+            referrer: document.referrer || '',
+            ...getAttributionData(),
+          };
+
+          await submitWebhookWithRetry(webhookUrl, payload);
 
           const formContent = wrapper?.querySelector('#quote-form-content');
           const successMsg = wrapper?.querySelector('#quote-success');

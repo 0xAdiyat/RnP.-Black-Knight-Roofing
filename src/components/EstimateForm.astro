@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import { actions } from 'astro:actions';
 import Button from '@/components/ui/Button.astro';
 import logo from '@/assets/logo.png';
 import SunFlow from '@/assets/sunflow.avif';
@@ -24,6 +23,7 @@ const {
   ],
   class: className,
 } = Astro.props;
+const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
 
 ---
 
@@ -88,7 +88,12 @@ const {
         <p class="text-sm text-neutral-400">We received your estimate request and will be in touch shortly.</p>
       </div>
 
-      <form id="estimate-form" class="w-full space-y-5 pt-5 sm:space-y-6 sm:pt-6" novalidate>
+      <form
+        id="estimate-form"
+        class="w-full space-y-5 pt-5 sm:space-y-6 sm:pt-6"
+        novalidate
+        data-ghl-webhook-url={ghlSharedWebhookUrl}
+      >
         <div class="space-y-4 px-5 pb-1 sm:space-y-5 sm:px-6 lg:px-8">
           <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
             <!-- Full Name -->
@@ -279,10 +284,62 @@ const {
 </style>
 
 <script>
-  import { actions } from 'astro:actions';
-
   const estimateForm = document.getElementById('estimate-form') as HTMLFormElement | null;
   const successMsg = document.getElementById('estimate-success');
+  const WEBHOOK_TIMEOUT_MS = 8000;
+  const WEBHOOK_RETRY_DELAY_MS = 700;
+
+  const wait = (delayMs: number) =>
+    new Promise(resolve => {
+      window.setTimeout(resolve, delayMs);
+    });
+
+  const getAttributionData = () => {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      utmSource: params.get('utm_source') ?? '',
+      utmMedium: params.get('utm_medium') ?? '',
+      utmCampaign: params.get('utm_campaign') ?? '',
+      utmContent: params.get('utm_content') ?? '',
+      utmTerm: params.get('utm_term') ?? '',
+      fbclid: params.get('fbclid') ?? '',
+      gclid: params.get('gclid') ?? '',
+      msclkid: params.get('msclkid') ?? '',
+      ttclid: params.get('ttclid') ?? '',
+    };
+  };
+
+  const postWebhookPayload = async (url: string, payload: Record<string, string>) => {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT_MS);
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Webhook submission failed with status ${response.status}`);
+      }
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+  };
+
+  const submitWebhookWithRetry = async (url: string, payload: Record<string, string>) => {
+    try {
+      await postWebhookPayload(url, payload);
+      return;
+    } catch (error) {
+      console.error('GHL webhook attempt 1 failed:', error);
+    }
+
+    await wait(WEBHOOK_RETRY_DELAY_MS);
+    await postWebhookPayload(url, payload);
+  };
 
   if (estimateForm) {
     estimateForm.addEventListener('submit', async (e) => {
@@ -303,10 +360,29 @@ const {
       if (spinner) spinner.classList.remove('hidden');
 
       try {
-        const formData = new FormData(estimateForm);
-        const { error } = await actions.sendEstimateForm(formData);
+        const webhookUrl = estimateForm.dataset.ghlWebhookUrl ?? '';
+        if (!webhookUrl) throw new Error('GHL_SHARED_WEBHOOK_URL is missing.');
 
-        if (error) throw new Error('Submission failed');
+        const formData = new FormData(estimateForm);
+        const values = Object.fromEntries(
+          Array.from(formData.entries()).map(([key, value]) => [key, typeof value === 'string' ? value.trim() : '']),
+        ) as Record<string, string>;
+
+        const payload = {
+          ...values,
+          formType: 'estimate',
+          formName: 'estimate_form',
+          submissionChannel: 'ghl_shared_webhook',
+          landingPage: window.location.pathname,
+          pagePath: window.location.pathname,
+          submittedAt: new Date().toISOString(),
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+          currentUrl: window.location.href,
+          referrer: document.referrer || '',
+          ...getAttributionData(),
+        };
+
+        await submitWebhookWithRetry(webhookUrl, payload);
 
         estimateForm.classList.add('hidden');
         successMsg?.classList.remove('hidden');

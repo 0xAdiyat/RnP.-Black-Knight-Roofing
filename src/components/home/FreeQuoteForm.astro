@@ -1,13 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import { actions } from 'astro:actions';
 import Button from '@/components/ui/Button.astro';
 import InputGroup from '@/components/ui/input-group/InputGroup.astro';
 import InputGroupInput from '@/components/ui/input-group/InputGroupInput.astro';
 import InputGroupAddon from '@/components/ui/input-group/InputGroupAddon.astro';
 import NoiseBg from '@/components/NoiseBg.astro';
 import heroShield from '@/assets/hero-shield.png';
+const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
 ---
 
 <div class="container pt-8">
@@ -37,6 +37,7 @@ import heroShield from '@/assets/hero-shield.png';
           id="hero-free-quote-form"
           class="hero-free-quote-form flex w-full flex-col items-start gap-4 lg:flex-row lg:items-start lg:gap-x-3"
           novalidate
+          data-ghl-webhook-url={ghlSharedWebhookUrl}
         >
           <div class="hero-free-quote-field w-full">
             <InputGroup class="hero-free-quote-group h-[52px] w-full border-white/15 px-4 py-4">
@@ -122,7 +123,8 @@ import heroShield from '@/assets/hero-shield.png';
 </div>
 
 <script lang="ts">
-  const forms = document.querySelectorAll<HTMLFormElement>('.hero-free-quote-form');
+  const WEBHOOK_TIMEOUT_MS = 8000;
+  const WEBHOOK_RETRY_DELAY_MS = 700;
 
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -183,74 +185,155 @@ import heroShield from '@/assets/hero-shield.png';
     return setFieldState(input, message, forceShowError);
   }
 
-  forms.forEach(form => {
-    const inputs = Array.from(form.querySelectorAll('input'));
-
-    inputs.forEach(input => {
-      input.addEventListener('focus', () => {
-        const group = input.closest('.hero-free-quote-group');
-        group?.classList.add('border-white/30', 'ring-1', 'ring-white/10');
-      });
-
-      input.addEventListener('blur', () => validateField(input));
-      input.addEventListener('blur', () => {
-        const group = input.closest('.hero-free-quote-group');
-        group?.classList.remove('border-white/30', 'ring-1', 'ring-white/10');
-      });
-      input.addEventListener('input', () => {
-        if (input.getAttribute('aria-invalid') === 'true' || input.value.trim().length > 0) {
-          validateField(input);
-        }
-      });
+  const wait = (delayMs: number) =>
+    new Promise(resolve => {
+      window.setTimeout(resolve, delayMs);
     });
 
-    form.addEventListener('submit', async event => {
-      event.preventDefault();
-      let firstInvalid = null;
-      let formIsValid = true;
+  const getAttributionData = () => {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      utmSource: params.get('utm_source') ?? '',
+      utmMedium: params.get('utm_medium') ?? '',
+      utmCampaign: params.get('utm_campaign') ?? '',
+      utmContent: params.get('utm_content') ?? '',
+      utmTerm: params.get('utm_term') ?? '',
+      fbclid: params.get('fbclid') ?? '',
+      gclid: params.get('gclid') ?? '',
+      msclkid: params.get('msclkid') ?? '',
+      ttclid: params.get('ttclid') ?? '',
+    };
+  };
+
+  const postWebhookPayload = async (url: string, payload: Record<string, string>) => {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT_MS);
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Webhook submission failed with status ${response.status}`);
+      }
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+  };
+
+  const submitWebhookWithRetry = async (url: string, payload: Record<string, string>) => {
+    try {
+      await postWebhookPayload(url, payload);
+      return;
+    } catch (error) {
+      console.error('GHL webhook attempt 1 failed:', error);
+    }
+
+    await wait(WEBHOOK_RETRY_DELAY_MS);
+    await postWebhookPayload(url, payload);
+  };
+
+  function initHeroFreeQuoteForms() {
+    const forms = document.querySelectorAll<HTMLFormElement>('.hero-free-quote-form');
+
+    forms.forEach(form => {
+      if (form.dataset.initialized === 'true') return;
+      form.dataset.initialized = 'true';
+      form.setAttribute('action', 'javascript:void(0)');
+
+      const inputs = Array.from(form.querySelectorAll('input'));
 
       inputs.forEach(input => {
-        const valid = validateField(input, true);
-        if (!valid) {
-          formIsValid = false;
-          if (!firstInvalid) firstInvalid = input;
-        }
+        input.addEventListener('focus', () => {
+          const group = input.closest('.hero-free-quote-group');
+          group?.classList.add('border-white/30', 'ring-1', 'ring-white/10');
+        });
+
+        input.addEventListener('blur', () => validateField(input));
+        input.addEventListener('blur', () => {
+          const group = input.closest('.hero-free-quote-group');
+          group?.classList.remove('border-white/30', 'ring-1', 'ring-white/10');
+        });
+        input.addEventListener('input', () => {
+          if (input.getAttribute('aria-invalid') === 'true' || input.value.trim().length > 0) {
+            validateField(input);
+          }
+        });
       });
 
-      if (!formIsValid) {
-        firstInvalid?.focus();
-        return;
-      }
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        event.stopPropagation();
+        let firstInvalid = null;
+        let formIsValid = true;
 
-      // Valid — show loading state
-      const btn = form.querySelector<HTMLButtonElement>('[data-submit-btn]');
-      const label = form.querySelector<HTMLElement>('[data-submit-label]');
-      const spinner = form.querySelector<SVGElement>('[data-submit-spinner]');
-      const successMsg = document.getElementById('free-quote-success');
+        inputs.forEach(input => {
+          const valid = validateField(input, true);
+          if (!valid) {
+            formIsValid = false;
+            if (!firstInvalid) firstInvalid = input;
+          }
+        });
 
-      if (btn) btn.disabled = true;
-      if (label) label.textContent = 'Sending…';
-      if (spinner) spinner.classList.remove('hidden');
-
-      try {
-        const formData = new FormData(form);
-        const { error } = await actions.sendFreeQuoteForm(formData);
-
-        if (error) {
-          throw new Error('Action failed');
+        if (!formIsValid) {
+          firstInvalid?.focus();
+          return;
         }
 
-        // Show success state
-        form.classList.add('hidden');
-        successMsg?.classList.remove('hidden');
-        successMsg?.classList.add('flex');
-      } catch (err) {
-        console.error('Submission error:', err);
-        if (btn) btn.disabled = false;
-        if (label) label.textContent = 'Retry';
-        if (spinner) spinner.classList.add('hidden');
-        alert('There was a problem sending your request. Please try again.');
-      }
+        // Valid — show loading state
+        const btn = form.querySelector<HTMLButtonElement>('[data-submit-btn]');
+        const label = form.querySelector<HTMLElement>('[data-submit-label]');
+        const spinner = form.querySelector<SVGElement>('[data-submit-spinner]');
+        const successMsg = document.getElementById('free-quote-success');
+
+        if (btn) btn.disabled = true;
+        if (label) label.textContent = 'Sending…';
+        if (spinner) spinner.classList.remove('hidden');
+
+        try {
+          const webhookUrl = form.dataset.ghlWebhookUrl ?? '';
+          if (!webhookUrl) throw new Error('GHL_SHARED_WEBHOOK_URL is missing.');
+
+          const formData = new FormData(form);
+          const values = Object.fromEntries(
+            Array.from(formData.entries()).map(([key, value]) => [key, typeof value === 'string' ? value.trim() : '']),
+          ) as Record<string, string>;
+
+          const payload = {
+            ...values,
+            formType: 'free_quote',
+            formName: 'hero_free_quote_form',
+            submissionChannel: 'ghl_shared_webhook',
+            landingPage: window.location.pathname,
+            pagePath: window.location.pathname,
+            submittedAt: new Date().toISOString(),
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+            currentUrl: window.location.href,
+            referrer: document.referrer || '',
+            ...getAttributionData(),
+          };
+
+          await submitWebhookWithRetry(webhookUrl, payload);
+
+          // Show success state
+          form.classList.add('hidden');
+          successMsg?.classList.remove('hidden');
+          successMsg?.classList.add('flex');
+        } catch (err) {
+          console.error('Submission error:', err);
+          if (btn) btn.disabled = false;
+          if (label) label.textContent = 'Retry';
+          if (spinner) spinner.classList.add('hidden');
+          alert('There was a problem sending your request. Please try again.');
+        }
+      });
     });
-  });
+  }
+
+  initHeroFreeQuoteForms();
+  document.addEventListener('astro:after-swap', initHeroFreeQuoteForms);
 </script>
