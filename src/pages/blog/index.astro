@@ -1,11 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Navbar from '@/components/Navbar.astro';
 import Hero from '@/components/hero/Hero.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import { defaultCTA } from '@/data/cta';
-import Footer from '@/components/Footer.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
@@ -26,7 +24,6 @@ const displayedBlogs = blogListItems.slice((currentPage - 1) * itemsPerPage, cur
 ---
 
 <Layout noindex={true}>
-  <Navbar />
   <Hero
     backgroundImage={heroImage}
     title="Black Knight Roofing Blog Posts"
@@ -97,5 +94,4 @@ const displayedBlogs = blogListItems.slice((currentPage - 1) * itemsPerPage, cur
     <Brands />
   </div>
   <CTASection cta={defaultCTA} />
-  <Footer />
 </Layout>

@@ -1,11 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Navbar from '@/components/Navbar.astro';
 import Hero from '@/components/hero/Hero.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import { residentialCTA } from '@/data/cta';
-import Footer from '@/components/Footer.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
 import EstimateButton from '@/components/EstimateButton.astro';
 
@@ -83,7 +81,6 @@ const processSteps = [
 ---
 
 <Layout>
-  <Navbar />
   <Hero
     backgroundImage={heroImage}
     title="Roofing Services Built for Colorado Homes and Colorado Weather"
@@ -134,5 +131,4 @@ const processSteps = [
     <Brands />
   </div>
   <CTASection cta={residentialCTA} />
-  <Footer />
 </Layout>

@@ -1,10 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Navbar from '@/components/Navbar.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import { residentialCTA } from '@/data/cta';
-import Footer from '@/components/Footer.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
 import { stoneCoatedFaqs } from '@/data/faqs/stone-coated';
 import NoiseBg from '@/components/NoiseBg.astro';
@@ -161,7 +159,6 @@ const stoneSteelProfiles = [
 ---
 
 <Layout>
-  <Navbar />
 
   <Hero
     backgroundImage={heroImage}
@@ -473,5 +470,4 @@ const stoneSteelProfiles = [
     <Brands />
   </div>
   <CTASection cta={residentialCTA} />
-  <Footer />
 </Layout>

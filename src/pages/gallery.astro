@@ -1,11 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
 import Hero from '@/components/hero/Hero.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import { defaultCTA } from '@/data/cta';
-import Footer from '@/components/Footer.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
@@ -157,7 +155,6 @@ const hasResults = filteredWorks.length > 0;
 ---
 
 <Layout title="Denver Roofing Portfolio | Black Knight Roofing" noindex={true}>
-  <Navbar />
 
   <!-- Hero section -->
 
@@ -296,7 +293,6 @@ const hasResults = filteredWorks.length > 0;
     <Brands />
   </div>
   <CTASection cta={defaultCTA} />
-  <Footer />
 
   <script
     define:vars={{

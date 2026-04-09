@@ -10,6 +10,9 @@ import EstimateDialog from '@/components/EstimateDialog.astro';
 import SiteLinksModal from '@/components/SiteLinksModal.astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+
 interface Props {
   title?: string;
   description?: string;
@@ -71,7 +74,9 @@ const socialImageURL = new URL(image, siteUrl);
     <ClientRouter />
   </head>
   <body>
+    <Navbar />
     <slot />
+    <Footer />
     <HumanManifesto transition:persist />
     <EstimateDialog transition:persist />
     <SiteLinksModal transition:persist />

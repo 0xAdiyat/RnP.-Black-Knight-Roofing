@@ -1,11 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Navbar from '@/components/Navbar.astro';
 import Hero from '@/components/hero/Hero.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import { defaultCTA } from '@/data/cta';
-import Footer from '@/components/Footer.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import ServiceAreas from '@/components/service-area/ServiceAreas.astro';
@@ -97,7 +95,6 @@ const visibleSlugs = new Set(
 ---
 
 <Layout title="Denver Roofing Case Studies | Black Knight Roofing" noindex={true}>
-  <Navbar />
   <Hero backgroundImage={heroBg} title="Roofing Case Studies" subtitle="Colorado's #1 Veteran-Owned Roofing Company">
     <p>
       Results speak louder than promises. Our case studies highlight real projects across residential and commercial
@@ -202,7 +199,6 @@ const visibleSlugs = new Set(
     <Brands />
   </div>
   <CTASection cta={defaultCTA} />
-  <Footer />
 
   <script define:vars={{ totalItems, itemsPerPage, initialPage: currentPage }}>
     const root = document.querySelector('[data-case-studies-root]');

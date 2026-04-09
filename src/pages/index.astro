@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
 import Hero from '@/components/home/Hero.astro';
 import Brands from '@/components/Brands.astro';
 import Testimonials from '@/components/Testimonials.astro';
@@ -19,7 +18,6 @@ import { homeFaqs } from '@/data/faqs/home';
 import RecentArticales from '@/components/articales/RecentArticales.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import { defaultCTA } from '@/data/cta';
-import Footer from '@/components/Footer.astro';
 
 const processSteps = [
   {
@@ -53,7 +51,6 @@ const processSteps = [
   title="Top Veteran Owned Roofing Company | Black Knight Roofing"
   description="Veteran-owned roofing company serving Denver & all of Colorado. Stone-coated steel specialists. 40+ five-star reviews. Free inspections. Call (970) 888-7230."
 >
-  <Navbar />
   <Hero />
 
   <div class="pt-10">
@@ -69,5 +66,4 @@ const processSteps = [
   <RecentArticales />
   <Brands />
   <CTASection cta={defaultCTA} />
-  <Footer />
 </Layout>

@@ -1,12 +1,10 @@
 ---
 export const prerender = true;
 import Layout from '@/layouts/Layout.astro';
-import Navbar from '@/components/Navbar.astro';
 import Hero from '@/components/hero/Hero.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import { serviceAreaCTA } from '@/data/cta';
-import Footer from '@/components/Footer.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
 
 import { Icon } from 'astro-icon/components';
@@ -94,7 +92,6 @@ const areaFaqs = getServiceAreaFaqs(area.city, 'the Front Range');
 ---
 
 <Layout title={`Roofing Services in ${area.city}, ${area.state} | Black Knight Roofing`}>
-  <Navbar />
   <Hero
     backgroundImage={heroBg}
     title={`Expert Roofing Services in <br /> ${area.city}, ${area.state}`}
@@ -225,5 +222,4 @@ const areaFaqs = getServiceAreaFaqs(area.city, 'the Front Range');
     <Brands />
   </div>
   <CTASection cta={serviceAreaCTA} />
-  <Footer />
 </Layout>

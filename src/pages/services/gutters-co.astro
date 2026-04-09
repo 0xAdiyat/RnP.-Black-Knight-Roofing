@@ -1,10 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Navbar from '@/components/Navbar.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import { residentialCTA } from '@/data/cta';
-import Footer from '@/components/Footer.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
 import { servicesFaqs } from '@/data/faqs/services';
@@ -89,7 +87,6 @@ const processSteps = [
 ---
 
 <Layout>
-  <Navbar />
 
   <Hero
     title="Invest in New Gutters With Black Knight Roofing"
@@ -174,5 +171,4 @@ const processSteps = [
     <Brands />
   </div>
   <CTASection cta={residentialCTA} />
-  <Footer />
 </Layout>

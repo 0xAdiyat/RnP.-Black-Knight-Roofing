@@ -1,11 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
 import Hero from '@/components/hero/Hero.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import { defaultCTA } from '@/data/cta';
-import Footer from '@/components/Footer.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
 
 import { Icon } from 'astro-icon/components';
@@ -56,7 +54,6 @@ const processSteps = [
 ---
 
 <Layout title="About Us | Top Veteran Owned Roofing Company | Black Knight Roofing">
-  <Navbar />
   <Hero
     backgroundImage={heroImage}
     title="Meet the Team of Experts <br/> That Gets Your Roofing Job Done"
@@ -131,5 +128,4 @@ const processSteps = [
     <Brands />
   </div>
   <CTASection cta={defaultCTA} />
-  <Footer />
 </Layout>

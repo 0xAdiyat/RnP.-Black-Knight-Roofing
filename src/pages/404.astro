@@ -1,13 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
 import Button from '@/components/ui/Button.astro';
 import { Icon } from 'astro-icon/components';
 ---
 
 <Layout title="404 - Page Not Found | Black Knight Roofing" description="The page you are looking for does not exist. Return to Black Knight Roofing home page for expert roofing services in Denver.">
-  <Navbar />
   
   <main class="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-noise px-4 py-16 text-center md:py-24">
     <!-- Animated background glow -->
@@ -51,7 +48,6 @@ import { Icon } from 'astro-icon/components';
     <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
   </main>
 
-  <Footer />
 </Layout>
 
 <style>

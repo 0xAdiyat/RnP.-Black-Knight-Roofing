@@ -1,11 +1,9 @@
 ---
 export const prerender = true;
 import Layout from '@/layouts/Layout.astro';
-import Navbar from '@/components/Navbar.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import { residentialCTA } from '@/data/cta';
-import Footer from '@/components/Footer.astro';
 import NoiseBg from '@/components/NoiseBg.astro';
 import { Icon } from 'astro-icon/components';
 import Button from '@/components/ui/Button.astro';
@@ -228,7 +226,6 @@ const processSteps = [
 ---
 
 <Layout title={`${caseStudy.title} | Case Study`} noindex={true}>
-  <Navbar />
 
   <Hero2 backgroundImage={heroBg} title="Case Studies Denver" subtitle="Case Studies">
     <p>
@@ -525,7 +522,6 @@ const processSteps = [
     <Brands />
   </div>
   <CTASection cta={residentialCTA} />
-  <Footer />
 </Layout>
 
 <style>

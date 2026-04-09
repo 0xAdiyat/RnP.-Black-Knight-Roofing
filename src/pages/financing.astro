@@ -1,7 +1,6 @@
 ---
 import Hero from '@/components/hero/Hero.astro';
 import Layout from '@/layouts/Layout.astro';
-import Navbar from '@/components/Navbar.astro';
 import Button from '@/components/ui/Button.astro';
 import RatingStars from '@/components/ui/RatingStars.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
@@ -23,7 +22,6 @@ import step2 from '@/assets/steps/step-5.png';
 import step3 from '@/assets/steps/step-6.png';
 import CreditCardImage from '@/assets/credit-card.avif';
 import { cn } from '@/lib/utils';
-import Footer from '@/components/Footer.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
 import { financingFaqs } from '@/data/faqs/financing';
 import topFrmae from '@/assets/top-frame.avif';
@@ -57,7 +55,6 @@ const wisetackPrequalifyUrl = 'https://wisetack.us/#/kb2wmd7/prequalify';
 ---
 
 <Layout title="Roofing Financing | Top Veteran Owned Roofing Company | Black Knight Roofing">
-  <Navbar />
   <div id="hero-section">
     <Hero
       backgroundImage={heroImage}
@@ -434,7 +431,6 @@ const wisetackPrequalifyUrl = 'https://wisetack.us/#/kb2wmd7/prequalify';
       </div>
     </div>
   </section>
-  <Footer />
 </Layout>
 
 <script>

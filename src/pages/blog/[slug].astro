@@ -1,8 +1,6 @@
 ---
 export const prerender = true;
 import Layout from '@/layouts/Layout.astro';
-import Navbar from '@/components/Navbar.astro';
-import Footer from '@/components/Footer.astro';
 import NoiseBg from '@/components/NoiseBg.astro';
 import Button from '@/components/ui/Button.astro';
 import { Icon } from 'astro-icon/components';
@@ -543,7 +541,6 @@ const pageTitle = `${blog.title} | Black Knight Roofing`;
 ---
 
 <Layout title={pageTitle} noindex={true}>
-  <Navbar />
   <Hero
     backgroundImage={heroImage}
     title={blog.title}
@@ -810,5 +807,4 @@ const pageTitle = `${blog.title} | Black Knight Roofing`;
 
   <CTASection cta={blogCTA} />
 
-  <Footer />
 </Layout>

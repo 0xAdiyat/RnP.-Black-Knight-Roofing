@@ -1,11 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Navbar from '@/components/Navbar.astro';
 import Hero from '@/components/hero/Hero.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import { defaultCTA } from '@/data/cta';
-import Footer from '@/components/Footer.astro';
 import QuoteForm from '@/components/cta/QuoteForm.astro';
 
 import { Icon } from 'astro-icon/components';
@@ -90,7 +88,6 @@ const processSteps = [
 ---
 
 <Layout title={title}>
-  <Navbar />
 
   <ContactUsHero
     backgroundImage={heroBg}
@@ -234,5 +231,4 @@ const processSteps = [
     <Brands />
   </div>
   <CTASection cta={defaultCTA} />
-  <Footer />
 </Layout>

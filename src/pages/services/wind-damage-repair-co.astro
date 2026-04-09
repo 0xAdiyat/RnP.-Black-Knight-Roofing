@@ -1,10 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Navbar from '@/components/Navbar.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import { stormCTA } from '@/data/cta';
-import Footer from '@/components/Footer.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
 import { windDamageFaqs } from '@/data/faqs/wind-damage';
@@ -89,7 +87,6 @@ const processSteps = [
 ---
 
 <Layout>
-  <Navbar />
 
   <Hero
     backgroundImage={heroImage}
@@ -178,5 +175,4 @@ const processSteps = [
     <Brands />
   </div>
   <CTASection cta={stormCTA} />
-  <Footer />
 </Layout>

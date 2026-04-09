@@ -1,10 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Navbar from '@/components/Navbar.astro';
 import Brands from '@/components/Brands.astro';
 import CTASection from '@/components/cta/CTASection.astro';
 import { residentialCTA } from '@/data/cta';
-import Footer from '@/components/Footer.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import Faqs from '@/components/faqs/Faqs.astro';
 import { residentialFaqs } from '@/data/faqs/residential-roofing';
@@ -88,7 +86,6 @@ const processSteps = [
 ---
 
 <Layout>
-  <Navbar />
 
   <Hero backgroundImage={heroImage} title="A Roof Replacement You Can Trust in Colorado" subtitle="Roof Replacement Services In Colorado">
     <p class="text-sm">
@@ -225,5 +222,4 @@ const processSteps = [
     <Brands />
   </div>
   <CTASection cta={residentialCTA} />
-  <Footer />
 </Layout>
