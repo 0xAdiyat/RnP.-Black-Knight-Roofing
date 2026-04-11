@@ -102,7 +102,13 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
           <div class="w-full lg:w-auto lg:self-start">
             <Button type="submit" class="h-[52px] w-full px-8 py-4 lg:w-auto" data-submit-btn>
               <span data-submit-label>Submit</span>
-              <svg data-submit-spinner class="hidden size-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg
+                data-submit-spinner
+                class="hidden size-4 animate-spin"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
               </svg>
@@ -185,7 +191,7 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
     return setFieldState(input, message, forceShowError);
   }
 
-  const wait = (delayMs: number) =>
+  const wait = delayMs =>
     new Promise(resolve => {
       window.setTimeout(resolve, delayMs);
     });
@@ -205,7 +211,7 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
     };
   };
 
-  const postWebhookPayload = async (url: string, payload: Record<string, string>) => {
+  const postWebhookPayload = async (url, payload) => {
     const controller = new AbortController();
     const timeoutId = window.setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT_MS);
 
@@ -225,7 +231,7 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
     }
   };
 
-  const submitWebhookWithRetry = async (url: string, payload: Record<string, string>) => {
+  const submitWebhookWithRetry = async (url, payload) => {
     try {
       await postWebhookPayload(url, payload);
       return;
@@ -300,8 +306,8 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
 
           const formData = new FormData(form);
           const values = Object.fromEntries(
-            Array.from(formData.entries()).map(([key, value]) => [key, typeof value === 'string' ? value.trim() : '']),
-          ) as Record<string, string>;
+            Array.from(formData.entries()).map(([key, value]) => [key, typeof value === 'string' ? value.trim() : ''])
+          );
 
           const payload = {
             ...values,
