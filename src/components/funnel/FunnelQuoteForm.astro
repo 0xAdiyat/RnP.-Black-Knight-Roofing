@@ -572,6 +572,25 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
   </NoiseBg>
 </div>
 
+<!-- Meta Pixel Base Code -->
+<script is:inline>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1141065794815083');
+  fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1141065794815083&ev=PageView&noscript=1" />
+</noscript>
+<!-- End Meta Pixel Base Code -->
+
 <style>
   .funnel-steps-shell {
     transition: height 320ms ease;
@@ -1264,6 +1283,16 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
             layout: 'month_view',
           });
 
+          // Meta Pixel: Schedule – fires when the user completes a booking on Cal.com
+          window.Cal.ns['30min']('on', {
+            action: 'bookingSuccessful',
+            callback: () => {
+              if (typeof window.fbq === 'function') {
+                window.fbq('track', 'Schedule');
+              }
+            },
+          });
+
           // Inline initialization moved to revealBookingPanel for better DOM timing.
           // We intentionally do not override `bookingSuccessful`, so Cal's native
           // inline success view remains visible after booking.
@@ -1279,6 +1308,11 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         bookingPanel.classList.remove('hidden');
         bookingPanel.classList.add('is-active');
         bookingVisible = true;
+
+        // Meta Pixel: Lead – contact info captured, booking panel revealed
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', 'Lead');
+        }
 
         if (btnNext instanceof HTMLElement) btnNext.classList.add('hidden');
         if (btnBack instanceof HTMLElement) btnBack.classList.add('hidden');
