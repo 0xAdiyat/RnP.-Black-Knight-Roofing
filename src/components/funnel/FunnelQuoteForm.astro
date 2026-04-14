@@ -1315,69 +1315,28 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         }
       };
 
-      const ensureCalLoaded = () =>
-        new Promise(resolve => {
-          if (!window.Cal) {
-            (function (C, A, L) {
-              let p = function (a, ar) {
-                a.q.push(ar);
-              };
-              let d = C.document;
-              C.Cal =
-                C.Cal ||
-                function () {
-                  let cal = C.Cal;
-                  let ar = arguments;
-                  if (!cal.loaded) {
-                    cal.ns = {};
-                    cal.q = cal.q || [];
-                    let s = d.createElement('script');
-                    s.src = A;
-                    d.head.appendChild(s);
-                    cal.loaded = true;
-                  }
-                  if (ar[0] === L) {
-                    const api = function () {
-                      p(api, arguments);
-                    };
-                    const namespace = ar[1];
-                    api.q = api.q || [];
-                    typeof namespace === 'string' ? (cal.ns[namespace] = cal.ns[namespace] || api) : p(cal, ar);
-                    return;
-                  }
-                  p(cal, ar);
-                };
-            })(window, 'https://app.cal.com/embed/embed.js', 'init');
+      // Meta Pixel: Schedule – fires when LeadConnector confirms a booking via postMessage
+      const initLeadConnectorScheduleTracking = () => {
+        if (window.__lcScheduleTracked) return;
+        window.__lcScheduleTracked = true;
+
+        window.addEventListener('message', event => {
+          try {
+            const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+            const isBookingEvent =
+              data?.event === 'appointment_booked' ||
+              data?.event === 'booking_confirmed' ||
+              data?.type === 'appointment_booked' ||
+              data?.action === 'appointment_booked';
+
+            if (isBookingEvent && typeof window.fbq === 'function') {
+              window.fbq('track', 'Schedule');
+            }
+          } catch {
+            // Non-JSON or unrelated postMessage — ignore
           }
-
-          window.Cal('init', '30min', { origin: 'https://app.cal.com' });
-
-          window.Cal.ns['30min']('ui', {
-            theme: 'dark',
-            cssVarsPerTheme: {
-              light: { 'cal-brand': '#0B2B26' },
-              dark: { 'cal-brand': '#C2E800' },
-            },
-            hideEventTypeDetails: false,
-            layout: 'month_view',
-          });
-
-          // Meta Pixel: Schedule – fires when the user completes a booking on Cal.com
-          window.Cal.ns['30min']('on', {
-            action: 'bookingSuccessful',
-            callback: () => {
-              if (typeof window.fbq === 'function') {
-                window.fbq('track', 'Schedule');
-              }
-            },
-          });
-
-          // Inline initialization moved to revealBookingPanel for better DOM timing.
-          // We intentionally do not override `bookingSuccessful`, so Cal's native
-          // inline success view remains visible after booking.
-
-          resolve();
         });
+      };
 
       const revealBookingPanel = async payload => {
         if (!(leadPanel instanceof HTMLElement) || !(bookingPanel instanceof HTMLElement)) return;
@@ -1393,6 +1352,9 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         if (typeof window.fbq === 'function') {
           window.fbq('track', 'Lead');
         }
+
+        // Start listening for LeadConnector booking confirmation (Schedule event)
+        initLeadConnectorScheduleTracking();
 
         if (btnNext instanceof HTMLElement) btnNext.classList.add('hidden');
         if (btnBack instanceof HTMLElement) btnBack.classList.add('hidden');
