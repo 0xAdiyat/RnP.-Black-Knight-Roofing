@@ -1252,10 +1252,10 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           last_name: lastName,
           email: payload.email || '',
           phone: payload.phone || '',
-          house_type: payload.homeType || '',
-          project_scope: payload.projectScope || '',
-          timeline: payload.timeline || '',
-          address: address || '',
+          building_type_updated_photo: payload.homeType || '',
+          scope: payload.projectScope || '',
+          time: payload.timeline || '',
+          full_address: address || '',
         };
 
         const searchParams = new URLSearchParams();
