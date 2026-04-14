@@ -1293,29 +1293,6 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         }
       };
 
-      // Meta Pixel: Schedule – fires when LeadConnector confirms a booking via postMessage
-      const initLeadConnectorScheduleTracking = () => {
-        if (window.__lcScheduleTracked) return;
-        window.__lcScheduleTracked = true;
-
-        window.addEventListener('message', event => {
-          try {
-            const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
-            const isBookingEvent =
-              data?.event === 'appointment_booked' ||
-              data?.event === 'booking_confirmed' ||
-              data?.type === 'appointment_booked' ||
-              data?.action === 'appointment_booked';
-
-            if (isBookingEvent && typeof window.fbq === 'function') {
-              window.fbq('track', 'Schedule');
-            }
-          } catch {
-            // Non-JSON or unrelated postMessage — ignore
-          }
-        });
-      };
-
       const revealBookingPanel = async payload => {
         if (!(leadPanel instanceof HTMLElement) || !(bookingPanel instanceof HTMLElement)) return;
 
@@ -1330,9 +1307,6 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         if (typeof window.fbq === 'function') {
           window.fbq('track', 'Lead');
         }
-
-        // Start listening for LeadConnector booking confirmation (Schedule event)
-        initLeadConnectorScheduleTracking();
 
         if (btnNext instanceof HTMLElement) btnNext.classList.add('hidden');
         if (btnBack instanceof HTMLElement) btnBack.classList.add('hidden');

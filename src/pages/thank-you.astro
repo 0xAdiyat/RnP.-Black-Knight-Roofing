@@ -1,0 +1,53 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout
+  title="Booking Confirmed | Black Knight Roofing"
+  description="Your roofing consultation has been booked. Black Knight Roofing will be in touch shortly."
+  noindex={true}
+  showNavbar={false}
+  showFooter={false}
+>
+  <main class="flex min-h-screen flex-col items-center justify-center gap-y-6 bg-[#1a1a1a] px-6 text-center">
+    <div class="flex size-16 items-center justify-center rounded-full border border-green-500/40 bg-green-500/20">
+      <svg class="size-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+
+    <div class="space-y-2">
+      <h1 class="text-2xl font-semibold text-white">You're all set!</h1>
+      <p class="max-w-sm text-sm text-neutral-400">
+        Your roofing consultation has been booked. We'll send you a confirmation and reach out before your appointment.
+      </p>
+    </div>
+
+    <a
+      href="/"
+      class="mt-2 rounded-xl bg-white/10 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-white/20"
+    >
+      Back to home
+    </a>
+  </main>
+</Layout>
+
+<!-- Facebook Pixel Code -->
+<script is:inline>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1141065794815083');
+  fbq('track', 'PageView');
+  fbq('track', 'Schedule');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1141065794815083&ev=PageView&noscript=1" />
+</noscript>
+<!-- End Facebook Pixel Code -->
