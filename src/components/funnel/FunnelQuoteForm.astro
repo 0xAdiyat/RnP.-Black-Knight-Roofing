@@ -1242,20 +1242,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
       const buildBookingPrefillParams = payload => {
         const { firstName, lastName } = splitNameForBooking(payload.fullName);
 
-        const address =
-          payload.addressLookup ||
-          [payload.streetAddress, payload.city, payload.postalCode].filter(Boolean).join(', ');
-
         const params = {
           full_name: payload.fullName || '',
           first_name: firstName,
           last_name: lastName,
           email: payload.email || '',
           phone: payload.phone || '',
-          building_type_updated_photo: payload.homeType || '',
-          scope: payload.projectScope || '',
-          time: payload.timeline || '',
-          full_address: address || '',
         };
 
         const searchParams = new URLSearchParams();
