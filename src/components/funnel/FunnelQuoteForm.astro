@@ -1241,15 +1241,6 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
 
       const buildBookingPrefillParams = payload => {
         const { firstName, lastName } = splitNameForBooking(payload.fullName);
-        const line = (label, value) => (value ? `${label}: ${value}` : '');
-        const summary = [
-          line('Home Type', payload.homeType),
-          line('Project Timeline', payload.timeline),
-          line('Project Scope', payload.projectScope),
-          line('Project Address', [payload.streetAddress, payload.city, payload.postalCode].filter(Boolean).join(', ')),
-          line('Phone', payload.phone),
-        ].filter(Boolean);
-        const summaryText = summary.join('\n');
 
         const params = {
           full_name: payload.fullName || '',
@@ -1257,19 +1248,6 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           last_name: lastName,
           email: payload.email || '',
           phone: payload.phone || '',
-          address: payload.streetAddress || '',
-          address1: payload.streetAddress || '',
-          city: payload.city || '',
-          postal_code: payload.postalCode || '',
-          project_scope: payload.projectScope || '',
-          project_timeline: payload.timeline || '',
-          home_type: payload.homeType || '',
-          appointment: summaryText,
-          additional_info: summaryText,
-          additional_information: summaryText,
-          notes: summaryText,
-          message: summaryText,
-          description: summaryText,
         };
 
         const searchParams = new URLSearchParams();
