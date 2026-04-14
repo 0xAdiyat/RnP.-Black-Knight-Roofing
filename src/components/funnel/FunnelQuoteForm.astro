@@ -140,10 +140,8 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           <!-- Home type step -->
           <div class="funnel-step is-active space-y-6" data-step="1" aria-hidden="false">
             <div class="space-y-1 text-center">
-              <p class="font-heading text-2xl font-medium text-balance text-white">What describes your home?</p>
-              <p class="text-[clamp(14px,3vw,16px)] text-balance text-white/56">
-                Pick the option that best matches the property.
-              </p>
+              <p class="font-heading text-2xl font-medium text-white">What describes your home?</p>
+              <p class="text-[clamp(14px,3vw,16px)] text-white/56">Pick the option that best matches the property.</p>
             </div>
 
             <div class="space-y-2">
@@ -190,10 +188,8 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           <!-- Timeline step -->
           <div class="funnel-step space-y-6" data-step="2" aria-hidden="true" inert>
             <div class="space-y-1 text-center">
-              <p class="font-heading text-2xl font-medium text-balance text-white">
-                When are you wanting this project completed?
-              </p>
-              <p class="text-[clamp(14px,3vw,16px)] text-balance text-white/56">
+              <p class="font-heading text-2xl font-medium text-white">When are you wanting this project completed?</p>
+              <p class="text-[clamp(14px,3vw,16px)] text-white/56">
                 This helps us understand urgency and scheduling needs.
               </p>
             </div>
@@ -240,12 +236,8 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           <!-- Roofing Type Step -->
           <section class="funnel-step space-y-6" data-step="3" aria-hidden="true" inert>
             <div class="space-y-1 text-center">
-              <p class="font-heading text-2xl font-medium text-balance text-white">
-                What is the scope of your roofing project?
-              </p>
-              <p class="text-[clamp(14px,3vw,16px)] text-balance text-white/56">
-                Choose the closest match for the work you need.
-              </p>
+              <p class="font-heading text-2xl font-medium text-white">What is the scope of your roofing project?</p>
+              <p class="text-[clamp(14px,3vw,16px)] text-white/56">Choose the closest match for the work you need.</p>
             </div>
 
             <div class="space-y-2">
@@ -295,13 +287,9 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
 
           <!-- Address -->
           <section class="funnel-step space-y-6" data-step="4" aria-hidden="true" inert>
-            <div class="space-y-1">
-              <p class="font-heading text-2xl font-medium text-balance text-white">
-                What is the address of this project?
-              </p>
-              <p class="text-[clamp(14px,3vw,16px)] text-balance text-white/56">
-                Tell us where the property is located.
-              </p>
+            <div class="space-y-1 text-center">
+              <p class="font-heading text-2xl font-medium text-white">What is the address of this project?</p>
+              <p class="text-[clamp(14px,3vw,16px)] text-white/56">Tell us where the property is located.</p>
             </div>
 
             <div class="border-radial grid gap-4 rounded-2xl p-4">
@@ -419,10 +407,8 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           <section class="funnel-step space-y-6" data-step="5" aria-hidden="true" inert>
             <div class="funnel-final-panel is-active space-y-4" data-panel="lead">
               <div class="space-y-1 text-center">
-                <p class="font-heading text-2xl font-medium text-balance text-white">
-                  Where should we send your estimate details?
-                </p>
-                <p class="text-[clamp(14px,3vw,16px)] text-balance text-white/56">
+                <p class="font-heading text-2xl font-medium text-white">Where should we send your estimate details?</p>
+                <p class="text-[clamp(14px,3vw,16px)] text-white/56">
                   Submit your contact info and then choose a time to talk.
                 </p>
               </div>
@@ -505,8 +491,8 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
             <!-- Booking -->
             <div class="funnel-final-panel hidden space-y-4" data-panel="booking">
               <div class="space-y-2 text-center">
-                <p class="text-[1.375rem] font-medium text-balance text-white">Book your roofing consultation</p>
-                <p class="text-[clamp(14px,3vw,16px)] text-balance text-white/56">
+                <p class="text-[1.375rem] font-medium text-white">Book your roofing consultation</p>
+                <p class="text-[clamp(14px,3vw,16px)] text-white/56">
                   Choose a time that works for you and we’ll take it from there.
                 </p>
               </div>
@@ -556,11 +542,11 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           </Button>
         </div>
 
-        <p class="mx-auto mt-4 max-w-xl text-center text-sm leading-5 font-normal text-balance text-white/60">
+        <p class="mx-auto mt-4 max-w-xl text-center text-sm leading-5 font-normal text-white/60">
           By submitting this form, you agree that Black Knight Roofing may contact you about your request. See our
           <a
             href="/privacy-policy"
-            class="text-primary font-semibold underline-offset-4 transition-colors hover:text-white hover:underline"
+            class="text-primary font-semibold text-balance underline-offset-4 transition-colors hover:text-white hover:underline"
           >
             Privacy Policy
           </a>
@@ -594,6 +580,25 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
     </div>
   </NoiseBg>
 </div>
+
+<!-- Meta Pixel Base Code -->
+<script is:inline>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1141065794815083');
+  fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1141065794815083&ev=PageView&noscript=1" />
+</noscript>
+<!-- End Meta Pixel Base Code -->
 
 <style>
   .funnel-steps-shell {
@@ -1310,6 +1315,70 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         }
       };
 
+      const ensureCalLoaded = () =>
+        new Promise(resolve => {
+          if (!window.Cal) {
+            (function (C, A, L) {
+              let p = function (a, ar) {
+                a.q.push(ar);
+              };
+              let d = C.document;
+              C.Cal =
+                C.Cal ||
+                function () {
+                  let cal = C.Cal;
+                  let ar = arguments;
+                  if (!cal.loaded) {
+                    cal.ns = {};
+                    cal.q = cal.q || [];
+                    let s = d.createElement('script');
+                    s.src = A;
+                    d.head.appendChild(s);
+                    cal.loaded = true;
+                  }
+                  if (ar[0] === L) {
+                    const api = function () {
+                      p(api, arguments);
+                    };
+                    const namespace = ar[1];
+                    api.q = api.q || [];
+                    typeof namespace === 'string' ? (cal.ns[namespace] = cal.ns[namespace] || api) : p(cal, ar);
+                    return;
+                  }
+                  p(cal, ar);
+                };
+            })(window, 'https://app.cal.com/embed/embed.js', 'init');
+          }
+
+          window.Cal('init', '30min', { origin: 'https://app.cal.com' });
+
+          window.Cal.ns['30min']('ui', {
+            theme: 'dark',
+            cssVarsPerTheme: {
+              light: { 'cal-brand': '#0B2B26' },
+              dark: { 'cal-brand': '#C2E800' },
+            },
+            hideEventTypeDetails: false,
+            layout: 'month_view',
+          });
+
+          // Meta Pixel: Schedule – fires when the user completes a booking on Cal.com
+          window.Cal.ns['30min']('on', {
+            action: 'bookingSuccessful',
+            callback: () => {
+              if (typeof window.fbq === 'function') {
+                window.fbq('track', 'Schedule');
+              }
+            },
+          });
+
+          // Inline initialization moved to revealBookingPanel for better DOM timing.
+          // We intentionally do not override `bookingSuccessful`, so Cal's native
+          // inline success view remains visible after booking.
+
+          resolve();
+        });
+
       const revealBookingPanel = async payload => {
         if (!(leadPanel instanceof HTMLElement) || !(bookingPanel instanceof HTMLElement)) return;
 
@@ -1319,6 +1388,11 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         bookingPanel.classList.add('is-active');
         bookingVisible = true;
         form.classList.add('is-booking-stage');
+
+        // Meta Pixel: Lead – contact info captured, booking panel revealed
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', 'Lead');
+        }
 
         if (btnNext instanceof HTMLElement) btnNext.classList.add('hidden');
         if (btnBack instanceof HTMLElement) btnBack.classList.add('hidden');
