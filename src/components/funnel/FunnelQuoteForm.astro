@@ -47,7 +47,8 @@ const scopes = [
   { value: 'Other', thubmnail: QuestionCircle },
 ];
 
-const calcomLink = import.meta.env.PUBLIC_CALCOM_LINK || 'tarunsoft/30min';
+const leadConnectorBookingBaseUrl = 'https://api.leadconnectorhq.com/widget/booking/ZU74fAMy7fLU76mRQoCo';
+const leadConnectorBookingIframeId = 'ZU74fAMy7fLU76mRQoCo_1775842236101';
 const googleMapsApiKey = import.meta.env.GOOGLE_MAPS_API_KEY || '';
 const googleAutocompleteBiasLat = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_BIAS_LAT || '39.7392');
 const googleAutocompleteBiasLng = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_BIAS_LNG || '-104.9903');
@@ -116,7 +117,8 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
       <form
         class="funnel-quote-form-fields"
         novalidate
-        data-cal-link={calcomLink}
+        data-booking-base-url={leadConnectorBookingBaseUrl}
+        data-booking-iframe-id={leadConnectorBookingIframeId}
         data-google-maps-api-key={googleMapsApiKey}
         data-google-bias-lat={googleAutocompleteBiasLat}
         data-google-bias-lng={googleAutocompleteBiasLng}
@@ -504,7 +506,14 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
               </p>
 
               <div class="funnel-cal-shell rounded-[1rem] border border-white/10 bg-black/25 p-4 sm:p-6">
-                <div id="cal-inline-container" class="w-full lg:w-[992px]" data-cal-link={calcomLink}></div>
+                <iframe
+                  src={leadConnectorBookingBaseUrl}
+                  style="width: 100%;border:none;overflow: hidden;"
+                  scrolling="no"
+                  id={leadConnectorBookingIframeId}
+                  class="w-full"
+                  data-booking-iframe
+                ></iframe>
               </div>
             </div>
           </section>
@@ -746,8 +755,16 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
     color: #fff;
   }
 
+  .funnel-quote-form-fields.is-booking-stage {
+    width: min(1320px, calc(100vw - 2.5rem));
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
   /* Embedded calendar frame no longer needed */
 </style>
+
+<script src="https://api.leadconnectorhq.com/js/form_embed.js" type="text/javascript"></script>
 
 <script>
   // @ts-nocheck
@@ -802,6 +819,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
       const bookingPanel = form.querySelector('.funnel-final-panel[data-panel="booking"]');
       const leadPanel = form.querySelector('.funnel-final-panel[data-panel="lead"]');
       const webhookWarning = form.querySelector('.funnel-webhook-warning');
+      const bookingIframe = form.querySelector('[data-booking-iframe]');
       const addressLookupInput = form.elements.namedItem('addressLookup');
       const streetAddressInput = form.elements.namedItem('streetAddress');
       const cityInput = form.elements.namedItem('city');
@@ -1200,21 +1218,82 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         };
       };
 
-      const buildCalPrefill = payload => {
+      const splitNameForBooking = fullName => {
+        const tokens = String(fullName || '')
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean);
+
+        if (tokens.length === 0) {
+          return { firstName: '', lastName: '' };
+        }
+
+        if (tokens.length === 1) {
+          return { firstName: tokens[0], lastName: '' };
+        }
+
+        const firstNameTokenCount = Math.ceil(tokens.length / 2);
+        return {
+          firstName: tokens.slice(0, firstNameTokenCount).join(' '),
+          lastName: tokens.slice(firstNameTokenCount).join(' '),
+        };
+      };
+
+      const buildBookingPrefillParams = payload => {
+        const { firstName, lastName } = splitNameForBooking(payload.fullName);
         const line = (label, value) => (value ? `${label}: ${value}` : '');
-        const notesLines = [
+        const summary = [
           line('Home Type', payload.homeType),
           line('Project Timeline', payload.timeline),
           line('Project Scope', payload.projectScope),
           line('Project Address', [payload.streetAddress, payload.city, payload.postalCode].filter(Boolean).join(', ')),
           line('Phone', payload.phone),
         ].filter(Boolean);
+        const summaryText = summary.join('\n');
 
-        return {
-          name: payload.fullName || '',
+        const params = {
+          full_name: payload.fullName || '',
+          first_name: firstName,
+          last_name: lastName,
           email: payload.email || '',
-          notes: notesLines.join('\n'),
+          phone: payload.phone || '',
+          address: payload.streetAddress || '',
+          address1: payload.streetAddress || '',
+          city: payload.city || '',
+          postal_code: payload.postalCode || '',
+          project_scope: payload.projectScope || '',
+          project_timeline: payload.timeline || '',
+          home_type: payload.homeType || '',
+          appointment: summaryText,
+          additional_info: summaryText,
+          additional_information: summaryText,
+          notes: summaryText,
+          message: summaryText,
+          description: summaryText,
         };
+
+        const searchParams = new URLSearchParams();
+        Object.entries(params).forEach(([key, value]) => {
+          const normalized = String(value || '').trim();
+          if (normalized) {
+            searchParams.set(key, normalized);
+          }
+        });
+
+        return searchParams;
+      };
+
+      const applyBookingPrefillToPageQuery = prefillParams => {
+        if (!(prefillParams instanceof URLSearchParams)) return;
+
+        const url = new URL(window.location.href);
+        prefillParams.forEach((value, key) => {
+          if (value) {
+            url.searchParams.set(key, value);
+          }
+        });
+
+        window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`);
       };
 
       const submitToWavebookWithRetry = async payload => {
@@ -1308,6 +1387,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         bookingPanel.classList.remove('hidden');
         bookingPanel.classList.add('is-active');
         bookingVisible = true;
+        form.classList.add('is-booking-stage');
 
         // Meta Pixel: Lead – contact info captured, booking panel revealed
         if (typeof window.fbq === 'function') {
@@ -1318,24 +1398,14 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         if (btnBack instanceof HTMLElement) btnBack.classList.add('hidden');
 
         if (!calendarInitialized) {
-          await ensureCalLoaded();
-          const calPrefill = buildCalPrefill(payload ?? {});
+          const prefillParams = buildBookingPrefillParams(payload ?? {});
+          applyBookingPrefillToPageQuery(prefillParams);
 
-          const target = wrapper.querySelector('#cal-inline-container');
-          if (target && window.Cal?.ns?.['30min']) {
-            window.Cal.ns['30min']('inline', {
-              elementOrSelector: target,
-              calLink: form.dataset.calLink || 'tarunsoft/30min',
-              layout: 'month_view',
-              prefill: calPrefill,
-              config: {
-                layout: 'month_view',
-                theme: 'dark',
-                name: calPrefill.name,
-                email: calPrefill.email,
-                notes: calPrefill.notes,
-              },
-            });
+          const baseUrl = form.dataset.bookingBaseUrl || '';
+          if (bookingIframe instanceof HTMLIFrameElement && baseUrl) {
+            const src = new URL(baseUrl);
+            prefillParams.forEach((value, key) => src.searchParams.set(key, value));
+            bookingIframe.src = src.toString();
           }
           calendarInitialized = true;
         }
@@ -1443,7 +1513,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
             if (label) label.textContent = 'Submit';
             if (spinner) spinner.classList.add('hidden');
           }
-          alert('There was a problem opening the calendar. Please try again.');
+          alert('There was a problem opening the booking widget. Please try again.');
         }
       };
 
