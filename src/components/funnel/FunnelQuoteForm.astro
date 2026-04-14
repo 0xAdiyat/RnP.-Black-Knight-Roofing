@@ -1279,7 +1279,13 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           await postWavebookPayload(payload);
           return true;
         } catch (error) {
-          console.error('Wavebook webhook attempt 1 failed:', error);
+          // Only retry on network/abort errors, not on server errors (4xx/5xx already sent the webhook)
+          const isNetworkError = error instanceof TypeError || (error instanceof DOMException && error.name === 'AbortError');
+          if (!isNetworkError) {
+            console.error('Wavebook webhook failed (no retry):', error);
+            return false;
+          }
+          console.error('Wavebook webhook attempt 1 failed (network), retrying:', error);
         }
 
         await wait(WAVEBOOK_RETRY_DELAY_MS);
@@ -1395,8 +1401,12 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         requestAnimationFrame(() => setShellHeight(step));
       };
 
+      let submitting = false;
       const handleFinalStepSubmit = async () => {
+        if (submitting) return;
         if (!validateStepsThrough(5)) return;
+
+        submitting = true;
 
         if (webhookWarning instanceof HTMLElement) {
           webhookWarning.classList.add('hidden');
@@ -1420,6 +1430,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           }
         } catch (error) {
           console.error(error);
+          submitting = false;
           if (btnNext instanceof HTMLButtonElement) {
             btnNext.disabled = false;
             const label = btnNext.querySelector('.funnel-btn-next-label');
