@@ -1122,6 +1122,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
 
         clearErrors();
         let valid = true;
+        const failingFields = [];
 
         const requiredInputs = Array.from(currentPanel.querySelectorAll('input[required]'));
         const radioNames = new Set(requiredInputs.filter(input => input.type === 'radio').map(input => input.name));
@@ -1129,16 +1130,31 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         radioNames.forEach(name => {
           const representative = currentPanel.querySelector(`input[name="${name}"]`);
           const groupValid = updateFieldState(representative, true);
-          if (!groupValid) valid = false;
+          if (!groupValid) {
+            valid = false;
+            failingFields.push(name);
+          }
         });
 
         currentPanel.querySelectorAll('input[required]:not([type="radio"]), select[required]').forEach(input => {
           const fieldValid = updateFieldState(input, true);
-          if (!fieldValid) valid = false;
+          if (!fieldValid) {
+            valid = false;
+            failingFields.push(input.name || input.id || 'unknown_field');
+          }
         });
 
         if (!valid) {
           setGlobalErrorVisibility(true);
+          // GTM: Track validation error
+          pushDataLayer({
+            event: 'funnel_validation_error',
+            funnel_name: 'roof_quote_funnel',
+            step_number: step,
+            step_name: stepLabels[step] || `step_${step}`,
+            failing_fields: failingFields.join(','),
+            first_failing_field: failingFields[0] || 'unknown',
+          });
         }
 
         requestAnimationFrame(() => setShellHeight(step));
@@ -1314,6 +1330,16 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           window.fbq('track', 'Lead');
         }
 
+        // GTM: Track booking calendar reveal
+        pushDataLayer({
+          event: 'funnel_booking_revealed',
+          funnel_name: 'roof_quote_funnel',
+          home_type: payload?.homeType || '',
+          project_scope: payload?.projectScope || '',
+          timeline: payload?.timeline || '',
+          city: payload?.city || '',
+        });
+
         if (btnNext instanceof HTMLElement) btnNext.classList.add('hidden');
         if (btnBack instanceof HTMLElement) btnBack.classList.add('hidden');
 
@@ -1334,6 +1360,19 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         if (btnBack) btnBack.style.display = 'none';
 
         requestAnimationFrame(() => setShellHeight(5));
+      };
+
+      const stepLabels = {
+        1: 'home_type',
+        2: 'timeline',
+        3: 'project_scope',
+        4: 'address',
+        5: 'contact_info',
+      };
+
+      const pushDataLayer = (eventData) => {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(eventData);
       };
 
       const showStep = step => {
@@ -1399,6 +1438,14 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         currentStep = step;
         observeActiveStep(step);
         requestAnimationFrame(() => setShellHeight(step));
+
+        // GTM: Track step view
+        pushDataLayer({
+          event: 'funnel_step_view',
+          funnel_name: 'roof_quote_funnel',
+          step_number: step,
+          step_name: stepLabels[step] || `step_${step}`,
+        });
       };
 
       let submitting = false;
@@ -1422,7 +1469,31 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
 
         try {
           const payload = getFormPayload();
+
+          // GTM: Track lead submission attempt
+          pushDataLayer({
+            event: 'funnel_lead_submitted',
+            funnel_name: 'roof_quote_funnel',
+            home_type: payload.homeType || '',
+            project_scope: payload.projectScope || '',
+            timeline: payload.timeline || '',
+            city: payload.city || '',
+            postal_code: payload.postalCode || '',
+            utm_source: payload.utmSource || '',
+            utm_medium: payload.utmMedium || '',
+            utm_campaign: payload.utmCampaign || '',
+            gclid: payload.gclid || '',
+            fbclid: payload.fbclid || '',
+          });
+
           const webhookSuccess = await submitToWavebookWithRetry(payload);
+
+          // GTM: Track webhook result
+          pushDataLayer({
+            event: webhookSuccess ? 'funnel_lead_webhook_success' : 'funnel_lead_webhook_failure',
+            funnel_name: 'roof_quote_funnel',
+          });
+
           await revealBookingPanel(payload);
 
           if (!webhookSuccess && webhookWarning instanceof HTMLElement) {
@@ -1456,6 +1527,15 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
       btnBack?.addEventListener('click', () => {
         clearErrors();
         if (currentStep > 1) {
+          // GTM: Track back navigation
+          pushDataLayer({
+            event: 'funnel_step_back',
+            funnel_name: 'roof_quote_funnel',
+            from_step_number: currentStep,
+            from_step_name: stepLabels[currentStep] || `step_${currentStep}`,
+            to_step_number: currentStep - 1,
+            to_step_name: stepLabels[currentStep - 1] || `step_${currentStep - 1}`,
+          });
           showStep(currentStep - 1);
         }
       });
