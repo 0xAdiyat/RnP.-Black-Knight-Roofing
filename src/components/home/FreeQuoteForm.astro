@@ -128,7 +128,7 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
   </div>
 </div>
 
-<script lang="ts">
+<script>
   const WEBHOOK_TIMEOUT_MS = 8000;
   const WEBHOOK_RETRY_DELAY_MS = 700;
 
@@ -160,60 +160,72 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
     return '';
   }
 
-  function setFieldState(input, message, forceShowError = false) {
+  function setFieldState(input, message, forceShowError) {
+    if (forceShowError === undefined) forceShowError = false;
     const wrapper = input.closest('.hero-free-quote-field');
-    const group = wrapper?.querySelector('[data-slot="input-group"]');
-    const error = wrapper?.querySelector('.hero-free-quote-error');
+    const group = wrapper ? wrapper.querySelector('[data-slot="input-group"]') : null;
+    const error = wrapper ? wrapper.querySelector('.hero-free-quote-error') : null;
     const hasValue = input.value.trim().length > 0;
     const isValid = hasValue && !message;
 
+    // Set aria-invalid for the InputGroup's built-in :has([aria-invalid=true]) styling
     input.setAttribute('aria-invalid', message ? 'true' : 'false');
 
-    group?.classList.remove('border-[#2C8A4B]', 'border-[#C44E4E]');
-
-    if (message && (hasValue || forceShowError)) {
-      group?.classList.add('border-[#C44E4E]');
-      error?.classList.remove('hidden');
-      if (error) error.textContent = message;
-    } else {
-      error?.classList.add('hidden');
+    // Reset validation visual states
+    if (group) {
+      group.removeAttribute('data-valid');
+      group.style.removeProperty('border-color');
     }
 
-    if (isValid) {
-      group?.classList.add('border-[#2C8A4B]');
+    if (message && (hasValue || forceShowError)) {
+      // Error state — use inline style to guarantee override of Tailwind classes
+      if (group) group.style.borderColor = '#C44E4E';
+      if (error) {
+        error.classList.remove('hidden');
+        error.textContent = message;
+      }
+    } else {
+      if (error) error.classList.add('hidden');
+    }
+
+    if (isValid && group) {
+      // Success state
+      group.style.borderColor = '#2C8A4B';
+      group.setAttribute('data-valid', 'true');
     }
 
     return isValid;
   }
 
-  function validateField(input, forceShowError = false) {
+  function validateField(input, forceShowError) {
     const message = getFieldMessage(input.name, input.value);
     return setFieldState(input, message, forceShowError);
   }
 
-  const wait = delayMs =>
-    new Promise(resolve => {
+  function wait(delayMs) {
+    return new Promise(function (resolve) {
       window.setTimeout(resolve, delayMs);
     });
+  }
 
-  const getAttributionData = () => {
+  function getAttributionData() {
     const params = new URLSearchParams(window.location.search);
     return {
-      utmSource: params.get('utm_source') ?? '',
-      utmMedium: params.get('utm_medium') ?? '',
-      utmCampaign: params.get('utm_campaign') ?? '',
-      utmContent: params.get('utm_content') ?? '',
-      utmTerm: params.get('utm_term') ?? '',
-      fbclid: params.get('fbclid') ?? '',
-      gclid: params.get('gclid') ?? '',
-      msclkid: params.get('msclkid') ?? '',
-      ttclid: params.get('ttclid') ?? '',
+      utmSource: params.get('utm_source') || '',
+      utmMedium: params.get('utm_medium') || '',
+      utmCampaign: params.get('utm_campaign') || '',
+      utmContent: params.get('utm_content') || '',
+      utmTerm: params.get('utm_term') || '',
+      fbclid: params.get('fbclid') || '',
+      gclid: params.get('gclid') || '',
+      msclkid: params.get('msclkid') || '',
+      ttclid: params.get('ttclid') || '',
     };
-  };
+  }
 
-  const postWebhookPayload = async (url, payload) => {
+  async function postWebhookPayload(url, payload) {
     const controller = new AbortController();
-    const timeoutId = window.setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT_MS);
+    const timeoutId = window.setTimeout(function () { controller.abort(); }, WEBHOOK_TIMEOUT_MS);
 
     try {
       const response = await fetch(url, {
@@ -224,14 +236,14 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
       });
 
       if (!response.ok) {
-        throw new Error(`Webhook submission failed with status ${response.status}`);
+        throw new Error('Webhook submission failed with status ' + response.status);
       }
     } finally {
       window.clearTimeout(timeoutId);
     }
-  };
+  }
 
-  const submitWebhookWithRetry = async (url, payload) => {
+  async function submitWebhookWithRetry(url, payload) {
     try {
       await postWebhookPayload(url, payload);
       return;
@@ -241,105 +253,118 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
 
     await wait(WEBHOOK_RETRY_DELAY_MS);
     await postWebhookPayload(url, payload);
-  };
+  }
 
   function initHeroFreeQuoteForms() {
-    const forms = document.querySelectorAll<HTMLFormElement>('.hero-free-quote-form');
+    var forms = document.querySelectorAll('.hero-free-quote-form');
 
-    forms.forEach(form => {
-      if (form.dataset.initialized === 'true') return;
+    for (var fi = 0; fi < forms.length; fi++) {
+      var form = forms[fi];
+      if (form.dataset.initialized === 'true') continue;
       form.dataset.initialized = 'true';
       form.setAttribute('action', 'javascript:void(0)');
 
-      const inputs = Array.from(form.querySelectorAll('input'));
+      var inputs = Array.from(form.querySelectorAll('input'));
 
-      inputs.forEach(input => {
-        input.addEventListener('focus', () => {
-          const group = input.closest('.hero-free-quote-group');
-          group?.classList.add('border-white/30', 'ring-1', 'ring-white/10');
-        });
+      (function (form, inputs) {
+        for (var ii = 0; ii < inputs.length; ii++) {
+          (function (input) {
+            input.addEventListener('focus', function () {
+              var group = input.closest('.hero-free-quote-group');
+              if (group && !group.style.borderColor) {
+                group.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+              }
+            });
 
-        input.addEventListener('blur', () => validateField(input));
-        input.addEventListener('blur', () => {
-          const group = input.closest('.hero-free-quote-group');
-          group?.classList.remove('border-white/30', 'ring-1', 'ring-white/10');
-        });
-        input.addEventListener('input', () => {
-          if (input.getAttribute('aria-invalid') === 'true' || input.value.trim().length > 0) {
-            validateField(input);
-          }
-        });
-      });
+            input.addEventListener('blur', function () {
+              validateField(input);
+              var group = input.closest('.hero-free-quote-group');
+              // Only reset to default if there's no validation state
+              if (group && input.getAttribute('aria-invalid') !== 'true' && !group.hasAttribute('data-valid')) {
+                group.style.removeProperty('border-color');
+              }
+            });
 
-      form.addEventListener('submit', async event => {
-        event.preventDefault();
-        event.stopPropagation();
-        let firstInvalid = null;
-        let formIsValid = true;
-
-        inputs.forEach(input => {
-          const valid = validateField(input, true);
-          if (!valid) {
-            formIsValid = false;
-            if (!firstInvalid) firstInvalid = input;
-          }
-        });
-
-        if (!formIsValid) {
-          firstInvalid?.focus();
-          return;
+            input.addEventListener('input', function () {
+              if (input.getAttribute('aria-invalid') === 'true' || input.value.trim().length > 0) {
+                validateField(input);
+              }
+            });
+          })(inputs[ii]);
         }
 
-        // Valid — show loading state
-        const btn = form.querySelector<HTMLButtonElement>('[data-submit-btn]');
-        const label = form.querySelector<HTMLElement>('[data-submit-label]');
-        const spinner = form.querySelector<SVGElement>('[data-submit-spinner]');
-        const successMsg = document.getElementById('free-quote-success');
+        form.addEventListener('submit', async function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          var firstInvalid = null;
+          var formIsValid = true;
 
-        if (btn) btn.disabled = true;
-        if (label) label.textContent = 'Sending…';
-        if (spinner) spinner.classList.remove('hidden');
+          for (var i = 0; i < inputs.length; i++) {
+            var valid = validateField(inputs[i], true);
+            if (!valid) {
+              formIsValid = false;
+              if (!firstInvalid) firstInvalid = inputs[i];
+            }
+          }
 
-        try {
-          const webhookUrl = form.dataset.ghlWebhookUrl ?? '';
-          if (!webhookUrl) throw new Error('GHL_SHARED_WEBHOOK_URL is missing.');
+          if (!formIsValid) {
+            if (firstInvalid) firstInvalid.focus();
+            return;
+          }
 
-          const formData = new FormData(form);
-          const values = Object.fromEntries(
-            Array.from(formData.entries()).map(([key, value]) => [key, typeof value === 'string' ? value.trim() : ''])
-          );
+          // Valid — show loading state
+          var btn = form.querySelector('[data-submit-btn]');
+          var label = form.querySelector('[data-submit-label]');
+          var spinner = form.querySelector('[data-submit-spinner]');
+          var successMsg = document.getElementById('free-quote-success');
 
-          const payload = {
-            ...values,
-            formType: 'free_quote',
-            formName: 'hero_free_quote_form',
-            submissionChannel: 'ghl_shared_webhook',
-            landingPage: window.location.pathname,
-            pagePath: window.location.pathname,
-            submittedAt: new Date().toISOString(),
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
-            currentUrl: window.location.href,
-            referrer: document.referrer || '',
-            ...getAttributionData(),
-          };
+          if (btn) btn.disabled = true;
+          if (label) label.textContent = 'Sending\u2026';
+          if (spinner) spinner.classList.remove('hidden');
 
-          await submitWebhookWithRetry(webhookUrl, payload);
+          try {
+            var webhookUrl = form.dataset.ghlWebhookUrl || '';
+            if (!webhookUrl) throw new Error('GHL_SHARED_WEBHOOK_URL is missing.');
 
-          // Show success state
-          form.classList.add('hidden');
-          successMsg?.classList.remove('hidden');
-          successMsg?.classList.add('flex');
-        } catch (err) {
-          console.error('Submission error:', err);
-          if (btn) btn.disabled = false;
-          if (label) label.textContent = 'Retry';
-          if (spinner) spinner.classList.add('hidden');
-          alert('There was a problem sending your request. Please try again.');
-        }
-      });
-    });
+            var formData = new FormData(form);
+            var values = {};
+            formData.forEach(function (value, key) {
+              values[key] = typeof value === 'string' ? value.trim() : '';
+            });
+
+            var payload = Object.assign({}, values, {
+              formType: 'free_quote',
+              formName: 'hero_free_quote_form',
+              submissionChannel: 'ghl_shared_webhook',
+              landingPage: window.location.pathname,
+              pagePath: window.location.pathname,
+              submittedAt: new Date().toISOString(),
+              timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+              currentUrl: window.location.href,
+              referrer: document.referrer || '',
+            }, getAttributionData());
+
+            await submitWebhookWithRetry(webhookUrl, payload);
+
+            // Show success state
+            form.classList.add('hidden');
+            if (successMsg) {
+              successMsg.classList.remove('hidden');
+              successMsg.classList.add('flex');
+            }
+          } catch (err) {
+            console.error('Submission error:', err);
+            if (btn) btn.disabled = false;
+            if (label) label.textContent = 'Retry';
+            if (spinner) spinner.classList.add('hidden');
+            alert('There was a problem sending your request. Please try again.');
+          }
+        });
+      })(form, inputs);
+    }
   }
 
   initHeroFreeQuoteForms();
   document.addEventListener('astro:after-swap', initHeroFreeQuoteForms);
 </script>
+
