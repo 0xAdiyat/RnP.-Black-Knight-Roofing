@@ -2,18 +2,14 @@
 import Layout from '@/layouts/Layout.astro';
 import Button from '@/components/ui/Button.astro';
 import { Icon } from 'astro-icon/components';
-import { Image } from 'astro:assets';
-import heroLogo from '@/assets/hero-logo.avif';
 ---
 
 <Layout
   title="Booking Confirmed | Black Knight Roofing"
   description="Your roofing consultation has been booked. Black Knight Roofing will be in touch shortly."
   noindex={true}
-  showNavbar={false}
-  showFooter={false}
 >
-  <main class="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-noise px-4 py-16 text-center md:py-24">
+  <main class="relative flex min-h-[70dvh] flex-col items-center justify-center overflow-hidden bg-noise px-4 py-16 text-center md:min-h-[80dvh] md:py-24">
 
     <!-- Background glow -->
     <div class="pointer-events-none absolute top-1/2 left-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 select-none opacity-20">
@@ -28,18 +24,6 @@ import heroLogo from '@/assets/hero-logo.avif';
     </div>
 
     <div class="relative z-10 flex flex-col items-center justify-center gap-y-8 max-w-2xl">
-
-      <!-- Logo -->
-      <a href="/" aria-label="Black Knight Roofing home">
-        <Image
-          src={heroLogo}
-          alt="Black Knight Roofing"
-          width={heroLogo.width}
-          height={heroLogo.height}
-          class="w-[120px] sm:w-[158px]"
-          loading="eager"
-        />
-      </a>
 
       <!-- Icon -->
       <div class="flex size-20 items-center justify-center rounded-full border border-primary/40 bg-primary/10">
