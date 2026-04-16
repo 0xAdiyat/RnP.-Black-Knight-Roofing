@@ -72,16 +72,6 @@ const socialImageURL = new URL(image, siteUrl);
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MTF8VLF3HJ"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-
-      gtag('js', new Date());
-      gtag('config', 'G-MTF8VLF3HJ');
-    </script>
     <ClientRouter />
   </head>
   <body>
