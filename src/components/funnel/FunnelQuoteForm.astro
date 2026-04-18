@@ -57,13 +57,13 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
 
 <div
   class={cn(
-    'from-primary/5 to-primary w-fit min-[820px]:min-w-[820px] max-w-7xl rounded-[1.5rem] sm:rounded-[1.75rem] bg-linear-to-b p-0.5 sm:p-[10px] shadow-[0_28px_80px_rgba(0,0,0,0.48)]'
+    'from-primary/5 to-primary w-full sm:w-fit min-[820px]:min-w-[820px] max-w-7xl rounded-[1.5rem] sm:rounded-[1.75rem] bg-linear-to-b p-0 shadow-[0_28px_80px_rgba(0,0,0,0.48)]'
   )}
   data-visual-thesis={visualThesis}
   data-content-plan={contentPlan}
   data-interaction-thesis={interactionThesis}
 >
-  <NoiseBg class="funnel-quote-form rounded-[1.35rem] bg-[#222222] px-3 pt-8 pb-6 sm:px-10">
+  <NoiseBg class="funnel-quote-form rounded-[1.35rem] bg-[#222222] px-3 pt-5 pb-6 sm:px-8 sm:pt-8">
     <div id="funnel-quote-success" class="hidden flex-col items-center justify-center gap-y-6 py-8 text-center">
       <div class="bg-primary/20 border-primary/40 flex size-16 items-center justify-center rounded-full border">
         <Icon name="circle-tick" class="text-primary size-8" />
@@ -72,14 +72,8 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
       <p class="text-sm text-neutral-400">Choose a time below and we&apos;ll confirm the details.</p>
     </div>
 
-    <div id="funnel-quote-form-content" class="space-y-6">
-      <div class="flex justify-center">
-        <RatingStars rating={5} size={22} fillColor="#F7B715" strokeColor="transparent" />
-      </div>
+    <div id="funnel-quote-form-content" class="space-y-4">
 
-      <h2 class="mx-auto text-center text-[clamp(1.5rem,2rem,2rem)] leading-[1.1] font-normal text-white">
-        Get a FREE Instant Roofing Estimate For Your Property
-      </h2>
 
       <div
         class="funnel-quote-error pointer-events-none max-h-0 overflow-hidden text-center text-sm font-semibold tracking-wide text-red-500 opacity-0 transition-all duration-300 ease-out"
@@ -92,27 +86,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         </div>
       </div>
 
-      <div class="flex items-center justify-center gap-x-2 px-4 sm:px-4">
-        {
-          Array.from({ length: 5 }).map((_, index) => (
-            <>
-              <div
-                class="funnel-step-dot flex size-10 shrink-0 items-center justify-center rounded-full border border-white/20 text-sm text-white/50 transition-all duration-300 ease-out"
-                data-step={index + 1}
-                data-state={index === 0 ? 'active' : 'upcoming'}
-              >
-                <span class="funnel-step-label">{index + 1}</span>
-              </div>
-              {index < 4 && (
-                <div
-                  class="funnel-step-line h-px flex-1 bg-white/20 transition-colors duration-300 ease-out"
-                  data-after-step={index + 1}
-                />
-              )}
-            </>
-          ))
-        }
-      </div>
+
 
       <form
         class="funnel-quote-form-fields"
@@ -140,6 +114,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           <!-- Home type step -->
           <div class="funnel-step is-active space-y-6" data-step="1" aria-hidden="false">
             <div class="space-y-1 text-center">
+              <span class="text-primary/90 mb-2 block text-xs font-bold uppercase tracking-widest">Question 1 of 5</span>
               <p class="font-heading text-2xl font-medium text-white">What describes your home?</p>
               <p class="text-[clamp(14px,3vw,16px)] text-white/56">Pick the option that best matches the property.</p>
             </div>
@@ -188,10 +163,9 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           <!-- Timeline step -->
           <div class="funnel-step space-y-6" data-step="2" aria-hidden="true" inert>
             <div class="space-y-1 text-center">
-              <p class="font-heading text-2xl font-medium text-white">When are you wanting this project completed?</p>
-              <p class="text-[clamp(14px,3vw,16px)] text-white/56">
-                This helps us understand urgency and scheduling needs.
-              </p>
+              <span class="text-primary/90 mb-2 block text-xs font-bold uppercase tracking-widest">Question 2 of 5</span>
+              <p class="font-heading text-2xl font-medium text-white">How soon do you need this completed?</p>
+              <p class="text-[clamp(14px,3vw,16px)] text-white/56">Select your ideal timeline for the project.</p>
             </div>
 
             <div class="space-y-2">
@@ -236,6 +210,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           <!-- Roofing Type Step -->
           <section class="funnel-step space-y-6" data-step="3" aria-hidden="true" inert>
             <div class="space-y-1 text-center">
+              <span class="text-primary/90 mb-2 block text-xs font-bold uppercase tracking-widest">Question 3 of 5</span>
               <p class="font-heading text-2xl font-medium text-white">What is the scope of your roofing project?</p>
               <p class="text-[clamp(14px,3vw,16px)] text-white/56">Choose the closest match for the work you need.</p>
             </div>
@@ -288,8 +263,9 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           <!-- Address -->
           <section class="funnel-step space-y-6" data-step="4" aria-hidden="true" inert>
             <div class="space-y-1 text-center">
-              <p class="font-heading text-2xl font-medium text-white">What is the address of this project?</p>
-              <p class="text-[clamp(14px,3vw,16px)] text-white/56">Tell us where the property is located.</p>
+              <span class="text-primary/90 mb-2 block text-xs font-bold uppercase tracking-widest">Question 4 of 5</span>
+              <p class="font-heading text-2xl font-medium text-white">Where is the property located?</p>
+              <p class="text-[clamp(14px,3vw,16px)] text-white/56">To match you with our closest local estimator.</p>
             </div>
 
             <div class="border-radial grid gap-4 rounded-2xl p-4">
@@ -520,7 +496,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         </div>
 
         <!-- Cta -->
-        <div class="mt-8 flex items-center justify-center gap-x-3">
+        <div class="mt-5 flex items-center justify-center gap-x-3">
           <Button
             type="button"
             variant="outline"
@@ -528,7 +504,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           >
             Back
           </Button>
-          <Button type="button" class="funnel-btn-next h-12 min-w-[148px] justify-center text-[1rem]">
+          <Button type="button" class="funnel-btn-next hidden h-12 min-w-[148px] justify-center text-[1rem]">
             <span class="funnel-btn-next-label">Next</span>
             <svg
               class="funnel-btn-next-spinner hidden size-4 animate-spin"
@@ -542,16 +518,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
           </Button>
         </div>
 
-        <p class="mx-auto mt-4 max-w-xl text-center text-sm leading-5 font-normal text-white/60">
-          By submitting this form, you agree that Black Knight Roofing may contact you about your request. See our
-          <a
-            href="/privacy-policy"
-            class="text-primary font-semibold text-balance underline-offset-4 transition-colors hover:text-white hover:underline"
-          >
-            Privacy Policy
-          </a>
-          for details.
-        </p>
+
       </form>
 
       <div class="flex items-center justify-center gap-x-4 pt-5 sm:gap-x-6">
@@ -641,6 +608,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
   }
 
   .funnel-choice-surface {
+    height: 100%;
     display: grid;
     grid-template-rows: 1fr auto;
     min-height: 10rem;
@@ -1428,7 +1396,7 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         }
 
         if (btnNext instanceof HTMLElement) {
-          btnNext.classList.remove('hidden');
+          btnNext.classList.toggle('hidden', step === 1);
           const label = btnNext.querySelector('.funnel-btn-next-label');
           if (label) {
             label.textContent = step === 5 ? 'Submit' : 'Next';

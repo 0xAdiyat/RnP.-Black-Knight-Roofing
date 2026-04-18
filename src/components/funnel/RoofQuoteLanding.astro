@@ -2,9 +2,7 @@
 import { Image } from 'astro:assets';
 import FunnelQuoteForm from '@/components/funnel/FunnelQuoteForm.astro';
 import Brands from '@/components/Brands.astro';
-import heroLogo from '@/assets/hero-logo.avif';
-import roofImage from '@/assets/bg/services-and-gallery-section__hero.avif';
-import gridFrame from '@/assets/grid-frame.avif';
+import RatingStars from '@/components/ui/RatingStars.astro';
 
 const visualThesis =
   'A dramatic full-bleed roof backdrop with a dark steel-blue gradient field, a centered crest logo, and a single conversion card.';
@@ -18,41 +16,29 @@ const interactionThesis = 'Use the existing stepper motion and keep the rest of 
   data-content-plan={contentPlan}
   data-interaction-thesis={interactionThesis}
 >
-  <div class="bg-line absolute inset-0">
-    <Image
-      src={roofImage}
-      alt="Black Knight Roofing project background"
-      width={roofImage.width}
-      height={roofImage.height}
-      class="absolute inset-0 h-full w-full object-cover object-center"
-      loading="eager"
-      fetchpriority="high"
-    />
-  </div>
-
-  <div class="bg-gradient-roof-quote relative z-10 flex min-h-[calc(100svh-1px)] flex-col">
-    <Image
-      src={gridFrame.src}
-      alt=""
-      width={gridFrame.width}
-      height={gridFrame.height}
-      class="absolute inset-0 h-full w-full object-cover object-center opacity-50"
-    />
-
+  <div class="relative z-10 flex min-h-[calc(100svh-1px)] flex-col bg-[#111111]">
     <div
-      class="container flex flex-1 flex-col items-center space-y-10 px-2 pt-10 pb-20 sm:space-y-[52px] sm:px-4 sm:py-20"
+      class="w-full max-w-7xl mx-auto flex flex-1 flex-col items-center space-y-6 px-3 pt-6 pb-12 sm:space-y-8 sm:px-4 sm:pt-10 sm:pb-16"
     >
       <a href="/" class="block" aria-label="Black Knight Roofing home">
-        <Image
-          src={heroLogo}
+        <img
+          src="/placeholders/logo.png"
           alt="Black Knight Roofing"
-          width={heroLogo.width}
-          height={heroLogo.height}
-          class="z-10 w-[120px] sm:w-[158px]"
+          class="z-10 w-[120px] sm:w-[160px]"
           loading="eager"
           fetchpriority="high"
         />
       </a>
+
+      <div class="flex flex-col items-center justify-center space-y-2">
+        <div class="flex justify-center">
+          <RatingStars rating={5} size={22} fillColor="#F7B715" strokeColor="transparent" />
+        </div>
+
+        <h2 class="mx-auto max-w-2xl text-center text-[clamp(1.5rem,2rem,2rem)] leading-[1.1] font-normal text-white">
+          Get a FREE Instant Roofing Estimate For Your Property
+        </h2>
+      </div>
 
       <div class="flex w-full items-center justify-center">
         <FunnelQuoteForm />
@@ -63,15 +49,4 @@ const interactionThesis = 'Use the existing stepper motion and keep the rest of 
   </div>
 </section>
 
-<style>
-  .bg-gradient-roof-quote {
-    background:
-      linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 1.95%, rgba(0, 0, 0, 0) 12.65%, rgba(0, 0, 0, 0) 91.49%),
-      linear-gradient(200.41deg, rgba(8, 42, 64, 0) 40%, #082a40 65%, #0d0d0d 90%);
-    @media (max-width: 768px) {
-      background:
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0) 91.49%),
-        linear-gradient(183.91deg, rgba(8, 42, 64, 0) 10.5%, #082a40 40.02%, #0d0d0d 79.28%);
-    }
-  }
-</style>
+
