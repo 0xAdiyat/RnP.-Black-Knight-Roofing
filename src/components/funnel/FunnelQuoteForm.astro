@@ -1565,6 +1565,16 @@ const googleAutocompleteBiasRadius = Number(import.meta.env.GOOGLE_AUTOCOMPLETE_
         // Auto-forwarding for steps 1, 2, and 3
         if (input.type === 'radio') {
           input.addEventListener('change', () => {
+            // GTM: Track option selection
+            pushDataLayer({
+              event: 'funnel_option_selected',
+              funnel_name: 'roof_quote_funnel',
+              step_number: currentStep,
+              step_name: stepLabels[currentStep] || `step_${currentStep}`,
+              option_category: input.name,
+              option_value: input.value
+            });
+
             const stepEl = input.closest('.funnel-step');
             const stepNumber = stepEl ? parseInt(stepEl.dataset.step) : 0;
             if (stepNumber >= 1 && stepNumber <= 3) {
