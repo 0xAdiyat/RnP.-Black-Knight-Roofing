@@ -62,7 +62,7 @@ export const services: Service[] = [
     type: 'residential',
   },
   {
-    slug: 'concrete-tile-roofing',
+    slug: 'concrete-tile-roof-co',
     image: concreteTileHero,
     title: 'Concrete Tile Roofing',
     description: 'Concrete tile gives your home a bold, finished look and lasting protection. It’s premium option for homeowners who want standout style, strong durability, and long-term value. Available in Class 3 and Class 4 hail-rated profiles. ',
