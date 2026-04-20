@@ -11,7 +11,7 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
 ---
 
 <div class="container pt-8">
-  <div class="border-radial relative -mt-10 rounded-[12px] p-px lg:-mt-40">
+  <div class="border-radial relative -mt-10 rounded-[12px] p-px">
     <div class="testimonial-bg-noise relative z-10 space-y-8 rounded-[12px] px-6 pt-10 pb-6 backdrop-blur-md lg:px-8">
       <Image
         src={heroShield}
@@ -225,7 +225,9 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
 
   async function postWebhookPayload(url, payload) {
     const controller = new AbortController();
-    const timeoutId = window.setTimeout(function () { controller.abort(); }, WEBHOOK_TIMEOUT_MS);
+    const timeoutId = window.setTimeout(function () {
+      controller.abort();
+    }, WEBHOOK_TIMEOUT_MS);
 
     try {
       const response = await fetch(url, {
@@ -332,17 +334,22 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
               values[key] = typeof value === 'string' ? value.trim() : '';
             });
 
-            var payload = Object.assign({}, values, {
-              formType: 'free_quote',
-              formName: 'hero_free_quote_form',
-              submissionChannel: 'ghl_shared_webhook',
-              landingPage: window.location.pathname,
-              pagePath: window.location.pathname,
-              submittedAt: new Date().toISOString(),
-              timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
-              currentUrl: window.location.href,
-              referrer: document.referrer || '',
-            }, getAttributionData());
+            var payload = Object.assign(
+              {},
+              values,
+              {
+                formType: 'free_quote',
+                formName: 'hero_free_quote_form',
+                submissionChannel: 'ghl_shared_webhook',
+                landingPage: window.location.pathname,
+                pagePath: window.location.pathname,
+                submittedAt: new Date().toISOString(),
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+                currentUrl: window.location.href,
+                referrer: document.referrer || '',
+              },
+              getAttributionData()
+            );
 
             await submitWebhookWithRetry(webhookUrl, payload);
 
@@ -367,4 +374,3 @@ const ghlSharedWebhookUrl = import.meta.env.GHL_SHARED_WEBHOOK_URL || '';
   initHeroFreeQuoteForms();
   document.addEventListener('astro:after-swap', initHeroFreeQuoteForms);
 </script>
-

@@ -80,6 +80,10 @@
   }
 }
 
+@utility bg-overlay {
+background: linear-gradient(180deg,oklch(0.1591 0 0 / 10%) 73.22%,oklch(0.1591 0 0) 100%),radial-gradient(85.79% 84.46% at 94% -2.63%,rgba(0,0,0,0) 0,oklch(0.1591 0 0 /90%) 100%)
+}
+
 @utility testimonial-bg-noise {
   background:
     radial-gradient(50% 50% at 50% 50%, rgba(48, 48, 48, 0.4) 0%, rgba(48, 48, 48, 0.54) 100%),
